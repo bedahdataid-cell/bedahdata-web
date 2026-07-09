@@ -10,6 +10,34 @@
 <meta property="og:type" content="website" />
 <meta property="og:image" content="assets/logo-bedahdata.png" />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
+
+<!-- ===== META PIXEL (skeleton — belum aktif, PIXEL_ID kosong) =====
+     Pixel belum dibuat di Meta Events Manager. Script di bawah TETAP terpasang tapi
+     tidak melakukan apa-apa selama PIXEL_ID kosong (dicek sebelum fbq dipanggil) —
+     supaya tidak ada network request ke Facebook dengan ID palsu.
+     Begitu Pixel ID sudah ada di Meta Events Manager:
+       1. Isi PIXEL_ID di bawah ini dengan ID asli (angka), contoh: '1234567890123456'
+       2. Tidak perlu ubah bagian lain — semua tombol CTA WhatsApp sudah disiapkan
+          untuk kirim event "Lead" otomatis saat diklik (lihat script di akhir <body>,
+          cari komentar "META PIXEL — EVENT LEAD PADA KLIK WHATSAPP").
+-->
+<script>
+  window.BEDAHDATA_PIXEL_ID = ''; // <-- isi ID Pixel di sini saat sudah ada
+  if (window.BEDAHDATA_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', window.BEDAHDATA_PIXEL_ID);
+    fbq('track', 'PageView');
+    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + window.BEDAHDATA_PIXEL_ID + '&ev=PageView&noscript=1" /></noscript>');
+  }
+</script>
+<!-- ===== END META PIXEL SKELETON ===== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
@@ -1726,6 +1754,21 @@
     })();
   })();
 </script>
+
+<!-- ===== META PIXEL — EVENT LEAD PADA KLIK WHATSAPP =====
+     Otomatis tidak aktif selama window.BEDAHDATA_PIXEL_ID kosong (lihat skeleton di <head>).
+     Begitu Pixel ID diisi, tiap klik tombol/link WhatsApp (wa.me) di halaman akan kirim
+     event "Lead" — sinyal minat kuat untuk basis Custom Audience / optimasi campaign nanti. -->
+<script>
+  if (window.BEDAHDATA_PIXEL_ID) {
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (typeof fbq === 'function') fbq('track', 'Lead');
+      });
+    });
+  }
+</script>
+<!-- ===== END META PIXEL LEAD EVENT ===== -->
 
 <!-- ===== LAPISAN BACKGROUND 3D (Three.js, dekoratif, tidak merender konten) ===== -->
 <script type="module">
