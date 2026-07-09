@@ -138,6 +138,8 @@
   .pain h3{color:var(--heading);font-size:18px;font-weight:600;margin-bottom:8px}
   .pain p{font-size:15px}
   .transisi{text-align:center;font-size:18px;color:var(--heading);font-weight:500;margin-top:40px}
+  .masalah-visual{margin-top:44px;border-radius:18px;overflow:hidden;box-shadow:0 20px 44px -18px rgba(14,61,51,.22),0 6px 18px rgba(14,61,51,.08);border:1px solid rgba(14,61,51,.08)}
+  .masalah-visual img{width:100%;display:block}
 
   /* ===== SOLUSI ===== */
   .solusi{background:var(--bg)}
@@ -199,6 +201,22 @@
   table.compare tbody tr:nth-child(even){background:var(--bg)}
   table.compare td:first-child{font-weight:600;color:var(--heading)}
   table.compare td:last-child{font-weight:600;color:var(--green-dark)}
+
+  .trust-visual-row{
+    display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:center;margin-top:56px;
+  }
+  .trust-visual-img{border-radius:18px;overflow:hidden;box-shadow:0 24px 50px -20px rgba(14,61,51,.22),0 6px 18px rgba(14,61,51,.08);border:1px solid rgba(14,61,51,.08)}
+  .trust-visual-img img{width:100%;display:block}
+  .trust-visual-copy h3{
+    font-family:var(--font-display);font-size:clamp(22px,2.6vw,28px);font-weight:600;
+    color:var(--heading);margin-bottom:14px;line-height:1.3;
+  }
+  .trust-visual-copy p{font-size:15.5px;margin-bottom:0}
+  @media(max-width:860px){
+    .trust-visual-row{grid-template-columns:1fr;gap:28px}
+    .trust-visual-row .trust-visual-copy{order:2}
+    .trust-visual-row .trust-visual-img{order:1}
+  }
 
   /* ===== HARGA ===== */
   .harga{background:var(--bg)}
@@ -579,6 +597,9 @@
       <div class="pain"><h3>Softwarenya tidak ngerti cara usaha di sini</h3><p>Istilahnya asing, alurnya kaku, dan tidak paham cara kerja toko, bengkel, salon, atau bakery di Indonesia. Ujung-ujungnya bisnis yang dipaksa menyesuaikan software, bukan sebaliknya.</p></div>
     </div>
     <p class="transisi">Kalau ada satu saja yang terasa familiar, Anda tidak sendirian. Justru dari keluhan-keluhan inilah ERP Studio kami rancang.</p>
+    <div class="masalah-visual">
+      <img src="assets/hero-visuals/opsi 2.jpg" alt="Perbandingan sebelum dan sesudah: spreadsheet manual yang berantakan di sisi kiri, berubah jadi satu dashboard ERP Studio yang rapi dengan kartu KPI dan grafik penjualan di sisi kanan">
+    </div>
   </div>
 </section>
 
@@ -643,6 +664,17 @@
       </tbody>
     </table>
 
+    <!-- Visual pendukung pilar kepercayaan: data tersimpan di Drive milik klien sendiri -->
+    <div class="trust-visual-row">
+      <div class="trust-visual-img">
+        <img src="assets/hero-visuals/Opsi 3.jpg" alt="Ilustrasi folder Google Drive dengan dokumen data bisnis melayang keluar, disertai ikon gembok — melambangkan data bisnis tersimpan aman di Google Drive milik pengguna sendiri">
+      </div>
+      <div class="trust-visual-copy">
+        <h3>Bukan sekadar janji — begini cara kerjanya</h3>
+        <p>Setiap catatan penjualan, stok, dan keuangan langsung tersimpan sebagai spreadsheet di Google Drive Anda sendiri. Bisa dibuka, dibackup, atau diaudit kapan saja tanpa perlu minta izin ke kami — karena memang bukan kami yang menyimpannya.</p>
+      </div>
+    </div>
+
     <!-- Statistik singkat, count-up saat masuk viewport -->
     <div class="stat-row">
       <div class="stat"><div class="stat-num" data-count-to="100" data-suffix="%">0%</div><div class="stat-label">Data di Google Drive Anda, Bukan Server Kami</div></div>
@@ -657,34 +689,7 @@
         <p>Omzet hari ini, stok yang menipis, tagihan yang jatuh tempo — semuanya di satu layar yang bisa dipahami tanpa perlu jadi orang IT.</p>
       </div>
       <div class="mockup-tilt-wrap">
-        <!-- GANTI dengan screenshot asli: taruh file di web/assets/screenshot-dashboard.png
-             lalu ganti seluruh isi #product-mockup ini menjadi <img id="product-mockup" src="assets/screenshot-dashboard.png" alt="Dashboard ERP Studio" style="width:100%;border-radius:16px;display:block"> -->
-        <div id="product-mockup" aria-hidden="true">
-          <div class="mockup-chrome">
-            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-            <span class="addr"></span>
-          </div>
-          <div class="mockup-body">
-            <div class="mockup-sidebar">
-              <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <div class="mockup-main">
-              <div class="mockup-kpis">
-                <div class="kpi"><span class="bar"></span><span class="num"></span></div>
-                <div class="kpi"><span class="bar"></span><span class="num"></span></div>
-                <div class="kpi"><span class="bar"></span><span class="num"></span></div>
-              </div>
-              <div class="mockup-chart">
-                <i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i>
-                <i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i>
-                <i style="height:45%"></i>
-              </div>
-              <div class="mockup-rows">
-                <div class="row"></div><div class="row"></div><div class="row"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img id="product-mockup" src="assets/hero-visuals/Opsi 1.jpg" alt="Mockup dashboard ERP Studio menampilkan omzet, stok, dan tagihan dalam satu layar, dengan catatan bahwa data tersimpan di Google Drive pengguna sendiri" style="width:100%;border-radius:16px;display:block">
       </div>
     </div>
 
@@ -1094,6 +1099,28 @@
       opacity: 0, y: 16, duration: 0.5, stagger: 0.12, ease: 'power2.out',
       scrollTrigger: { trigger: '.trust-points', start: 'top 92%' }
     });
+
+    // ---------- VISUAL MASALAH (before/after spreadsheet vs dashboard) ----------
+    var masalahVisual = document.querySelector('.masalah-visual');
+    if (masalahVisual) {
+      gsap.from(masalahVisual, {
+        opacity: 0, y: 30, duration: 0.7, ease: 'power2.out',
+        scrollTrigger: { trigger: masalahVisual, start: 'top 85%' }
+      });
+    }
+
+    // ---------- VISUAL KEPERCAYAAN (data di Drive sendiri): masuk dari dua sisi ----------
+    var trustVisualRow = document.querySelector('.trust-visual-row');
+    if (trustVisualRow) {
+      gsap.from('.trust-visual-img', {
+        opacity: 0, x: -36, duration: 0.7, ease: 'power2.out',
+        scrollTrigger: { trigger: trustVisualRow, start: 'top 85%' }
+      });
+      gsap.from('.trust-visual-copy', {
+        opacity: 0, x: 36, duration: 0.7, ease: 'power2.out',
+        scrollTrigger: { trigger: trustVisualRow, start: 'top 85%' }
+      });
+    }
 
     // ---------- MOCKUP ROW: masuk dari dua sisi + parallax ringan saat scroll ----------
     var mockupRow = document.querySelector('.mockup-row');
