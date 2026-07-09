@@ -1845,6 +1845,71 @@
 </script>
 <!-- ===== END META PIXEL LEAD EVENT ===== -->
 
+<!-- ===== META PIXEL — SCROLL DEPTH TRACKING (halaman & per section) =====
+     Otomatis tidak aktif selama window.BEDAHDATA_PIXEL_ID kosong (lihat skeleton di <head>).
+     Begitu Pixel ID diisi, kirim 2 jenis data lewat custom event "ScrollDepth" ke Events Manager:
+       1) Milestone scroll seluruh halaman: 25% / 50% / 75% / 100% (masing2 sekali per kunjungan).
+       2) Section mana yang benar2 terlihat di layar (bukan cuma discroll lewat) — dicatat saat
+          section itu terlihat minimal 50% area-nya selama >=1 detik, sesuai urutan section_id
+          di menu: hero, masalah, solusi, keunggulan, harga, kontak, tentang.
+     Data ini muncul di Meta Events Manager > custom event "ScrollDepth" dengan parameter
+     percent / section — bisa dipakai lihat section mana yang bikin orang berhenti baca
+     (drop-off) atau paling banyak dilihat, untuk evaluasi copy/urutan halaman. -->
+<script>
+  if (window.BEDAHDATA_PIXEL_ID) {
+    (function () {
+      // ---------- 1) milestone scroll halaman (25/50/75/100%) ----------
+      var milestones = [25, 50, 75, 100];
+      var firedMilestones = {};
+      function checkScrollMilestone() {
+        var doc = document.documentElement;
+        var scrollTop = window.scrollY || doc.scrollTop;
+        var scrollable = (doc.scrollHeight - doc.clientHeight) || 1;
+        var pct = Math.min(100, Math.round((scrollTop / scrollable) * 100));
+        milestones.forEach(function (m) {
+          if (pct >= m && !firedMilestones[m]) {
+            firedMilestones[m] = true;
+            if (typeof fbq === 'function') fbq('trackCustom', 'ScrollDepth', { percent: m });
+          }
+        });
+      }
+      var scrollTicking = false;
+      window.addEventListener('scroll', function () {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(function () { checkScrollMilestone(); scrollTicking = false; });
+      }, { passive: true });
+
+      // ---------- 2) section mana yang benar-benar dilihat (>=50% terlihat, >=1 detik) ----------
+      var sectionIds = ['beranda', 'masalah', 'solusi', 'keunggulan', 'harga', 'cara-kerja', 'kontak', 'tentang'];
+      var seenSections = {};
+      if ('IntersectionObserver' in window) {
+        var sectionTimers = {};
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var id = entry.target.id;
+            if (seenSections[id]) return;
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              sectionTimers[id] = setTimeout(function () {
+                if (seenSections[id]) return;
+                seenSections[id] = true;
+                if (typeof fbq === 'function') fbq('trackCustom', 'ScrollDepth', { section: id });
+              }, 1000);
+            } else if (sectionTimers[id]) {
+              clearTimeout(sectionTimers[id]);
+            }
+          });
+        }, { threshold: [0.5] });
+        sectionIds.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) observer.observe(el);
+        });
+      }
+    })();
+  }
+</script>
+<!-- ===== END META PIXEL SCROLL DEPTH TRACKING ===== -->
+
 <!-- ===== LAPISAN BACKGROUND 3D (Three.js, dekoratif, tidak merender konten) ===== -->
 <script type="module">
   function shouldEnable3D() {
