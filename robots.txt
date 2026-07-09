@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bedahdataid-cell.github.io/bedahdata-web/sitemap.xml
