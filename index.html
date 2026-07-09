@@ -701,7 +701,7 @@
     <div class="modul-mockup-section">
       <div class="modul-mockup-intro">
         <h3>Lihat bentuknya per modul</h3>
-        <p>Empat tampilan yang paling sering dipakai sehari-hari — tinggal klik tab untuk lihat wireframe-nya.</p>
+        <p>Empat tampilan yang paling sering dipakai sehari-hari — bergantian otomatis, atau klik tab untuk lompat langsung.</p>
       </div>
 
       <div class="mockup-tabs" role="tablist" aria-label="Pilih modul untuk melihat tampilannya">
@@ -1658,8 +1658,34 @@
         if (starters[name]) starters[name]();
       }
 
+      // ---------- AUTO-ROTATE: pindah tab sendiri tiap beberapa detik ----------
+      // Berhenti permanen begitu user klik tab manapun secara manual (tidak "melawan"
+      // interaksi user), dan hanya jalan saat section terlihat di viewport + tab browser aktif.
+      var tabOrder = ['penjualan', 'inventory', 'keuangan', 'ai-chat'];
+      var autoRotateTimer = null;
+      var autoRotateOn = !reduceMotion;
+      var sectionVisible = false;
+
+      function currentTabName() {
+        var current = stage.querySelector('.mockup-panel.is-visible');
+        return current ? current.id.replace('mockup-', '') : tabOrder[0];
+      }
+
+      function scheduleAutoRotate() {
+        clearTimeout(autoRotateTimer);
+        if (!autoRotateOn || !sectionVisible || document.hidden) return;
+        autoRotateTimer = setTimeout(function () {
+          var idx = tabOrder.indexOf(currentTabName());
+          var next = tabOrder[(idx + 1) % tabOrder.length];
+          activatePanel(next);
+          scheduleAutoRotate();
+        }, 6000); // 6 detik per tab — cukup untuk baca isi panel sebelum pindah
+      }
+
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
+          autoRotateOn = false; // klik manual = matikan auto-rotate seterusnya
+          clearTimeout(autoRotateTimer);
           var name = tab.getAttribute('data-target').replace('mockup-', '');
           if (tab.classList.contains('is-active')) return;
           activatePanel(name);
@@ -1670,12 +1696,11 @@
       document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
           Object.keys(activeLoops).forEach(stopLoop);
+          clearTimeout(autoRotateTimer);
         } else {
-          var current = stage.querySelector('.mockup-panel.is-visible');
-          if (current) {
-            var name = current.id.replace('mockup-', '');
-            if (starters[name]) starters[name]();
-          }
+          var name = currentTabName();
+          if (starters[name]) starters[name]();
+          scheduleAutoRotate();
         }
       });
 
@@ -1685,11 +1710,18 @@
       ScrollTrigger.create({
         trigger: '#modul-mockup-stage',
         start: 'top 90%',
+        end: 'bottom top',
         onEnter: function () {
-          if (startedOnce) return;
-          startedOnce = true;
-          starters.penjualan();
-        }
+          sectionVisible = true;
+          if (!startedOnce) {
+            startedOnce = true;
+            starters.penjualan();
+          }
+          scheduleAutoRotate();
+        },
+        onLeave: function () { sectionVisible = false; clearTimeout(autoRotateTimer); },
+        onEnterBack: function () { sectionVisible = true; scheduleAutoRotate(); },
+        onLeaveBack: function () { sectionVisible = false; clearTimeout(autoRotateTimer); }
       });
     })();
   })();
