@@ -228,7 +228,7 @@ export const SEGMEN_ISI: IsiSegmen[] = [
       },
       {
         judul: 'Dipakai lebih dulu di usaha kami sendiri',
-        isi: 'Modul Studio Kerja lahir dari usaha edit dan cetak foto yang kami jalankan sendiri. Alurnya dirancang dari pekerjaan sehari-hari, bukan dari daftar fitur.',
+        isi: 'Alur pesanan di ERP Studio lahir dari usaha edit dan cetak foto yang kami jalankan sendiri. Dirancang dari pekerjaan sehari-hari, bukan dari daftar fitur.',
       },
     ],
     cocok: [
@@ -265,7 +265,7 @@ export const SEGMEN_ISI: IsiSegmen[] = [
     nama: 'Toko Bangunan & Grosir',
     title: 'Aplikasi Stok Barang Toko Bangunan & Grosir | Bedah Data',
     description:
-      'Stok di catatan tidak cocok dengan barang di gudang? ERP Studio mencatat mutasi stok multi-gudang, penjualan, dan pembelian dalam satu sistem. Bayar sekali.',
+      'Stok di catatan tidak cocok dengan barang di gudang? ERP Studio mencatat mutasi stok, penjualan, dan pembelian dalam satu sistem. Bayar sekali.',
     h1: 'Stok di catatan 40, di gudang 33. Ke mana perginya 7?',
     intro:
       'Di toko bangunan dan grosir, selisih stok jarang disebabkan satu hal besar. Biasanya kumpulan hal kecil: retur yang tidak dicatat, barang pecah, salah input satuan, atau barang diambil untuk contoh lalu lupa dikembalikan. Masing-masing kecil — tapi menumpuk sampai angkanya tidak bisa dipercaya lagi.',

@@ -68,7 +68,7 @@ export const SEGMEN = [
   {
     slug: 'toko-bangunan',
     nama: 'Toko Bangunan & Grosir',
-    ringkas: 'Stok banyak gudang cocok dengan catatan.',
+    ringkas: 'Stok dan mutasi barang cocok dengan catatan.',
   },
 ] as const;
 
@@ -98,10 +98,10 @@ export const PAKET = [
     harga: 'Rp 549.000',
     satuan: 'lifetime',
     untuk:
-      'Paket paling lengkap: selisih Rp 200 ribu dari Standard, sudah dapat semua add-on (senilai Rp 199 ribu) plus AI penasihat data.',
+      'Paket paling lengkap: selisih Rp 200 ribu dari Standard, sudah dapat semua add-on (senilai Rp 158 ribu) plus AI penasihat data.',
     fitur: [
       'Semua modul di paket Standard',
-      'Add-on Komisi, CRM & Studio Kerja — sudah termasuk',
+      'Add-on Komisi & CRM — sudah termasuk',
       'AI Decision Intelligence',
       'Tinggal aktifkan sendiri di Pengaturan',
     ],
@@ -126,9 +126,11 @@ export const PAKET = [
   },
 ] as const;
 
+// 🔴 Studio Kerja DICABUT sebagai add-on (owner, 29 Jul 2026) — modul Fulfillment/Pesanan
+//    sudah menangani kebutuhan jasa & non-jasa; alokasi & komisi ditangani modul Komisi.
+// 🔴 Bundle DIHAPUS — dengan add-on tinggal dua, bundle Rp 199rb jadi lebih mahal
+//    daripada beli satuan (69rb + 89rb = 158rb). Jangan dimunculkan lagi.
 export const ADDON = [
   { nama: 'Komisi', harga: 'Rp 69.000' },
   { nama: 'CRM', harga: 'Rp 89.000' },
-  { nama: 'Studio Kerja', harga: 'Rp 99.000' },
-  { nama: 'Bundle Semua Add-on', harga: 'Rp 199.000' },
 ] as const;
