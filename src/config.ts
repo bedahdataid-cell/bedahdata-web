@@ -98,10 +98,10 @@ export const PAKET = [
     harga: 'Rp 549.000',
     satuan: 'lifetime',
     untuk:
-      'Paket paling lengkap: selisih Rp 200 ribu dari Standard, sudah dapat semua add-on (senilai Rp 158 ribu) plus AI penasihat data.',
+      'Paket paling lengkap: selisih Rp 200 ribu dari Standard, sudah dapat semua add-on (senilai Rp 247 ribu) plus AI penasihat data.',
     fitur: [
       'Semua modul di paket Standard',
-      'Add-on Komisi & CRM — sudah termasuk',
+      'Add-on Komisi, CRM & Pesanan — sudah termasuk',
       'AI Decision Intelligence',
       'Tinggal aktifkan sendiri di Pengaturan',
     ],
@@ -128,9 +128,10 @@ export const PAKET = [
 
 // 🔴 Studio Kerja DICABUT sebagai add-on (owner, 29 Jul 2026) — modul Fulfillment/Pesanan
 //    sudah menangani kebutuhan jasa & non-jasa; alokasi & komisi ditangani modul Komisi.
-// 🔴 Bundle DIHAPUS — dengan add-on tinggal dua, bundle Rp 199rb jadi lebih mahal
-//    daripada beli satuan (69rb + 89rb = 158rb). Jangan dimunculkan lagi.
+// 🔴 Bundle DIHAPUS (29 Jul 2026) — harga bundle lama Rp 199rb sudah tidak berlaku.
+//    Kalau mau dimunculkan lagi, tetapkan harga baru dulu (satuan kini 69+89+89 = 247rb).
 export const ADDON = [
   { nama: 'Komisi', harga: 'Rp 69.000' },
   { nama: 'CRM', harga: 'Rp 89.000' },
+  { nama: 'Pesanan', harga: 'Rp 89.000' },
 ] as const;

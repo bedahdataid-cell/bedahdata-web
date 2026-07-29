@@ -293,8 +293,8 @@ export const SEGMEN_ISI: IsiSegmen[] = [
         isi: 'Setiap pergerakan barang tercatat: masuk dari pembelian, keluar karena penjualan, retur, atau penyesuaian. Ketika ada selisih, Anda bisa menelusuri riwayatnya — bukan sekadar menyesuaikan angka akhirnya.',
       },
       {
-        judul: 'Stok per gudang, bukan satu angka gabungan',
-        isi: 'Barang yang sama bisa dicatat terpisah di beberapa gudang, dan perpindahan antar gudang tercatat sebagai mutasi. Jadi "ada barangnya" selalu ada keterangan di mana.',
+        judul: 'Selisih ketahuan sebelum menumpuk',
+        isi: 'Stok opname dicatat sebagai penyesuaian dengan keterangannya, bukan menimpa angka lama diam-diam. Jadi Anda tahu berapa yang hilang dan kapan — bukan cuma tahu angkanya sudah tidak cocok.',
       },
       {
         judul: 'Pembelian dan penjualan terhubung ke stok',
@@ -308,7 +308,7 @@ export const SEGMEN_ISI: IsiSegmen[] = [
     cocok: [
       'Punya minimal 3 orang terlibat (kasir, gudang, pemilik)',
       'Jenis barang cukup banyak sehingga sulit diingat',
-      'Barang tersimpan di lebih dari satu tempat, atau ada mutasi antar gudang',
+      'Barang keluar-masuk setiap hari sehingga catatan mudah tertinggal',
       'Ada pelanggan yang membeli berulang dengan harga khusus',
     ],
     belumCocok:
