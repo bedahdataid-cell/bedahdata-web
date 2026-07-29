@@ -12,12 +12,27 @@ import sitemap from '@astrojs/sitemap';
 // ----------------------------------------------------------------------------
 // 🔴 `site` WAJIB terisi benar — dipakai untuk canonical URL, sitemap.xml,
 //    dan Open Graph. Salah isi = Google diberi tahu alamat yang keliru.
-//    Domain utama sudah diputuskan owner: bedahdata.id
-//    (bedahdata.online hanya 301 redirect, BUKAN situs kembar).
+//
+//    STATUS DOMAIN (29 Jul 2026):
+//    - Yang DIMILIKI sekarang: bedahdata.online  ← dipakai sebagai domain utama
+//    - bedahdata.id BELUM dibeli. Rekomendasi awal memilih .id karena
+//      kredibilitas (Bedah Data menjual kepercayaan atas data usaha), tapi
+//      domainnya belum ada — jadi tidak bisa dijadikan canonical.
+//
+//    KALAU NANTI bedahdata.id DIBELI, lakukan berurutan:
+//      1. Ganti baris `site` di bawah jadi 'https://bedahdata.id'
+//      2. Pasang bedahdata.id di Cloudflare (Add a site → ganti nameserver)
+//      3. Sambungkan ke proyek ini (Settings → Domains & Routes)
+//      4. Buat 301 redirect bedahdata.online → bedahdata.id
+//         🔴 301 (permanen), BUKAN 302 — hanya 301 yang memindahkan
+//            kekuatan SEO yang sudah terkumpul di .online
+//      5. Daftarkan alamat baru di Google Search Console (Change of Address)
+//    🔴 JANGAN biarkan kedua domain menyajikan isi yang sama tanpa redirect —
+//       itu situs kembar, dan Google memecah nilainya ke dua alamat.
 // ============================================================================
 
 export default defineConfig({
-  site: 'https://bedahdata.id',
+  site: 'https://bedahdata.online',
 
   // Alamat halaman ditulis tanpa garis miring di akhir: /harga, bukan /harga/
   // Konsisten dengan canonical & sitemap supaya tidak ada URL kembar.
