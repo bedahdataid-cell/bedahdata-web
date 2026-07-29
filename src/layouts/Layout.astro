@@ -32,7 +32,13 @@ const {
 } = Astro.props;
 
 // Alamat halaman ini, dihitung dari `site` di astro.config.mjs.
-const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || SITE.url;
+// 🔴 JANGAN tambahkan .replace(/\/$/, '') di sini — garis miring di akhir
+//    harus DIPERTAHANKAN. Cloudflare menyajikan /harga/index.html di alamat
+//    /harga/ dan memaksa redirect 307 dari /harga. Kalau canonical menulis
+//    /harga (tanpa garis miring), Google menerima dua sinyal bertabrakan:
+//    sitemap menunjuk /harga/, canonical menunjuk /harga, server menjawab 307.
+//    Selaras dengan trailingSlash: 'always' di astro.config.mjs.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImageAbs = new URL(ogImage, Astro.site).href;
 
 // --- Data terstruktur yang selalu ada di setiap halaman ---------------------

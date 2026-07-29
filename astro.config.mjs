@@ -34,9 +34,21 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://bedahdata.online',
 
-  // Alamat halaman ditulis tanpa garis miring di akhir: /harga, bukan /harga/
-  // Konsisten dengan canonical & sitemap supaya tidak ada URL kembar.
-  trailingSlash: 'never',
+  // 🔴 'always' — WAJIB, jangan diganti ke 'never'.
+  //
+  //    Kenapa: build memakai format 'directory', jadi tiap halaman jadi file
+  //    /harga/index.html. Cloudflare menyajikan file itu di alamat /harga/
+  //    (dengan garis miring) dan MEMAKSA redirect 307 dari /harga → /harga/.
+  //
+  //    Dengan 'never', canonical menulis /harga sementara server memaksa
+  //    /harga/ — Google menerima dua sinyal yang bertabrakan: sitemap bilang
+  //    "/harga alamat resminya", server menjawab "307, sebenarnya /harga/".
+  //    Terverifikasi terjadi di produksi 29 Jul 2026 pada SEMUA halaman
+  //    kecuali beranda.
+  //
+  //    Dengan 'always', canonical + sitemap + alamat yang benar-benar
+  //    disajikan server semuanya seragam → 200 OK langsung, tanpa redirect.
+  trailingSlash: 'always',
 
   integrations: [
     sitemap({
