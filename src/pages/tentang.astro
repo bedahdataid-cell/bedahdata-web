@@ -1,0 +1,207 @@
+---
+// ============================================================================
+// HALAMAN TENTANG
+// Naskah dipindahkan dari web/index.html lama (sudah lolos audit kejujuran).
+// 🔴 Perhatikan paragraf terakhir: batas jujur Nilai #7 — tidak menjanjikan
+//    hasil usaha. JANGAN dihapus.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+
+const title = 'Tentang Bedah Data — Dibangun dari Usaha Sendiri | Bedah Data';
+const description =
+  'ERP Studio tidak lahir di ruang rapat. Sistem ini dibangun lebih dulu untuk usaha kami sendiri, dipakai setiap hari, baru kemudian ditawarkan ke orang lain.';
+
+const prinsip = [
+  {
+    judul: 'Bayar sekali',
+    isi: 'Ini beli, bukan sewa. Kami tidak ingin usaha Anda menanggung tagihan bulanan yang tetap datang saat toko sedang sepi.',
+  },
+  {
+    judul: 'Data tersimpan di Drive milik Anda',
+    isi: 'Termasuk kalau suatu hari Anda berhenti membayar kami. Tidak ada saklar di pihak kami yang bisa mengunci catatan usaha Anda.',
+  },
+  {
+    judul: 'Mengajari, bukan menggantungkan',
+    isi: 'Kalau setahun lagi Anda masih harus bertanya untuk hal dasar, berarti kami yang belum selesai bekerja.',
+  },
+  {
+    judul: 'Dibangun dari lapangan',
+    isi: 'Setiap modul lahir dari usaha nyata yang sedang berjalan, diuji di sana, baru ditawarkan ke yang lain.',
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Tentang kami</span>
+      <h1>Yang kami lawan bukan software sebelah</h1>
+      <p>Tapi keputusan usaha yang diambil berdasarkan perkiraan.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <blockquote class="visi reveal">
+        “Pemilik usaha kecil di Indonesia berhenti menebak — mereka tahu angka usahanya sendiri,
+        dan datanya tetap di tangan mereka.”
+      </blockquote>
+
+      <div class="isi reveal">
+        <p>
+          Itu yang kami kejar. Yang kami lawan bukan software sebelah, tapi
+          <strong>keputusan yang diambil berdasarkan perkiraan</strong>: stok kira-kira, untung
+          kira-kira, komisi karyawan kira-kira. Selama angkanya masih ditebak, sebesar apa pun
+          usahanya tetap berjalan dengan mata setengah tertutup.
+        </p>
+        <p>
+          ERP Studio tidak lahir di ruang rapat. Sistem ini kami bangun lebih dulu untuk usaha
+          kami sendiri, dipakai setiap hari, baru kemudian ditawarkan ke orang lain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tinted">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Yang kami pegang</span>
+        <h2>Empat hal yang tidak kami tawar</h2>
+      </div>
+
+      <div class="grid-prinsip">
+        {
+          prinsip.map((p, i) => (
+            <article class="card card-lift reveal" style={`--reveal-delay:${i * 70}ms`}>
+              <h3>{p.judul}</h3>
+              <p>{p.isi}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="batas reveal">
+        <h2>Satu hal yang perlu kami katakan terus terang</h2>
+        <p>
+          Kami tidak menjanjikan omzet Anda naik. Yang kami kerjakan adalah membuat angkanya
+          jelas dan siap dipakai memutuskan — keputusannya tetap milik Anda.
+        </p>
+      </div>
+
+      <div class="isi reveal" style="margin-top:44px">
+        <h2>Siapa yang cocok bekerja sama dengan kami</h2>
+        <p>
+          Kami sengaja tidak melayani semua orang. ERP Studio dirancang untuk usaha yang
+          <strong>sudah dipegang beberapa orang</strong> dan punya sesuatu yang harus dicocokkan
+          antar mereka: stok, pesanan jasa, komisi, atau tagihan.
+        </p>
+        <p>
+          Kalau usaha Anda masih dikerjakan sendiri, kami akan mengatakannya terus terang saat
+          demo — dan menyarankan aplikasi pencatatan gratis yang memang lebih pas. Menolak calon
+          pembeli terdengar aneh untuk sebuah usaha, tapi menjual sistem 8 modul kepada orang
+          yang butuhnya catatan sederhana adalah cara tercepat membuat orang menyesal membeli.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaAkhir
+    judul="Mau kenal lebih jauh dulu?"
+    teks="Tidak harus langsung bicara pembelian. Ceritakan saja kondisi usaha Anda — kami akan bilang terus terang apakah ini menolong atau belum perlu."
+    pesanWa="Halo Bedah Data, saya mau kenal lebih jauh soal Bedah Data"
+  />
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17.5px;
+    opacity: 0.93;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .visi {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 3vw, 27px);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--heading);
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto 32px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .isi p {
+    font-size: 17px;
+    line-height: 1.82;
+  }
+
+  .isi h2 {
+    font-size: clamp(22px, 2.8vw, 28px);
+    margin-bottom: 14px;
+  }
+
+  .grid-prinsip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 940px) {
+    .grid-prinsip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .grid-prinsip {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .grid-prinsip h3 {
+    font-size: 17px;
+    color: var(--green-deep);
+    margin-bottom: 9px;
+  }
+
+  .grid-prinsip p {
+    font-size: 14.8px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .batas {
+    border-left: 4px solid var(--green);
+    background: var(--bg);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 26px 28px;
+  }
+
+  .batas h2 {
+    font-size: clamp(19px, 2.3vw, 23px);
+    margin-bottom: 10px;
+  }
+
+  .batas p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+</style>

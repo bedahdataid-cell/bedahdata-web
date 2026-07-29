@@ -1,0 +1,252 @@
+---
+// ============================================================================
+// HALAMAN KONTAK
+// 🔴 Sengaja TIDAK memakai formulir. Pemilik usaha jauh lebih responsif di
+//    WhatsApp, dan formulir statis butuh layanan pihak ketiga tambahan.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import { SITE, SOCIALS, WA_DISPLAY, WA_NUMBER, waLink } from '../config';
+
+const title = 'Hubungi Bedah Data — WhatsApp 0851 8824 4786';
+const description =
+  'Hubungi Bedah Data lewat WhatsApp atau email untuk demo gratis 30 menit ERP Studio. Dijawab orang, bukan bot.';
+
+const alasan = [
+  {
+    judul: 'Mau demo gratis 30 menit',
+    isi: 'Kami tunjukkan langsung cara sistem menangani alur usaha Anda. Gratis, tanpa keharusan beli.',
+    pesan: 'Halo Bedah Data, saya mau menjadwalkan demo gratis 30 menit ERP Studio',
+    tombol: 'Jadwalkan Demo',
+    utama: true,
+  },
+  {
+    judul: 'Bingung pilih paket',
+    isi: 'Ceritakan bisnis Anda, nanti kami bantu hitungkan paket mana yang masuk akal.',
+    pesan: 'Halo Bedah Data, saya mau konsultasi paket yang pas untuk bisnis saya',
+    tombol: 'Konsultasi Paket',
+    utama: false,
+  },
+  {
+    judul: 'Mau tanya-tanya dulu',
+    isi: 'Belum siap demo juga tidak apa-apa. Tanya saja dulu apa yang mengganjal.',
+    pesan: 'Halo Bedah Data, saya mau tanya-tanya dulu soal ERP Studio',
+    tombol: 'Tanya via WhatsApp',
+    utama: false,
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Kontak</span>
+      <h1>Mari mengobrol dulu</h1>
+      <p>
+        Tidak ada formulir panjang di sini. Cukup kirim pesan WhatsApp — dijawab orang nyata,
+        bukan bot.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid-alasan">
+        {
+          alasan.map((a, i) => (
+            <article
+              class={`card alasan reveal ${a.utama ? 'utama' : ''}`}
+              style={`--reveal-delay:${i * 80}ms`}
+            >
+              <h2>{a.judul}</h2>
+              <p>{a.isi}</p>
+              <a
+                href={waLink(a.pesan)}
+                class={`btn ${a.utama ? 'btn-primary' : 'btn-ghost'}`}
+                target="_blank"
+                rel="noopener"
+              >
+                {a.tombol}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="detail reveal">
+        <div>
+          <h2>Kontak langsung</h2>
+          <ul class="daftar">
+            <li>
+              <span class="label">WhatsApp</span>
+              <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener">
+                {WA_DISPLAY}
+              </a>
+            </li>
+            <li>
+              <span class="label">Email</span>
+              <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>Media sosial</h2>
+          <ul class="daftar">
+            {
+              SOCIALS.map((s) => (
+                <li>
+                  <a href={s.url} target="_blank" rel="noopener">
+                    {s.nama}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <!-- 🔴 Jam layanan diumumkan terus terang (Lapis 3 filter — lihat
+           STRATEGI_CHANNEL_MARKETING.md §8.2). Ini justru menaikkan
+           kepercayaan: yang merusak adalah membalas cepat lalu menghilang. -->
+      <div class="jam reveal">
+        <h2>Kapan pesan Anda dibalas</h2>
+        <p>
+          Bedah Data dijalankan tim kecil, jadi kami memilih terus terang soal ini: pesan yang
+          masuk pada hari kerja biasanya dibalas pada hari yang sama. Pesan di malam hari atau
+          akhir pekan dibalas pada hari kerja berikutnya.
+        </p>
+        <p>
+          Kami lebih suka mengatakannya di depan daripada membuat Anda menunggu sambil menebak.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .grid-alasan {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-alasan {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+  }
+
+  .alasan {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 26px;
+  }
+
+  .alasan.utama {
+    border-color: rgba(46, 204, 88, 0.5);
+    background: rgba(46, 204, 88, 0.05);
+  }
+
+  .alasan h2 {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .alasan p {
+    font-size: 15px;
+    color: var(--text-muted);
+    flex-grow: 1;
+    margin-bottom: 22px;
+  }
+
+  .detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    margin-top: 54px;
+    padding: 32px;
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (max-width: 700px) {
+    .detail {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 26px 22px;
+    }
+  }
+
+  .detail h2 {
+    font-family: var(--font-body);
+    font-size: 16.5px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .daftar {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .daftar li {
+    font-size: 15.5px;
+  }
+
+  .label {
+    display: inline-block;
+    min-width: 82px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .daftar a {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.4);
+  }
+
+  .daftar a:hover {
+    color: var(--heading);
+    border-bottom-color: var(--heading);
+  }
+
+  .jam {
+    max-width: 760px;
+    margin: 44px auto 0;
+    border-left: 4px solid var(--green);
+    padding: 4px 0 4px 20px;
+  }
+
+  .jam h2 {
+    font-size: clamp(19px, 2.3vw, 23px);
+    margin-bottom: 10px;
+  }
+
+  .jam p {
+    font-size: 15.8px;
+  }
+</style>

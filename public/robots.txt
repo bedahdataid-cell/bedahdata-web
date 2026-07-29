@@ -1,0 +1,19 @@
+# robots.txt — Bedah Data (bedahdata.id)
+# Situs ini boleh diindeks sepenuhnya oleh mesin pencari.
+
+User-agent: *
+Allow: /
+
+# Peta situs dibuat otomatis saat build oleh @astrojs/sitemap.
+Sitemap: https://bedahdata.id/sitemap-index.xml
+
+# ---------------------------------------------------------------------------
+# 🔴 CATATAN PENTING untuk domain kedua (bedahdata.online)
+# ---------------------------------------------------------------------------
+# bedahdata.online HANYA berisi pengalihan 301 permanen ke bedahdata.id.
+# JANGAN memasang "Disallow: /" di domain kedua tersebut.
+#
+# Alasannya: kalau Google diblokir, dia tidak bisa MEMBACA pengalihannya —
+# sehingga kekuatan SEO domain lama tidak ikut berpindah ke domain utama.
+# Cukup dialihkan, tidak perlu diblokir.
+# ---------------------------------------------------------------------------

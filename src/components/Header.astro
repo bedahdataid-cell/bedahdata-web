@@ -1,0 +1,293 @@
+---
+// ============================================================================
+// HEADER — logo, menu navigasi, dan tombol WhatsApp.
+// Di HP menu berubah jadi tombol hamburger yang membuka panel penuh.
+// ============================================================================
+import { NAV, waLink } from '../config';
+
+// Menandai menu yang sedang dibuka, supaya pengunjung tahu posisinya.
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label="Bedah Data — kembali ke beranda">
+      <img
+        src="/assets/logo-bedahdata.png"
+        alt="Logo Bedah Data"
+        width="150"
+        height="38"
+        fetchpriority="high"
+      />
+    </a>
+
+    <nav id="nav-utama" class="nav" aria-label="Navigasi utama">
+      <ul>
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <!-- Tombol WhatsApp versi HP: ikut di dalam panel menu -->
+      <a
+        href={waLink('Halo Bedah Data, saya mau demo gratis 30 menit ERP Studio')}
+        class="btn btn-primary cta-mobile"
+        target="_blank"
+        rel="noopener">Demo Gratis 30 Menit</a
+      >
+    </nav>
+
+    <a
+      href={waLink('Halo Bedah Data, saya mau demo gratis 30 menit ERP Studio')}
+      class="btn btn-primary cta-desktop"
+      target="_blank"
+      rel="noopener">Demo Gratis 30 Menit</a
+    >
+
+    <button
+      type="button"
+      class="hamburger"
+      id="tombol-menu"
+      aria-label="Buka menu"
+      aria-expanded="false"
+      aria-controls="nav-utama"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    height: 74px;
+  }
+
+  .brand img {
+    height: 38px;
+    width: auto;
+  }
+
+  .nav ul {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    list-style: none;
+  }
+
+  .nav a {
+    position: relative;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--heading);
+    padding: 6px 0;
+    transition: color 0.2s var(--ease);
+  }
+
+  /* Garis bawah tipis yang tumbuh saat disentuh — micro-interaction kalem. */
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s var(--ease);
+  }
+
+  .nav a:hover::after,
+  .nav a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+
+  .nav a[aria-current='page'] {
+    color: var(--green-deep);
+    font-weight: 600;
+  }
+
+  .cta-desktop {
+    min-height: 44px;
+    padding: 10px 22px;
+    font-size: 14.5px;
+    white-space: nowrap;
+  }
+
+  .cta-mobile {
+    display: none;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    margin-inline: auto;
+    border-radius: 2px;
+    background: var(--heading);
+    transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+  }
+
+  /* Hamburger berubah jadi tanda silang saat menu terbuka. */
+  .hamburger[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .hamburger[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  /* ---------- Tampilan HP & tablet ---------- */
+  @media (max-width: 940px) {
+    .cta-desktop {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .nav {
+      position: fixed;
+      inset: 74px 0 auto 0;
+      max-height: calc(100dvh - 74px);
+      overflow-y: auto;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 18px 32px -18px rgba(14, 61, 51, 0.28);
+      padding: 10px 22px 26px;
+      /* Disembunyikan dengan visibility + opacity (bukan display:none)
+         supaya bisa dianimasikan dan tetap tidak bisa difokus keyboard. */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.28s var(--ease), transform 0.28s var(--ease),
+        visibility 0.28s;
+    }
+
+    .nav.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .nav ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .nav li + li {
+      border-top: 1px solid var(--border);
+    }
+
+    .nav a {
+      display: block;
+      padding: 15px 2px;
+      font-size: 16.5px;
+    }
+
+    .nav a::after {
+      display: none;
+    }
+
+    .cta-mobile {
+      display: flex;
+      width: 100%;
+      margin-top: 18px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // ==========================================================================
+  // MENU HP — buka/tutup + perilaku yang diharapkan pengguna:
+  // tutup saat menekan Esc, saat menekan di luar, dan saat layar dilebarkan.
+  // ==========================================================================
+  const tombol = document.getElementById('tombol-menu');
+  const nav = document.getElementById('nav-utama');
+
+  if (tombol && nav) {
+    const setMenu = (buka: boolean) => {
+      nav.classList.toggle('is-open', buka);
+      tombol.setAttribute('aria-expanded', String(buka));
+      tombol.setAttribute('aria-label', buka ? 'Tutup menu' : 'Buka menu');
+      // Kunci gulir halaman selama menu menutupi layar.
+      document.body.style.overflow = buka ? 'hidden' : '';
+    };
+
+    tombol.addEventListener('click', () => {
+      setMenu(!nav.classList.contains('is-open'));
+    });
+
+    // Esc menutup menu lalu mengembalikan fokus ke tombolnya.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+        setMenu(false);
+        tombol.focus();
+      }
+    });
+
+    // Menekan di luar area menu ikut menutupnya.
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (
+        nav.classList.contains('is-open') &&
+        !nav.contains(target) &&
+        !tombol.contains(target)
+      ) {
+        setMenu(false);
+      }
+    });
+
+    // Kalau layar dilebarkan ke ukuran desktop, pastikan gulir tidak terkunci.
+    const mq = window.matchMedia('(max-width: 940px)');
+    mq.addEventListener('change', (e) => {
+      if (!e.matches) setMenu(false);
+    });
+  }
+</script>

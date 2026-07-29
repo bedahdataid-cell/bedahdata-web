@@ -1,0 +1,165 @@
+---
+// ============================================================================
+// FOOTER — kontak, peta halaman, dan media sosial.
+// Selalu menyediakan jalan keluar ke WhatsApp supaya pembaca tidak buntu.
+// ============================================================================
+import { SITE, SOCIALS, SEGMEN, WA_DISPLAY, WA_NUMBER, PRIVACY_URL } from '../config';
+
+const tahun = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="grid">
+      <div class="kolom-brand">
+        <img
+          src="/assets/logo-bedahdata-putih.png"
+          alt="Logo Bedah Data versi putih"
+          width="160"
+          height="42"
+          loading="lazy"
+        />
+        <p>
+          Satu sistem untuk stok, keuangan, dan komisi karyawan usaha kecil di Indonesia.
+          Bayar sekali, data tersimpan di Drive milik Anda sendiri, didampingi orang nyata.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="judul-kolom">Halaman</h2>
+        <ul>
+          <li><a href="/solusi">Solusi &amp; Modul</a></li>
+          <li><a href="/harga">Harga</a></li>
+          <li><a href="/panduan">Panduan &amp; Artikel</a></li>
+          <li><a href="/faq">Pertanyaan Umum</a></li>
+          <li><a href="/tentang">Tentang Kami</a></li>
+          <li><a href="/kontak">Kontak</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="judul-kolom">Untuk Usaha</h2>
+        <ul>
+          {SEGMEN.map((s) => <li><a href={`/${s.slug}`}>{s.nama}</a></li>)}
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="judul-kolom">Hubungi Kami</h2>
+        <ul>
+          <li>
+            <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener">
+              WhatsApp: {WA_DISPLAY}
+            </a>
+          </li>
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        </ul>
+        <h2 class="judul-kolom" style="margin-top:22px">Ikuti Kami</h2>
+        <ul>
+          {
+            SOCIALS.map((s) => (
+              <li>
+                <a href={s.url} target="_blank" rel="noopener">
+                  {s.nama}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="bawah">
+      <span>© {tahun} {SITE.legalName}. Sistem manajemen bisnis untuk usaha kecil Indonesia.</span>
+      <a href={PRIVACY_URL} target="_blank" rel="noopener">Kebijakan Privasi</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--heading);
+    color: #fff;
+    padding: 56px 0 26px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 36px;
+    margin-bottom: 38px;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .kolom-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kolom-brand img {
+    height: 42px;
+    width: auto;
+    margin-bottom: 14px;
+  }
+
+  .kolom-brand p {
+    font-size: 14.5px;
+    opacity: 0.82;
+    max-width: 330px;
+    line-height: 1.7;
+  }
+
+  /* Dipakai <h2> supaya urutan judul halaman tetap masuk akal bagi pembaca
+     layar, tapi ukurannya tetap kecil seperti label footer biasa. */
+  .judul-kolom {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  ul a {
+    font-size: 14.5px;
+    opacity: 0.82;
+    transition: opacity 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  ul a:hover {
+    opacity: 1;
+    color: var(--green);
+  }
+
+  .bawah {
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    padding-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+
+  .bawah a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+</style>

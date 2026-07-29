@@ -1,0 +1,87 @@
+---
+// ============================================================================
+// HALAMAN PERTANYAAN UMUM
+// Isi diambil dari src/data/faq.ts supaya schema & tampilan tidak pernah beda.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import Faq from '../components/Faq.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+import { SITE, waLink } from '../config';
+import { FAQ_UMUM, faqSchema } from '../data/faq';
+
+const title = 'Pertanyaan Umum tentang ERP Studio | Bedah Data';
+const description =
+  'Jawaban terus terang soal ERP Studio: model bayar sekali, lokasi penyimpanan data, multi-pengguna, migrasi dari Excel, dan apa yang terjadi kalau Bedah Data tutup.';
+
+const schema = faqSchema(FAQ_UMUM, `${SITE.url}/faq#faq`);
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Pertanyaan umum</span>
+      <h1>Pertanyaan yang paling sering masuk</h1>
+      <p>
+        Termasuk yang jarang dijawab vendor lain terang-terangan. Kalau yang Anda cari belum ada
+        di sini, tanyakan langsung lewat WhatsApp — dijawab orang, bukan bot.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <Faq items={FAQ_UMUM} />
+
+      <div class="lanjut reveal">
+        <p>
+          Ada pertanyaan soal harga, add-on, atau maintenance?
+          <a href="/harga">Halaman harga</a> membahasnya lebih rinci.
+        </p>
+        <a
+          href={waLink('Halo Bedah Data, saya mau tanya soal ERP Studio')}
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener">Tanyakan Langsung lewat WhatsApp</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <CtaAkhir />
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .lanjut {
+    text-align: center;
+    max-width: 640px;
+    margin: 46px auto 0;
+  }
+
+  .lanjut p {
+    font-size: 16.5px;
+    color: var(--heading);
+    margin-bottom: 20px;
+  }
+
+  .lanjut a:not(.btn) {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.45);
+  }
+</style>

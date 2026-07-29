@@ -1,0 +1,330 @@
+---
+// ============================================================================
+// HALAMAN HARGA
+// 🔴 Struktur resmi: Standard / Pro / Custom. Model 8 paket per-industri
+//    SUDAH DIHAPUS — jangan dimunculkan lagi.
+// 🔴 Angka Custom TIDAK dipublikasikan — arahkan ke WhatsApp.
+// 🔴 Kata "terjangkau" sudah dicabut resmi — jangan dipakai di halaman ini.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import Harga from '../components/Harga.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+import Faq from '../components/Faq.astro';
+import { ADDON, SITE, waLink } from '../config';
+import { faqSchema } from '../data/faq';
+
+const title = 'Harga ERP Studio — Bayar Sekali Mulai Rp 349 Ribu | Bedah Data';
+const description =
+  'Rincian harga ERP Studio: paket Standard Rp 349.000 dan Pro Rp 549.000, sekali bayar bukan langganan. Termasuk daftar add-on, maintenance, dan layanan pendamping.';
+
+const faqHarga = [
+  {
+    tanya: 'Apa yang terjadi kalau maintenance tidak diperpanjang?',
+    jawab:
+      '<p><strong>Software tetap berjalan.</strong> Maintenance mengurus pembaruan sistem, perbaikan, dan dukungan teknis dari kami — bukan saklar yang menyalakan aplikasi Anda. Kalau tidak diperpanjang, sistem yang sudah ada tetap bisa dipakai seperti biasa; yang berhenti hanyalah layanan perawatan dan pengembangan dari pihak kami.</p>',
+  },
+  {
+    tanya: 'Kenapa ada biaya tambahan di luar harga paket?',
+    jawab:
+      '<p>Karena tidak semua orang membutuhkannya, dan kami tidak mau membebankan biaya jasa ke orang yang bisa mengerjakannya sendiri. Harga paket sudah mencakup software-nya. Yang terpisah adalah <strong>pekerjaan manusia</strong>: setup jarak jauh, memindahkan data lama dari Excel, dan pelatihan tim. Semuanya opsional, dan angkanya kami sampaikan terbuka di awal — bukan muncul di tengah jalan.</p>',
+  },
+  {
+    tanya: 'Beda Standard dan Pro apa persisnya?',
+    jawab:
+      '<p>Paket <strong>Standard</strong> berisi modul inti: penjualan, pembelian, inventory, keuangan, HRD dasar, dan master data. Paket <strong>Pro</strong> berisi semuanya itu ditambah tiga add-on (Komisi, CRM, Studio Kerja) dan AI Decision Intelligence. Selisihnya Rp 200 ribu, sementara ketiga add-on kalau dibeli terpisah bernilai Rp 199 ribu — jadi Pro praktis mendapat AI-nya tanpa tambahan biaya.</p>',
+  },
+  {
+    tanya: 'Bisa mulai dari Standard lalu naik ke Pro nanti?',
+    jawab:
+      '<p>Bisa. Add-on dapat ditambahkan belakangan sesuai kebutuhan, tanpa memasang ulang sistem atau memindahkan data. Kalau Anda ragu, mulai dari Standard adalah pilihan yang masuk akal — kami akan lebih senang Anda menambah karena benar-benar membutuhkannya daripada membayar fitur yang tidak terpakai.</p>',
+  },
+  {
+    tanya: 'Ada garansi uang kembali?',
+    jawab:
+      '<p>Kami tidak memasang skema garansi uang kembali. Sebagai gantinya, kami mendorong Anda melihat sistemnya lebih dulu lewat <strong>demo gratis 30 menit</strong> sebelum membayar sepeser pun — supaya keputusannya diambil setelah melihat, bukan setelah membaca janji. Kalau setelah demo terasa belum cocok, kami akan mengatakannya terus terang.</p>',
+  },
+];
+
+const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Harga</span>
+      <h1>Bayar sekali. Bukan sewa bulanan.</h1>
+      <p>
+        ERP langganan umumnya menghabiskan Rp 3 juta lebih per tahun — dan itu berulang terus.
+        ERP Studio cukup sekali bayar, mulai Rp 349 ribu. Maintenance tahun pertama gratis, dan
+        software tetap jalan walau maintenance tidak diperpanjang.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <Harga />
+
+      <div class="hitungan reveal">
+        <h2>Hitungan sederhananya begini</h2>
+        <p>
+          ERP langganan populer umumnya mulai sekitar Rp 3,6 juta per tahun — dalam 3 tahun
+          sudah lebih dari Rp 10 juta, dan terus berjalan. Paket Pro: Rp 549 ribu, sekali.
+        </p>
+        <p>
+          Semua harga bersifat lifetime, dan maintenance tahun pertama gratis. Bila dibutuhkan,
+          tersedia juga layanan pendamping opsional (setup remote, migrasi data dari Excel, dan
+          pelatihan tim) dengan biaya terpisah yang kami sampaikan terbuka di awal.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ADD-ON ===== -->
+  <section class="tinted">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Tambahan</span>
+        <h2>Add-on: hanya kalau memang dipakai</h2>
+        <p>
+          Paket <strong>Standard</strong> bisa ditambah add-on sesuai kebutuhan. Paket
+          <strong>Pro</strong> sudah termasuk ketiganya — tidak perlu beli lagi.
+        </p>
+      </div>
+
+      <div class="grid-addon">
+        {
+          ADDON.map((a, i) => (
+            <div
+              class={`card addon reveal ${a.nama.startsWith('Bundle') ? 'bundle' : ''}`}
+              style={`--reveal-delay:${i * 70}ms`}
+            >
+              <h3>{a.nama}</h3>
+              <p class="nominal">{a.harga}</p>
+              {a.nama.startsWith('Bundle') && <span class="hemat">Paling hemat</span>}
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="catatan-addon reveal">
+        Semua add-on bersifat lifetime, sama seperti paket utamanya. Bisa ditambahkan kapan saja
+        tanpa memasang ulang sistem atau memindahkan data.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== YANG PERLU DIKETAHUI SEBELUM MEMBELI ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Terus terang</span>
+        <h2>Sebelum Anda memutuskan membeli</h2>
+        <p>
+          Bagian ini sengaja kami tulis, walau isinya bisa membuat sebagian orang mengurungkan
+          niat. Kami lebih suka begitu daripada Anda menyesal setelah membayar.
+        </p>
+      </div>
+
+      <div class="grid-jujur">
+        <div class="card jujur reveal">
+          <h3>Sistem ini belum tentu untuk Anda</h3>
+          <p>
+            Kalau usaha masih Anda pegang sendiri dan tidak ada yang perlu dicocokkan antar
+            orang, yang Anda butuhkan adalah catatan sederhana — bukan sistem 8 modul. Untuk
+            itu, aplikasi pencatatan gratis sudah cukup baik, dan kami akan mengatakannya
+            langsung saat demo.
+          </p>
+        </div>
+        <div class="card jujur reveal" style="--reveal-delay:80ms">
+          <h3>Yang kami janjikan, dan yang tidak</h3>
+          <p>
+            Kami tidak menjanjikan omzet Anda naik. Yang kami kerjakan adalah membuat angkanya
+            jelas dan siap dipakai memutuskan — soal keputusannya, itu tetap milik Anda dan
+            memang seharusnya begitu.
+          </p>
+        </div>
+        <div class="card jujur reveal" style="--reveal-delay:160ms">
+          <h3>Pindah sistem butuh usaha</h3>
+          <p>
+            Pindah dari buku atau Excel tidak selesai dalam satu sore. Ada data yang harus
+            dirapikan dan tim yang harus terbiasa. Kami mendampingi prosesnya, tapi kami tidak
+            akan berpura-pura bahwa ini instan.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ HARGA ===== -->
+  <section class="tinted">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Pertanyaan soal harga</span>
+        <h2>Yang sering ditanyakan sebelum membeli</h2>
+      </div>
+      <Faq items={faqHarga} />
+
+      <p class="lanjut reveal">
+        Masih menimbang paket mana yang pas? Ceritakan dulu bisnis Anda lewat WhatsApp — nanti
+        kami bantu hitungkan, gratis dan tanpa keharusan beli.
+      </p>
+      <p class="tombol-tengah reveal">
+        <a
+          href={waLink(
+            'Halo Bedah Data, saya mau konsultasi paket yang pas untuk bisnis saya',
+          )}
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener">Konsultasi Gratis via WhatsApp</a
+        >
+      </p>
+    </div>
+  </section>
+
+  <CtaAkhir
+    judul="Belum yakin paket mana yang pas?"
+    teks="Ceritakan dulu bisnis Anda 30 menit. Kami bantu hitung yang paling masuk akal — termasuk kalau jawabannya ternyata 'belum perlu sistem seperti ini'."
+    pesanWa="Halo Bedah Data, saya mau konsultasi paket yang pas untuk bisnis saya"
+  />
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .hitungan {
+    max-width: 780px;
+    margin: 52px auto 0;
+    padding: 30px 32px;
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  .hitungan h2 {
+    font-size: clamp(21px, 2.5vw, 26px);
+    margin-bottom: 14px;
+  }
+
+  .hitungan p {
+    font-size: 15.8px;
+  }
+
+  /* ---------- Add-on ---------- */
+  .grid-addon {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-addon {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .grid-addon {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .addon {
+    position: relative;
+    text-align: center;
+  }
+
+  .addon.bundle {
+    border-color: rgba(46, 204, 88, 0.5);
+    background: rgba(46, 204, 88, 0.06);
+  }
+
+  .addon h3 {
+    font-size: 16.5px;
+    margin-bottom: 6px;
+  }
+
+  .nominal {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-deep);
+    margin-bottom: 0;
+  }
+
+  .hemat {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--heading);
+    background: rgba(46, 204, 88, 0.2);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+
+  .catatan-addon {
+    text-align: center;
+    max-width: 620px;
+    margin: 30px auto 0;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  /* ---------- Bagian jujur ---------- */
+  .grid-jujur {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-jujur {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .jujur {
+    border-top: 4px solid var(--green);
+  }
+
+  .jujur h3 {
+    font-size: 17.5px;
+    margin-bottom: 10px;
+  }
+
+  .jujur p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  /* ---------- Penutup ---------- */
+  .lanjut {
+    text-align: center;
+    max-width: 640px;
+    margin: 40px auto 0;
+    font-size: 16.5px;
+    color: var(--heading);
+  }
+
+  .tombol-tengah {
+    text-align: center;
+    margin-top: 18px;
+  }
+</style>

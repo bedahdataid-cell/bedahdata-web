@@ -1,0 +1,478 @@
+---
+// ============================================================================
+// HALAMAN SOLUSI & MODUL
+// Naskah modul & panel AI dipindahkan dari web/index.html lama (sudah lolos
+// audit kejujuran). 🔴 Jangan menjanjikan integrasi marketplace otomatis —
+// fitur itu TIDAK ADA (order tetap diinput manual).
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+import { SEGMEN, waLink } from '../config';
+
+const title = 'Modul ERP Studio — Stok, Keuangan, Komisi & Payroll | Bedah Data';
+const description =
+  'Delapan modul ERP Studio: penjualan, pembelian, inventory, keuangan, HRD & payroll, komisi, CRM, dan studio kerja. Nyalakan yang perlu, lewati yang tidak.';
+
+const modul = [
+  {
+    nama: 'Penjualan',
+    isi: 'Dari kasir sampai invoice, semua penjualan tercatat sendiri — tinggal lihat hasilnya.',
+    addon: false,
+  },
+  {
+    nama: 'Pembelian',
+    isi: 'Order ke supplier dan pembayarannya jadi satu alur rapi. Tidak ada lagi nota tercecer.',
+    addon: false,
+  },
+  {
+    nama: 'Inventory',
+    isi: 'Tahu persis stok mana yang menipis dan mana yang nyangkut, walau gudangnya lebih dari satu.',
+    addon: false,
+  },
+  {
+    nama: 'Keuangan',
+    isi: 'Transaksi dari modul lain otomatis masuk jurnal — tidak perlu dicatat dobel. Sekali mapping akun diatur (dibantu saat demo), laba-rugi & neraca jadi sendiri.',
+    addon: false,
+  },
+  {
+    nama: 'HRD & Payroll',
+    isi: 'Absensi (termasuk GPS), cuti, sampai gaji karyawan terhitung rapi. Tanggal gajian jadi tenang.',
+    addon: false,
+  },
+  {
+    nama: 'CRM',
+    isi: 'Data pelanggan dan calon pembeli tersimpan rapi — follow-up tidak lagi mengandalkan ingatan.',
+    addon: true,
+  },
+  {
+    nama: 'Komisi',
+    isi: 'Komisi reseller dan agen terhitung sendiri — bebas dari rekap manual akhir bulan.',
+    addon: true,
+  },
+  {
+    nama: 'Studio Kerja',
+    isi: 'Antrian order jasa edit, print, dan pekerjaan studio kreatif terkelola dari masuk sampai selesai.',
+    addon: true,
+  },
+];
+
+const bidang = [
+  'Toko & Grosir',
+  'Bengkel',
+  'Salon & Klinik',
+  'Percetakan & Studio',
+  'Laundry',
+  'Bakery/Konveksi',
+  'Agency',
+  'Course',
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Solusi</span>
+      <h1>Nyalakan yang perlu, lewati yang tidak</h1>
+      <p>
+        Satu fondasi yang rapi, lalu Anda tinggal menyalakan modul yang benar-benar dipakai.
+        Mulai ramping dulu, tambah seiring bisnis tumbuh — tanpa pernah ganti sistem dari awal.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== DAFTAR MODUL ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Delapan modul</span>
+        <h2>Yang bisa dikerjakan ERP Studio</h2>
+      </div>
+
+      <div class="grid-modul">
+        {
+          modul.map((m, i) => (
+            <article
+              class={`card card-lift modul reveal ${m.addon ? 'addon' : ''}`}
+              style={`--reveal-delay:${i * 55}ms`}
+            >
+              {m.addon && <span class="tanda-addon">Add-on</span>}
+              <h3>{m.nama}</h3>
+              <p>{m.isi}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="catatan reveal">
+        Modul bertanda <strong>Add-on</strong> sudah termasuk otomatis di paket Pro — untuk paket
+        Standard, tinggal tambah sesuai kebutuhan. Modul yang tidak Anda pakai juga bisa
+        dimatikan kapan saja, jadi menu yang tampil tetap ringkas sesuai cara kerja Anda.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== PANEL AI ===== -->
+  <section class="tinted">
+    <div class="wrap">
+      <div class="panel-ai reveal">
+        <div class="panel-teks">
+          <span class="eyebrow terang">AI Decision Intelligence</span>
+          <h2>Bisnis Anda jadi punya teman diskusi data — bukan cuma laporan yang bisu</h2>
+          <p>
+            ERP Studio tidak berhenti di mencatat, dan tidak berhenti di dashboard yang cuma
+            bisa dilihat. Ditenagai Gemini, Anda bisa benar-benar tanya-jawab dengannya pakai
+            bahasa sehari-hari — "kenapa margin bulan ini turun?", "produk apa yang paling
+            untung?" — dan dijawab langsung berdasarkan data bisnis Anda sendiri, bukan jawaban
+            umum dari internet. Semakin sering diajak diskusi, Anda pun ikut makin paham kondisi
+            bisnis sendiri.
+          </p>
+        </div>
+        <ul class="panel-daftar">
+          <li>
+            Tanya apa saja soal bisnis Anda pakai bahasa sehari-hari — dan dijawab langsung,
+            bukan disuruh buka laporan sendiri
+          </li>
+          <li>Memperkirakan penjualan bulan depan dari pola bulan-bulan sebelumnya</li>
+          <li>Menandai angka yang janggal sebelum jadi masalah besar</li>
+          <li>Mengingatkan kapan dan berapa banyak perlu restock</li>
+          <li>Menunjukkan produk mana yang paling menguntungkan (dan mana yang cuma ramai)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEGMEN ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Per jenis usaha</span>
+        <h2>Sudah paham alur kerja usaha seperti ini sejak awal</h2>
+      </div>
+
+      <ul class="pil-bidang reveal">
+        {bidang.map((b) => <li>{b}</li>)}
+      </ul>
+
+      <div class="grid-segmen">
+        {
+          SEGMEN.map((s, i) => (
+            <a
+              href={`/${s.slug}`}
+              class="card card-lift segmen reveal"
+              style={`--reveal-delay:${i * 70}ms`}
+            >
+              <h3>{s.nama}</h3>
+              <p>{s.ringkas}</p>
+              <span class="tautan-panah">
+                Lihat penjelasannya
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BATAS JUJUR ===== -->
+  <section class="tinted">
+    <div class="wrap-narrow">
+      <div class="batas reveal">
+        <h2>Yang belum bisa dilakukan sistem ini</h2>
+        <p>
+          Bagian ini jarang ditulis vendor lain, tapi menurut kami justru yang paling perlu Anda
+          tahu sebelum memutuskan.
+        </p>
+        <ul class="daftar-batas">
+          <li>
+            <strong>Belum ada integrasi otomatis ke marketplace.</strong> Order dari Shopee atau
+            Tokopedia tetap diinput manual — sistem ini tidak menariknya sendiri. Kalau volume
+            order harian Anda sangat tinggi dari marketplace, katakan sejak awal supaya kami
+            bisa jujur menilai apakah ini menolong atau justru menambah pekerjaan.
+          </li>
+          <li>
+            <strong>Bukan untuk manufaktur multi-pabrik.</strong> Kebutuhan produksi berlapis
+            dengan banyak lokasi pabrik di luar cakupan kami saat ini.
+          </li>
+          <li>
+            <strong>Bukan pengganti akuntan.</strong> Sistem merapikan pencatatan dan menyusun
+            laporannya. Untuk urusan pajak dan pemeriksaan, Anda tetap butuh orang yang ahli di
+            bidang itu.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaAkhir
+    judul="Mau lihat modulnya bekerja langsung?"
+    teks="Demo 30 menit memakai contoh alur usaha Anda sendiri — bukan presentasi umum. Gratis, dan kalau ternyata belum cocok kami akan bilang."
+    pesanWa="Halo Bedah Data, saya mau lihat demo modul ERP Studio"
+  />
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  /* ---------- Modul ---------- */
+  .grid-modul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 1000px) {
+    .grid-modul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .grid-modul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .grid-modul {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .modul {
+    position: relative;
+  }
+
+  .modul.addon {
+    border-style: dashed;
+    border-color: rgba(14, 61, 51, 0.24);
+    background: var(--bg-warm);
+  }
+
+  .tanda-addon {
+    position: absolute;
+    top: -11px;
+    right: 16px;
+    background: var(--heading);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  .modul h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+  }
+
+  .modul p {
+    font-size: 14.6px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .catatan {
+    text-align: center;
+    max-width: 700px;
+    margin: 32px auto 0;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  /* ---------- Panel AI ---------- */
+  .panel-ai {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: linear-gradient(140deg, #0e3d33, #1a6b54);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: clamp(30px, 4vw, 48px);
+  }
+
+  @media (max-width: 860px) {
+    .panel-ai {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  }
+
+  .panel-ai h2 {
+    color: #fff;
+    font-size: clamp(22px, 2.8vw, 30px);
+    margin-bottom: 14px;
+  }
+
+  .panel-ai p {
+    font-size: 15.8px;
+    opacity: 0.92;
+    margin-bottom: 0;
+  }
+
+  .panel-daftar {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .panel-daftar li {
+    position: relative;
+    padding-left: 27px;
+    font-size: 15px;
+    opacity: 0.95;
+  }
+
+  .panel-daftar li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+  }
+
+  /* ---------- Pil bidang ---------- */
+  .pil-bidang {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+    margin-bottom: 40px;
+  }
+
+  .pil-bidang li {
+    background: #fff;
+    border: 1px solid rgba(46, 204, 88, 0.5);
+    color: var(--heading);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  /* ---------- Segmen ---------- */
+  .grid-segmen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 940px) {
+    .grid-segmen {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid-segmen {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .segmen {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .segmen h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .segmen p {
+    font-size: 14.8px;
+    color: var(--text-muted);
+    flex-grow: 1;
+    margin-bottom: 14px;
+  }
+
+  .tautan-panah {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .tautan-panah svg {
+    transition: transform 0.28s var(--ease);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .segmen:hover .tautan-panah svg {
+      transform: translateX(4px);
+    }
+  }
+
+  /* ---------- Batas jujur ---------- */
+  .batas {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: var(--radius);
+    padding: clamp(26px, 3.5vw, 38px);
+  }
+
+  .batas h2 {
+    font-size: clamp(22px, 2.8vw, 28px);
+    margin-bottom: 12px;
+  }
+
+  .batas > p {
+    font-size: 15.8px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .daftar-batas {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .daftar-batas li {
+    font-size: 15.5px;
+    padding-left: 22px;
+    position: relative;
+  }
+
+  .daftar-batas li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.68em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--green);
+  }
+</style>

@@ -1,0 +1,139 @@
+---
+// ============================================================================
+// KARTU HARGA — dipakai di beranda & halaman /harga.
+// 🔴 Angka diambil dari src/config.ts. Jangan menulis harga langsung di sini,
+//    supaya tidak ada dua versi harga yang berbeda di situs yang sama.
+// ============================================================================
+import { PAKET, waLink } from '../config';
+---
+
+<div class="grid-harga">
+  {
+    PAKET.map((paket) => (
+      <div class={`kartu reveal ${paket.populer ? 'populer' : ''}`}>
+        {paket.populer && <span class="badge">Rekomendasi Kami</span>}
+        <h3>{paket.nama}</h3>
+        <p class="harga">
+          {paket.harga}
+          <small>{paket.satuan}</small>
+        </p>
+        <p class="untuk">{paket.untuk}</p>
+        <ul class="checklist">
+          {paket.fitur.map((f) => (
+            <li>{f}</li>
+          ))}
+        </ul>
+        <a
+          href={waLink(paket.pesanWa)}
+          class={`btn ${paket.populer ? 'btn-primary' : 'btn-ghost'}`}
+          target="_blank"
+          rel="noopener"
+        >
+          {paket.cta}
+        </a>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .grid-harga {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  @media (max-width: 900px) {
+    .grid-harga {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+  }
+
+  .kartu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .kartu.populer {
+    border-color: var(--green);
+    box-shadow: 0 14px 36px -16px rgba(46, 204, 88, 0.4);
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .kartu:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+
+  .badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--green);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 18px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  h3 {
+    font-family: var(--font-body);
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .harga {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 34px);
+    font-weight: 600;
+    color: var(--green-deep);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .harga small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .untuk {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    min-height: 3.6em; /* menyamakan tinggi antar kartu di layar lebar */
+  }
+
+  @media (max-width: 900px) {
+    .untuk {
+      min-height: 0;
+    }
+  }
+
+  .checklist {
+    margin-bottom: 26px;
+    flex-grow: 1;
+  }
+
+  .kartu .btn {
+    width: 100%;
+  }
+</style>

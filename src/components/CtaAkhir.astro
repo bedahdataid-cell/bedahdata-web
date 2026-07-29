@@ -1,0 +1,72 @@
+---
+// ============================================================================
+// BLOK AJAKAN AKHIR — dipasang di bawah setiap halaman panjang, supaya
+// pembaca selalu punya jalan keluar ke WhatsApp dan tidak buntu.
+// ============================================================================
+import { waLink } from '../config';
+
+interface Props {
+  judul?: string;
+  teks?: string;
+  pesanWa?: string;
+}
+
+const {
+  judul = 'Bayangkan tutup bulan tanpa begadang rekap manual.',
+  teks = 'Mulainya cukup dari ngobrol 30 menit — gratis, tanpa komitmen, dan tidak perlu jago komputer. Kalau cocok kita lanjut, kalau belum ya tidak apa-apa.',
+  pesanWa = 'Halo Bedah Data, saya mau menjadwalkan demo gratis ERP Studio',
+} = Astro.props;
+---
+
+<section class="dark-panel cta-akhir">
+  <div class="wrap-narrow isi reveal">
+    <h2>{judul}</h2>
+    <p>{teks}</p>
+    <div class="tombol">
+      <a href={waLink(pesanWa)} class="btn btn-primary" target="_blank" rel="noopener">
+        Jadwalkan Demo Gratis 30 Menit
+      </a>
+      <a
+        href={waLink('Halo Bedah Data, saya mau tanya-tanya dulu soal ERP Studio')}
+        class="btn btn-onDark"
+        target="_blank"
+        rel="noopener">Tanya-tanya Dulu via WhatsApp</a
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-akhir {
+    padding: clamp(56px, 7vw, 88px) 0;
+  }
+
+  .isi {
+    text-align: center;
+  }
+
+  .isi p {
+    font-size: 17px;
+    opacity: 0.93;
+    max-width: 620px;
+    margin: 14px auto 30px;
+  }
+
+  .tombol {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 480px) {
+    /* Di layar sempit tombol dibuat selebar layar — lebih mudah disentuh
+       dan urutannya jelas, tidak berdesakan. */
+    .tombol {
+      flex-direction: column;
+    }
+    .tombol .btn {
+      width: 100%;
+    }
+  }
+</style>

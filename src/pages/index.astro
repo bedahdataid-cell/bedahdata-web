@@ -1,0 +1,815 @@
+---
+// ============================================================================
+// BERANDA
+// 🔴 Naskah di halaman ini DIPINDAHKAN dari web/index.html lama yang sudah
+//    lolos audit kejujuran (29 Jul 2026). Jangan ditulis ulang tanpa
+//    persetujuan owner — perubahan kalimat adalah ranah Mbak Wulan.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+import Faq from '../components/Faq.astro';
+import Harga from '../components/Harga.astro';
+import { SITE, SEGMEN, waLink } from '../config';
+import { FAQ_UMUM, faqSchema } from '../data/faq';
+
+const title =
+  'Sistem Pencatatan Stok, Keuangan & Komisi Karyawan — Bayar Sekali | Bedah Data';
+// Deskripsi sengaja dijaga di bawah ±160 huruf — lebih dari itu dipotong Google.
+const description =
+  'Satu sistem untuk stok, penjualan, keuangan, dan komisi karyawan. Bayar sekali mulai Rp 349 ribu, dan data tersimpan di Google Drive usaha Anda sendiri.';
+
+// Hanya 5 pertanyaan teratas ditampilkan di beranda; selebihnya di /faq.
+const faqBeranda = FAQ_UMUM.slice(0, 5);
+
+const schema = [
+  {
+    '@type': 'SoftwareApplication',
+    '@id': `${SITE.url}/#software`,
+    name: 'ERP Studio',
+    alternateName: 'Bedah Data ERP Studio',
+    applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'Enterprise Resource Planning',
+    operatingSystem: 'Web (Google Workspace / Google Apps Script)',
+    url: `${SITE.url}/`,
+    description:
+      'Sistem pencatatan usaha terpadu untuk usaha kecil di Indonesia — stok, penjualan, pembelian, keuangan, HRD, dan komisi karyawan dicatat sekali lalu ikut terbarui semua. Mendukung multi-pengguna dengan hak akses per peran. Lisensi bayar sekali mulai Rp 349.000, bukan langganan bulanan. Data tersimpan di Google Drive milik pengguna sendiri.',
+    featureList: [
+      'Pencatatan stok multi-gudang dan kartu stok',
+      'Penjualan, invoice, dan POS/kasir',
+      'Pembelian dan pembayaran supplier',
+      'Pembukuan otomatis: jurnal, laba rugi, neraca',
+      'HRD, absensi, dan payroll',
+      'Perhitungan komisi teknisi, terapis, dan reseller',
+      'Multi-pengguna dengan hak akses per peran (RBAC)',
+      'Data tersimpan di Google Drive milik pengguna',
+    ],
+    publisher: { '@id': `${SITE.url}/#organization` },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Standard',
+        price: '349000',
+        priceCurrency: 'IDR',
+        availability: 'https://schema.org/InStock',
+        url: `${SITE.url}/harga`,
+        description:
+          'Lisensi bayar sekali. Penjualan, Pembelian, Inventory, Keuangan, Biaya, HRD dasar, dan Master Data. Maintenance tahun pertama gratis.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Pro',
+        price: '549000',
+        priceCurrency: 'IDR',
+        availability: 'https://schema.org/InStock',
+        url: `${SITE.url}/harga`,
+        description:
+          'Lisensi bayar sekali. Semua modul Standard ditambah add-on Komisi, CRM, Studio Kerja, dan AI Decision Intelligence.',
+      },
+    ],
+    areaServed: { '@type': 'Country', name: 'Indonesia' },
+    inLanguage: 'id',
+  },
+  faqSchema(faqBeranda, `${SITE.url}/#faq`),
+];
+
+const masalah = [
+  {
+    judul: 'Langganan jalan terus, walau toko lagi sepi',
+    isi: 'Omzet bulan ini turun, tapi tagihan software tetap datang. Rasanya seperti bayar sewa untuk sesuatu yang tidak pernah jadi milik sendiri.',
+  },
+  {
+    judul: 'Catatan uang masuk-keluar masih berantakan',
+    isi: 'Nota tercecer, ada yang dicatat di buku, ada yang di kepala saja. Ujung-ujungnya untung-rugi yang sebenarnya jadi tebak-tebakan, dan tutup buku tiap bulan berubah jadi kerja lembur sendiri.',
+  },
+  {
+    judul: 'Data bisnis di server orang lain',
+    isi: 'Bertahun-tahun catatan jualan, pelanggan, dan keuangan tersimpan di server vendor. Kalau suatu hari berhenti berlangganan, masih bisa dibuka atau tidak? Pertanyaan itu wajar, dan jarang dijawab terang-terangan.',
+  },
+  {
+    judul: 'Sistemnya kaku, harus Anda yang menyesuaikan',
+    isi: 'Alur baku yang tidak bisa diubah, istilahnya asing, dan tidak paham cara kerja toko, bengkel, salon, atau bakery di Indonesia. Mau tambah kolom atau ubah alur sedikit saja, jawabannya "belum bisa" — bisnis dipaksa mengikuti software, bukan sebaliknya.',
+  },
+  {
+    judul: 'Habis beli, ditinggal sendirian',
+    isi: 'Sudah keluar uang, semangat pindah sistem, lalu... bingung sendiri. Tidak ada yang mendampingi, akhirnya tim balik lagi ke Excel dan buku tulis.',
+  },
+];
+
+const pilar = [
+  {
+    judul: 'Bayar sekali, jadi milik Anda',
+    isi: 'Ini beli, bukan sewa. Tidak ada tagihan bulanan yang tetap datang saat toko sedang sepi. Maintenance sifatnya opsional — dan software tetap jalan walau Anda memutuskan tidak memperpanjangnya.',
+  },
+  {
+    judul: 'Data di Drive Anda — bukan di server kami',
+    isi: 'Seluruh catatan bisnis tersimpan di Google Drive Anda sendiri, bukan server kami. Anda bisa backup, audit, atau memindahkannya kapan saja tanpa minta izin siapa pun.',
+  },
+  {
+    judul: 'Keuangan rapi sendiri, tanya jawab pun jadi',
+    isi: 'Tiap transaksi penjualan, stok, sampai payroll otomatis kejurnal — laba-rugi dan neraca jalan tanpa dicatat dobel (mapping akun cukup diatur sekali di awal, dibantu saat demo). Bingung baca angkanya? Tinggal tanya ke AI pakai bahasa sehari-hari, dijawab berdasar data bisnis Anda sendiri.',
+  },
+];
+
+const langkah = [
+  {
+    judul: 'Ngobrol & demo 30 menit',
+    isi: 'Ceritakan dulu bisnis Anda, lalu kami tunjukkan langsung cara ERP Studio menanganinya. Gratis, santai, dan kalau ternyata belum cocok — tidak apa-apa.',
+  },
+  {
+    judul: 'Data lama tidak hangus',
+    isi: 'Catatan dari Excel atau buku lama bisa ikut pindah ke sistem — tersedia layanan migrasi bila Anda ingin dibantu sampai benar-benar siap pakai. Anda tidak perlu mulai dari nol.',
+  },
+  {
+    judul: 'Tidak jalan sendirian',
+    isi: 'Anda langsung tergabung di grup WhatsApp pendampingan — bertanya kapan saja, dijawab orang nyata. Bila ingin lebih intensif, tersedia juga pelatihan tim sebagai layanan tambahan.',
+  },
+];
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <!-- ===================== HERO ===================== -->
+  <section class="dark-panel hero">
+    <div class="wrap isi">
+      <h1>
+        Berhenti menebak angka usaha Anda. Satu sistem untuk stok, keuangan, dan komisi
+        karyawan — cukup bayar sekali.
+      </h1>
+      <p class="sub">
+        ERP Studio menyatukan pencatatan jualan, stok, keuangan, dan gaji-komisi karyawan di
+        satu tempat: dicatat sekali, semua ikut terbarui. Datanya tersimpan di Google Drive
+        usaha Anda sendiri — bukan di server kami — dan Anda didampingi orang nyata sampai
+        sistemnya benar-benar jalan.
+      </p>
+      <div class="tombol">
+        <a
+          href={waLink(
+            'Halo Bedah Data, saya mau menjadwalkan demo gratis 30 menit ERP Studio',
+          )}
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener">Jadwalkan Demo Gratis 30 Menit</a
+        >
+        <a href="/harga" class="btn btn-onDark">Lihat Harga &amp; Paket</a>
+      </div>
+      <p class="trust">
+        Bayar sekali, pakai selamanya · Data di Google Drive Anda sendiri · Didampingi orang
+        nyata · Jalan di Google Workspace
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== MASALAH ===================== -->
+  <section id="masalah">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Mungkin terasa familiar</span>
+        <h2>Mungkin ini yang sedang Anda rasakan</h2>
+      </div>
+
+      <div class="grid-masalah">
+        {
+          masalah.map((m, i) => (
+            <article class="card card-lift masalah reveal" style={`--reveal-delay:${i * 70}ms`}>
+              <h3>{m.judul}</h3>
+              <p>{m.isi}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="transisi reveal">
+        Kalau ada satu saja yang terasa familiar, Anda tidak sendirian. Justru dari
+        keluhan-keluhan inilah ERP Studio kami rancang.
+      </p>
+      <p class="transisi kecil reveal">
+        Bukan karena Anda kurang teliti — tapi karena catatannya terpisah-pisah, dan tidak ada
+        satu tempat yang bisa dipercaya.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PILAR / KEUNGGULAN ===================== -->
+  <section class="tinted" id="keunggulan">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Yang membedakan</span>
+        <h2>Tiga hal yang membedakan ERP Studio</h2>
+      </div>
+
+      <div class="grid-pilar">
+        {
+          pilar.map((p, i) => (
+            <article class="card card-lift pilar reveal" style={`--reveal-delay:${i * 90}ms`}>
+              <span class="nomor" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3>{p.judul}</h3>
+              <p>{p.isi}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="tabel-bungkus reveal">
+        <table class="banding">
+          <caption class="visually-hidden">
+            Perbandingan ERP langganan pada umumnya dengan ERP Studio
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Aspek</th>
+              <th scope="col">ERP Langganan pada Umumnya</th>
+              <th scope="col">ERP Studio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Model bayar</th>
+              <td>Sewa — berhenti bayar, berhenti pakai</td>
+              <td>Beli — sekali bayar, jadi milik Anda</td>
+            </tr>
+            <tr>
+              <th scope="row">Lokasi data</th>
+              <td>Server vendor</td>
+              <td>Google Drive Anda sendiri</td>
+            </tr>
+            <tr>
+              <th scope="row">Biaya tahun pertama</th>
+              <td>Jutaan hingga belasan juta, lalu berulang tiap tahun</td>
+              <td>Rp 349–549 ribu, sekali saja</td>
+            </tr>
+            <tr>
+              <th scope="row">Pendampingan</th>
+              <td>Standar / mandiri</td>
+              <td>Personal + pelatihan langsung</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Visual pendukung: data tersimpan di Drive milik klien sendiri.
+           Gambar ini ilustrasi metafora TANPA angka — sah menurut rules/brand.md.
+           (Berbeda dari "Opsi 1"/"opsi 2" yang dicopot karena berisi angka karangan.) -->
+      <div class="bukti reveal">
+        <div class="bukti-gambar">
+          <img
+            src="/assets/drive-aman.jpg"
+            alt="Ilustrasi folder Google Drive dengan dokumen data bisnis melayang keluar, disertai ikon gembok — melambangkan data bisnis tersimpan aman di Google Drive milik pengguna sendiri"
+            width="900"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="bukti-teks">
+          <h3>Bukan sekadar janji — begini cara kerjanya</h3>
+          <p>
+            Setiap catatan penjualan, stok, dan keuangan langsung tersimpan sebagai spreadsheet
+            di Google Drive Anda sendiri. Bisa dibuka, dibackup, atau diaudit kapan saja tanpa
+            perlu minta izin ke kami — karena memang bukan kami yang menyimpannya.
+          </p>
+        </div>
+      </div>
+
+      <!-- 🔴 PENANGANAN JUJUR — JANGAN DIGANTI GAMBAR REKAAN.
+           Kartu ini menggantikan mockup dashboard hasil generate AI yang dicopot
+           29 Jul 2026 karena berisi angka karangan (klaim palsu).
+           Ganti HANYA dengan tangkapan layar ERP Studio ASLI, dan bila ada
+           angkanya WAJIB berlabel DATA DEMO yang terbaca.
+           Aset: Konten/TES_KEYNOTE_OWNER/Screenshot_ERP/siap_pakai/ -->
+      <div class="placeholder reveal">
+        <span class="ph-label">Cuplikan layar asli menyusul</span>
+        <p>
+          Kami sengaja tidak memasang gambar dashboard hasil rekaan di sini. Yang akan tampil
+          nanti adalah tangkapan layar ERP Studio yang sungguhan — dengan label
+          <strong>DATA DEMO</strong> pada angkanya. Sementara ini, cara paling jujur melihat
+          sistemnya adalah demo langsung 30 menit.
+        </p>
+        <a
+          href={waLink('Halo Bedah Data, saya mau lihat tampilan aslinya lewat demo')}
+          class="btn btn-ghost"
+          target="_blank"
+          rel="noopener">Lihat Tampilan Aslinya Lewat Demo</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SEGMEN ===================== -->
+  <section id="segmen">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Sesuai jenis usaha</span>
+        <h2>Cari yang paling mirip usaha Anda</h2>
+        <p>
+          Tiap jenis usaha punya hal berbeda yang harus dicocokkan. Pilih yang paling dekat,
+          nanti dijelaskan pakai bahasa usaha itu sendiri.
+        </p>
+      </div>
+
+      <div class="grid-segmen">
+        {
+          SEGMEN.map((s, i) => (
+            <a
+              href={`/${s.slug}`}
+              class="card card-lift segmen reveal"
+              style={`--reveal-delay:${i * 70}ms`}
+            >
+              <h3>{s.nama}</h3>
+              <p>{s.ringkas}</p>
+              <span class="tautan-panah">
+                Lihat penjelasannya
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HARGA ===================== -->
+  <section class="tinted" id="harga">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Harga</span>
+        <h2>Harga yang jujur, tanpa biaya tersembunyi</h2>
+        <p>
+          ERP langganan umumnya menghabiskan Rp 3 juta lebih per tahun — dan itu berulang
+          terus. ERP Studio cukup sekali bayar, mulai Rp 349 ribu. Maintenance tahun pertama
+          gratis, dan software tetap jalan walau maintenance tidak diperpanjang.
+        </p>
+      </div>
+
+      <Harga />
+
+      <p class="harga-lanjut reveal">
+        Butuh rincian add-on, biaya maintenance, dan layanan pendamping?
+        <a href="/harga">Lihat halaman harga selengkapnya</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== CARA KERJA ===================== -->
+  <section id="cara-kerja">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Cara mulai</span>
+        <h2>Mulainya gampang, dan Anda tidak sendirian</h2>
+      </div>
+
+      <ol class="grid-langkah">
+        {
+          langkah.map((l, i) => (
+            <li class="langkah reveal" style={`--reveal-delay:${i * 90}ms`}>
+              <span class="nomor-bulat" aria-hidden="true">
+                {i + 1}
+              </span>
+              <h3>{l.judul}</h3>
+              <p>{l.isi}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <ul class="poin-percaya reveal">
+        <li>Berjalan di Google Workspace yang sudah Anda kenal dan percaya</li>
+        <li>Didampingi langsung oleh orang nyata, bukan sekadar tiket bantuan otomatis</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="tinted" id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Pertanyaan umum</span>
+        <h2>Pertanyaan yang paling sering masuk</h2>
+        <p>
+          Kalau yang Anda cari belum ada di sini, tanyakan saja langsung lewat WhatsApp —
+          dijawab orang, bukan bot.
+        </p>
+      </div>
+
+      <Faq items={faqBeranda} />
+
+      <p class="harga-lanjut reveal">
+        <a href="/faq">Lihat semua pertanyaan &amp; jawabannya</a>
+      </p>
+    </div>
+  </section>
+
+  <CtaAkhir />
+</Layout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: clamp(64px, 9vw, 108px) 0 clamp(60px, 8vw, 100px);
+    text-align: center;
+  }
+
+  .hero .isi {
+    max-width: 900px;
+  }
+
+  .hero h1 {
+    margin-inline: auto;
+    max-width: 880px;
+  }
+
+  .hero .sub {
+    font-size: clamp(15.8px, 1.9vw, 18.5px);
+    opacity: 0.93;
+    max-width: 720px;
+    margin: 22px auto 32px;
+  }
+
+  .hero .tombol {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  .hero .trust {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 480px) {
+    .hero .tombol {
+      flex-direction: column;
+    }
+    .hero .tombol .btn {
+      width: 100%;
+    }
+  }
+
+  /* ---------- Masalah ---------- */
+  .grid-masalah {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-masalah {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid-masalah {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .masalah {
+    border-left: 4px solid var(--green);
+  }
+
+  .masalah h3 {
+    font-size: 17.5px;
+    margin-bottom: 8px;
+  }
+
+  .masalah p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  .transisi {
+    text-align: center;
+    font-size: 17.5px;
+    color: var(--heading);
+    font-weight: 500;
+    max-width: 760px;
+    margin: 38px auto 0;
+  }
+
+  .transisi.kecil {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 12px;
+  }
+
+  /* ---------- Pilar ---------- */
+  .grid-pilar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 52px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-pilar {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pilar {
+    padding: 30px 26px;
+  }
+
+  .pilar .nomor {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(46, 204, 88, 0.35);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .pilar h3 {
+    color: var(--green-deep);
+    margin-bottom: 10px;
+  }
+
+  .pilar p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  /* ---------- Tabel banding ---------- */
+  .tabel-bungkus {
+    max-width: 860px;
+    margin-inline: auto;
+    overflow-x: auto; /* di HP bisa digeser, tidak memaksa halaman melebar */
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .banding {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 15px;
+  }
+
+  .banding th,
+  .banding td {
+    padding: 15px 18px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .banding thead th {
+    background: var(--heading);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .banding thead th:last-child {
+    background: var(--green-dark);
+  }
+
+  .banding tbody th {
+    font-weight: 600;
+    color: var(--heading);
+  }
+
+  .banding tbody tr:nth-child(even) {
+    background: var(--bg-warm);
+  }
+
+  .banding tbody td:last-child {
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  /* ---------- Bukti visual ---------- */
+  .bukti {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 44px;
+    align-items: center;
+    margin-top: 56px;
+  }
+
+  @media (max-width: 860px) {
+    .bukti {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  }
+
+  .bukti-gambar {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+
+  .bukti-gambar img {
+    width: 100%;
+    height: auto;
+  }
+
+  .bukti-teks h3 {
+    font-family: var(--font-display);
+    font-size: clamp(21px, 2.6vw, 27px);
+    margin-bottom: 12px;
+  }
+
+  .bukti-teks p {
+    font-size: 15.8px;
+    margin-bottom: 0;
+  }
+
+  /* ---------- Kartu penanganan jujur ---------- */
+  .placeholder {
+    max-width: 620px;
+    margin: 52px auto 0;
+    text-align: center;
+    padding: 32px 28px;
+    border-radius: var(--radius-lg);
+    border: 1.5px dashed rgba(46, 204, 88, 0.5);
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(46, 204, 88, 0.09), transparent 62%),
+      var(--bg-warm);
+  }
+
+  .ph-label {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--heading);
+    background: rgba(46, 204, 88, 0.18);
+    border: 1px solid rgba(46, 204, 88, 0.45);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 14px;
+  }
+
+  .placeholder p {
+    font-size: 15px;
+    max-width: 42ch;
+    margin: 0 auto 20px;
+  }
+
+  /* ---------- Segmen ---------- */
+  .grid-segmen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 940px) {
+    .grid-segmen {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid-segmen {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .segmen {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .segmen h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .segmen p {
+    font-size: 14.8px;
+    color: var(--text-muted);
+    flex-grow: 1;
+    margin-bottom: 14px;
+  }
+
+  .tautan-panah {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .tautan-panah svg {
+    transition: transform 0.28s var(--ease);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .segmen:hover .tautan-panah svg {
+      transform: translateX(4px);
+    }
+  }
+
+  /* ---------- Harga ---------- */
+  .harga-lanjut {
+    text-align: center;
+    margin-top: 34px;
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+
+  .harga-lanjut a {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.45);
+  }
+
+  .harga-lanjut a:hover {
+    color: var(--heading);
+    border-bottom-color: var(--heading);
+  }
+
+  /* ---------- Cara kerja ---------- */
+  .grid-langkah {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    list-style: none;
+    margin-bottom: 42px;
+  }
+
+  @media (max-width: 900px) {
+    .grid-langkah {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  .langkah {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .nomor-bulat {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: 23px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 20px rgba(46, 204, 88, 0.3);
+  }
+
+  .langkah h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .langkah p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  .poin-percaya {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 840px;
+    margin-inline: auto;
+    list-style: none;
+  }
+
+  .poin-percaya li {
+    position: relative;
+    padding-left: 26px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--heading);
+  }
+
+  .poin-percaya li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+</style>

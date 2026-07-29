@@ -1,0 +1,81 @@
+---
+// ============================================================================
+// HALAMAN TIDAK DITEMUKAN (404)
+// Cloudflare Pages otomatis memakai berkas ini saat alamat tidak dikenali.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import { NAV } from '../config';
+---
+
+<Layout
+  title="Halaman tidak ditemukan | Bedah Data"
+  description="Halaman yang Anda cari tidak ada atau sudah dipindahkan. Silakan kembali ke beranda Bedah Data, atau pilih halaman lain dari daftar di bawah."
+  noindex={true}
+>
+  <section class="kosong">
+    <div class="wrap-narrow">
+      <span class="kode" aria-hidden="true">404</span>
+      <h1>Halamannya tidak ada di sini</h1>
+      <p>
+        Mungkin alamatnya salah ketik, atau halaman itu sudah kami pindahkan. Silakan pilih
+        salah satu di bawah ini.
+      </p>
+
+      <ul class="tautan">
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+
+      <a href="/" class="btn btn-primary">Kembali ke Beranda</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kosong {
+    text-align: center;
+    padding: clamp(60px, 9vw, 110px) 0;
+  }
+
+  .kode {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(60px, 12vw, 110px);
+    font-weight: 600;
+    line-height: 1;
+    color: rgba(46, 204, 88, 0.28);
+    margin-bottom: 10px;
+  }
+
+  .kosong p {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 16px auto 30px;
+  }
+
+  .tautan {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+    margin-bottom: 34px;
+  }
+
+  .tautan a {
+    display: inline-block;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--heading);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+  }
+
+  .tautan a:hover {
+    border-color: var(--green);
+    color: var(--green-deep);
+  }
+</style>

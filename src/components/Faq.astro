@@ -1,0 +1,126 @@
+---
+// ============================================================================
+// DAFTAR PERTANYAAN — memakai <details> bawaan browser.
+// Tanpa JavaScript sama sekali: tetap bisa dibuka walau skrip gagal dimuat,
+// dan isinya tetap terbaca Google (syarat schema FAQPage).
+// ============================================================================
+export interface ItemFaq {
+  tanya: string;
+  /** Boleh berisi HTML sederhana seperti <strong>. */
+  jawab: string;
+}
+
+interface Props {
+  items: ItemFaq[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq-list">
+  {
+    items.map((item) => (
+      <details class="faq-item reveal">
+        <summary>
+          <span class="tanya">{item.tanya}</span>
+          <span class="tanda" aria-hidden="true" />
+        </summary>
+        <div class="jawab" set:html={item.jawab} />
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq-list {
+    max-width: 840px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0 22px;
+    transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  }
+
+  .faq-item[open] {
+    border-color: rgba(46, 204, 88, 0.45);
+    box-shadow: var(--shadow-md);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    list-style: none;
+    cursor: pointer;
+    padding: 18px 0;
+    min-height: 56px; /* nyaman disentuh di HP */
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tanya {
+    font-size: 16.5px;
+    font-weight: 600;
+    color: var(--heading);
+    line-height: 1.5;
+  }
+
+  /* Tanda panah dibuat dari border — tanpa file ikon. */
+  .tanda {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    border-right: 2.5px solid var(--green);
+    border-bottom: 2.5px solid var(--green);
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.28s var(--ease);
+  }
+
+  .faq-item[open] .tanda {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  .jawab {
+    font-size: 15.8px;
+    line-height: 1.8;
+    color: var(--text);
+    padding-bottom: 20px;
+  }
+
+  .jawab :global(p) {
+    margin-bottom: 0.9em;
+  }
+
+  .jawab :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 600px) {
+    .faq-item {
+      padding: 0 17px;
+    }
+    .tanya {
+      font-size: 15.5px;
+    }
+    .jawab {
+      font-size: 15px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tanda {
+      transition: none;
+    }
+  }
+</style>

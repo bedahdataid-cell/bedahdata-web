@@ -1,0 +1,36 @@
+# ===== Dependensi =====
+node_modules/
+
+# ===== Hasil build (dibuat ulang otomatis oleh Cloudflare Pages) =====
+dist/
+.astro/
+.output/
+.vercel/
+.netlify/
+
+# ===== Variabel rahasia =====
+# JANGAN pernah commit file ini — bisa berisi kunci API / token
+.env
+.env.*
+!.env.example
+
+# ===== Log & cache =====
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+.temp/
+
+# ===== File sampah sistem operasi =====
+# Google Drive & Windows suka membuat file ini sendiri
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# ===== Editor =====
+.vscode/
+.idea/
+*.swp
