@@ -53,7 +53,7 @@ const schema = [
       <nav class="remah" aria-label="Anda di sini">
         <a href="/">Beranda</a>
         <span aria-hidden="true">›</span>
-        <a href="/solusi">Solusi</a>
+        <a href="/solusi/">Solusi</a>
         <span aria-hidden="true">›</span>
         <span aria-current="page">{isi.nama}</span>
       </nav>
@@ -63,7 +63,7 @@ const schema = [
         <a href={waLink(isi.pesanWa)} class="btn btn-primary" target="_blank" rel="noopener">
           Demo Gratis 30 Menit
         </a>
-        <a href="/harga" class="btn btn-onDark">Lihat Harga</a>
+        <a href="/harga/" class="btn btn-onDark">Lihat Harga</a>
       </div>
     </div>
   </section>
@@ -150,7 +150,7 @@ const schema = [
       </div>
       <Harga />
       <p class="lanjut reveal">
-        <a href="/harga">Lihat rincian add-on &amp; layanan pendamping</a>
+        <a href="/harga/">Lihat rincian add-on &amp; layanan pendamping</a>
       </p>
     </div>
   </section>
@@ -164,7 +164,7 @@ const schema = [
       </div>
       <Faq items={isi.faq} />
       <p class="lanjut reveal">
-        <a href="/faq">Lihat pertanyaan umum lainnya</a>
+        <a href="/faq/">Lihat pertanyaan umum lainnya</a>
       </p>
     </div>
   </section>
@@ -180,7 +180,7 @@ const schema = [
         {
           lainnya.map((s, i) => (
             <a
-              href={`/${s.slug}`}
+              href={`/${s.slug}/`}
               class="card card-lift lain reveal"
               style={`--reveal-delay:${i * 70}ms`}
             >

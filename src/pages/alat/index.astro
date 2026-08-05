@@ -1,0 +1,246 @@
+---
+// ============================================================================
+// HALAMAN INDUK ALAT GRATIS — daftar semua kalkulator, dikelompokkan.
+// Halaman ini yang ditautkan dari menu utama (spek §6 syarat 5) dan jadi
+// pusat saling-taut antar alat.
+// ============================================================================
+import Layout from '../../layouts/Layout.astro';
+import CtaAkhir from '../../components/CtaAkhir.astro';
+import { SEMUA_ALAT, KELOMPOK } from '../../data/alat';
+import { SITE } from '../../config';
+
+const title = 'Alat Gratis untuk Usaha Kecil — Kalkulator Komisi, Lembur & Margin | Bedah Data';
+const description =
+  'Kumpulan kalkulator gratis untuk usaha kecil: komisi karyawan, upah lembur, THR, biaya admin marketplace, margin, dan generator nota. Langsung pakai tanpa daftar.';
+
+// Kelompok ditampilkan berurutan sesuai prioritas di spek §2.
+const urutan = ['karyawan', 'jualan-online', 'dokumen'] as const;
+
+const perKelompok = urutan.map((k) => ({
+  kunci: k,
+  ...KELOMPOK[k],
+  daftar: SEMUA_ALAT.filter((a) => a.kelompok === k),
+}));
+
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${SITE.url}/alat/#halaman`,
+    name: 'Alat Gratis untuk Usaha Kecil',
+    description,
+    url: `${SITE.url}/alat/`,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+  },
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE.url}/alat/#daftar`,
+    name: 'Daftar alat gratis Bedah Data',
+    itemListElement: SEMUA_ALAT.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: a.judulPendek,
+      url: `${SITE.url}${a.href}`,
+    })),
+  },
+];
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Alat Gratis</span>
+      <h1>Hitungan yang sering bikin ragu, sekarang tinggal isi</h1>
+      <p>
+        Komisi karyawan, upah lembur, THR, potongan marketplace — semuanya bisa dihitung
+        di sini. Langsung pakai, tidak perlu mendaftar, dan tidak ada satu pun angka yang
+        Anda ketik terkirim ke kami.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      {
+        perKelompok.map((grup, gi) => (
+          <div class="grup" style={`--reveal-delay:${gi * 60}ms`}>
+            <div class="grup-kepala reveal">
+              <h2>{grup.nama}</h2>
+              <p>{grup.ringkas}</p>
+            </div>
+            <div class="grid-alat">
+              {grup.daftar.map((a, i) => (
+                <a href={a.href} class="card card-lift kartu reveal" style={`--reveal-delay:${i * 60}ms`}>
+                  <h3>{a.judulPendek}</h3>
+                  <p>{a.ringkas}</p>
+                  <span class="buka">
+                    Buka kalkulator
+                    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                      <path
+                        d="M5 12h14M13 6l6 6-6 6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Penjelasan jujur soal kenapa alat ini gratis — mencegah kecurigaan
+       "pasti ada jebakannya", tanpa menjanjikan apa pun. -->
+  <section class="tinted">
+    <div class="wrap-narrow">
+      <div class="kenapa reveal">
+        <h2>Kenapa alat ini bisa dipakai bebas</h2>
+        <p>
+          Kami membuat ERP Studio — sistem yang menyatukan penjualan, stok, keuangan, dan
+          komisi karyawan untuk usaha kecil. Alat di halaman ini adalah potongan kecil dari
+          hitungan yang ada di dalamnya.
+        </p>
+        <p>
+          Silakan dipakai selamanya tanpa membeli apa pun. Kalau suatu saat hitungan
+          bulanan Anda sudah terlalu banyak untuk dikerjakan satu per satu, Anda sudah tahu
+          di mana mencari kami. Kalau tidak pernah sampai ke sana, alat ini tetap berguna
+          buat Anda — dan itu sudah cukup.
+        </p>
+        <p class="tegas">
+          Angka yang Anda ketik diproses di dalam browser Anda sendiri dan tidak dikirim ke
+          server kami. Tidak ada yang disimpan, dan tidak ada yang perlu Anda daftarkan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaAkhir
+    judul="Kalau merapikannya sudah terasa terlalu banyak"
+    teks="Alat di atas cukup untuk hitungan sesekali. Kalau tiap bulan angkanya perlu direkap ulang dan tersambung ke penjualan, ceritakan saja kondisi usaha Anda — kita lihat sama-sama apakah memang butuh sistem."
+    pesanWa="Halo Bedah Data, saya habis pakai alat gratis di website dan mau tanya soal ERP Studio"
+  />
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .grup + .grup {
+    margin-top: clamp(44px, 5.5vw, 66px);
+  }
+
+  .grup-kepala {
+    margin-bottom: 22px;
+  }
+
+  .grup-kepala h2 {
+    font-size: clamp(22px, 2.9vw, 29px);
+    margin-bottom: 6px;
+  }
+
+  .grup-kepala p {
+    font-size: 15.5px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .grid-alat {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 940px) {
+    .grid-alat {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid-alat {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kartu {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 22px;
+  }
+
+  .kartu h3 {
+    font-size: 18px;
+    margin-bottom: 9px;
+  }
+
+  .kartu p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex-grow: 1;
+    margin-bottom: 16px;
+  }
+
+  .buka {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14.2px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .buka svg {
+    transition: transform 0.28s var(--ease);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .kartu:hover .buka svg {
+      transform: translateX(4px);
+    }
+  }
+
+  .kenapa {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .kenapa h2 {
+    margin-bottom: 16px;
+  }
+
+  .kenapa p {
+    font-size: 16.5px;
+    line-height: 1.8;
+  }
+
+  .kenapa .tegas {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 19px;
+    font-size: 15.5px;
+    color: var(--heading);
+    margin-top: 22px;
+    margin-bottom: 0;
+  }
+</style>

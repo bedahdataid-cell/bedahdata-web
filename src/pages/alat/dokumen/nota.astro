@@ -1,0 +1,1173 @@
+---
+// ============================================================================
+// GENERATOR NOTA / INVOICE
+// ----------------------------------------------------------------------------
+// Berdiri sendiri (tidak memakai mesin Kalkulator.astro) karena bentuknya
+// berbeda: daftar barang yang bisa ditambah-kurangi + pratinjau nota yang
+// dicetak jadi PDF.
+//
+// 🔴 Seluruh proses berjalan DI BROWSER pengguna. Tidak ada data yang dikirim
+//    ke server kami — ini dinyatakan terus terang di halaman, karena nota
+//    berisi nama pelanggan dan angka penjualan.
+//
+// 🔵 Cetak PDF memakai window.print() + CSS @media print, bukan library PDF.
+//    Alasannya: nol kilobyte tambahan, jalan di semua browser termasuk HP,
+//    dan hasilnya teks sungguhan yang bisa dicari — bukan gambar.
+// ============================================================================
+import Layout from '../../../layouts/Layout.astro';
+import Faq from '../../../components/Faq.astro';
+import { NOTA, SEMUA_ALAT } from '../../../data/alat';
+import { SITE, waLink } from '../../../config';
+
+const urlHalaman = `${SITE.url}/alat/dokumen/nota/`;
+
+const tautanLain = SEMUA_ALAT.filter((a) => a.slug !== NOTA.slug).slice(0, 4);
+
+const schema = [
+  {
+    '@type': 'WebApplication',
+    '@id': `${urlHalaman}#aplikasi`,
+    name: NOTA.judul,
+    url: urlHalaman,
+    description: NOTA.deskripsi,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    inLanguage: 'id-ID',
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'IDR' },
+    publisher: { '@id': `${SITE.url}/#organization` },
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${urlHalaman}#faq`,
+    mainEntity: NOTA.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.tanya,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.jawab.replace(/<[^>]+>/g, '').trim(),
+      },
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${urlHalaman}#remah`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Beranda', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Alat Gratis', item: `${SITE.url}/alat/` },
+      { '@type': 'ListItem', position: 3, name: NOTA.judulPendek, item: urlHalaman },
+    ],
+  },
+];
+---
+
+<Layout title={NOTA.judulSeo} description={NOTA.deskripsi} schema={schema}>
+  <!-- ---------------- Kepala ---------------- -->
+  <section class="dark-panel kepala no-print">
+    <div class="wrap-narrow">
+      <nav class="remah" aria-label="Anda di sini">
+        <a href="/alat/">Alat Gratis</a>
+        <span aria-hidden="true">›</span>
+        <span>Dokumen Usaha</span>
+      </nav>
+      <h1>{NOTA.judul}</h1>
+      <p>{NOTA.ringkas}</p>
+    </div>
+  </section>
+
+  <!-- ---------------- Alat ---------------- -->
+  <!-- 🔴 Section ini SENGAJA tanpa kelas `no-print`: kertas nota ada di
+       dalamnya. Menandainya no-print membuat display:none menurun ke seluruh
+       isinya, dan hasil cetaknya jadi halaman kosong (terbukti 5 Agu 2026).
+       Bagian yang tidak boleh ikut tercetak ditandai satu per satu di dalam. -->
+  <section class="blok-nota">
+    <div class="wrap">
+      <div class="tata" data-nota>
+        <!-- ============ KOLOM ISIAN ============ -->
+        <form class="isian" data-form novalidate>
+          <h2 class="judul-kolom">Data toko Anda</h2>
+
+          <div class="baris">
+            <label for="toko">Nama toko / usaha</label>
+            <input type="text" id="toko" data-f="toko" value="" placeholder="Toko Maju Jaya" />
+          </div>
+
+          <div class="baris">
+            <label for="alamat">Alamat</label>
+            <textarea id="alamat" data-f="alamat" rows="2" placeholder="Jl. Contoh No. 12, Bandung"></textarea>
+          </div>
+
+          <div class="dua">
+            <div class="baris">
+              <label for="telepon">Nomor yang bisa dihubungi</label>
+              <input type="text" id="telepon" data-f="telepon" placeholder="0812 3456 7890" />
+            </div>
+            <div class="baris">
+              <label for="logo">Logo <span class="opsional">opsional</span></label>
+              <input type="file" id="logo" data-f="logo" accept="image/*" />
+            </div>
+          </div>
+
+          <h2 class="judul-kolom pisah">Nota ini</h2>
+
+          <div class="dua">
+            <div class="baris">
+              <label for="nomor">Nomor nota</label>
+              <input type="text" id="nomor" data-f="nomor" placeholder="2026-08-001" />
+            </div>
+            <div class="baris">
+              <label for="tanggal">Tanggal</label>
+              <input type="date" id="tanggal" data-f="tanggal" />
+            </div>
+          </div>
+
+          <div class="baris">
+            <label for="pelanggan">Nama pelanggan</label>
+            <input type="text" id="pelanggan" data-f="pelanggan" placeholder="Bapak Andi" />
+          </div>
+
+          <div class="baris">
+            <label for="catatan">Catatan <span class="opsional">opsional</span></label>
+            <textarea
+              id="catatan"
+              data-f="catatan"
+              rows="2"
+              placeholder="Terima kasih atas kepercayaan Anda."></textarea>
+          </div>
+
+          <h2 class="judul-kolom pisah">Daftar barang / jasa</h2>
+
+          <div class="daftar-item" data-item-wadah></div>
+
+          <button type="button" class="btn btn-ghost tombol-tambah" data-tambah>
+            + Tambah baris
+          </button>
+
+          <h2 class="judul-kolom pisah">Diskon &amp; pajak</h2>
+
+          <div class="dua">
+            <div class="baris">
+              <label for="diskon">Diskon (Rp)</label>
+              <input type="text" inputmode="decimal" id="diskon" data-f="diskon" data-uang value="0" />
+            </div>
+            <div class="baris">
+              <label for="pajak">Pajak (%)</label>
+              <input type="text" inputmode="decimal" id="pajak" data-f="pajak" value="0" />
+            </div>
+          </div>
+        </form>
+
+        <!-- ============ KOLOM PRATINJAU ============ -->
+        <div class="kolom-pratinjau">
+          <div class="pratinjau-sticky">
+            <div class="pratinjau-kepala no-print">
+              <h2 class="judul-kolom">Pratinjau nota</h2>
+              <button type="button" class="btn btn-primary tombol-cetak" data-cetak>
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                  <path d="M6 14h12v8H6z" />
+                </svg>
+                Simpan / Cetak PDF
+              </button>
+            </div>
+
+            <noscript>
+              <p class="tanpa-js">
+                Alat ini memerlukan JavaScript untuk menyusun notanya. Aktifkan JavaScript di
+                browser Anda. Penjelasan tentang apa saja yang wajib ada di sebuah nota tetap
+                bisa dibaca di bagian bawah halaman ini.
+              </p>
+            </noscript>
+
+            <!-- 🔴 Bagian inilah yang ikut tercetak. Kelasnya dipakai CSS print. -->
+            <div class="nota-kertas" data-kertas>
+              <div class="nota-atas">
+                <div class="nota-toko">
+                  <img class="nota-logo" data-v="logo" alt="" hidden />
+                  <p class="nota-nama" data-v="toko">Nama Toko</p>
+                  <p class="nota-alamat" data-v="alamat"></p>
+                  <p class="nota-telepon" data-v="telepon"></p>
+                </div>
+                <div class="nota-meta">
+                  <p class="nota-judul">NOTA</p>
+                  <p><span>No.</span> <strong data-v="nomor">—</strong></p>
+                  <p><span>Tanggal</span> <strong data-v="tanggal">—</strong></p>
+                </div>
+              </div>
+
+              <div class="nota-kepada">
+                <span>Kepada</span>
+                <strong data-v="pelanggan">—</strong>
+              </div>
+
+              <table class="nota-tabel">
+                <thead>
+                  <tr>
+                    <th class="k-nama">Keterangan</th>
+                    <th class="k-jml">Jml</th>
+                    <th class="k-harga">Harga</th>
+                    <th class="k-total">Jumlah</th>
+                  </tr>
+                </thead>
+                <tbody data-baris-nota></tbody>
+              </table>
+
+              <div class="nota-jumlah" data-jumlah></div>
+
+              <p class="nota-catatan" data-v="catatan"></p>
+
+              <p class="nota-kaki">
+                Nota ini dibuat dengan alat gratis di bedahdata.online
+              </p>
+            </div>
+
+            <!-- 🟢 Tawaran bonus — bukan syarat memakai alatnya (spek §0). -->
+            <div class="tawaran no-print">
+              <p class="tawaran-teks">{NOTA.bonusWa}</p>
+              <a
+                href={waLink(NOTA.pesanWa)}
+                class="btn btn-primary tombol-wa"
+                target="_blank"
+                rel="noopener"
+                data-sumber="alat-nota">Tanya lewat WhatsApp</a
+              >
+              <p class="tawaran-catatan">
+                Notanya bebas dibuat berapa pun tanpa menghubungi siapa pun. Tombol ini
+                hanya kalau Anda mau bertanya.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="catatan-privasi">
+        🔒 Semua yang Anda ketik diproses di dalam browser Anda sendiri dan
+        <strong>tidak dikirim ke server kami</strong>. Kami tidak bisa melihat nama toko,
+        nama pelanggan, maupun angka apa pun di halaman ini. Menutup halaman akan
+        menghapus isinya.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------------- Cara membuat nota yang benar ---------------- -->
+  <section class="tinted no-print">
+    <div class="wrap-narrow">
+      <article class="prose penjelasan reveal" set:html={NOTA.penjelasan} />
+    </div>
+  </section>
+
+  <!-- ---------------- FAQ ---------------- -->
+  <section class="no-print">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Pertanyaan umum</span>
+        <h2>Yang sering ditanyakan</h2>
+      </div>
+      <Faq items={NOTA.faq} />
+    </div>
+  </section>
+
+  <!-- ---------------- Alat lain ---------------- -->
+  <section class="tinted no-print">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Alat lain yang mungkin berguna</h2>
+        <p>Semuanya bebas dipakai, tanpa perlu mendaftar.</p>
+      </div>
+      <div class="grid-lain">
+        {
+          tautanLain.map((a, i) => (
+            <a href={a.href} class="card card-lift kartu-lain reveal" style={`--reveal-delay:${i * 60}ms`}>
+              <h3>{a.judulPendek}</h3>
+              <p>{a.ringkas}</p>
+              <span class="buka">
+                Buka
+                <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- CTA halus ---------------- -->
+  <section class="dark-panel cta-halus no-print">
+    <div class="wrap-narrow isi reveal">
+      <h2>Kalau notanya sudah puluhan per hari</h2>
+      <p>
+        Membuat nota satu per satu seperti ini cukup untuk beberapa transaksi sehari, dan
+        silakan dipakai selamanya. Tapi kalau nomornya harus berurut sendiri, stok ikut
+        berkurang saat barang terjual, dan piutang perlu tercatat tanpa dihitung manual —
+        itu yang kami kerjakan di ERP Studio.
+      </p>
+      <div class="tombol">
+        <a href="/solusi/" class="btn btn-primary">Lihat Cara Kerjanya</a>
+        <a
+          href={waLink(
+            'Halo Bedah Data, saya habis pakai generator nota di website. Boleh tanya-tanya soal ERP Studio?',
+          )}
+          class="btn btn-onDark"
+          target="_blank"
+          rel="noopener"
+          data-sumber="cta-alat-nota">Tanya Dulu via WhatsApp</a
+        >
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  // ==========================================================================
+  // GENERATOR NOTA — seluruhnya berjalan di browser pengguna.
+  // ==========================================================================
+  (function () {
+    const akar = document.querySelector('[data-nota]');
+    if (!akar) return;
+
+    const wadahItem = akar.querySelector('[data-item-wadah]');
+    const barisNota = akar.querySelector('[data-baris-nota]');
+    const wadahJumlah = akar.querySelector('[data-jumlah]');
+
+    const fmtRupiah = new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      maximumFractionDigits: 0,
+    });
+
+    const keAngka = (teks) => {
+      if (typeof teks !== 'string') return 0;
+      const bersih = teks.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
+      const n = parseFloat(bersih);
+      return Number.isFinite(n) ? n : 0;
+    };
+
+    const rapikanRibuan = (teks) => {
+      const angkaSaja = teks.replace(/[^\d]/g, '');
+      if (!angkaSaja) return '';
+      return angkaSaja.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
+    const amanHtml = (teks) =>
+      String(teks)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    // --- Baris barang --------------------------------------------------------
+    const buatBaris = (nama, jumlah, harga) => {
+      const baris = document.createElement('div');
+      baris.className = 'item';
+      baris.innerHTML =
+        '<input type="text" class="i-nama" placeholder="Nama barang / jasa" aria-label="Nama barang" value="' +
+        (nama || '') +
+        '">' +
+        '<input type="text" inputmode="decimal" class="i-jml" placeholder="Jml" aria-label="Jumlah" value="' +
+        (jumlah || '') +
+        '">' +
+        '<input type="text" inputmode="decimal" class="i-harga" placeholder="Harga" aria-label="Harga satuan" value="' +
+        (harga || '') +
+        '">' +
+        '<button type="button" class="i-hapus" aria-label="Hapus baris ini">&times;</button>';
+
+      baris.querySelector('.i-hapus').addEventListener('click', () => {
+        baris.remove();
+        // Selalu sisakan minimal satu baris supaya alatnya tidak terlihat rusak.
+        if (!wadahItem.querySelector('.item')) tambahBaris();
+        gambar();
+      });
+
+      baris.querySelectorAll('input').forEach((el) => {
+        el.addEventListener('input', () => {
+          if (el.classList.contains('i-harga')) {
+            const rapi = rapikanRibuan(el.value);
+            if (rapi !== el.value) el.value = rapi;
+          }
+          gambar();
+        });
+      });
+
+      wadahItem.appendChild(baris);
+      return baris;
+    };
+
+    const tambahBaris = () => buatBaris('', '', '');
+
+    akar.querySelector('[data-tambah]').addEventListener('click', () => {
+      const baris = tambahBaris();
+      baris.querySelector('.i-nama').focus();
+      gambar();
+    });
+
+    // --- Menggambar pratinjau ------------------------------------------------
+    const isiTeks = (kunci, teks, kosong) => {
+      const el = akar.querySelector('[data-v="' + kunci + '"]');
+      if (!el) return;
+      const nilai = String(teks || '').trim();
+      el.textContent = nilai || kosong || '';
+      if (!kosong) el.hidden = !nilai;
+    };
+
+    const gambar = () => {
+      const ambil = (f) => {
+        const el = akar.querySelector('[data-f="' + f + '"]');
+        return el ? el.value : '';
+      };
+
+      isiTeks('toko', ambil('toko'), 'Nama Toko');
+      isiTeks('alamat', ambil('alamat'));
+      isiTeks('telepon', ambil('telepon'));
+      isiTeks('nomor', ambil('nomor'), '—');
+      isiTeks('pelanggan', ambil('pelanggan'), '—');
+      isiTeks('catatan', ambil('catatan'));
+
+      // Tanggal ditulis dalam format Indonesia yang mudah dibaca.
+      const tgl = ambil('tanggal');
+      let tglTampil = '—';
+      if (tgl) {
+        const d = new Date(tgl + 'T00:00:00');
+        if (!isNaN(d.getTime())) {
+          tglTampil = d.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          });
+        }
+      }
+      isiTeks('tanggal', tglTampil, '—');
+
+      // --- Baris barang ---
+      let subtotal = 0;
+      const potongan = [];
+      wadahItem.querySelectorAll('.item').forEach((baris) => {
+        const nama = baris.querySelector('.i-nama').value.trim();
+        const jml = keAngka(baris.querySelector('.i-jml').value);
+        const harga = keAngka(baris.querySelector('.i-harga').value);
+        if (!nama && !jml && !harga) return;
+
+        const total = jml * harga;
+        subtotal += total;
+        potongan.push(
+          '<tr><td class="k-nama">' +
+            amanHtml(nama || '—') +
+            '</td><td class="k-jml">' +
+            (jml || 0) +
+            '</td><td class="k-harga">' +
+            fmtRupiah.format(Math.round(harga)) +
+            '</td><td class="k-total">' +
+            fmtRupiah.format(Math.round(total)) +
+            '</td></tr>',
+        );
+      });
+
+      barisNota.innerHTML =
+        potongan.join('') ||
+        '<tr class="kosong"><td colspan="4">Belum ada barang. Isi daftar di sebelah kiri.</td></tr>';
+
+      // --- Jumlah ---
+      const diskon = keAngka(ambil('diskon'));
+      const persenPajak = keAngka(ambil('pajak'));
+      const setelahDiskon = Math.max(0, subtotal - diskon);
+      const nilaiPajak = setelahDiskon * (persenPajak / 100);
+      const total = setelahDiskon + nilaiPajak;
+
+      const barisJumlah = [
+        '<div class="j-baris"><span>Subtotal</span><strong>' +
+          fmtRupiah.format(Math.round(subtotal)) +
+          '</strong></div>',
+      ];
+      if (diskon > 0) {
+        barisJumlah.push(
+          '<div class="j-baris"><span>Diskon</span><strong>−' +
+            fmtRupiah.format(Math.round(diskon)) +
+            '</strong></div>',
+        );
+      }
+      if (persenPajak > 0) {
+        barisJumlah.push(
+          '<div class="j-baris"><span>Pajak ' +
+            persenPajak +
+            '%</span><strong>' +
+            fmtRupiah.format(Math.round(nilaiPajak)) +
+            '</strong></div>',
+        );
+      }
+      barisJumlah.push(
+        '<div class="j-baris j-total"><span>Total</span><strong>' +
+          fmtRupiah.format(Math.round(total)) +
+          '</strong></div>',
+      );
+      wadahJumlah.innerHTML = barisJumlah.join('');
+    };
+
+    // --- Logo: dibaca lokal, tidak diunggah ke mana pun ----------------------
+    const inputLogo = akar.querySelector('[data-f="logo"]');
+    const imgLogo = akar.querySelector('[data-v="logo"]');
+    inputLogo.addEventListener('change', () => {
+      const berkas = inputLogo.files && inputLogo.files[0];
+      if (!berkas) {
+        imgLogo.hidden = true;
+        return;
+      }
+      const pembaca = new FileReader();
+      pembaca.onload = (e) => {
+        imgLogo.src = e.target.result;
+        imgLogo.hidden = false;
+      };
+      pembaca.readAsDataURL(berkas);
+    });
+
+    // --- Pemasangan ----------------------------------------------------------
+    akar.querySelectorAll('[data-f]').forEach((el) => {
+      if (el.type === 'file') return;
+      el.addEventListener('input', () => {
+        if (el.hasAttribute('data-uang')) {
+          const rapi = rapikanRibuan(el.value);
+          if (rapi !== el.value) el.value = rapi;
+        }
+        gambar();
+      });
+      el.addEventListener('change', gambar);
+    });
+
+    // Tanggal hari ini sebagai nilai awal — paling sering itu yang dipakai.
+    const elTanggal = akar.querySelector('[data-f="tanggal"]');
+    const kini = new Date();
+    elTanggal.value =
+      kini.getFullYear() +
+      '-' +
+      String(kini.getMonth() + 1).padStart(2, '0') +
+      '-' +
+      String(kini.getDate()).padStart(2, '0');
+
+    // Tiga baris kosong sebagai awalan — cukup untuk nota sederhana.
+    tambahBaris();
+    tambahBaris();
+    tambahBaris();
+    gambar();
+
+    // --- Cetak ---------------------------------------------------------------
+    // 🔴 Event `Lead` dikirim di sini, bukan saat mengetik: menekan cetak
+    //    adalah tanda paling jelas bahwa alatnya benar-benar dipakai.
+    akar.querySelector('[data-cetak]').addEventListener('click', () => {
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', {
+          content_name: 'Generator Nota',
+          content_category: 'alat-gratis',
+        });
+      }
+      window.print();
+    });
+  })();
+</script>
+
+<style>
+  .kepala {
+    padding: clamp(38px, 5vw, 60px) 0 clamp(38px, 5vw, 58px);
+    text-align: center;
+  }
+
+  .remah {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 14px;
+  }
+
+  .remah a {
+    color: #8ef0ab;
+    font-weight: 600;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 15px;
+    margin-bottom: 0;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .blok-nota {
+    padding-top: clamp(30px, 4vw, 44px);
+  }
+
+  .tata {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 26px;
+    align-items: start;
+  }
+
+  @media (max-width: 980px) {
+    .tata {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---------------- Isian ---------------- */
+  .isian {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(22px, 3vw, 30px);
+  }
+
+  .judul-kolom {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-deep);
+    margin-bottom: 18px;
+  }
+
+  .judul-kolom.pisah {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .baris {
+    margin-bottom: 16px;
+  }
+
+  .dua {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 520px) {
+    .dua {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  label {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--heading);
+    margin-bottom: 7px;
+  }
+
+  .opsional {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 2px 8px;
+    vertical-align: middle;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 16px; /* 🔴 16px: mencegah iOS memperbesar layar saat difokus */
+    color: var(--heading);
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+
+  textarea {
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3.5px rgba(46, 204, 88, 0.16);
+  }
+
+  input[type='file'] {
+    padding: 10px 12px;
+    font-size: 13.5px;
+    cursor: pointer;
+  }
+
+  /* ---------------- Daftar barang ---------------- */
+  .daftar-item :global(.item) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 62px 108px 40px;
+    gap: 8px;
+    margin-bottom: 9px;
+    align-items: center;
+  }
+
+  @media (max-width: 620px) {
+    .daftar-item :global(.item) {
+      grid-template-columns: minmax(0, 1fr) 54px 96px 38px;
+      gap: 6px;
+    }
+  }
+
+  .daftar-item :global(.item input) {
+    min-height: 46px;
+    padding: 10px 11px;
+    /* 🔴 16px, bukan 15px: di iOS, kolom isian di bawah 16px membuat Safari
+       otomatis memperbesar layar saat difokus — dan halaman jadi meleset ke
+       samping. Terbukti di QA mobile 375px. */
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .daftar-item :global(.i-jml),
+  .daftar-item :global(.i-harga) {
+    text-align: right;
+  }
+
+  .daftar-item :global(.i-hapus) {
+    width: 100%;
+    min-height: 46px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-muted);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .daftar-item :global(.i-hapus:hover) {
+    background: #fdf3f2;
+    border-color: #f0c9c4;
+    color: #8a3225;
+  }
+
+  .tombol-tambah {
+    width: 100%;
+    min-height: 46px;
+    font-size: 14.5px;
+    margin-top: 4px;
+  }
+
+  /* ---------------- Pratinjau ---------------- */
+  .pratinjau-sticky {
+    position: sticky;
+    top: 94px;
+  }
+
+  @media (max-width: 980px) {
+    .pratinjau-sticky {
+      position: static;
+    }
+  }
+
+  .pratinjau-kepala {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .pratinjau-kepala .judul-kolom {
+    margin-bottom: 0;
+  }
+
+  .tombol-cetak {
+    min-height: 46px;
+    padding: 11px 20px;
+    font-size: 14.5px;
+  }
+
+  .tanpa-js {
+    font-size: 14.5px;
+    line-height: 1.7;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: 0 12px 12px 0;
+    padding: 15px 17px;
+    margin-bottom: 14px;
+  }
+
+  /* --- Kertas nota --- */
+  .nota-kertas {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow-md);
+    padding: clamp(22px, 3vw, 32px);
+    color: #22312c;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .nota-atas {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--heading);
+  }
+
+  .nota-logo {
+    max-height: 48px;
+    width: auto;
+    margin-bottom: 8px;
+  }
+
+  .nota-nama {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+
+  .nota-alamat,
+  .nota-telepon {
+    font-size: 13px;
+    color: #5f6f6a;
+    margin-bottom: 2px;
+    white-space: pre-line;
+  }
+
+  .nota-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .nota-judul {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--heading);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
+  .nota-meta p {
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  .nota-meta span {
+    color: #5f6f6a;
+  }
+
+  .nota-kepada {
+    padding: 14px 0;
+    font-size: 13.5px;
+  }
+
+  .nota-kepada span {
+    color: #5f6f6a;
+    margin-right: 8px;
+  }
+
+  .nota-tabel {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .nota-tabel th {
+    background: var(--heading);
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 9px 11px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+
+  .nota-tabel td {
+    padding: 9px 11px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .nota-tabel :global(.k-jml),
+  .nota-tabel :global(.k-harga),
+  .nota-tabel :global(.k-total) {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .nota-tabel th.k-jml,
+  .nota-tabel th.k-harga,
+  .nota-tabel th.k-total {
+    text-align: right;
+  }
+
+  .nota-tabel :global(.kosong td) {
+    text-align: center;
+    color: #8b9a95;
+    font-style: italic;
+    padding: 20px 11px;
+  }
+
+  .nota-jumlah {
+    margin-top: 16px;
+    margin-left: auto;
+    max-width: 280px;
+  }
+
+  .nota-jumlah :global(.j-baris) {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 6px 0;
+    font-size: 13.5px;
+  }
+
+  .nota-jumlah :global(.j-total) {
+    border-top: 2px solid var(--heading);
+    margin-top: 6px;
+    padding-top: 10px;
+    font-size: 16.5px;
+  }
+
+  .nota-jumlah :global(.j-total strong) {
+    color: var(--heading);
+    font-size: 18px;
+  }
+
+  .nota-catatan {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    font-size: 13px;
+    color: #5f6f6a;
+    white-space: pre-line;
+  }
+
+  .nota-kaki {
+    margin-top: 18px;
+    font-size: 11px;
+    color: #93a19c;
+    text-align: center;
+  }
+
+  /* ---------------- Tawaran & catatan ---------------- */
+  .tawaran {
+    margin-top: 22px;
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .tawaran-teks {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--heading);
+    font-weight: 500;
+    margin-bottom: 13px;
+  }
+
+  .tombol-wa {
+    width: 100%;
+  }
+
+  .tawaran-catatan {
+    font-size: 12.8px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-top: 11px;
+    margin-bottom: 0;
+  }
+
+  .catatan-privasi {
+    max-width: 800px;
+    margin: 26px auto 0;
+    font-size: 13.8px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  /* ---------------- Bagian bawah ---------------- */
+  .penjelasan :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .grid-lain {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 940px) {
+    .grid-lain {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid-lain {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kartu-lain {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px;
+  }
+
+  .kartu-lain h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  .kartu-lain p {
+    font-size: 14.2px;
+    color: var(--text-muted);
+    flex-grow: 1;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .buka {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .cta-halus {
+    padding: clamp(50px, 6.5vw, 78px) 0;
+  }
+
+  .isi {
+    text-align: center;
+  }
+
+  .isi p {
+    font-size: 16.5px;
+    opacity: 0.93;
+    max-width: 640px;
+    margin: 14px auto 28px;
+  }
+
+  .tombol {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 480px) {
+    .tombol {
+      flex-direction: column;
+    }
+    .tombol .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<!-- ==========================================================================
+     CETAK — hanya kertas notanya yang ikut tercetak.
+     🔴 Ditulis sebagai <style is:global> karena harus menjangkau header,
+        footer, dan elemen di luar komponen ini.
+     ========================================================================== -->
+<style is:global>
+  @media print {
+    /* ======================================================================
+       Hanya kertas nota yang boleh tercetak.
+       🔴 JANGAN memakai pola `body > * { display:none }` lalu memunculkan
+          kembali anak-anaknya — elemen yang induknya disembunyikan TIDAK
+          bisa dimunculkan lagi oleh aturan pada anaknya. Terbukti 5 Agu 2026:
+          notanya kosong sama sekali saat dicetak.
+
+       Pola yang dipakai di bawah: semua elemen disembunyikan dengan
+       `visibility` (bukan `display`), lalu HANYA kertas nota beserta isinya
+       dimunculkan kembali dan dipindahkan ke pojok kiri atas halaman.
+       `visibility` bekerja karena anak boleh menimpa nilai induknya.
+       ====================================================================== */
+    * {
+      visibility: hidden !important;
+    }
+
+    .nota-kertas,
+    .nota-kertas * {
+      visibility: visible !important;
+    }
+
+    /* Elemen yang benar-benar tidak boleh menyisakan ruang kosong di kertas. */
+    .site-header,
+    .no-print,
+    .isian,
+    .catatan-privasi,
+    footer {
+      display: none !important;
+    }
+
+    html,
+    body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #fff !important;
+    }
+
+    .nota-kertas {
+      position: absolute !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 100% !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-size: 11.5pt;
+      color: #000 !important;
+      background: #fff !important;
+    }
+
+    /* Pratinjau tidak boleh "menempel" saat dicetak — kalau tetap sticky,
+       posisinya bisa meleset dari halaman kertas. */
+    .pratinjau-sticky {
+      position: static !important;
+    }
+
+    .nota-tabel th {
+      /* Latar gelap tetap dicetak — tanpa ini header tabel jadi putih polos
+         di sebagian browser dan notanya terlihat belum jadi. */
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      background: #0e3d33 !important;
+      color: #fff !important;
+    }
+
+    .nota-tabel tr {
+      page-break-inside: avoid;
+    }
+
+    @page {
+      margin: 16mm;
+    }
+  }
+</style>

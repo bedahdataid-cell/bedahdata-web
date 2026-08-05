@@ -4,7 +4,7 @@
 // Berisi: meta SEO, Open Graph, data terstruktur, header, footer, dan
 // animasi masuk saat digulir.
 // ============================================================================
-import { SITE } from '../config';
+import { SITE, META_PIXEL_ID } from '../config';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -139,6 +139,44 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {
+      /* ====================================================================
+         META PIXEL — hanya dimuat kalau META_PIXEL_ID sudah diisi di
+         config.ts. Selama kosong, blok ini tidak ikut ter-render sama sekali:
+         nol permintaan jaringan, nol error.
+
+         🔴 Event yang dipakai (SPEK_TOOLS_GRATIS_WEB §6):
+            PageView  — otomatis di sini
+            Lead      — saat hasil kalkulator keluar  (dipicu Kalkulator.astro)
+            Contact   — saat tombol WhatsApp diklik   (dipicu tautan .lacak-wa)
+         ==================================================================== */
+      META_PIXEL_ID && (
+        <Fragment>
+          <script
+            is:inline
+            define:vars={{ pixelId: META_PIXEL_ID }}
+            set:html={`
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', pixelId);
+fbq('track', 'PageView');`}
+          />
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style="display:none"
+              alt=""
+              src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+            />
+          </noscript>
+        </Fragment>
+      )
+    }
   </head>
 
   <body>
@@ -153,6 +191,32 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
       // Tandai bahwa JavaScript aktif. Kalau baris ini tidak jalan, aturan
       // .no-js di CSS memastikan semua konten tetap terlihat.
       document.documentElement.classList.remove('no-js');
+    </script>
+
+    <script>
+      // ======================================================================
+      // EVENT `Contact` — setiap tautan WhatsApp di seluruh situs.
+      // Dipasang sekali di sini (event delegation), bukan satu per satu di
+      // tiap tombol — jadi tombol WA baru otomatis ikut terlacak tanpa perlu
+      // diingat. Kalau pixel belum dipasang, fbq tidak ada dan blok ini
+      // diam saja tanpa error.
+      // ======================================================================
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        const tautan = target?.closest?.('a[href*="wa.me"]');
+        if (!tautan) return;
+
+        const fbq = (window as any).fbq;
+        if (typeof fbq !== 'function') return;
+
+        // `sumber` diisi manual di halaman alat supaya di Events Manager
+        // terlihat tombol WA mana yang diklik.
+        // `Contact` adalah event BAKU Meta (bukan custom) — dipakai apa
+        // adanya supaya bisa dijadikan tujuan optimasi kampanye nanti.
+        fbq('track', 'Contact', {
+          content_name: tautan.getAttribute('data-sumber') || 'umum',
+        });
+      });
     </script>
 
     <script>

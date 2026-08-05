@@ -1,0 +1,297 @@
+---
+// ============================================================================
+// HALAMAN ALAT — satu berkas ini menghasilkan SEMUA halaman kalkulator.
+// Menambah alat baru cukup menambah satu objek di src/data/alat.ts;
+// halamannya terbentuk sendiri.
+//
+// Anatomi halaman mengikuti SPEK_TOOLS_GRATIS_WEB §6 — urutannya tidak
+// boleh diacak, karena inilah yang membuat halaman terbaca mesin pencari
+// sekaligus berguna untuk pengunjung:
+//   H1 → kalkulator → tombol WA → cara menghitung → FAQ → CTA halus
+// ============================================================================
+import Layout from '../../../layouts/Layout.astro';
+import Kalkulator from '../../../components/Kalkulator.astro';
+import Faq from '../../../components/Faq.astro';
+import { ALAT, KELOMPOK, SEMUA_ALAT } from '../../../data/alat';
+import { SITE, waLink } from '../../../config';
+
+export function getStaticPaths() {
+  return ALAT.map((alat) => ({
+    params: { kelompok: alat.kelompok, slug: alat.slug },
+    props: { alat },
+  }));
+}
+
+const { alat } = Astro.props;
+const kelompok = KELOMPOK[alat.kelompok];
+const urlHalaman = `${SITE.url}/alat/${alat.kelompok}/${alat.slug}/`;
+
+// Alat lain untuk saling menautkan — 🔵 saling menaut menguatkan SEO
+// (spek §6 syarat 5). Sekelompok didahulukan karena paling relevan.
+const lainnya = SEMUA_ALAT.filter((a) => a.slug !== alat.slug);
+const sekelompok = lainnya.filter((a) => a.kelompok === alat.kelompok);
+const kelompokLain = lainnya.filter((a) => a.kelompok !== alat.kelompok);
+const tautanLain = [...sekelompok, ...kelompokLain].slice(0, 4);
+
+// --- Data terstruktur -------------------------------------------------------
+// 🔴 SENGAJA tanpa aggregateRating/review — klien komersial masih nol.
+const schema = [
+  {
+    '@type': 'WebApplication',
+    '@id': `${urlHalaman}#aplikasi`,
+    name: alat.judul,
+    url: urlHalaman,
+    description: alat.deskripsi,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    inLanguage: 'id-ID',
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'IDR' },
+    publisher: { '@id': `${SITE.url}/#organization` },
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${urlHalaman}#faq`,
+    mainEntity: alat.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.tanya,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        // Tag HTML dibuang: schema meminta teks polos.
+        text: f.jawab.replace(/<[^>]+>/g, '').trim(),
+      },
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${urlHalaman}#remah`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Beranda', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Alat Gratis', item: `${SITE.url}/alat/` },
+      { '@type': 'ListItem', position: 3, name: alat.judulPendek, item: urlHalaman },
+    ],
+  },
+];
+---
+
+<Layout title={alat.judulSeo} description={alat.deskripsi} schema={schema}>
+  <!-- ---------------- Kepala halaman ---------------- -->
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <nav class="remah" aria-label="Anda di sini">
+        <a href="/alat/">Alat Gratis</a>
+        <span aria-hidden="true">›</span>
+        <span>{kelompok.nama}</span>
+      </nav>
+      <h1>{alat.judul}</h1>
+      <p>{alat.ringkas}</p>
+    </div>
+  </section>
+
+  <!-- ---------------- Kalkulator ---------------- -->
+  <!-- 🔴 HTML biasa, bukan iframe — mesin pencari harus bisa membacanya. -->
+  <Kalkulator alat={alat} />
+
+  <!-- ---------------- Cara menghitungnya ---------------- -->
+  <section class="tinted">
+    <div class="wrap-narrow">
+      <article class="prose penjelasan reveal" set:html={alat.penjelasan} />
+    </div>
+  </section>
+
+  <!-- ---------------- FAQ ---------------- -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Pertanyaan umum</span>
+        <h2>Yang sering ditanyakan</h2>
+      </div>
+      <Faq items={alat.faq} />
+    </div>
+  </section>
+
+  <!-- ---------------- Alat lain (saling menaut) ---------------- -->
+  <section class="tinted alat-lain">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Alat lain yang mungkin berguna</h2>
+        <p>Semuanya bebas dipakai, tanpa perlu mendaftar.</p>
+      </div>
+      <div class="grid-lain">
+        {
+          tautanLain.map((a, i) => (
+            <a href={a.href} class="card card-lift kartu-lain reveal" style={`--reveal-delay:${i * 60}ms`}>
+              <h3>{a.judulPendek}</h3>
+              <p>{a.ringkas}</p>
+              <span class="buka">
+                Buka
+                <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- CTA halus ---------------- -->
+  <!-- 🔴 Nada: batas yang jujur, bukan jualan (spek §7). -->
+  <section class="dark-panel cta-halus">
+    <div class="wrap-narrow isi reveal">
+      <h2>Kalau hitungan ini mulai makan waktu tiap bulan</h2>
+      <p>
+        Alat di atas cukup untuk hitungan sesekali, dan silakan dipakai selamanya tanpa
+        membeli apa pun. Tapi kalau tiap bulan angkanya harus direkap ulang satu per satu
+        dan perlu tersambung ke penjualan dan stok, itu yang kami kerjakan di ERP Studio —
+        datanya tetap tersimpan di Google Drive usaha Anda sendiri.
+      </p>
+      <div class="tombol">
+        <a href="/solusi/" class="btn btn-primary">Lihat Cara Kerjanya</a>
+        <a
+          href={waLink(
+            `Halo Bedah Data, saya habis pakai ${alat.judulPendek} di website. Boleh tanya-tanya soal ERP Studio?`,
+          )}
+          class="btn btn-onDark"
+          target="_blank"
+          rel="noopener"
+          data-sumber={`cta-alat-${alat.slug}`}>Tanya Dulu via WhatsApp</a
+        >
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(38px, 5vw, 60px) 0 clamp(38px, 5vw, 58px);
+    text-align: center;
+  }
+
+  .remah {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 14px;
+  }
+
+  .remah a {
+    color: #8ef0ab;
+    font-weight: 600;
+  }
+
+  .remah a:hover {
+    color: #fff;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 15px;
+    margin-bottom: 0;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .penjelasan :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .grid-lain {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 940px) {
+    .grid-lain {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid-lain {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kartu-lain {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px;
+  }
+
+  .kartu-lain h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  .kartu-lain p {
+    font-size: 14.2px;
+    color: var(--text-muted);
+    flex-grow: 1;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .buka {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .buka svg {
+    transition: transform 0.28s var(--ease);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .kartu-lain:hover .buka svg {
+      transform: translateX(4px);
+    }
+  }
+
+  .cta-halus {
+    padding: clamp(50px, 6.5vw, 78px) 0;
+  }
+
+  .isi {
+    text-align: center;
+  }
+
+  .isi p {
+    font-size: 16.5px;
+    opacity: 0.93;
+    max-width: 640px;
+    margin: 14px auto 28px;
+  }
+
+  .tombol {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 480px) {
+    .tombol {
+      flex-direction: column;
+    }
+    .tombol .btn {
+      width: 100%;
+    }
+  }
+</style>

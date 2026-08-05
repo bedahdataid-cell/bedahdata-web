@@ -37,15 +37,39 @@ export const SOCIALS = [
 
 export const PRIVACY_URL = 'https://bedahdataid-cell.github.io/bedahdata-legal/';
 
+// --- Meta Pixel --------------------------------------------------------------
+// 🔴 ISI ID-nya di sini saat pixel sudah dibuat di Meta Events Manager.
+//    Selama masih string kosong, kode pixel TIDAK dimuat sama sekali — situs
+//    tetap jalan normal, tidak ada permintaan jaringan ke Facebook, dan tidak
+//    ada error di console. Jadi aman ditinggal kosong sampai owner siap.
+//
+//    Cara mengisi: Events Manager → Data Sources → pilih pixel → salin
+//    angka Pixel ID (15–16 digit) ke dalam tanda kutip di bawah.
+//
+// 🔵 Kenapa dipasang sekarang walau ID belum ada: halaman alat gratis inilah
+//    yang melatih pixel TANPA biaya iklan (SPEK_TOOLS_GRATIS_WEB §6). Kalau
+//    kodenya baru dipasang belakangan, semua kunjungan sebelum itu hangus.
+export const META_PIXEL_ID = '';
+
 // --- Menu navigasi utama -----------------------------------------------------
-// 🔴 Maksimal 6 item. Lebih dari itu membingungkan, terutama di HP.
+// 🟢 7 item (owner, 5 Agu 2026) — batas lama 6 sengaja dilampaui supaya
+//    "Alat Gratis" punya pintu masuk di menu utama. Alat gratis adalah mesin
+//    trafik organik (SPEK_TOOLS_GRATIS_WEB §6 syarat 5: wajib ditautkan dari
+//    menu utama), jadi menyembunyikannya di footer meniadakan tujuannya.
+// 🔴 Jangan tambah item ke-8 tanpa mencabut salah satunya.
+// 🔴 GARIS MIRING DI AKHIR WAJIB ADA. astro.config.mjs memakai
+//    trailingSlash: 'always', jadi alamat tanpa garis miring dijawab 307
+//    (redirect) — bukan 200. Tanpa ini, prefetch bawaan Astro meminta alamat
+//    yang salah dan menghasilkan 404/307 beruntun di console.
+//    Terbukti di QA 5 Agu 2026: enam permintaan 404 di setiap halaman.
 export const NAV = [
   { label: 'Beranda', href: '/' },
-  { label: 'Solusi', href: '/solusi' },
-  { label: 'Harga', href: '/harga' },
-  { label: 'Panduan', href: '/panduan' },
-  { label: 'FAQ', href: '/faq' },
-  { label: 'Tentang', href: '/tentang' },
+  { label: 'Solusi', href: '/solusi/' },
+  { label: 'Alat Gratis', href: '/alat/' },
+  { label: 'Harga', href: '/harga/' },
+  { label: 'Panduan', href: '/panduan/' },
+  { label: 'FAQ', href: '/faq/' },
+  { label: 'Tentang', href: '/tentang/' },
 ] as const;
 
 // --- Halaman segmen (dipakai di footer & halaman solusi) ---------------------

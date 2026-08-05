@@ -51,7 +51,7 @@ const schema = {
         semua.length === 0 ? (
           <p class="kosong">
             Artikel pertama sedang disiapkan. Sementara ini, silakan lihat{' '}
-            <a href="/faq">pertanyaan umum</a>.
+            <a href="/faq/">pertanyaan umum</a>.
           </p>
         ) : (
           <>
@@ -68,7 +68,7 @@ const schema = {
                 <article class="card card-lift artikel reveal" style={`--reveal-delay:${i * 70}ms`}>
                   <span class="kategori">{artikel.data.kategori}</span>
                   <h2>
-                    <a href={`/panduan/${artikel.id}`}>{artikel.data.judul}</a>
+                    <a href={`/panduan/${artikel.id}/`}>{artikel.data.judul}</a>
                   </h2>
                   <p>{artikel.data.deskripsi}</p>
                   <footer>

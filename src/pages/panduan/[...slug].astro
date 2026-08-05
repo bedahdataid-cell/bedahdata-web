@@ -69,7 +69,7 @@ const schema = [
         <nav class="remah" aria-label="Anda di sini">
           <a href="/">Beranda</a>
           <span aria-hidden="true">›</span>
-          <a href="/panduan">Panduan</a>
+          <a href="/panduan/">Panduan</a>
         </nav>
         <span class="kategori">{d.kategori}</span>
         <h1>{d.judul}</h1>
@@ -120,7 +120,7 @@ const schema = [
             kalau ingin dibantu sampai pencatatannya benar-benar jalan, ceritakan saja kondisi
             usaha Anda lewat WhatsApp. Gratis, tanpa keharusan beli.
           </p>
-          <a href="/kontak" class="btn btn-ghost">Lihat cara menghubungi kami</a>
+          <a href="/kontak/" class="btn btn-ghost">Lihat cara menghubungi kami</a>
         </aside>
 
         {
@@ -129,7 +129,7 @@ const schema = [
               <h2>Bacaan lain</h2>
               <div class="grid-lanjutan">
                 {lainnya.map((a) => (
-                  <a href={`/panduan/${a.id}`} class="card card-lift kartu-lanjutan">
+                  <a href={`/panduan/${a.id}/`} class="card card-lift kartu-lanjutan">
                     <span class="kategori kecil">{a.data.kategori}</span>
                     <h3>{a.data.judul}</h3>
                   </a>

@@ -28,19 +28,19 @@ const tahun = new Date().getFullYear();
       <div>
         <h2 class="judul-kolom">Halaman</h2>
         <ul>
-          <li><a href="/solusi">Solusi &amp; Modul</a></li>
-          <li><a href="/harga">Harga</a></li>
-          <li><a href="/panduan">Panduan &amp; Artikel</a></li>
-          <li><a href="/faq">Pertanyaan Umum</a></li>
-          <li><a href="/tentang">Tentang Kami</a></li>
-          <li><a href="/kontak">Kontak</a></li>
+          <li><a href="/solusi/">Solusi &amp; Modul</a></li>
+          <li><a href="/harga/">Harga</a></li>
+          <li><a href="/panduan/">Panduan &amp; Artikel</a></li>
+          <li><a href="/faq/">Pertanyaan Umum</a></li>
+          <li><a href="/tentang/">Tentang Kami</a></li>
+          <li><a href="/kontak/">Kontak</a></li>
         </ul>
       </div>
 
       <div>
         <h2 class="judul-kolom">Untuk Usaha</h2>
         <ul>
-          {SEGMEN.map((s) => <li><a href={`/${s.slug}`}>{s.nama}</a></li>)}
+          {SEGMEN.map((s) => <li><a href={`/${s.slug}/`}>{s.nama}</a></li>)}
         </ul>
       </div>
 
