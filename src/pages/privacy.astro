@@ -1,0 +1,236 @@
+---
+// ============================================================================
+// KEBIJAKAN PRIVASI
+// 🔴 Halaman ini dibutuhkan untuk App Review platform pihak ketiga (TikTok,
+//    Meta) yang dipakai lewat Postiz self-hosted — scheduler INTERNAL yang
+//    hanya dipakai tim Bedah Data untuk menjadwalkan konten ke akun media
+//    sosial RESMI Bedah Data sendiri (Instagram, Facebook, TikTok, YouTube).
+//    Bukan aplikasi publik, tidak meminta login pengguna pihak ketiga.
+//
+//    Isi juga mencakup ERP Studio (produk utama) karena satu perusahaan
+//    hanya butuh satu kebijakan privasi yang berlaku menyeluruh.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import { SITE, WA_DISPLAY, WA_NUMBER } from '../config';
+
+const title = 'Kebijakan Privasi — Bedah Data';
+const description =
+  'Bagaimana Bedah Data mengelola data: penyimpanan data ERP Studio di Drive milik pelanggan sendiri, dan penggunaan Postiz (alat internal) untuk menjadwalkan konten ke akun media sosial resmi Bedah Data.';
+
+const diperbarui = '18 Agustus 2026';
+---
+
+<Layout title={title} description={description}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Dokumen legal</span>
+      <h1>Kebijakan Privasi</h1>
+      <p>Berlaku efektif: 13 Juni 2026 · Terakhir diperbarui: {diperbarui}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="isi reveal">
+        <p>
+          Kebijakan Privasi ini menjelaskan bagaimana <strong>Bedah Data</strong> ("kami")
+          mengelola informasi sehubungan dengan layanan yang kami sediakan (<strong
+            >ERP Studio</strong
+          >) dan alat internal yang kami pakai untuk mengelola akun media sosial resmi kami
+          sendiri.
+        </p>
+
+        <h2>1. Siapa Kami</h2>
+        <p>
+          Bedah Data adalah penyedia solusi software bisnis (ERP Studio) untuk usaha kecil dan
+          menengah (UMKM) di Indonesia. Kami juga mengelola akun media sosial resmi untuk keperluan
+          promosi: Instagram <strong>@bedahdata.id</strong>, Facebook <strong>Bedahdata.id</strong>,
+          TikTok <strong>@bedahdata</strong>, dan YouTube <strong>@bedahdata_id</strong>.
+        </p>
+
+        <h2>2. Postiz — Alat Penjadwalan Konten Internal</h2>
+        <p>
+          Untuk menjadwalkan dan memublikasikan konten promosi, kami memakai <strong>Postiz</strong
+          >, sebuah aplikasi <em>self-hosted</em> (dijalankan di server milik kami sendiri, bukan
+          layanan pihak ketiga). Berikut hal-hal penting yang perlu diketahui soal alat ini:
+        </p>
+        <ul>
+          <li>
+            <strong>Aplikasi ini bersifat internal</strong> — hanya digunakan oleh tim Bedah Data
+            sendiri. Aplikasi ini <strong>bukan aplikasi publik</strong>, tidak didistribusikan ke
+            pengguna umum, dan tidak tersedia untuk diunduh atau dipakai oleh siapa pun di luar
+            tim kami.
+          </li>
+          <li>
+            Aplikasi ini <strong>tidak meminta login dari pengguna pihak ketiga mana pun</strong> —
+            satu-satunya akun yang terhubung adalah akun media sosial resmi milik Bedah Data
+            sendiri, yang disebutkan di atas.
+          </li>
+          <li>
+            Aplikasi ini <strong
+              >tidak mengakses, mengumpulkan, menyimpan, atau memproses data pengguna lain</strong
+            > di platform mana pun (TikTok, Instagram, Facebook, YouTube). Kami tidak pernah melihat
+            atau menyimpan data pribadi pengikut, penonton, atau pengguna lain di luar akun resmi
+            kami sendiri.
+          </li>
+        </ul>
+
+        <h2>3. Data yang Kami Akses Lewat Platform Media Sosial</h2>
+        <p>Melalui API resmi tiap platform (TikTok, Meta/Facebook &amp; Instagram, YouTube), Postiz mengakses:</p>
+        <ul>
+          <li>
+            Informasi akun resmi Bedah Data sendiri (nama akun, ID akun, token akses) — untuk
+            keperluan publikasi konten.
+          </li>
+          <li>
+            Kemampuan untuk membuat dan menjadwalkan unggahan (gambar, carousel, video/Reels)
+            ke akun-akun tersebut.
+          </li>
+          <li>Statistik dasar performa konten (jangkauan, interaksi) untuk evaluasi internal.</li>
+        </ul>
+        <p>
+          Kami tidak menjual, menyewakan, atau membagikan data apa pun ke pihak ketiga untuk
+          tujuan pemasaran.
+        </p>
+
+        <h2>4. Penyimpanan &amp; Keamanan Token Akses</h2>
+        <p>
+          Token akses dan kredensial akun media sosial disimpan secara terbatas di server internal
+          kami dan hanya digunakan untuk fungsi penjadwalan &amp; publikasi konten. Kami
+          menerapkan langkah keamanan yang wajar untuk melindungi informasi tersebut dari akses
+          yang tidak sah.
+        </p>
+
+        <h2>5. Penyimpanan Data Pelanggan ERP Studio</h2>
+        <p>
+          Bagi pelanggan ERP Studio: data operasional bisnis Anda (penjualan, stok, keuangan, data
+          karyawan) disimpan di akun <strong>Google Drive milik Anda sendiri</strong>. Kami tidak
+          menyimpan salinan data keuangan atau data operasional pelanggan di server kami. Ini
+          adalah prinsip inti produk kami — data usaha Anda tetap sepenuhnya di bawah kendali Anda.
+        </p>
+
+        <h2>6. Alat Gratis di Situs Web</h2>
+        <p>
+          Kalkulator gratis di <code>/alat/</code> (mis. kalkulator HPP, THR, PPh 21) menghitung
+          langsung di peramban Anda dari angka yang Anda masukkan sendiri. Kami tidak menyimpan
+          angka yang Anda ketikkan ke kalkulator tersebut di server kami.
+        </p>
+
+        <h2>7. Penghapusan Data</h2>
+        <p>
+          Karena Postiz hanya mengelola akun media sosial milik Bedah Data sendiri, tidak ada data
+          pengguna pihak ketiga yang tersimpan untuk dihapus. Jika Anda ingin meminta penghapusan
+          data apa pun yang terkait dengan Anda (misalnya sebagai pelanggan atau calon pelanggan
+          yang pernah menghubungi kami), silakan hubungi kami melalui kontak di bawah dan kami
+          akan memprosesnya dalam waktu yang wajar.
+        </p>
+
+        <h2>8. Perubahan Kebijakan</h2>
+        <p>
+          Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Perubahan akan
+          dipublikasikan di halaman ini dengan tanggal pembaruan terbaru.
+        </p>
+
+        <h2>9. Hubungi Kami</h2>
+        <div class="kontak-box">
+          <p><strong>Bedah Data</strong></p>
+          <p>
+            Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+            WhatsApp: <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener"
+              >{WA_DISPLAY}</a
+            ><br />
+            Instagram: <a href="https://instagram.com/bedahdata.id" target="_blank" rel="noopener"
+              >@bedahdata.id</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 15.5px;
+    opacity: 0.85;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .isi p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .isi ul {
+    margin: 0 0 16px 22px;
+  }
+
+  .isi li {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .isi h2 {
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--heading);
+    font-weight: 700;
+    margin: 38px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--green);
+  }
+
+  .isi h2:first-of-type {
+    margin-top: 8px;
+  }
+
+  .isi strong {
+    color: var(--heading);
+  }
+
+  .isi code {
+    background: var(--bg);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+
+  .isi a {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.4);
+  }
+
+  .isi a:hover {
+    color: var(--heading);
+    border-bottom-color: var(--heading);
+  }
+
+  .kontak-box {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin-top: 8px;
+  }
+
+  .kontak-box p {
+    margin-bottom: 8px;
+  }
+
+  .kontak-box p:last-child {
+    margin-bottom: 0;
+  }
+</style>

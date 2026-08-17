@@ -35,7 +35,13 @@ export const SOCIALS = [
   { nama: 'YouTube bedahdata_id', url: 'https://youtube.com/@bedahdata_id' },
 ] as const;
 
-export const PRIVACY_URL = 'https://bedahdataid-cell.github.io/bedahdata-legal/';
+// 🔴 Diperbarui 18 Agu 2026 — kebijakan privasi & syarat ketentuan kini
+//    di-hosting sebagai halaman Astro di situs ini sendiri (/privacy/ dan
+//    /terms/), bukan lagi GitHub Pages terpisah. Dibutuhkan untuk App
+//    Review TikTok/Meta (Postiz self-hosted). Alamat lama tetap hidup tapi
+//    tidak lagi dirujuk dari sini.
+export const PRIVACY_URL = '/privacy/';
+export const TERMS_URL = '/terms/';
 
 // --- Meta Pixel --------------------------------------------------------------
 // 🔴 ISI ID-nya di sini saat pixel sudah dibuat di Meta Events Manager.

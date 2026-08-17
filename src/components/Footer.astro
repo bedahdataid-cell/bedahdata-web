@@ -3,7 +3,7 @@
 // FOOTER — kontak, peta halaman, dan media sosial.
 // Selalu menyediakan jalan keluar ke WhatsApp supaya pembaca tidak buntu.
 // ============================================================================
-import { SITE, SOCIALS, SEGMEN, WA_DISPLAY, WA_NUMBER, PRIVACY_URL } from '../config';
+import { SITE, SOCIALS, SEGMEN, WA_DISPLAY, WA_NUMBER, PRIVACY_URL, TERMS_URL } from '../config';
 
 const tahun = new Date().getFullYear();
 ---
@@ -71,7 +71,10 @@ const tahun = new Date().getFullYear();
 
     <div class="bawah">
       <span>© {tahun} {SITE.legalName}. Sistem manajemen bisnis untuk usaha kecil Indonesia.</span>
-      <a href={PRIVACY_URL} target="_blank" rel="noopener">Kebijakan Privasi</a>
+      <span class="tautan-legal">
+        <a href={PRIVACY_URL}>Kebijakan Privasi</a>
+        <a href={TERMS_URL}>Syarat &amp; Ketentuan</a>
+      </span>
     </div>
   </div>
 </footer>
@@ -157,6 +160,11 @@ const tahun = new Date().getFullYear();
     gap: 12px;
     font-size: 13px;
     opacity: 0.75;
+  }
+
+  .tautan-legal {
+    display: flex;
+    gap: 18px;
   }
 
   .bawah a {

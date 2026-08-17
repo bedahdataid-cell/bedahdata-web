@@ -1,0 +1,218 @@
+---
+// ============================================================================
+// SYARAT & KETENTUAN (TERMS OF SERVICE)
+// 🔴 Sama seperti privacy.astro — dibutuhkan untuk App Review platform pihak
+//    ketiga (TikTok, Meta) yang dipakai lewat Postiz self-hosted, alat
+//    INTERNAL untuk menjadwalkan konten ke akun media sosial resmi Bedah Data.
+//    Bukan produk publik, jadi isinya sengaja ringkas — bukan template ToS
+//    SaaS yang rumit.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import { SITE, WA_DISPLAY, WA_NUMBER } from '../config';
+
+const title = 'Syarat & Ketentuan — Bedah Data';
+const description =
+  'Ketentuan penggunaan situs, alat gratis, dan alat internal (Postiz) yang dipakai Bedah Data untuk mengelola akun media sosial resminya sendiri.';
+
+const diperbarui = '18 Agustus 2026';
+---
+
+<Layout title={title} description={description}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Dokumen legal</span>
+      <h1>Syarat &amp; Ketentuan</h1>
+      <p>Berlaku efektif: 18 Agustus 2026 · Terakhir diperbarui: {diperbarui}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="isi reveal">
+        <p>
+          Halaman ini menjelaskan ketentuan penggunaan situs <strong>bedahdata.online</strong>,
+          layanan <strong>ERP Studio</strong>, dan alat internal yang kami pakai untuk mengelola
+          akun media sosial resmi Bedah Data. Dokumen ini sengaja ditulis ringkas — kami bukan
+          produk publik berskala besar, jadi tidak ada gunanya menulis ketentuan yang rumit hanya
+          agar terlihat formal.
+        </p>
+
+        <h2>1. Siapa Kami</h2>
+        <p>
+          Bedah Data adalah penyedia solusi software bisnis (ERP Studio) untuk usaha kecil dan
+          menengah (UMKM) di Indonesia. Situs ini dan seluruh akun media sosial resmi kami
+          (Instagram <strong>@bedahdata.id</strong>, Facebook <strong>Bedahdata.id</strong>, TikTok
+          <strong>@bedahdata</strong>, YouTube <strong>@bedahdata_id</strong>) dikelola langsung
+          oleh tim Bedah Data.
+        </p>
+
+        <h2>2. Postiz — Alat Manajemen Konten Internal</h2>
+        <p>
+          Untuk menjadwalkan &amp; memublikasikan konten ke akun media sosial resmi kami, tim
+          Bedah Data memakai <strong>Postiz</strong>, aplikasi <em>self-hosted</em> yang kami
+          jalankan sendiri. Ketentuan penggunaannya:
+        </p>
+        <ul>
+          <li>
+            Postiz adalah <strong>tools internal</strong> — hanya dipakai oleh tim Bedah Data untuk
+            mengelola akun media sosial <strong>milik Bedah Data sendiri</strong>. Ini bukan
+            layanan yang kami jual, sewakan, atau tawarkan ke pihak ketiga mana pun.
+          </li>
+          <li>
+            Penggunaan Postiz untuk terhubung ke API TikTok, Meta (Facebook/Instagram), dan
+            YouTube tunduk pada <strong>Ketentuan Layanan &amp; Kebijakan Developer</strong> masing-masing
+            platform. Kami berkomitmen mematuhi ketentuan tersebut, termasuk hanya mengakses dan
+            memublikasikan konten pada akun yang kami miliki dan kendalikan sendiri.
+          </li>
+          <li>
+            Kami tidak menggunakan Postiz untuk mengakses, menyalahgunakan, atau menyimpan data
+            pengguna pihak ketiga di platform mana pun.
+          </li>
+        </ul>
+
+        <h2>3. Penggunaan Situs &amp; Alat Gratis</h2>
+        <p>
+          Kalkulator gratis di <code>/alat/</code> (kalkulator HPP, THR, PPh 21, dan sejenisnya)
+          disediakan sebagai alat bantu hitung sederhana. Hasil hitungannya bergantung sepenuhnya
+          pada angka yang Anda masukkan sendiri — kami tidak menjamin hasilnya sesuai dengan
+          perhitungan resmi instansi tertentu (mis. pajak), dan Anda tetap bertanggung jawab untuk
+          memverifikasi angka penting sebelum dipakai untuk keputusan resmi.
+        </p>
+
+        <h2>4. Layanan ERP Studio</h2>
+        <p>
+          ERP Studio adalah produk berbayar (lifetime license, bukan langganan) yang berjalan di
+          Google Workspace/Apps Script milik pelanggan. Ketentuan pembelian, harga, dan cakupan
+          modul dijelaskan di halaman <a href="/harga/">Harga</a> dan dibahas langsung lewat
+          WhatsApp sebelum pembelian — kami tidak menjual apa pun secara otomatis tanpa
+          persetujuan Anda terlebih dahulu.
+        </p>
+        <p>
+          Data operasional bisnis Anda tersimpan di akun Google Drive milik Anda sendiri (lihat
+          <a href="/privacy/">Kebijakan Privasi</a> untuk detail lengkapnya).
+        </p>
+
+        <h2>5. Tidak Ada Layanan yang Dijual ke Pihak Ketiga</h2>
+        <p>
+          Bedah Data tidak menjual, menyewakan, atau membagikan akses ke sistem internal kami
+          (termasuk Postiz) kepada pihak mana pun di luar tim kami sendiri. Segala bentuk kerja
+          sama (mis. reseller ERP Studio) diatur lewat kesepakatan terpisah di luar dokumen ini.
+        </p>
+
+        <h2>6. Batasan Tanggung Jawab</h2>
+        <p>
+          Situs, konten, dan alat gratis di sini disediakan apa adanya untuk membantu pemilik
+          usaha mengambil keputusan lebih jelas. Kami tidak menjanjikan hasil usaha tertentu
+          (kenaikan omzet, penghematan biaya, dsb.) — keputusan bisnis tetap sepenuhnya di tangan
+          Anda.
+        </p>
+
+        <h2>7. Perubahan Ketentuan</h2>
+        <p>
+          Kami dapat memperbarui halaman ini dari waktu ke waktu. Perubahan akan dipublikasikan di
+          halaman ini dengan tanggal pembaruan terbaru.
+        </p>
+
+        <h2>8. Hubungi Kami</h2>
+        <div class="kontak-box">
+          <p><strong>Bedah Data</strong></p>
+          <p>
+            Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+            WhatsApp: <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener"
+              >{WA_DISPLAY}</a
+            ><br />
+            Instagram: <a href="https://instagram.com/bedahdata.id" target="_blank" rel="noopener"
+              >@bedahdata.id</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 15.5px;
+    opacity: 0.85;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .isi p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .isi ul {
+    margin: 0 0 16px 22px;
+  }
+
+  .isi li {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .isi h2 {
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--heading);
+    font-weight: 700;
+    margin: 38px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--green);
+  }
+
+  .isi h2:first-of-type {
+    margin-top: 8px;
+  }
+
+  .isi strong {
+    color: var(--heading);
+  }
+
+  .isi code {
+    background: var(--bg);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+
+  .isi a {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.4);
+  }
+
+  .isi a:hover {
+    color: var(--heading);
+    border-bottom-color: var(--heading);
+  }
+
+  .kontak-box {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin-top: 8px;
+  }
+
+  .kontak-box p {
+    margin-bottom: 8px;
+  }
+
+  .kontak-box p:last-child {
+    margin-bottom: 0;
+  }
+</style>
