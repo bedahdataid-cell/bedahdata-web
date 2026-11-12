@@ -1,0 +1,174 @@
+---
+// ============================================================================
+// PANDUAN MULAI — alur pembeli dari tautan sampai ERP aktif.
+// 🔴 Tanpa angka harga di halaman ini. Penjelasan layar "Google belum
+//    memverifikasi" wajib ada SEBELUM pembeli sampai di sana.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+import { tautanBeli } from '../config';
+
+const title = 'Cara Mulai ERP Studio — Coba Gratis 3 Hari | Bedah Data';
+const description =
+  'Panduan memasang ERP Studio di Google Drive Anda sendiri: salin, deploy, setup, coba 3 hari, lalu aktifkan dengan kode. Termasuk penjelasan peringatan dari Google.';
+
+const langkah = [
+  {
+    judul: 'Salin dan beri nama',
+    isi: 'Buka tautan ERP yang Anda terima, klik Ringkasan lalu Buat salinan. Ganti nama salinan sesuai nama usaha Anda.',
+  },
+  {
+    judul: 'Deploy (pasang) salinan Anda',
+    isi: 'Klik Terapkan lalu Deployment baru. Pilih jalankan sebagai Saya dan akses Siapa saja, lalu Terapkan. Anda akan mendapat alamat web yang berakhiran /exec. Simpan alamat itu.',
+  },
+  {
+    judul: 'Izinkan akses (peringatan Google itu wajar)',
+    isi: 'Google akan menampilkan layar peringatan. Penjelasannya ada di bawah. Klik Lanjutan, lalu Buka, lalu izinkan akses yang diminta.',
+  },
+  {
+    judul: 'Setup awal dan trial 3 hari',
+    isi: 'Buka alamat /exec, isi nama usaha dan buat kata sandi Anda sendiri, lalu pilih Mulai Trial 3 Hari. Semua fitur terbuka selama 3 hari.',
+  },
+  {
+    judul: 'Lanjut dengan kode Standar atau Pro',
+    isi: 'Beli kode di Lynk, kirim bukti pembayaran lewat WhatsApp, lalu tempel kode yang kami kirim di ERP. Data selama trial tetap utuh.',
+  },
+  {
+    judul: 'Memperbarui ke versi baru',
+    isi: 'Saat ada versi baru, ulangi salin dan deploy, lalu di setup awal pilih Sambungkan database lama (jangan buat bisnis baru). Terakhir klik Lengkapi Data Bawaan di Pengaturan.',
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Panduan mulai</span>
+      <h1>Dari tautan sampai ERP berjalan di Google Drive Anda</h1>
+      <p>
+        Enam langkah, sekitar setengah jam untuk pertama kali. Panduan video menyusul; sementara
+        ini tulisan di bawah dan bantuan lewat WhatsApp.
+      </p>
+      <p class="tombol-tengah">
+        <a href={tautanBeli('gratis')} class="btn btn-primary" target="_blank" rel="noopener" data-sumber="mulai-gratis">Coba Gratis 3 Hari</a>
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <ol class="langkah">
+        {
+          langkah.map((l, i) => (
+            <li class="card reveal" style={`--reveal-delay:${i * 50}ms`}>
+              <h2>{l.judul}</h2>
+              <p>{l.isi}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="tinted">
+    <div class="wrap-narrow">
+      <div class="peringatan card reveal">
+        <span class="eyebrow">Sebelum Anda sampai di sana</span>
+        <h2>Tentang layar &ldquo;Google belum memverifikasi aplikasi ini&rdquo;</h2>
+        <p>
+          ERP Studio dibuat sendiri dan berjalan di akun Google Anda, bukan di server kami. Karena
+          itu Google belum &ldquo;mengenal&rdquo; aplikasinya dan menampilkan peringatan ini. Ini
+          bukan tanda ada yang salah.
+        </p>
+        <p>
+          Cara melanjutkan: klik <strong>Lanjutan</strong> (Advanced), klik <strong>Buka &hellip; (tidak aman)</strong>
+          (Go to &hellip; unsafe), centang <strong>Pilih semua</strong> (Select all), lalu
+          <strong>Lanjutkan</strong> (Continue). Data Anda tetap berada di Google Drive Anda sendiri.
+        </p>
+        <p>
+          Kalau setelah itu muncul halaman galat 404, izin Anda tetap tersimpan. Ulangi Deployment
+          baru sekali lagi. Bingung di langkah mana pun? Tulis ke kami lewat WhatsApp.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaAkhir
+    judul="Siap mencoba?"
+    teks="Mulai dengan trial 3 hari. Kalau ada langkah yang membingungkan, kami bantu lewat WhatsApp."
+    pesanWa="Halo Bedah Data, saya mau mulai coba ERP Studio dan butuh bantuan"
+    tombolUtama="Tanya Lewat WhatsApp"
+  />
+</Layout>
+
+<style>
+  .kepala {
+    padding: clamp(52px, 7vw, 82px) 0;
+    text-align: center;
+  }
+
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 16px;
+  }
+
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .langkah {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 16px;
+    counter-reset: langkah;
+  }
+
+  .langkah li {
+    counter-increment: langkah;
+    position: relative;
+    padding-left: 64px;
+  }
+
+  .langkah li::before {
+    content: counter(langkah);
+    position: absolute;
+    left: 20px;
+    top: 22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--heading);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    display: grid;
+    place-items: center;
+  }
+
+  .langkah h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .langkah p {
+    margin-bottom: 0;
+    font-size: 15.5px;
+  }
+
+  .peringatan h2 {
+    font-size: clamp(20px, 2.4vw, 25px);
+    margin: 8px 0 14px;
+  }
+
+  .peringatan p {
+    font-size: 15.8px;
+  }
+
+  .tombol-tengah {
+    text-align: center;
+    margin-top: 22px;
+  }
+</style>

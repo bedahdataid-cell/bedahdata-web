@@ -18,12 +18,15 @@
 // ============================================================================
 import type { Alat } from '../data/alat';
 import { waLink } from '../config';
+import { t, type Bahasa } from '../i18n/ui';
 
 interface Props {
   alat: Alat;
+  bahasa?: Bahasa;
 }
 
-const { alat } = Astro.props;
+const { alat, bahasa = 'id' } = Astro.props;
+const ui = t(bahasa);
 
 // Rumus & syarat tampil diubah jadi teks supaya bisa dijalankan di browser.
 const hasilSerial = alat.hasil.map((h) => ({
@@ -53,7 +56,7 @@ const konfigKlien = {
     <div class="kalkulator" data-kalkulator>
       <!-- ---------------- KOLOM ISIAN ---------------- -->
       <form class="isian" data-form novalidate>
-        <h2 class="judul-kolom">Isi angkanya</h2>
+        <h2 class="judul-kolom">{ui.isiAngkanya}</h2>
 
         {
           alat.isian.map((f) => (
@@ -64,7 +67,7 @@ const konfigKlien = {
             >
               <label for={`f-${f.kunci}`}>
                 {f.label}
-                {f.opsional && <span class="opsional">opsional</span>}
+                {f.opsional && <span class="opsional">{ui.opsional}</span>}
               </label>
 
               {f.jenis === 'pilihan' ? (
@@ -109,23 +112,18 @@ const konfigKlien = {
 
         <!-- Tombol untuk pengguna yang lebih suka menekan daripada mengetik.
              Perhitungan sebenarnya jalan otomatis tiap angka berubah. -->
-        <button type="submit" class="btn btn-primary tombol-hitung">Hitung</button>
+        <button type="submit" class="btn btn-primary tombol-hitung">{ui.hitung}</button>
       </form>
 
       <!-- ---------------- KOLOM HASIL ---------------- -->
       <div class="panel-hasil">
         <div class="hasil-isi">
-          <h2 class="judul-kolom">Hasilnya</h2>
+          <h2 class="judul-kolom">{ui.hasilnya}</h2>
 
           <!-- Tanpa JavaScript, angka tidak bisa dihitung. Beri tahu terus
                terang — jangan biarkan kolom kosong tanpa penjelasan. -->
           <noscript>
-            <p class="tanpa-js">
-              Perhitungannya memerlukan JavaScript. Aktifkan JavaScript di browser Anda, atau
-              ikuti rumusnya yang ditulis lengkap di bagian
-              <strong>“Cara menghitungnya”</strong> di bawah — semua angkanya bisa dihitung
-              manual.
-            </p>
+            <p class="tanpa-js" set:html={ui.tanpaJsKalkulator} />
           </noscript>
 
           <div class="daftar-hasil" data-hasil aria-live="polite"></div>
@@ -149,12 +147,9 @@ const konfigKlien = {
                   d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.37c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.22-8.24 8.22Z"
                 />
               </svg>
-              Minta lewat WhatsApp
+              {ui.mintaWa}
             </a>
-            <p class="tawaran-catatan">
-              Kalkulator di atas bebas dipakai tanpa menghubungi siapa pun. Tombol ini hanya
-              kalau Anda mau tambahan rekapnya.
-            </p>
+            <p class="tawaran-catatan">{ui.catatanBebasPakai}</p>
           </div>
         </div>
       </div>

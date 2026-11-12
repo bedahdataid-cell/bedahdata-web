@@ -9,12 +9,16 @@
 // jangan ditulis ulang tanpa persetujuan. Penulisan copy = ranah Mbak Wulan.
 // ============================================================================
 import type { ItemFaq } from '../components/Faq.astro';
+import { PAKET } from '../config';
+
+// 🔴 Harga dibaca dari config.ts — jangan menulis angka di FAQ.
+const HARGA_STANDAR = PAKET.find((p) => p.kunci === 'standar')!.harga;
 
 export const FAQ_UMUM: ItemFaq[] = [
   {
     tanya: 'Apakah ERP Studio berlangganan bulanan?',
     jawab:
-      '<p>Tidak. ERP Studio memakai lisensi bayar sekali mulai Rp 349.000 — ini beli, bukan sewa. Maintenance tahun pertama sudah termasuk. Setelah itu perpanjangan maintenance sifatnya pilihan, dan <strong>software tetap berjalan walau Anda memutuskan tidak memperpanjang</strong>.</p>',
+      '<p>Tidak. ERP Studio memakai lisensi bayar sekali mulai ' + HARGA_STANDAR + ' — ini beli, bukan sewa. Maintenance tahun pertama sudah termasuk. Setelah itu perpanjangan maintenance sifatnya pilihan, dan <strong>software tetap berjalan walau Anda memutuskan tidak memperpanjang</strong>.</p>',
   },
   {
     tanya: 'Data usaha saya disimpan di mana?',
@@ -50,6 +54,16 @@ export const FAQ_UMUM: ItemFaq[] = [
     tanya: 'Kalau suatu hari Bedah Data tutup, sistem saya bagaimana?',
     jawab:
       '<p>Pertanyaan yang wajar, dan jarang dijawab terang-terangan. Karena sistem berjalan di akun Google Workspace Anda dan datanya ada di Drive Anda, sistem tetap bisa Anda pakai — tidak ada saklar dari pihak kami yang bisa mematikannya. Yang berhenti hanyalah layanan pemeliharaan dan pengembangan dari kami.</p>',
+  },
+  {
+    tanya: 'Kenapa muncul peringatan dari Google saat memasang?',
+    jawab:
+      '<p>Itu wajar. ERP ini dibuat sendiri dan berjalan di akun Google Anda, jadi Google belum &ldquo;mengenalnya&rdquo; dan menampilkan layar <em>Google belum memverifikasi aplikasi ini</em>. Klik <strong>Lanjutan</strong>, lalu <strong>Buka</strong>, lalu izinkan akses yang diminta. Data Anda tetap berada di Google Drive Anda sendiri. Langkah lengkapnya ada di <a href="/mulai/">panduan mulai</a>.</p>',
+  },
+  {
+    tanya: 'Apa batas ERP ini?',
+    jawab:
+      '<p>ERP ini berjalan di Google Apps Script, yang punya batas kuota harian dan memori. Untuk usaha kecil dengan transaksi harian yang wajar, batas itu jarang terasa. Kalau usaha Anda sudah melewatinya, kita bahas sistem yang lebih tangguh lewat jalur Custom.</p>',
   },
 ];
 

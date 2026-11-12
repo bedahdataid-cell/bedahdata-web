@@ -4,8 +4,55 @@
 // Selalu menyediakan jalan keluar ke WhatsApp supaya pembaca tidak buntu.
 // ============================================================================
 import { SITE, SOCIALS, SEGMEN, WA_DISPLAY, WA_NUMBER, PRIVACY_URL, TERMS_URL } from '../config';
+import { jalur, type Bahasa } from '../i18n/ui';
 
+interface Props {
+  bahasa: Bahasa;
+}
+
+const { bahasa } = Astro.props;
+const en = bahasa === 'en';
 const tahun = new Date().getFullYear();
+
+// Teks footer ditulis di sini (bukan di kamus UI) karena hanya dipakai
+// di komponen ini — kamus disediakan untuk teks yang berulang di banyak tempat.
+const F = en
+  ? {
+      ringkas:
+        'One system for stock, finance, and staff commission for small businesses in Indonesia. Pay once, your data stays in your own Drive, guided by real people.',
+      halaman: 'Pages',
+      untukUsaha: 'For Your Business',
+      hubungi: 'Contact Us',
+      ikuti: 'Follow Us',
+      solusi: 'Solution & Modules',
+      harga: 'Pricing',
+      panduan: 'Guides & Articles',
+      faq: 'Common Questions',
+      tentang: 'About Us',
+      kontak: 'Contact',
+      alat: 'Free Tools',
+      hakCipta: 'Business management system for small businesses in Indonesia.',
+      privasi: 'Privacy Policy',
+      syaratKetentuan: 'Terms of Service',
+    }
+  : {
+      ringkas:
+        'Satu sistem untuk stok, keuangan, dan komisi karyawan usaha kecil di Indonesia. Bayar sekali, data tersimpan di Drive milik Anda sendiri, didampingi orang nyata.',
+      halaman: 'Halaman',
+      untukUsaha: 'Untuk Usaha',
+      hubungi: 'Hubungi Kami',
+      ikuti: 'Ikuti Kami',
+      solusi: 'Solusi & Modul',
+      harga: 'Harga',
+      panduan: 'Panduan & Artikel',
+      faq: 'Pertanyaan Umum',
+      tentang: 'Tentang Kami',
+      kontak: 'Kontak',
+      alat: 'Alat Gratis',
+      hakCipta: 'Sistem manajemen bisnis untuk usaha kecil Indonesia.',
+      privasi: 'Kebijakan Privasi',
+      syaratKetentuan: 'Syarat & Ketentuan',
+    };
 ---
 
 <footer class="site-footer">
@@ -19,33 +66,37 @@ const tahun = new Date().getFullYear();
           height="42"
           loading="lazy"
         />
-        <p>
-          Satu sistem untuk stok, keuangan, dan komisi karyawan usaha kecil di Indonesia.
-          Bayar sekali, data tersimpan di Drive milik Anda sendiri, didampingi orang nyata.
-        </p>
+        <p>{F.ringkas}</p>
       </div>
 
       <div>
-        <h2 class="judul-kolom">Halaman</h2>
+        <h2 class="judul-kolom">{F.halaman}</h2>
         <ul>
-          <li><a href="/solusi/">Solusi &amp; Modul</a></li>
-          <li><a href="/harga/">Harga</a></li>
-          <li><a href="/panduan/">Panduan &amp; Artikel</a></li>
-          <li><a href="/faq/">Pertanyaan Umum</a></li>
-          <li><a href="/tentang/">Tentang Kami</a></li>
-          <li><a href="/kontak/">Kontak</a></li>
+          <li><a href={jalur('/solusi/', bahasa)}>{F.solusi}</a></li>
+          <li><a href={jalur('/alat/', bahasa)}>{F.alat}</a></li>
+          <li><a href={jalur('/harga/', bahasa)}>{F.harga}</a></li>
+          <li><a href={jalur('/panduan/', bahasa)}>{F.panduan}</a></li>
+          <li><a href={jalur('/faq/', bahasa)}>{F.faq}</a></li>
+          <li><a href={jalur('/tentang/', bahasa)}>{F.tentang}</a></li>
+          <li><a href={jalur('/kontak/', bahasa)}>{F.kontak}</a></li>
         </ul>
       </div>
 
       <div>
-        <h2 class="judul-kolom">Untuk Usaha</h2>
+        <h2 class="judul-kolom">{F.untukUsaha}</h2>
         <ul>
-          {SEGMEN.map((s) => <li><a href={`/${s.slug}/`}>{s.nama}</a></li>)}
+          {
+            SEGMEN.map((s) => (
+              <li>
+                <a href={jalur(`/${s.slug}/`, bahasa)}>{en ? s.namaEn : s.nama}</a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <div>
-        <h2 class="judul-kolom">Hubungi Kami</h2>
+        <h2 class="judul-kolom">{F.hubungi}</h2>
         <ul>
           <li>
             <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener">
@@ -54,7 +105,7 @@ const tahun = new Date().getFullYear();
           </li>
           <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
         </ul>
-        <h2 class="judul-kolom" style="margin-top:22px">Ikuti Kami</h2>
+        <h2 class="judul-kolom" style="margin-top:22px">{F.ikuti}</h2>
         <ul>
           {
             SOCIALS.map((s) => (
@@ -70,10 +121,10 @@ const tahun = new Date().getFullYear();
     </div>
 
     <div class="bawah">
-      <span>© {tahun} {SITE.legalName}. Sistem manajemen bisnis untuk usaha kecil Indonesia.</span>
+      <span>© {tahun} {SITE.legalName}. {F.hakCipta}</span>
       <span class="tautan-legal">
-        <a href={PRIVACY_URL}>Kebijakan Privasi</a>
-        <a href={TERMS_URL}>Syarat &amp; Ketentuan</a>
+        <a href={PRIVACY_URL}>{F.privasi}</a>
+        <a href={TERMS_URL}>{F.syaratKetentuan}</a>
       </span>
     </div>
   </div>

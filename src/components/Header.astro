@@ -3,22 +3,43 @@
 // HEADER — logo, menu navigasi, dan tombol WhatsApp.
 // Di HP menu berubah jadi tombol hamburger yang membuka panel penuh.
 // ============================================================================
-import { NAV, waLink } from '../config';
+import { NAV, tautanBeli } from '../config';
+import { BAHASA, jalur, jalurNetral, t, type Bahasa } from '../i18n/ui';
+
+interface Props {
+  bahasa: Bahasa;
+  /** Kalau false, tombol ganti bahasa disembunyikan (tidak ada pasangannya). */
+  adaTerjemahan?: boolean;
+}
+
+const { bahasa, adaTerjemahan = true } = Astro.props;
+const teks = t(bahasa);
 
 // Menandai menu yang sedang dibuka, supaya pengunjung tahu posisinya.
 // Garis miring di akhir dibuang dari KEDUA sisi sebelum dibandingkan —
-// NAV kini menulis href dengan garis miring (syarat trailingSlash: 'always'),
+// NAV menulis href dengan garis miring (syarat trailingSlash: 'always'),
 // sementara pathname bisa datang dengan atau tanpa garis miring.
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => {
-  const h = href.replace(/\/$/, '') || '/';
+  const h = jalur(href, bahasa).replace(/\/$/, '') || '/';
   return h === '/' ? path === '/' : path === h || path.startsWith(h + '/');
 };
+
+// --- Tombol ganti bahasa ---------------------------------------------------
+// 🔴 Menunjuk ke halaman YANG SAMA dalam bahasa lain, bukan ke beranda.
+//    Melempar pembaca ke beranda saat mengganti bahasa adalah cara tercepat
+//    membuat mereka menyerah mencari halaman yang tadi dibaca.
+const netral = jalurNetral(Astro.url.pathname);
+const pilihanBahasa = (['id', 'en'] as const).map((b) => ({
+  ...BAHASA[b],
+  href: jalur(netral, b),
+  aktif: b === bahasa,
+}));
 ---
 
 <header class="site-header">
   <div class="wrap bar">
-    <a href="/" class="brand" aria-label="Bedah Data — kembali ke beranda">
+    <a href={jalur('/', bahasa)} class="brand" aria-label={teks.kembaliBeranda}>
       <img
         src="/assets/logo-bedahdata.png"
         alt="Logo Bedah Data"
@@ -28,39 +49,85 @@ const isActive = (href: string) => {
       />
     </a>
 
-    <nav id="nav-utama" class="nav" aria-label="Navigasi utama">
+    <nav id="nav-utama" class="nav" aria-label={teks.navUtama}>
       <ul>
         {
           NAV.map((item) => (
             <li>
-              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
-                {item.label}
+              <a
+                href={jalur(item.href, bahasa)}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {teks[item.kunci]}
               </a>
             </li>
           ))
         }
       </ul>
+
+      <!-- Pilih bahasa versi HP: ikut di dalam panel menu, di atas tombol WA -->
+      {
+        adaTerjemahan && (
+          <div class="pilih-bahasa pilih-mobile" role="group" aria-label={teks.gantiBahasa}>
+            {pilihanBahasa.map((b) => (
+              <a
+                href={b.href}
+                hreflang={b.htmlLang}
+                lang={b.htmlLang}
+                aria-current={b.aktif ? 'true' : undefined}
+                aria-label={b.nama}
+              >
+                {b.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
       <!-- Tombol WhatsApp versi HP: ikut di dalam panel menu -->
       <a
-        href={waLink('Halo Bedah Data, saya mau demo gratis 30 menit ERP Studio')}
+        href={tautanBeli('gratis', bahasa === 'en')}
         class="btn btn-primary cta-mobile"
         target="_blank"
-        rel="noopener">Demo Gratis 30 Menit</a
+        rel="noopener"
+        data-sumber="header-mobile">{teks.ctaDemo}</a
       >
     </nav>
 
+    <!-- Pilih bahasa versi desktop -->
+    {
+      adaTerjemahan && (
+        <div class="pilih-bahasa pilih-desktop" role="group" aria-label={teks.gantiBahasa}>
+          {pilihanBahasa.map((b) => (
+            <a
+              href={b.href}
+              hreflang={b.htmlLang}
+              lang={b.htmlLang}
+              aria-current={b.aktif ? 'true' : undefined}
+              aria-label={b.nama}
+            >
+              {b.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+
     <a
-      href={waLink('Halo Bedah Data, saya mau demo gratis 30 menit ERP Studio')}
+      href={tautanBeli('gratis', bahasa === 'en')}
       class="btn btn-primary cta-desktop"
       target="_blank"
-      rel="noopener">Demo Gratis 30 Menit</a
+      rel="noopener"
+      data-sumber="header">{teks.ctaDemo}</a
     >
 
     <button
       type="button"
       class="hamburger"
       id="tombol-menu"
-      aria-label="Buka menu"
+      aria-label={teks.bukaMenu}
+      data-label-buka={teks.bukaMenu}
+      data-label-tutup={teks.tutupMenu}
       aria-expanded="false"
       aria-controls="nav-utama"
     >
@@ -146,6 +213,48 @@ const isActive = (href: string) => {
     display: none;
   }
 
+  /* --- Pilih bahasa: IN | EN --------------------------------------------
+     Dibuat sebagai dua tautan, bukan dropdown: cuma ada dua pilihan, dan
+     tautan langsung bisa dibaca mesin pencari sekaligus dipakai keyboard.
+     Garis pemisah "|" dibuat dari border, bukan karakter teks — supaya
+     tidak ikut terbaca pembaca layar sebagai tulisan. */
+  .pilih-bahasa {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .pilih-bahasa a {
+    padding: 6px 9px;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    border-radius: 7px;
+    transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
+  }
+
+  .pilih-bahasa a + a {
+    border-left: 1px solid var(--border);
+    margin-left: 2px;
+    padding-left: 11px;
+  }
+
+  .pilih-bahasa a:hover {
+    color: var(--heading);
+  }
+
+  /* Bahasa yang sedang aktif: hijau tua — kontras cukup di atas putih.
+     🔴 Bukan --green (kontras ~2,1:1, gagal ambang 4,5:1). */
+  .pilih-bahasa a[aria-current='true'] {
+    color: var(--green-deep);
+    background: rgba(46, 204, 88, 0.1);
+  }
+
+  .pilih-mobile {
+    display: none;
+  }
+
   .hamburger {
     display: none;
     flex-direction: column;
@@ -184,6 +293,29 @@ const isActive = (href: string) => {
   @media (max-width: 940px) {
     .cta-desktop {
       display: none;
+    }
+
+    /* Di HP, pilih bahasa pindah ke dalam panel menu — bar atas sudah penuh
+       dengan logo & hamburger. */
+    .pilih-desktop {
+      display: none;
+    }
+
+    .pilih-mobile {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .pilih-mobile a {
+      font-size: 15px;
+      padding: 10px 18px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
     }
 
     .hamburger {
@@ -257,10 +389,15 @@ const isActive = (href: string) => {
   const nav = document.getElementById('nav-utama');
 
   if (tombol && nav) {
+    // Label diambil dari atribut data-* supaya ikut bahasa halaman —
+    // 🔴 jangan tulis "Buka menu"/"Tutup menu" langsung di sini.
+    const labelBuka = tombol.dataset.labelBuka || 'Buka menu';
+    const labelTutup = tombol.dataset.labelTutup || 'Tutup menu';
+
     const setMenu = (buka: boolean) => {
       nav.classList.toggle('is-open', buka);
       tombol.setAttribute('aria-expanded', String(buka));
-      tombol.setAttribute('aria-label', buka ? 'Tutup menu' : 'Buka menu');
+      tombol.setAttribute('aria-label', buka ? labelTutup : labelBuka);
       // Kunci gulir halaman selama menu menutupi layar.
       document.body.style.overflow = buka ? 'hidden' : '';
     };

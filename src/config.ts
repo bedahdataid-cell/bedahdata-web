@@ -7,11 +7,17 @@
 export const SITE = {
   name: 'Bedah Data',
   legalName: 'Bedah Data Digital',
-  url: 'https://bedahdata.id',
+  // 🔴 HARUS sama dengan `site` di astro.config.mjs. Sebelumnya tertulis
+  //    bedahdata.id — domain yang BELUM dibeli — sehingga @id di JSON-LD
+  //    menunjuk alamat yang tidak ada. Diperbaiki 5 Agu 2026.
+  //    Kalau bedahdata.id nanti dibeli, ganti KEDUANYA bersamaan.
+  url: 'https://bedahdata.online',
   locale: 'id-ID',
   email: 'bedahdata.id@gmail.com',
   description:
     'ERP Studio menyatukan stok, penjualan, keuangan, dan komisi karyawan dalam satu sistem. Bayar sekali, dan data tersimpan di Google Drive usaha Anda sendiri.',
+  descriptionEn:
+    'ERP Studio brings stock, sales, finance, and staff commission into one system. Pay once, and your data stays in your own business’s Google Drive.',
 } as const;
 
 // --- WhatsApp: nomor & pembuat tautan ---------------------------------------
@@ -68,100 +74,180 @@ export const META_PIXEL_ID = '';
 //    (redirect) — bukan 200. Tanpa ini, prefetch bawaan Astro meminta alamat
 //    yang salah dan menghasilkan 404/307 beruntun di console.
 //    Terbukti di QA 5 Agu 2026: enam permintaan 404 di setiap halaman.
+// 🔵 `kunci` menunjuk teksnya di src/i18n/ui.ts, `href` adalah jalur NETRAL
+//    (tanpa awalan bahasa). Header menambahkan /en/ sendiri lewat jalur().
 export const NAV = [
-  { label: 'Beranda', href: '/' },
-  { label: 'Solusi', href: '/solusi/' },
-  { label: 'Alat Gratis', href: '/alat/' },
-  { label: 'Harga', href: '/harga/' },
-  { label: 'Panduan', href: '/panduan/' },
-  { label: 'FAQ', href: '/faq/' },
-  { label: 'Tentang', href: '/tentang/' },
+  { kunci: 'navBeranda', href: '/' },
+  { kunci: 'navSolusi', href: '/solusi/' },
+  { kunci: 'navAlat', href: '/alat/' },
+  { kunci: 'navHarga', href: '/harga/' },
+  { kunci: 'navPanduan', href: '/panduan/' },
+  { kunci: 'navFaq', href: '/faq/' },
+  { kunci: 'navTentang', href: '/tentang/' },
 ] as const;
 
 // --- Halaman segmen (dipakai di footer & halaman solusi) ---------------------
+// 🔴 `slug` TIDAK diterjemahkan — alamatnya tetap /bengkel/ dan /en/bengkel/.
+//    Mengubah slug per bahasa berarti dua alamat berbeda untuk satu halaman,
+//    dan memutus semua tautan yang sudah terlanjur dibagikan.
 export const SEGMEN = [
   {
     slug: 'bengkel',
     nama: 'Bengkel',
+    namaEn: 'Auto Repair Shops',
     ringkas: 'Komisi mekanik & antrean servis terhitung sendiri.',
+    ringkasEn: 'Mechanic commission and service queue worked out for you.',
   },
   {
     slug: 'salon',
     nama: 'Salon & Klinik',
+    namaEn: 'Salons & Beauty Clinics',
     ringkas: 'Komisi terapis, jadwal, dan gaji dalam satu sistem.',
+    ringkasEn: 'Therapist commission, schedule, and payroll in one system.',
   },
   {
     slug: 'percetakan',
     nama: 'Percetakan & Studio',
+    namaEn: 'Print Shops & Studios',
     ringkas: 'Antrean order dari masuk sampai selesai, plus piutang.',
+    ringkasEn: 'Order queue from intake to hand-over, plus receivables.',
   },
   {
     slug: 'toko-bangunan',
     nama: 'Toko Bangunan & Grosir',
+    namaEn: 'Building Supplies & Wholesale',
     ringkas: 'Stok dan mutasi barang cocok dengan catatan.',
+    ringkasEn: 'Stock and goods movement that match your records.',
   },
 ] as const;
 
 // --- Harga -------------------------------------------------------------------
-// 🔴 Struktur resmi: Standard / Pro / Custom. Model 8 paket per-industri
-//    SUDAH DIHAPUS — jangan pernah dimunculkan lagi.
-// 🔴 Custom TIDAK dipublikasikan angkanya — arahkan ke WhatsApp.
+// 🔴 SATU-SATUNYA sumber harga di situs. Jangan menulis angka harga di halaman,
+//    artikel, atau komponen lain (JSON-LD di index.astro membacanya dari sini).
+// 🟢 Struktur resmi sejak 12 Nov 2026: Free (3 hari) · Standar Rp 75.000 · Pro
+//    Rp 149.000. Tanpa bundle, tanpa add-on satuan untuk modul yang sudah ada.
+//    Model 8 paket per-industri SUDAH DIHAPUS — jangan dimunculkan lagi.
+// 🔴 Custom TIDAK dipublikasikan angkanya — arahkan ke WhatsApp (lihat CUSTOM).
+// 🔴 HARGA TETAP RUPIAH di kedua bahasa (keputusan owner 5 Agu 2026).
+// 🔴 Isi paket mengikuti gerbang lisensi di Hub (Platform_LicenseV2.js
+//    _LICV2_MODULE_GATES): Standar TIDAK memuat HRD, Produksi, AI, Komisi, CRM,
+//    Prospek — semuanya ada di Pro. Ubah daftar fitur hanya bila gerbangnya berubah.
+// 🔴 Dilarang: kata "murah/terjangkau" sebagai daya jual; angka "senilai …" untuk
+//    harga yang tidak pernah dijual; bundle.
+
+// Tautan checkout Lynk.id. 🔴 ISI saat produk sudah ditayangkan di Lynk. Selama
+// kosong, tombol jatuh ke WhatsApp (bukan tautan rusak) — pola sama dengan META_PIXEL_ID.
+export const LYNK = {
+  gratis: '',
+  standar: '',
+  pro: '',
+} as const;
+
+export type KunciPaket = keyof typeof LYNK;
+
 export const PAKET = [
   {
-    nama: 'Standard',
-    harga: 'Rp 349.000',
-    satuan: 'lifetime',
-    untuk: 'Pas untuk yang ingin mulai rapi: jualan, stok, dan keuangan beres dulu.',
+    kunci: 'gratis' as KunciPaket,
+    nama: 'Free',
+    harga: 'Rp 0',
+    satuan: '3 hari',
+    satuanEn: '3 days',
+    untuk: 'Coba dulu dengan data Anda sendiri sebelum memutuskan.',
+    untukEn: 'Try it with your own data before you decide.',
     fitur: [
-      'Penjualan, Pembelian & Inventory',
+      'Semua fitur bisa dicoba selama 3 hari',
+      'Tanpa kewajiban membeli',
+      'Data tetap utuh bila lanjut ke Standar atau Pro',
+    ],
+    fiturEn: [
+      'Every feature is open for 3 days',
+      'No obligation to buy',
+      'Your data stays intact if you continue with Standard or Pro',
+    ],
+    cta: 'Coba Gratis 3 Hari',
+    ctaEn: 'Try Free for 3 Days',
+    pesanWa: 'Halo Bedah Data, saya mau coba ERP Studio gratis 3 hari',
+    pesanWaEn: 'Hello Bedah Data, I would like to try ERP Studio free for 3 days',
+    populer: false,
+  },
+  {
+    kunci: 'standar' as KunciPaket,
+    nama: 'Standar',
+    harga: 'Rp 75.000',
+    satuan: 'bayar sekali',
+    satuanEn: 'one-time payment',
+    untuk: 'Mulai rapi: jualan, stok, dan keuangan beres dulu.',
+    untukEn: 'Get organised first: sales, stock, and finance sorted before anything else.',
+    fitur: [
+      'Penjualan, Kasir (POS) & Pesanan',
+      'Pembelian & Inventory',
       'Keuangan & Biaya',
-      'HRD dasar',
-      'Master Data (Produk, Pelanggan, Pemasok)',
+      'Master Data (Produk, Pelanggan, Pemasok) & Impor',
       'Maintenance tahun pertama gratis',
     ],
-    cta: 'Mulai dari Sini',
-    pesanWa: 'Halo Bedah Data, saya tertarik paket Standard',
+    fiturEn: [
+      'Sales, Point of Sale & Orders',
+      'Purchasing & Inventory',
+      'Finance & Expenses',
+      'Master Data (Products, Customers, Suppliers) & Import',
+      'First year of maintenance included',
+    ],
+    cta: 'Beli Standar',
+    ctaEn: 'Buy Standard',
+    pesanWa: 'Halo Bedah Data, saya mau beli paket Standar',
+    pesanWaEn: 'Hello Bedah Data, I would like to buy the Standard package',
     populer: false,
   },
   {
+    kunci: 'pro' as KunciPaket,
     nama: 'Pro',
-    harga: 'Rp 549.000',
-    satuan: 'lifetime',
-    untuk:
-      'Paket paling lengkap: selisih Rp 200 ribu dari Standard, sudah dapat semua add-on (senilai Rp 247 ribu) plus AI penasihat data.',
+    harga: 'Rp 149.000',
+    satuan: 'bayar sekali',
+    satuanEn: 'one-time payment',
+    untuk: 'Paling lengkap, untuk usaha yang sudah punya tim dan ingin melihat angka lebih dalam.',
+    untukEn: 'The most complete one, for businesses that already have a team and want to see the numbers more deeply.',
     fitur: [
-      'Semua modul di paket Standard',
-      'Add-on Komisi, CRM & Pesanan — sudah termasuk',
-      'AI Decision Intelligence',
-      'Tinggal aktifkan sendiri di Pengaturan',
+      'Semua yang ada di Standar',
+      'HRD: absensi & penggajian',
+      'Produksi',
+      'Komisi, CRM & Prospek',
+      'AI penasihat data (AI Decision Intelligence)',
     ],
-    cta: 'Ambil yang Paling Lengkap',
-    pesanWa: 'Halo Bedah Data, saya tertarik paket Pro',
+    fiturEn: [
+      'Everything in Standard',
+      'HR: attendance & payroll',
+      'Production',
+      'Commission, CRM & Prospects',
+      'AI data advisor (AI Decision Intelligence)',
+    ],
+    cta: 'Beli Pro',
+    ctaEn: 'Buy Pro',
+    pesanWa: 'Halo Bedah Data, saya mau beli paket Pro',
+    pesanWaEn: 'Hello Bedah Data, I would like to buy the Pro package',
     populer: true,
-  },
-  {
-    nama: 'Custom',
-    harga: 'Hubungi Kami',
-    satuan: 'nego sesuai kebutuhan',
-    untuk:
-      'Untuk kebutuhan yang tidak biasa atau skala lebih besar — kita bahas berdua dulu, baru bicara angka.',
-    fitur: [
-      'Cakupan modul disesuaikan',
-      'Harga dibahas berdasarkan kebutuhan',
-      'Pendampingan menyeluruh',
-    ],
-    cta: 'Bahas Kebutuhan Saya',
-    pesanWa: 'Halo Bedah Data, saya mau bahas paket Custom',
-    populer: false,
   },
 ] as const;
 
-// 🔴 Studio Kerja DICABUT sebagai add-on (owner, 29 Jul 2026) — modul Fulfillment/Pesanan
-//    sudah menangani kebutuhan jasa & non-jasa; alokasi & komisi ditangani modul Komisi.
-// 🔴 Bundle DIHAPUS (29 Jul 2026) — harga bundle lama Rp 199rb sudah tidak berlaku.
-//    Kalau mau dimunculkan lagi, tetapkan harga baru dulu (satuan kini 69+89+89 = 247rb).
-export const ADDON = [
-  { nama: 'Komisi', harga: 'Rp 69.000' },
-  { nama: 'CRM', harga: 'Rp 89.000' },
-  { nama: 'Pesanan', harga: 'Rp 89.000' },
-] as const;
+// Jalur untuk usaha yang melewati batas ERP Google Apps Script. Tidak dijual swalayan.
+export const CUSTOM = {
+  nama: 'Custom',
+  judul: 'Butuh sistem yang lebih besar?',
+  judulEn: 'Need a bigger system?',
+  teks: 'ERP ini berjalan di Google Apps Script, yang punya batas kuota dan memori. Kalau usaha Anda sudah melewatinya, kita bahas sistem yang lebih tangguh bersama.',
+  teksEn: 'This ERP runs on Google Apps Script, which has quota and memory limits. If your business has outgrown them, we discuss a sturdier system together.',
+  cta: 'Bahas Kebutuhan Saya',
+  ctaEn: 'Discuss My Needs',
+  pesanWa: 'Halo Bedah Data, saya mau bahas sistem yang lebih besar (Custom)',
+  pesanWaEn: 'Hello Bedah Data, I would like to discuss a bigger system (Custom)',
+} as const;
+
+/**
+ * Tautan tombol beli/coba. Memakai tautan Lynk bila sudah diisi di LYNK,
+ * selain itu jatuh ke WhatsApp dengan pesan paket tersebut.
+ */
+export function tautanBeli(kunci: KunciPaket, en = false): string {
+  const url = LYNK[kunci];
+  if (url) return url;
+  const paket = PAKET.find((p) => p.kunci === kunci)!;
+  return waLink(en ? paket.pesanWaEn : paket.pesanWa);
+}

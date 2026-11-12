@@ -4,33 +4,62 @@
 // pembaca selalu punya jalan keluar ke WhatsApp dan tidak buntu.
 // ============================================================================
 import { waLink } from '../config';
+import { t, type Bahasa } from '../i18n/ui';
 
 interface Props {
+  bahasa?: Bahasa;
   judul?: string;
   teks?: string;
   pesanWa?: string;
+  /** Label tombol utama; bawaannya tawaran demo 30 menit. Wajib sesuai pesanWa bila diganti. */
+  tombolUtama?: string;
 }
 
-const {
-  judul = 'Bayangkan tutup bulan tanpa begadang rekap manual.',
-  teks = 'Mulainya cukup dari ngobrol 30 menit — gratis, tanpa komitmen, dan tidak perlu jago komputer. Kalau cocok kita lanjut, kalau belum ya tidak apa-apa.',
-  pesanWa = 'Halo Bedah Data, saya mau menjadwalkan demo gratis ERP Studio',
-} = Astro.props;
+const { bahasa = 'id', judul, teks, pesanWa, tombolUtama } = Astro.props;
+const ui = t(bahasa);
+const en = bahasa === 'en';
+
+const bawaan = en
+  ? {
+      judul: 'Picture closing the month without a late night of manual tallying.',
+      teks: 'It starts with a 30-minute chat — free, no commitment, and you do not need to be good with computers. If it fits we carry on; if not, that is perfectly fine.',
+      pesanWa: 'Hello Bedah Data, I would like to schedule a free ERP Studio demo',
+      tombolUtama: 'Book a Free 30-Minute Demo',
+      pesanTanya: 'Hello Bedah Data, I would like to ask about ERP Studio first',
+    }
+  : {
+      judul: 'Bayangkan tutup bulan tanpa begadang rekap manual.',
+      teks: 'Mulainya cukup dari ngobrol 30 menit — gratis, tanpa komitmen, dan tidak perlu jago komputer. Kalau cocok kita lanjut, kalau belum ya tidak apa-apa.',
+      pesanWa: 'Halo Bedah Data, saya mau menjadwalkan demo gratis ERP Studio',
+      tombolUtama: 'Jadwalkan Demo Gratis 30 Menit',
+      pesanTanya: 'Halo Bedah Data, saya mau tanya-tanya dulu soal ERP Studio',
+    };
+
+const judulAkhir = judul ?? bawaan.judul;
+const teksAkhir = teks ?? bawaan.teks;
+const pesanAkhir = pesanWa ?? bawaan.pesanWa;
 ---
 
 <section class="dark-panel cta-akhir">
   <div class="wrap-narrow isi reveal">
-    <h2>{judul}</h2>
-    <p>{teks}</p>
+    <h2>{judulAkhir}</h2>
+    <p>{teksAkhir}</p>
     <div class="tombol">
-      <a href={waLink(pesanWa)} class="btn btn-primary" target="_blank" rel="noopener">
-        Jadwalkan Demo Gratis 30 Menit
+      <a
+        href={waLink(pesanAkhir)}
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener"
+        data-sumber="cta-akhir"
+      >
+        {tombolUtama ?? bawaan.tombolUtama}
       </a>
       <a
-        href={waLink('Halo Bedah Data, saya mau tanya-tanya dulu soal ERP Studio')}
+        href={waLink(bawaan.pesanTanya)}
         class="btn btn-onDark"
         target="_blank"
-        rel="noopener">Tanya-tanya Dulu via WhatsApp</a
+        rel="noopener"
+        data-sumber="cta-akhir-tanya">{ui.ctaTanya}</a
       >
     </div>
   </div>

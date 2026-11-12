@@ -195,7 +195,7 @@ Ini bukan aturan gaya menulis — ini batasan yang melindungi kepercayaan yang k
 
 ## IDE ARTIKEL BERIKUTNYA
 
-Diambil dari Pilar 3 (`Konten/STRATEGI_CHANNEL_MARKETING.md`) — topik yang dicari orang
+Diambil dari Pilar 3 (`dokumen-bisnis/STRATEGI_CHANNEL_MARKETING.md`) — topik yang dicari orang
 di Google:
 
 | Judul kerja | Kata kunci | Kategori |
@@ -216,4 +216,4 @@ di Google:
 ---
 
 ## Terkait
-`PANDUAN_DEPLOY.md` · `Konten/STRATEGI_CHANNEL_MARKETING.md` (Pilar 3) · `.claude/rules/website.md`
+`PANDUAN_DEPLOY.md` · `dokumen-bisnis/STRATEGI_CHANNEL_MARKETING.md` (Pilar 3) · `.claude/rules/website.md`

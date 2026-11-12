@@ -9,14 +9,18 @@ import Layout from '../layouts/Layout.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import Faq from '../components/Faq.astro';
 import Harga from '../components/Harga.astro';
-import { SITE, SEGMEN, waLink } from '../config';
+import { SITE, SEGMEN, PAKET, waLink, tautanBeli } from '../config';
 import { FAQ_UMUM, faqSchema } from '../data/faq';
+
+// 🔴 Harga dibaca dari config.ts (PAKET) — jangan menulis angka di halaman ini.
+const standar = PAKET.find((p) => p.kunci === 'standar')!;
+const pro = PAKET.find((p) => p.kunci === 'pro')!;
+const angka = (h: string) => h.replace(/[^0-9]/g, '');
 
 const title =
   'Sistem Pencatatan Stok, Keuangan & Komisi Karyawan — Bayar Sekali | Bedah Data';
 // Deskripsi sengaja dijaga di bawah ±160 huruf — lebih dari itu dipotong Google.
-const description =
-  'Satu sistem untuk stok, penjualan, keuangan, dan komisi karyawan. Bayar sekali mulai Rp 349 ribu, dan data tersimpan di Google Drive usaha Anda sendiri.';
+const description = `Satu sistem untuk stok, penjualan, keuangan, dan komisi karyawan. Bayar sekali mulai ${standar.harga}, coba gratis 3 hari, data tersimpan di Google Drive usaha Anda sendiri.`;
 
 // Hanya 5 pertanyaan teratas ditampilkan di beranda; selebihnya di /faq.
 const faqBeranda = FAQ_UMUM.slice(0, 5);
@@ -31,16 +35,15 @@ const schema = [
     applicationSubCategory: 'Enterprise Resource Planning',
     operatingSystem: 'Web (Google Workspace / Google Apps Script)',
     url: `${SITE.url}/`,
-    description:
-      'Sistem pencatatan usaha terpadu untuk usaha kecil di Indonesia — stok, penjualan, pembelian, keuangan, HRD, dan komisi karyawan dicatat sekali lalu ikut terbarui semua. Mendukung multi-pengguna dengan hak akses per peran. Lisensi bayar sekali mulai Rp 349.000, bukan langganan bulanan. Data tersimpan di Google Drive milik pengguna sendiri.',
+    description: `Sistem pencatatan usaha terpadu untuk usaha kecil di Indonesia — stok, penjualan, pembelian, keuangan, HRD, dan komisi karyawan dicatat sekali lalu ikut terbarui semua. Mendukung multi-pengguna dengan hak akses per peran. Lisensi bayar sekali mulai ${standar.harga}, bukan langganan bulanan. Data tersimpan di Google Drive milik pengguna sendiri.`,
     featureList: [
       'Pencatatan stok, mutasi barang, dan kartu stok',
       'Penjualan, invoice, dan POS/kasir',
-      'Antrean pesanan dari masuk sampai selesai (add-on)',
+      'Antrean pesanan dari masuk sampai selesai',
       'Pembelian dan pembayaran supplier',
       'Pembukuan otomatis: jurnal, laba rugi, neraca',
-      'HRD, absensi, dan payroll',
-      'Perhitungan komisi teknisi, terapis, dan reseller',
+      'HRD, absensi, dan payroll (paket Pro)',
+      'Perhitungan komisi teknisi, terapis, dan reseller (paket Pro)',
       'Multi-pengguna dengan hak akses per peran (RBAC)',
       'Data tersimpan di Google Drive milik pengguna',
     ],
@@ -48,23 +51,32 @@ const schema = [
     offers: [
       {
         '@type': 'Offer',
-        name: 'Standard',
-        price: '349000',
+        name: 'Free',
+        price: '0',
         priceCurrency: 'IDR',
         availability: 'https://schema.org/InStock',
-        url: `${SITE.url}/harga`,
+        url: `${SITE.url}/harga/`,
+        description: 'Coba semua fitur gratis selama 3 hari dengan data Anda sendiri.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Standar',
+        price: angka(standar.harga),
+        priceCurrency: 'IDR',
+        availability: 'https://schema.org/InStock',
+        url: `${SITE.url}/harga/`,
         description:
-          'Lisensi bayar sekali. Penjualan, Pembelian, Inventory, Keuangan, Biaya, HRD dasar, dan Master Data. Maintenance tahun pertama gratis.',
+          'Lisensi bayar sekali. Penjualan, Kasir, Pesanan, Pembelian, Inventory, Keuangan, Biaya, dan Master Data. Maintenance tahun pertama gratis.',
       },
       {
         '@type': 'Offer',
         name: 'Pro',
-        price: '549000',
+        price: angka(pro.harga),
         priceCurrency: 'IDR',
         availability: 'https://schema.org/InStock',
-        url: `${SITE.url}/harga`,
+        url: `${SITE.url}/harga/`,
         description:
-          'Lisensi bayar sekali. Semua modul Standard ditambah add-on Komisi, CRM, Pesanan, dan AI Decision Intelligence.',
+          'Lisensi bayar sekali. Semua modul Standar ditambah HRD, Produksi, Komisi, CRM, Prospek, dan AI Decision Intelligence.',
       },
     ],
     areaServed: { '@type': 'Country', name: 'Indonesia' },
@@ -113,8 +125,8 @@ const pilar = [
 
 const langkah = [
   {
-    judul: 'Ngobrol & demo 30 menit',
-    isi: 'Ceritakan dulu bisnis Anda, lalu kami tunjukkan langsung cara ERP Studio menanganinya. Gratis, santai, dan kalau ternyata belum cocok — tidak apa-apa.',
+    judul: 'Coba gratis 3 hari',
+    isi: 'Salin ERP ke Google Drive Anda sendiri dan coba dengan data Anda. Tutorial memandu langkah demi langkah, dan kalau ragu Anda bisa bertanya lewat WhatsApp. Kalau ternyata belum cocok — tidak apa-apa.',
   },
   {
     judul: 'Data lama tidak hangus',
@@ -143,15 +155,19 @@ const langkah = [
       </p>
       <div class="tombol">
         <a
-          href={waLink(
-            'Halo Bedah Data, saya mau menjadwalkan demo gratis 30 menit ERP Studio',
-          )}
+          href={tautanBeli('gratis')}
           class="btn btn-primary"
           target="_blank"
-          rel="noopener">Jadwalkan Demo Gratis 30 Menit</a
+          rel="noopener"
+          data-sumber="hero-gratis">Coba Gratis 3 Hari</a
         >
         <a href="/harga/" class="btn btn-onDark">Lihat Harga &amp; Paket</a>
       </div>
+      <p class="trust">
+        Cocok untuk usaha yang punya stok dan tim: bengkel, salon dan klinik, percetakan, toko
+        bangunan dan grosir. Kalau usaha masih Anda pegang sendiri, catatan sederhana biasanya
+        sudah cukup.
+      </p>
       <p class="trust">
         Bayar sekali, pakai selamanya · Data di Google Drive Anda sendiri · Didampingi orang
         nyata · Jalan di Google Workspace
@@ -237,7 +253,7 @@ const langkah = [
             <tr>
               <th scope="row">Biaya tahun pertama</th>
               <td>Jutaan hingga belasan juta, lalu berulang tiap tahun</td>
-              <td>Rp 349–549 ribu, sekali saja</td>
+              <td>{standar.harga} atau {pro.harga}, sekali saja</td>
             </tr>
             <tr>
               <th scope="row">Pendampingan</th>
@@ -284,13 +300,14 @@ const langkah = [
           Kami sengaja tidak memasang gambar dashboard hasil rekaan di sini. Yang akan tampil
           nanti adalah tangkapan layar ERP Studio yang sungguhan — dengan label
           <strong>DATA DEMO</strong> pada angkanya. Sementara ini, cara paling jujur melihat
-          sistemnya adalah demo langsung 30 menit.
+          sistemnya adalah mencobanya gratis 3 hari dengan data Anda sendiri.
         </p>
         <a
-          href={waLink('Halo Bedah Data, saya mau lihat tampilan aslinya lewat demo')}
+          href={tautanBeli('gratis')}
           class="btn btn-ghost"
           target="_blank"
-          rel="noopener">Lihat Tampilan Aslinya Lewat Demo</a
+          rel="noopener"
+          data-sumber="placeholder-gratis">Coba Gratis 3 Hari</a
         >
       </div>
     </div>
@@ -346,7 +363,7 @@ const langkah = [
         <h2>Harga yang jujur, tanpa biaya tersembunyi</h2>
         <p>
           ERP langganan umumnya menghabiskan Rp 3 juta lebih per tahun — dan itu berulang
-          terus. ERP Studio cukup sekali bayar, mulai Rp 349 ribu. Maintenance tahun pertama
+          terus. ERP Studio cukup sekali bayar, mulai {standar.harga}. Maintenance tahun pertama
           gratis, dan software tetap jalan walau maintenance tidak diperpanjang.
         </p>
       </div>
@@ -354,7 +371,7 @@ const langkah = [
       <Harga />
 
       <p class="harga-lanjut reveal">
-        Butuh rincian add-on, biaya maintenance, dan layanan pendamping?
+        Butuh rincian paket, biaya maintenance, dan layanan pendamping?
         <a href="/harga/">Lihat halaman harga selengkapnya</a>.
       </p>
     </div>

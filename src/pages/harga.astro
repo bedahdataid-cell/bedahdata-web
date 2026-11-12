@@ -1,8 +1,10 @@
 ---
 // ============================================================================
 // HALAMAN HARGA
-// 🔴 Struktur resmi: Standard / Pro / Custom. Model 8 paket per-industri
-//    SUDAH DIHAPUS — jangan dimunculkan lagi.
+// 🟢 Struktur resmi sejak 12 Nov 2026: Free (3 hari) / Standar / Pro, plus jalur
+//    Custom lewat WhatsApp. Tanpa bundle & tanpa add-on satuan. Model 8 paket
+//    per-industri SUDAH DIHAPUS — jangan dimunculkan lagi.
+// 🔴 Harga dibaca dari config.ts (PAKET) — jangan menulis angka di halaman ini.
 // 🔴 Angka Custom TIDAK dipublikasikan — arahkan ke WhatsApp.
 // 🔴 Kata "terjangkau" sudah dicabut resmi — jangan dipakai di halaman ini.
 // ============================================================================
@@ -10,12 +12,14 @@ import Layout from '../layouts/Layout.astro';
 import Harga from '../components/Harga.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import Faq from '../components/Faq.astro';
-import { ADDON, SITE, waLink } from '../config';
+import { CUSTOM, PAKET, SITE, waLink } from '../config';
 import { faqSchema } from '../data/faq';
 
-const title = 'Harga ERP Studio — Bayar Sekali Mulai Rp 349 Ribu | Bedah Data';
-const description =
-  'Rincian harga ERP Studio: paket Standard Rp 349.000 dan Pro Rp 549.000, sekali bayar bukan langganan. Termasuk daftar add-on, maintenance, dan layanan pendamping.';
+const standar = PAKET.find((p) => p.kunci === 'standar')!;
+const pro = PAKET.find((p) => p.kunci === 'pro')!;
+
+const title = `Harga ERP Studio — Bayar Sekali Mulai ${standar.harga} | Bedah Data`;
+const description = `Rincian harga ERP Studio: coba gratis 3 hari, paket Standar ${standar.harga} dan Pro ${pro.harga}, sekali bayar bukan langganan. Termasuk maintenance dan layanan pendamping.`;
 
 const faqHarga = [
   {
@@ -29,19 +33,19 @@ const faqHarga = [
       '<p>Karena tidak semua orang membutuhkannya, dan kami tidak mau membebankan biaya jasa ke orang yang bisa mengerjakannya sendiri. Harga paket sudah mencakup software-nya. Yang terpisah adalah <strong>pekerjaan manusia</strong>: setup jarak jauh, memindahkan data lama dari Excel, dan pelatihan tim. Semuanya opsional, dan angkanya kami sampaikan terbuka di awal — bukan muncul di tengah jalan.</p>',
   },
   {
-    tanya: 'Beda Standard dan Pro apa persisnya?',
+    tanya: 'Beda Standar dan Pro apa persisnya?',
     jawab:
-      '<p>Paket <strong>Standard</strong> berisi modul inti: penjualan, pembelian, inventory, keuangan, HRD dasar, dan master data. Paket <strong>Pro</strong> berisi semuanya itu ditambah tiga add-on (Komisi, CRM, Pesanan) dan AI Decision Intelligence. Selisihnya Rp 200 ribu, sementara ketiga add-on kalau dibeli terpisah bernilai Rp 247 ribu — jadi Pro sudah lebih murah bahkan sebelum menghitung AI-nya.</p>',
+      '<p>Paket <strong>Standar</strong> berisi modul inti: penjualan, kasir, pesanan, pembelian, inventory, keuangan, dan master data. Paket <strong>Pro</strong> berisi semuanya itu ditambah HRD (absensi dan penggajian), produksi, Komisi, CRM, Prospek, dan AI Decision Intelligence. Tidak ada fitur yang dijual satuan: kalau Anda butuh salah satunya, pilihannya naik ke Pro.</p>',
   },
   {
-    tanya: 'Bisa mulai dari Standard lalu naik ke Pro nanti?',
+    tanya: 'Bisa mulai dari Standar lalu naik ke Pro nanti?',
     jawab:
-      '<p>Bisa. Add-on dapat ditambahkan belakangan sesuai kebutuhan, tanpa memasang ulang sistem atau memindahkan data. Kalau Anda ragu, mulai dari Standard adalah pilihan yang masuk akal — kami akan lebih senang Anda menambah karena benar-benar membutuhkannya daripada membayar fitur yang tidak terpakai.</p>',
+      '<p>Bisa. Naik ke Pro cukup dengan membeli kode Pro lalu memasukkannya ke ERP Anda. Tidak perlu memasang ulang sistem dan data Anda tetap utuh. Kalau ragu, coba gratis 3 hari dulu, lalu pilih paket yang pas.</p>',
   },
   {
     tanya: 'Ada garansi uang kembali?',
     jawab:
-      '<p>Kami tidak memasang skema garansi uang kembali. Sebagai gantinya, kami mendorong Anda melihat sistemnya lebih dulu lewat <strong>demo gratis 30 menit</strong> sebelum membayar sepeser pun — supaya keputusannya diambil setelah melihat, bukan setelah membaca janji. Kalau setelah demo terasa belum cocok, kami akan mengatakannya terus terang.</p>',
+      '<p>Kami tidak memasang skema garansi uang kembali. Sebagai gantinya, Anda bisa <strong>mencoba gratis 3 hari</strong> dengan data Anda sendiri sebelum membayar sepeser pun — supaya keputusannya diambil setelah mencoba, bukan setelah membaca janji.</p>',
   },
 ];
 
@@ -55,8 +59,8 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
       <h1>Bayar sekali. Bukan sewa bulanan.</h1>
       <p>
         ERP langganan umumnya menghabiskan Rp 3 juta lebih per tahun — dan itu berulang terus.
-        ERP Studio cukup sekali bayar, mulai Rp 349 ribu. Maintenance tahun pertama gratis, dan
-        software tetap jalan walau maintenance tidak diperpanjang.
+        ERP Studio cukup sekali bayar, mulai {standar.harga}. Coba gratis 3 hari dulu. Maintenance
+        tahun pertama gratis, dan software tetap jalan walau maintenance tidak diperpanjang.
       </p>
     </div>
   </section>
@@ -65,14 +69,18 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
     <div class="wrap">
       <Harga />
 
+      <p class="reveal" style="text-align:center;margin-top:24px">
+        Belum tahu cara memasangnya? <a href="/mulai/">Lihat panduan mulai</a>.
+      </p>
+
       <div class="hitungan reveal">
         <h2>Hitungan sederhananya begini</h2>
         <p>
           ERP langganan populer umumnya mulai sekitar Rp 3,6 juta per tahun — dalam 3 tahun
-          sudah lebih dari Rp 10 juta, dan terus berjalan. Paket Pro: Rp 549 ribu, sekali.
+          sudah lebih dari Rp 10 juta, dan terus berjalan. Paket Pro: {pro.harga}, sekali.
         </p>
         <p>
-          Semua harga bersifat lifetime, dan maintenance tahun pertama gratis. Bila dibutuhkan,
+          Semua harga bayar sekali, dan maintenance tahun pertama gratis. Bila dibutuhkan,
           tersedia juga layanan pendamping opsional (setup remote, migrasi data dari Excel, dan
           pelatihan tim) dengan biaya terpisah yang kami sampaikan terbuka di awal.
         </p>
@@ -80,37 +88,17 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
     </div>
   </section>
 
-  <!-- ===== ADD-ON ===== -->
+  <!-- ===== JALUR CUSTOM & BATAS ERP ===== -->
   <section class="tinted">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Tambahan</span>
-        <h2>Add-on: hanya kalau memang dipakai</h2>
-        <p>
-          Paket <strong>Standard</strong> bisa ditambah add-on sesuai kebutuhan. Paket
-          <strong>Pro</strong> sudah termasuk ketiganya — tidak perlu beli lagi.
+      <div class="custom-blok card reveal">
+        <span class="eyebrow">Jalur lain</span>
+        <h2>{CUSTOM.judul}</h2>
+        <p>{CUSTOM.teks}</p>
+        <p class="tombol-tengah">
+          <a href={waLink(CUSTOM.pesanWa)} class="btn btn-ghost" target="_blank" rel="noopener" data-sumber="harga-custom">{CUSTOM.cta}</a>
         </p>
       </div>
-
-      <div class="grid-addon">
-        {
-          ADDON.map((a, i) => (
-            <div
-              class={`card addon reveal ${a.nama.startsWith('Bundle') ? 'bundle' : ''}`}
-              style={`--reveal-delay:${i * 70}ms`}
-            >
-              <h3>{a.nama}</h3>
-              <p class="nominal">{a.harga}</p>
-              {a.nama.startsWith('Bundle') && <span class="hemat">Paling hemat</span>}
-            </div>
-          ))
-        }
-      </div>
-
-      <p class="catatan-addon reveal">
-        Semua add-on bersifat lifetime, sama seperti paket utamanya. Bisa ditambahkan kapan saja
-        tanpa memasang ulang sistem atau memindahkan data.
-      </p>
     </div>
   </section>
 
@@ -224,67 +212,20 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
     font-size: 15.8px;
   }
 
-  /* ---------- Add-on ---------- */
-  .grid-addon {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-  }
-
-  @media (max-width: 900px) {
-    .grid-addon {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 520px) {
-    .grid-addon {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .addon {
-    position: relative;
+  /* ---------- Jalur Custom ---------- */
+  .custom-blok {
+    max-width: 720px;
+    margin: 0 auto;
     text-align: center;
   }
 
-  .addon.bundle {
-    border-color: rgba(46, 204, 88, 0.5);
-    background: rgba(46, 204, 88, 0.06);
+  .custom-blok h2 {
+    font-size: clamp(21px, 2.5vw, 26px);
+    margin-bottom: 12px;
   }
 
-  .addon h3 {
-    font-size: 16.5px;
-    margin-bottom: 6px;
-  }
-
-  .nominal {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--green-deep);
-    margin-bottom: 0;
-  }
-
-  .hemat {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--heading);
-    background: rgba(46, 204, 88, 0.2);
-    border-radius: 999px;
-    padding: 4px 12px;
-  }
-
-  .catatan-addon {
-    text-align: center;
-    max-width: 620px;
-    margin: 30px auto 0;
-    font-size: 15px;
-    color: var(--text-muted);
+  .custom-blok p {
+    font-size: 15.8px;
   }
 
   /* ---------- Bagian jujur ---------- */

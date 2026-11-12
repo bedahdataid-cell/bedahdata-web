@@ -7,6 +7,7 @@
 import { SITE, META_PIXEL_ID } from '../config';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { BAHASA, bahasaDari, jalur, jalurNetral, t } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
@@ -20,6 +21,13 @@ interface Props {
   schema?: Record<string, unknown> | Record<string, unknown>[];
   /** Setel true untuk menyembunyikan halaman dari hasil pencarian. */
   noindex?: boolean;
+  /**
+   * Setel false kalau halaman ini TIDAK punya pasangan di bahasa lain.
+   * Kalau false: tombol ganti bahasa disembunyikan dan hreflang tidak
+   * ditulis — 🔴 menunjuk hreflang ke halaman yang 404 lebih buruk
+   * daripada tidak menulisnya sama sekali.
+   */
+  adaTerjemahan?: boolean;
 }
 
 const {
@@ -29,7 +37,18 @@ const {
   ogType = 'website',
   schema,
   noindex = false,
+  adaTerjemahan = true,
 } = Astro.props;
+
+// --- Bahasa halaman ini, dibaca dari alamatnya -----------------------------
+const bahasa = bahasaDari(Astro.url.pathname);
+const info = BAHASA[bahasa];
+const teks = t(bahasa);
+
+// Jalur tanpa awalan bahasa — dipakai untuk membuat pasangan hreflang.
+const netral = jalurNetral(Astro.url.pathname);
+const urlId = new URL(jalur(netral, 'id'), Astro.site).href;
+const urlEn = new URL(jalur(netral, 'en'), Astro.site).href;
 
 // Alamat halaman ini, dihitung dari `site` di astro.config.mjs.
 // 🔴 JANGAN tambahkan .replace(/\/$/, '') di sini — garis miring di akhir
@@ -57,7 +76,7 @@ const baseSchema = [
       width: 512,
       height: 512,
     },
-    description: SITE.description,
+    description: bahasa === 'en' ? SITE.descriptionEn : SITE.description,
     email: SITE.email,
     foundingDate: '2026',
     knowsLanguage: 'id',
@@ -81,7 +100,7 @@ const baseSchema = [
     '@id': `${SITE.url}/#website`,
     url: `${SITE.url}/`,
     name: SITE.name,
-    inLanguage: 'id-ID',
+    inLanguage: info.ogLocale.replace('_', '-'),
     publisher: { '@id': `${SITE.url}/#organization` },
   },
 ];
@@ -91,7 +110,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
 ---
 
 <!doctype html>
-<html lang="id" class="no-js">
+<html lang={info.htmlLang} class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -100,6 +119,23 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+
+    {
+      /* --- hreflang: memberi tahu Google kedua versi bahasa ini bersaudara.
+         🔴 Ditulis DUA ARAH — halaman ID menunjuk EN dan sebaliknya. Kalau
+            hanya satu arah, Google mengabaikannya.
+         🔴 Hanya ditulis kalau halaman ini memang punya pasangan; menunjuk
+            ke alamat yang 404 lebih buruk daripada tidak menulis apa pun.
+         x-default menunjuk versi Indonesia — pembaca utama kami. */
+      adaTerjemahan && (
+        <>
+          <link rel="alternate" hreflang="id" href={urlId} />
+          <link rel="alternate" hreflang="en" href={urlEn} />
+          <link rel="alternate" hreflang="x-default" href={urlId} />
+        </>
+      )
+    }
+
     <meta name="author" content={SITE.name} />
     <meta name="theme-color" content="#0E3D33" />
     <meta name="geo.region" content="ID" />
@@ -116,7 +152,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale" content={info.ogLocale} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:image" content={ogImageAbs} />
     <meta property="og:image:alt" content={`${SITE.name} — ${title}`} />
@@ -180,12 +216,12 @@ fbq('track', 'PageView');`}
   </head>
 
   <body>
-    <a href="#konten" class="skip-link">Lompat ke isi halaman</a>
-    <Header />
+    <a href="#konten" class="skip-link">{teks.lompatKonten}</a>
+    <Header bahasa={bahasa} adaTerjemahan={adaTerjemahan} />
     <main id="konten">
       <slot />
     </main>
-    <Footer />
+    <Footer bahasa={bahasa} />
 
     <script is:inline>
       // Tandai bahwa JavaScript aktif. Kalau baris ini tidak jalan, aturan

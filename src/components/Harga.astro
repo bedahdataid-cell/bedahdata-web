@@ -4,32 +4,45 @@
 // 🔴 Angka diambil dari src/config.ts. Jangan menulis harga langsung di sini,
 //    supaya tidak ada dua versi harga yang berbeda di situs yang sama.
 // ============================================================================
-import { PAKET, waLink } from '../config';
+import { PAKET, tautanBeli } from '../config';
+import type { Bahasa } from '../i18n/ui';
+
+interface Props {
+  bahasa?: Bahasa;
+}
+
+const { bahasa = 'id' } = Astro.props;
+const en = bahasa === 'en';
+const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi Kami';
 ---
 
 <div class="grid-harga">
   {
     PAKET.map((paket) => (
       <div class={`kartu reveal ${paket.populer ? 'populer' : ''}`}>
-        {paket.populer && <span class="badge">Rekomendasi Kami</span>}
+        {paket.populer && <span class="badge">{labelRekomendasi}</span>}
         <h3>{paket.nama}</h3>
         <p class="harga">
-          {paket.harga}
-          <small>{paket.satuan}</small>
+          {/* 🔴 Harga TETAP Rupiah di kedua bahasa — pembacanya tetap di
+              Indonesia. Hanya "Hubungi Kami" pada paket Custom yang punya
+              padanan Inggris. */}
+          {en && 'hargaEn' in paket ? paket.hargaEn : paket.harga}
+          <small>{en ? paket.satuanEn : paket.satuan}</small>
         </p>
-        <p class="untuk">{paket.untuk}</p>
+        <p class="untuk">{en ? paket.untukEn : paket.untuk}</p>
         <ul class="checklist">
-          {paket.fitur.map((f) => (
+          {(en ? paket.fiturEn : paket.fitur).map((f) => (
             <li>{f}</li>
           ))}
         </ul>
         <a
-          href={waLink(paket.pesanWa)}
+          href={tautanBeli(paket.kunci, en)}
           class={`btn ${paket.populer ? 'btn-primary' : 'btn-ghost'}`}
           target="_blank"
           rel="noopener"
+          data-sumber={`harga-${paket.kunci}`}
         >
-          {paket.cta}
+          {en ? paket.ctaEn : paket.cta}
         </a>
       </div>
     ))
