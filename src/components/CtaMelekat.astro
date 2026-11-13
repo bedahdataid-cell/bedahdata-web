@@ -1,0 +1,85 @@
+---
+// ============================================================================
+// CTA MELEKAT (HP saja, < 768 px) — tahap corong: Membeli/mencoba.
+// Muncul setelah pengunjung menggulir melewati layar pertama (CSS scroll-driven,
+// tanpa JS). Browser lama: langsung tampil. Tidak dipasang di /beli/.
+// ============================================================================
+import { waLink } from '../config';
+---
+
+<div class="cta-melekat" role="region" aria-label="Mulai coba">
+  <a href="/beli/?paket=gratis" class="cm-utama" data-sumber="melekat-gratis">Coba Gratis 3 Hari</a>
+  <a
+    href={waLink('Halo Bedah Data, saya mau tanya soal ERP Studio.')}
+    class="cm-wa"
+    data-sumber="melekat-wa"
+    target="_blank"
+    rel="noopener"
+    aria-label="Tanya lewat WhatsApp">WhatsApp</a
+  >
+</div>
+
+<style>
+  .cta-melekat {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .cta-melekat {
+      display: flex;
+      gap: 10px;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -10px 30px -18px rgba(14, 61, 51, 0.35);
+    }
+    .cta-melekat a {
+      flex: 1;
+      text-align: center;
+      padding: 12px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+    }
+    .cm-utama {
+      background: var(--green);
+      color: #0e3d33;
+    }
+    .cm-wa {
+      flex: 0 0 40% !important;
+      border: 1.5px solid var(--heading);
+      color: var(--heading);
+    }
+    :global(body) {
+      padding-bottom: 72px;
+    }
+
+    @supports (animation-timeline: scroll()) {
+      @media (prefers-reduced-motion: no-preference) {
+        .cta-melekat {
+          animation: cm-muncul linear both;
+          animation-timeline: scroll(root);
+          animation-range: 0 420px;
+        }
+      }
+    }
+  }
+
+  @keyframes cm-muncul {
+    0%,
+    60% {
+      transform: translateY(110%);
+      opacity: 0;
+    }
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>

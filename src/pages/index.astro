@@ -42,9 +42,9 @@ const schema = [
       'Pencatatan stok, mutasi barang, dan kartu stok',
       'Penjualan, invoice, dan POS/kasir',
       'Antrean pesanan dari masuk sampai selesai',
-      'Pembelian dan pembayaran supplier',
+      'Pembelian dan pembayaran pemasok',
       'Pembukuan otomatis: jurnal, laba rugi, neraca',
-      'HRD, absensi, dan payroll (paket Pro)',
+      'HRD, absensi, dan penggajian (paket Pro)',
       'Perhitungan komisi teknisi, terapis, dan reseller (paket Pro)',
       'Multi-pengguna dengan hak akses per peran (RBAC)',
       'Data tersimpan di Google Drive milik pengguna',
@@ -68,7 +68,7 @@ const schema = [
         availability: 'https://schema.org/InStock',
         url: `${SITE.url}/harga/`,
         description:
-          'Lisensi bayar sekali. Penjualan, Kasir, Pesanan, Pembelian, Inventory, Keuangan, Biaya, dan Master Data. Maintenance tahun pertama gratis.',
+          'Lisensi bayar sekali. Penjualan, Kasir, Pesanan, Pembelian, Inventaris, Keuangan, Biaya, dan Master Data. Maintenance tahun pertama gratis.',
       },
       {
         '@type': 'Offer',
@@ -89,39 +89,43 @@ const schema = [
 
 const masalah = [
   {
-    judul: 'Langganan jalan terus, walau toko lagi sepi',
-    isi: 'Omzet bulan ini turun, tapi tagihan software tetap datang. Rasanya seperti bayar sewa untuk sesuatu yang tidak pernah jadi milik sendiri.',
+    judul: 'Stok di rak beda sama catatan',
+    isi: 'Barang di rak tidak cocok dengan buku, uang di laci kurang dari seharusnya. Curiga ada yang bocor, tapi tidak ada catatan yang bisa dicek bersama.',
   },
   {
-    judul: 'Catatan uang masuk-keluar masih berantakan',
-    isi: 'Nota tercecer, ada yang dicatat di buku, ada yang di kepala saja. Ujung-ujungnya untung-rugi yang sebenarnya jadi tebak-tebakan, dan tutup buku tiap bulan berubah jadi kerja lembur sendiri.',
+    judul: 'Komisi dihitung manual, gajian jadi telat',
+    isi: 'Tiap akhir bulan menghitung komisi teknisi atau terapis dari nota dan foto WhatsApp. Lama, gampang salah, dan karyawan jadi bertanya-tanya.',
   },
   {
-    judul: 'Data bisnis di server orang lain',
-    isi: 'Bertahun-tahun catatan jualan, pelanggan, dan keuangan tersimpan di server vendor. Kalau suatu hari berhenti berlangganan, masih bisa dibuka atau tidak? Pertanyaan itu wajar, dan jarang dijawab terang-terangan.',
+    judul: 'Bon pelanggan cuma ada di buku',
+    isi: 'Piutang pemborong dan DP pesanan dicatat tangan. Begitu bukunya hilang atau lupa ditulis, uangnya ikut susah ditagih.',
   },
   {
-    judul: 'Sistemnya kaku, harus Anda yang menyesuaikan',
-    isi: 'Alur baku yang tidak bisa diubah, istilahnya asing, dan tidak paham cara kerja toko, bengkel, salon, atau bakery di Indonesia. Mau tambah kolom atau ubah alur sedikit saja, jawabannya "belum bisa" — bisnis dipaksa mengikuti software, bukan sebaliknya.',
+    judul: 'Omzet terasa besar, yang dibawa pulang kok sedikit?',
+    isi: 'Order masuk lewat WhatsApp, nota di laci, uang usaha bercampur uang pribadi. Untung yang sebenarnya tidak kelihatan sampai tutup buku, dan tutup buku jadi kerja lembur sendiri.',
   },
   {
-    judul: 'Habis beli, ditinggal sendirian',
-    isi: 'Sudah keluar uang, semangat pindah sistem, lalu... bingung sendiri. Tidak ada yang mendampingi, akhirnya tim balik lagi ke Excel dan buku tulis.',
+    judul: 'Pernah pakai aplikasi, tapi ribet dan CS-nya menghilang',
+    isi: 'Makin sering diperbarui makin ribet, tagihan langganan terus naik, dan saat ada masalah jawabannya cuma "tunggu 1x24 jam".',
+  },
+  {
+    judul: 'Sudah terlanjur banyak data, mau pindah jadi berat',
+    isi: 'Bertahun-tahun data dimasukkan ke aplikasi orang lain. Rasanya terkunci: berhenti langganan berarti mulai dari nol lagi.',
   },
 ];
 
 const pilar = [
   {
     judul: 'Bayar sekali, jadi milik Anda',
-    isi: 'Ini beli, bukan sewa. Tidak ada tagihan bulanan yang tetap datang saat toko sedang sepi. Maintenance sifatnya opsional — dan software tetap jalan walau Anda memutuskan tidak memperpanjangnya.',
+    isi: 'Ini beli, bukan sewa. Tidak ada tagihan bulanan yang tetap datang saat toko sedang sepi. Perawatan dan pembaruan gratis di tahun pertama; sesudahnya boleh diperpanjang atau tidak, dan software tetap jalan.',
   },
   {
     judul: 'Data di Drive Anda — bukan di server kami',
-    isi: 'Seluruh catatan bisnis tersimpan di Google Drive Anda sendiri, bukan server kami. Anda bisa backup, audit, atau memindahkannya kapan saja tanpa minta izin siapa pun.',
+    isi: 'Seluruh catatan bisnis tersimpan di Google Drive Anda sendiri, bukan server kami. Anda bisa mencadangkan, memeriksa, atau memindahkannya kapan saja tanpa minta izin siapa pun.',
   },
   {
-    judul: 'Keuangan rapi sendiri, tanya jawab pun jadi',
-    isi: 'Tiap transaksi penjualan, stok, sampai payroll otomatis kejurnal — laba-rugi dan neraca jalan tanpa dicatat dobel (mapping akun cukup diatur sekali di awal, dibantu saat demo). Bingung baca angkanya? Tinggal tanya ke AI pakai bahasa sehari-hari, dijawab berdasar data bisnis Anda sendiri.',
+    judul: 'Keuangan rapi sendiri, bisa ditanya pakai bahasa sehari-hari',
+    isi: 'Tiap transaksi penjualan, stok, sampai penggajian otomatis masuk jurnal, jadi laba rugi dan neraca tersusun tanpa dicatat dobel (pengaturan akun keuangan cukup sekali di awal, kami bantu). Bingung membaca angkanya? Tanyakan ke AI pakai bahasa sehari-hari, dijawab berdasarkan data usaha Anda sendiri.',
   },
 ];
 
@@ -144,34 +148,70 @@ const langkah = [
 <Layout title={title} description={description} schema={schema}>
   <!-- ===================== HERO ===================== -->
   <section class="dark-panel hero">
-    <div class="wrap isi">
-      <h1>
-        Berhenti menebak angka usaha Anda. Satu sistem untuk stok, keuangan, dan komisi
-        karyawan — cukup bayar sekali.
-      </h1>
-      <p class="sub">
-        ERP Studio menyatukan pencatatan jualan, stok, keuangan, dan gaji-komisi karyawan di
-        satu tempat: dicatat sekali, semua ikut terbarui. Datanya tersimpan di Google Drive
-        usaha Anda sendiri — bukan di server kami — dan Anda didampingi orang nyata sampai
-        sistemnya benar-benar jalan.
-      </p>
-      <div class="tombol">
-        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="hero-gratis"
-          >Coba Gratis 3 Hari</a
-        >
-        <a href="/harga/" class="btn btn-onDark">Lihat Harga &amp; Paket</a>
+    <div class="wrap hero-grid">
+      <div class="hero-teks">
+        <span class="eyebrow terang">Aplikasi pencatatan usaha · ERP Studio</span>
+        <h1>
+          Stok, kas, dan komisi karyawan: <span class="aksen">catat sekali</span>, semua ikut
+          terbarui.
+        </h1>
+        <p class="sub">
+          Untuk usaha yang punya stok dan karyawan. Bayar sekali, bukan langganan. Datanya
+          tersimpan di Google Drive usaha Anda sendiri, dan Anda didampingi orang nyata lewat
+          WhatsApp sampai sistemnya benar-benar jalan.
+        </p>
+        <div class="tombol">
+          <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="hero-gratis"
+            >Coba Gratis 3 Hari</a
+          >
+          <a
+            href={waLink('Halo Bedah Data, saya mau tanya soal ERP Studio untuk usaha saya.')}
+            class="btn btn-onDark"
+            data-sumber="hero-wa"
+            target="_blank"
+            rel="noopener">Tanya lewat WhatsApp</a
+          >
+        </div>
+        <ul class="trust-list">
+          <li>Bayar sekali, bukan langganan</li>
+          <li>Cukup akun Google (Gmail) yang Anda punya</li>
+          <li>Data di Google Drive Anda sendiri</li>
+        </ul>
       </div>
-      <p class="trust">
-        Cocok untuk usaha yang punya stok dan tim: bengkel, salon dan klinik, percetakan, toko
-        bangunan dan grosir. Kalau usaha masih Anda pegang sendiri, catatan sederhana biasanya
-        sudah cukup.
-      </p>
-      <p class="trust">
-        Bayar sekali, pakai selamanya · Data di Google Drive Anda sendiri · Didampingi orang
-        nyata · Jalan di Google Workspace
-      </p>
+      <figure class="hero-layar">
+        <img
+          src="/assets/hero-dashboard.webp"
+          alt="Tangkapan layar dashboard ERP Studio asli dengan data demo: ringkasan penjualan, pesanan, inventaris, keuangan, biaya, pembelian, dan pelanggan"
+          width="1280"
+          height="463"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption>DATA DEMO · LAYAR ERP STUDIO ASLI</figcaption>
+      </figure>
     </div>
   </section>
+
+  <!-- ===================== JENIS USAHA (chip) ===================== -->
+  <nav class="chip-usaha" aria-label="Pilih jenis usaha">
+    <div class="wrap chip-baris">
+      <span class="chip-label">Usaha Anda:</span>
+      {
+        SEGMEN.map((sg) => (
+          <a href={`/${sg.slug}/`} class="chip">
+            {sg.nama}
+          </a>
+        ))
+      }
+      <a
+        href={waLink('Halo Bedah Data, usaha saya jenisnya lain. Apakah ERP Studio cocok?')}
+        class="chip chip-lain"
+        data-sumber="chip-lain"
+        target="_blank"
+        rel="noopener">Usaha lain? Tanya kami</a
+      >
+    </div>
+  </nav>
 
   <!-- ===================== VIDEO: KENALAN DENGAN ERP STUDIO ===================== -->
   <VideoFasad
@@ -264,13 +304,13 @@ const langkah = [
             </tr>
             <tr>
               <th scope="row">Biaya tahun pertama</th>
-              <td>Jutaan hingga belasan juta, lalu berulang tiap tahun</td>
+              <td>Tagihan berulang tiap bulan atau tiap tahun</td>
               <td>{standar.harga} atau {pro.harga}, sekali saja</td>
             </tr>
             <tr>
               <th scope="row">Pendampingan</th>
               <td>Standar / mandiri</td>
-              <td>Personal + pelatihan langsung</td>
+              <td>Grup WhatsApp, dijawab orang nyata</td>
             </tr>
           </tbody>
         </table>
@@ -294,7 +334,7 @@ const langkah = [
           <h3>Bukan sekadar janji — begini cara kerjanya</h3>
           <p>
             Setiap catatan penjualan, stok, dan keuangan langsung tersimpan sebagai spreadsheet
-            di Google Drive Anda sendiri. Bisa dibuka, dibackup, atau diaudit kapan saja tanpa
+            di Google Drive Anda sendiri. Bisa dibuka, dicadangkan, atau diperiksa kapan saja tanpa
             perlu minta izin ke kami — karena memang bukan kami yang menyimpannya.
           </p>
         </div>
@@ -318,7 +358,7 @@ const langkah = [
     durasi="1:12"
     eyebrow="Siapa di balik ERP Studio"
     heading="Kenapa kami membangun ini"
-    teks="Cerita singkat Bedah Data: supaya pemilik usaha berhenti menebak, dibeli sekali, data di Drive Anda sendiri, dan didampingi orang nyata."
+    teks="Cerita singkat Bedah Data: supaya pemilik usaha tahu angka usahanya sendiri, dibeli sekali, data di Drive Anda sendiri, dan didampingi orang nyata."
   />
 
   <!-- ===================== SEGMEN ===================== -->
@@ -368,11 +408,11 @@ const langkah = [
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Harga</span>
-        <h2>Harga yang jujur, tanpa biaya tersembunyi</h2>
+        <h2>Harga terbuka, cukup bayar sekali</h2>
         <p>
-          ERP langganan umumnya menghabiskan Rp 3 juta lebih per tahun — dan itu berulang
-          terus. ERP Studio cukup sekali bayar, mulai {standar.harga}. Maintenance tahun pertama
-          gratis, dan software tetap jalan walau maintenance tidak diperpanjang.
+          Sekali bayar, mulai {standar.harga}. Kenapa bisa segini? Sistemnya jalan di akun
+          Google Anda sendiri, jadi kami tidak menyewa server untuk menyimpan data Anda. Perawatan
+          tahun pertama gratis, dan software tetap jalan walau tidak diperpanjang.
         </p>
       </div>
 
@@ -440,38 +480,101 @@ const langkah = [
 <style>
   /* ---------- Hero ---------- */
   .hero {
-    padding: clamp(64px, 9vw, 108px) 0 clamp(60px, 8vw, 100px);
-    text-align: center;
+    padding: clamp(56px, 8vw, 96px) 0 clamp(56px, 7vw, 88px);
+    overflow: hidden;
   }
 
-  .hero .isi {
-    max-width: 900px;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    gap: clamp(32px, 4vw, 56px);
+    align-items: center;
   }
 
   .hero h1 {
-    margin-inline: auto;
-    max-width: 880px;
+    font-size: clamp(32px, 4.4vw, 54px);
+    line-height: 1.12;
+    margin: 14px 0 0;
+  }
+
+  .hero h1 .aksen {
+    color: var(--green);
   }
 
   .hero .sub {
-    font-size: clamp(15.8px, 1.9vw, 18.5px);
+    font-size: clamp(15.8px, 1.6vw, 18px);
     opacity: 0.93;
-    max-width: 720px;
-    margin: 22px auto 32px;
+    max-width: 560px;
+    margin: 20px 0 28px;
   }
 
   .hero .tombol {
     display: flex;
-    gap: 14px;
-    justify-content: center;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 30px;
+    margin-bottom: 26px;
   }
 
-  .hero .trust {
+  .trust-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
     font-size: 14px;
-    opacity: 0.85;
-    margin-bottom: 0;
+    opacity: 0.9;
+  }
+
+  .trust-list li {
+    position: relative;
+    padding-left: 22px;
+  }
+
+  .trust-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.42em;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid var(--green);
+    border-bottom: 2px solid var(--green);
+    transform: rotate(-45deg);
+  }
+
+  .hero-layar {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12);
+    transform: perspective(1400px) rotateY(-9deg) rotateX(3deg);
+    transform-origin: left center;
+  }
+
+  .hero-layar img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-layar figcaption {
+    background: #0e3d33;
+    color: #cfe9d8;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    padding: 8px 14px;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-layar {
+      transform: none;
+    }
   }
 
   @media (max-width: 480px) {
@@ -481,6 +584,58 @@ const langkah = [
     .hero .tombol .btn {
       width: 100%;
     }
+  }
+
+  /* ---------- Chip jenis usaha ---------- */
+  .chip-usaha {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chip-baris {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .chip-baris::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip-label {
+    flex: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--heading);
+  }
+
+  .chip {
+    flex: none;
+    scroll-snap-align: start;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--heading);
+    text-decoration: none;
+    background: #fff;
+    transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+  }
+
+  .chip:hover {
+    border-color: var(--green);
+    background: rgba(46, 204, 88, 0.08);
+  }
+
+  .chip-lain {
+    color: var(--green-deep);
+    border-style: dashed;
   }
 
   /* ---------- Masalah ---------- */

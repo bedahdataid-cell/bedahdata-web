@@ -180,7 +180,7 @@ export const PAKET = [
     untukEn: 'Get organised first: sales, stock, and finance sorted before anything else.',
     fitur: [
       'Penjualan, Kasir (POS) & Pesanan',
-      'Pembelian & Inventory',
+      'Pembelian & Inventaris',
       'Keuangan & Biaya',
       'Master Data (Produk, Pelanggan, Pemasok) & Impor',
       'Maintenance tahun pertama gratis',

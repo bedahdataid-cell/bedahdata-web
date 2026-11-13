@@ -23,7 +23,7 @@ export const FAQ_UMUM: ItemFaq[] = [
   {
     tanya: 'Data usaha saya disimpan di mana?',
     jawab:
-      '<p>Di Google Drive milik Anda sendiri, bukan di server kami. Setiap catatan penjualan, stok, dan keuangan tersimpan sebagai spreadsheet di Drive usaha Anda — bisa dibuka, dibackup, atau dipindahkan kapan saja tanpa minta izin kepada kami. Termasuk kalau suatu hari Anda berhenti bekerja sama dengan kami.</p>',
+      '<p>Di Google Drive milik Anda sendiri, bukan di server kami. Setiap catatan penjualan, stok, dan keuangan tersimpan sebagai spreadsheet di Drive usaha Anda — bisa dibuka, dicadangkan, atau dipindahkan kapan saja tanpa minta izin kepada kami. Termasuk kalau suatu hari Anda berhenti bekerja sama dengan kami.</p>',
   },
   {
     tanya: 'Bisa dipakai beberapa karyawan sekaligus?',
