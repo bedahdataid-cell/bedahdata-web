@@ -1,0 +1,19 @@
+---
+// Ikon YouTube kecil untuk tautan video panduan (logo resmi: kotak merah + segitiga putih).
+interface Props { size?: number }
+const { size = 20 } = Astro.props;
+---
+
+<svg class="ikon-yt" viewBox="0 0 28 20" width={size * 1.4} height={size} aria-hidden="true" focusable="false">
+  <rect width="28" height="20" rx="5" fill="#FF0000"></rect>
+  <path d="M11.2 5.6v8.8L18.8 10z" fill="#fff"></path>
+</svg>
+
+<style>
+  .ikon-yt {
+    display: inline-block;
+    vertical-align: -0.2em;
+    margin-right: 0.4em;
+    flex: none;
+  }
+</style>

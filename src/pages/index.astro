@@ -11,6 +11,7 @@ import Faq from '../components/Faq.astro';
 import Harga from '../components/Harga.astro';
 import GaleriFitur from '../components/GaleriFitur.astro';
 import VideoFasad from '../components/VideoFasad.astro';
+import IkonYoutube from '../components/IkonYoutube.astro';
 import { SITE, SEGMEN, PAKET, waLink, tautanBeli } from '../config';
 import { FAQ_UMUM, faqSchema } from '../data/faq';
 import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
@@ -94,26 +95,32 @@ const schema = [
 const masalah = [
   {
     judul: 'Stok di rak berbeda dengan catatan',
+    tanda: 'berbeda dengan catatan',
     isi: 'Barang di rak tidak cocok dengan buku, uang di laci kurang dari seharusnya. Curiga ada yang bocor, tapi tidak ada catatan yang bisa dicek bersama.',
   },
   {
     judul: 'Komisi dihitung manual, gajian jadi telat',
+    tanda: 'gajian jadi telat',
     isi: 'Tiap akhir bulan menghitung komisi teknisi atau terapis dari nota dan foto WhatsApp. Lama, gampang salah, dan karyawan jadi bertanya-tanya.',
   },
   {
     judul: 'Bon pelanggan cuma ada di buku',
+    tanda: 'cuma ada di buku',
     isi: 'Piutang pemborong dan uang muka (DP) pesanan dicatat tangan. Begitu bukunya hilang atau lupa ditulis, uangnya ikut sulit ditagih.',
   },
   {
     judul: 'Omzet terasa besar, yang dibawa pulang kok sedikit?',
+    tanda: 'kok sedikit?',
     isi: 'Pesanan masuk lewat WhatsApp, nota di laci, uang usaha bercampur uang pribadi. Untung yang sebenarnya tidak kelihatan sampai tutup buku, dan tutup buku jadi kerja lembur sendiri.',
   },
   {
     judul: 'Pernah pakai aplikasi, tapi ribet dan CS-nya menghilang',
+    tanda: 'CS-nya menghilang',
     isi: 'Makin sering diperbarui makin ribet, tagihan langganan terus naik, dan saat ada masalah jawabannya cuma "tunggu 1x24 jam".',
   },
   {
     judul: 'Sudah telanjur banyak data, mau pindah jadi berat',
+    tanda: 'pindah jadi berat',
     isi: 'Bertahun-tahun data dimasukkan ke aplikasi orang lain. Rasanya terkunci: berhenti langganan berarti mulai dari nol lagi.',
   },
 ];
@@ -255,7 +262,11 @@ const langkah = [
         {
           masalah.map((m) => (
             <li class="keluhan reveal">
-              <h3>{m.judul}</h3>
+              <h3>
+                {m.judul.split(m.tanda)[0]}
+                <mark class="stabilo">{m.tanda}</mark>
+                {m.judul.split(m.tanda)[1]}
+              </h3>
               <p>{m.isi}</p>
             </li>
           ))
@@ -267,7 +278,7 @@ const langkah = [
         keluhan-keluhan inilah ERP Studio kami rancang.
       </p>
       <p class="transisi kecil reveal">
-        Bukan karena Anda kurang teliti, melainkan karena catatannya terpisah-pisah, dan tidak ada
+        Bukan karena Anda kurang teliti, melainkan karena <mark class="stabilo">catatannya terpisah-pisah</mark>, dan tidak ada
         satu tempat yang bisa dipercaya.
       </p>
     </div>
@@ -358,7 +369,7 @@ const langkah = [
             href="https://www.youtube.com/playlist?list=PLJt7HHo40rRE"
             target="_blank"
             rel="noopener"
-            data-sumber="beranda-playlist">Tonton semua video panduan di YouTube</a
+            data-sumber="beranda-playlist"><IkonYoutube />Tonton semua video panduan di YouTube</a
           >
         </figcaption>
       </figure>
@@ -522,12 +533,6 @@ const langkah = [
     font-size: clamp(34px, 4.6vw, 58px);
     line-height: 1.08;
     letter-spacing: -0.025em;
-  }
-
-  .stabilo {
-    color: inherit;
-    background: linear-gradient(transparent 60%, rgba(255, 107, 44, 0.5) 60%, rgba(255, 107, 44, 0.5) 92%, transparent 92%);
-    padding: 0 0.08em;
   }
 
   .hero .sub {

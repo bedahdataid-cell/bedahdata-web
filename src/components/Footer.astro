@@ -4,6 +4,7 @@
 // Selalu menyediakan jalan keluar ke WhatsApp supaya pembaca tidak buntu.
 // ============================================================================
 import { SITE, SOCIALS, SEGMEN, WA_DISPLAY, WA_NUMBER, PRIVACY_URL, TERMS_URL } from '../config';
+import IkonYoutube from './IkonYoutube.astro';
 import { jalur, type Bahasa } from '../i18n/ui';
 
 interface Props {
@@ -118,7 +119,7 @@ const F = en
           }
           <li>
             <a href="https://www.youtube.com/playlist?list=PLJt7HHo40rRE" target="_blank" rel="noopener" data-sumber="footer-playlist">
-              {en ? 'Video tutorials (YouTube)' : 'Video panduan (YouTube)'}
+              <IkonYoutube size={14} />{en ? 'Video tutorials (YouTube)' : 'Video panduan (YouTube)'}
             </a>
           </li>
         </ul>

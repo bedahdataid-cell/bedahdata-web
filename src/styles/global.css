@@ -327,6 +327,17 @@ section {
   color: #fff !important;
 }
 
+/* --- Stabilo oranye: tandai kata yang PENTING diperhatikan (owner 14 Nov 2026).
+   Hemat: maksimal 1 frasa per kartu/paragraf. Teks tetap warna aslinya (kontras aman). */
+mark.stabilo,
+.stabilo {
+  color: inherit;
+  background: linear-gradient(transparent 58%, rgba(255, 107, 44, 0.45) 58%, rgba(255, 107, 44, 0.45) 92%, transparent 92%);
+  padding: 0 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* --- Daftar bercentang --------------------------------------------------- */
 .checklist {
   list-style: none;
