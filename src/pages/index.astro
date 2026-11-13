@@ -183,6 +183,7 @@ const langkah = [
       </div>
 
       <div class="hero-visual">
+        <span class="stiker" aria-hidden="true">Bayar<br />sekali</span>
         <figure class="hero-layar">
           <img
             src="/assets/hero-dashboard.webp"
@@ -495,7 +496,8 @@ const langkah = [
     position: relative;
     padding: clamp(48px, 7vw, 92px) 0 clamp(56px, 7vw, 96px);
     background:
-      radial-gradient(900px 480px at 85% 10%, rgba(46, 204, 88, 0.12), transparent 70%),
+      radial-gradient(900px 480px at 85% 10%, rgba(46, 204, 88, 0.14), transparent 70%),
+      radial-gradient(700px 420px at 0% 100%, rgba(255, 107, 44, 0.12), transparent 70%),
       repeating-linear-gradient(to bottom, transparent 0 39px, rgba(14, 61, 51, 0.035) 39px 40px),
       var(--bg);
     overflow: hidden;
@@ -777,6 +779,50 @@ const langkah = [
     }
   }
 
+
+  /* Stiker oranye: satu titik "perhatian" di hero */
+  .stiker {
+    position: absolute;
+    top: -26px;
+    right: -14px;
+    z-index: 2;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: var(--oranye);
+    color: var(--heading);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.05;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    transform: rotate(10deg);
+    box-shadow: 0 16px 30px -12px rgba(194, 65, 12, 0.6);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .stiker {
+      animation: stiker-masuk 0.5s var(--ease-out) 1.3s both;
+    }
+  }
+  @keyframes stiker-masuk {
+    from {
+      opacity: 0;
+      transform: rotate(-20deg) scale(0.6);
+    }
+  }
+  @media (max-width: 900px) {
+    .stiker {
+      top: auto;
+      bottom: -18px;
+      right: -6px;
+      width: 84px;
+      height: 84px;
+      font-size: 16px;
+    }
+  }
+
   /* ---------- Chip jenis usaha ---------- */
   .chip-usaha {
     background: #fff;
@@ -848,12 +894,13 @@ const langkah = [
   .keluhan::before {
     content: '';
     position: absolute;
-    left: 2px;
-    top: 29px;
-    width: 12px;
-    height: 12px;
-    border: 2px solid #c94f4f;
+    left: 0;
+    top: 27px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
+    background: var(--oranye);
+    box-shadow: 0 0 0 5px rgba(255, 107, 44, 0.16);
   }
 
   .keluhan h3 {

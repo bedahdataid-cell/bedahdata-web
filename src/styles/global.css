@@ -9,6 +9,10 @@
   --green: #2ecc58;
   --green-dark: #22a847;
   --green-deep: #1b8c3a; /* untuk teks hijau di atas putih: kontras cukup */
+  /* Aksen kedua (owner 14 Nov 2026): oranye = "perhatian / masalah", hijau = "solusi".
+     #FF6B2C hanya untuk bidang/bentuk (kontras teks di putih ~2,8:1). Teks oranye pakai --oranye-deep (5,2:1). */
+  --oranye: #ff6b2c;
+  --oranye-deep: #c2410c;
   --heading: #0e3d33;
   --heading-soft: #155446;
 
