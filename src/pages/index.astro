@@ -9,6 +9,7 @@ import Layout from '../layouts/Layout.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import Faq from '../components/Faq.astro';
 import Harga from '../components/Harga.astro';
+import GaleriFitur from '../components/GaleriFitur.astro';
 import { SITE, SEGMEN, PAKET, waLink, tautanBeli } from '../config';
 import { FAQ_UMUM, faqSchema } from '../data/faq';
 
@@ -154,12 +155,8 @@ const langkah = [
         sistemnya benar-benar jalan.
       </p>
       <div class="tombol">
-        <a
-          href={tautanBeli('gratis')}
-          class="btn btn-primary"
-          target="_blank"
-          rel="noopener"
-          data-sumber="hero-gratis">Coba Gratis 3 Hari</a
+        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="hero-gratis"
+          >Coba Gratis 3 Hari</a
         >
         <a href="/harga/" class="btn btn-onDark">Lihat Harga &amp; Paket</a>
       </div>
@@ -204,6 +201,9 @@ const langkah = [
       </p>
     </div>
   </section>
+
+  <!-- ===================== FITUR UNGGULAN (layar asli) ===================== -->
+  <GaleriFitur />
 
   <!-- ===================== PILAR / KEUNGGULAN ===================== -->
   <section class="tinted" id="keunggulan">
@@ -288,28 +288,13 @@ const langkah = [
         </div>
       </div>
 
-      <!-- 🔴 PENANGANAN JUJUR — JANGAN DIGANTI GAMBAR REKAAN.
-           Kartu ini menggantikan mockup dashboard hasil generate AI yang dicopot
-           29 Jul 2026 karena berisi angka karangan (klaim palsu).
-           Ganti HANYA dengan tangkapan layar ERP Studio ASLI, dan bila ada
-           angkanya WAJIB berlabel DATA DEMO yang terbaca.
-           Aset: Konten/TES_KEYNOTE_OWNER/Screenshot_ERP/siap_pakai/ -->
-      <div class="placeholder reveal">
-        <span class="ph-label">Cuplikan layar asli menyusul</span>
-        <p>
-          Kami sengaja tidak memasang gambar dashboard hasil rekaan di sini. Yang akan tampil
-          nanti adalah tangkapan layar ERP Studio yang sungguhan — dengan label
-          <strong>DATA DEMO</strong> pada angkanya. Sementara ini, cara paling jujur melihat
-          sistemnya adalah mencobanya gratis 3 hari dengan data Anda sendiri.
-        </p>
-        <a
-          href={tautanBeli('gratis')}
-          class="btn btn-ghost"
-          target="_blank"
-          rel="noopener"
-          data-sumber="placeholder-gratis">Coba Gratis 3 Hari</a
-        >
-      </div>
+      <!-- Tangkapan layar ERP ASLI kini ada di galeri fitur (#fitur) — bukan rekaan.
+           Kartu "cuplikan menyusul" (29 Jul 2026) dicabut 13 Nov 2026 karena sudah terpenuhi. -->
+      <p class="placeholder reveal">
+        <span class="ph-label">Layar asli, data demo</span>
+        Ingin melihat sistemnya bekerja? Cuplikan layar ERP Studio sungguhan ada di bagian
+        <a href="#fitur">Lihat sendiri</a>. Lebih yakin lagi kalau dicoba gratis 3 hari dengan data Anda.
+      </p>
     </div>
   </section>
 

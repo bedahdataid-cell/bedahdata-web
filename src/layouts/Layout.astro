@@ -37,7 +37,9 @@ const {
   ogType = 'website',
   schema,
   noindex = false,
-  adaTerjemahan = true,
+  // 13 Nov 2026: default false — pages/en belum ada, pengalih bahasa menuju /en/ = 404 di situs live.
+  // Ubah ke true (atau kirim adaTerjemahan={true}) hanya setelah halaman Inggrisnya benar-benar ada.
+  adaTerjemahan = false,
 } = Astro.props;
 
 // --- Bahasa halaman ini, dibaca dari alamatnya -----------------------------
@@ -253,6 +255,40 @@ fbq('track', 'PageView');`}
           content_name: tautan.getAttribute('data-sumber') || 'umum',
         });
       });
+    </script>
+
+    <script>
+      // ======================================================================
+      // KARTU MIRING + SOROTAN KURSOR (DESIGN.md §4) — desktop saja.
+      // Hanya mengisi variabel CSS; gerak & tampilannya diatur di global.css.
+      // ======================================================================
+      const pointerHalus = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const gerakBoleh = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (pointerHalus && gerakBoleh) {
+        document.addEventListener(
+          'pointermove',
+          (e) => {
+            const el = (e.target as HTMLElement | null)?.closest?.('.card-lift') as HTMLElement | null;
+            if (!el) return;
+            const r = el.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width;
+            const py = (e.clientY - r.top) / r.height;
+            el.style.setProperty('--mx', `${px * 100}%`);
+            el.style.setProperty('--my', `${py * 100}%`);
+            el.style.setProperty('--ry', `${(px - 0.5) * 6}deg`);
+            el.style.setProperty('--rx', `${(0.5 - py) * 6}deg`);
+          },
+          { passive: true },
+        );
+        document.addEventListener(
+          'pointerout',
+          (e) => {
+            const el = (e.target as HTMLElement | null)?.closest?.('.card-lift') as HTMLElement | null;
+            if (el) ['--rx', '--ry'].forEach((v) => el.style.removeProperty(v));
+          },
+          { passive: true },
+        );
+      }
     </script>
 
     <script>

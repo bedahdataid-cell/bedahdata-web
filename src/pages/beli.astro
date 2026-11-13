@@ -1,0 +1,310 @@
+---
+// ============================================================================
+// HALAMAN CHECKOUT /beli/ — semua tombol Beli/Coba bermuara ke sini, lalu
+// diteruskan ke Lynk (atau WhatsApp selama tautan Lynk belum diisi).
+// Tahap corong: MEMBELI (DESIGN.md §6b). Harga & isi paket hanya dari config.ts.
+// 🔴 Tanpa hitung mundur, stok palsu, logo pembayaran tiruan, atau form kartu.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import { PAKET, LYNK, tautanBeli, waLink } from '../config';
+
+const title = 'Beli ERP Studio — Free, Standar, atau Pro | Bedah Data';
+const description =
+  'Pilih paket ERP Studio, lihat apa yang Anda dapat setelah bayar, lalu lanjut ke pembayaran. Bayar sekali, data di Google Drive Anda sendiri.';
+
+const VIDEO_P1 = 'https://youtu.be/q5JDshq4Gf0';
+const VIDEO_P2 = 'https://youtu.be/OpnmtzTc_0k';
+const PDF_PANDUAN = 'https://drive.google.com/file/d/1bLI39CE352VaBfmioKw2RFPmz1WJ6gGx/view?usp=sharing';
+
+const lewatLynk = (k: keyof typeof LYNK) => Boolean(LYNK[k]);
+const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP Studio');
+---
+
+<Layout title={title} description={description} adaTerjemahan={false}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Checkout</span>
+      <h1>Pilih paket, lalu lanjut ke pembayaran</h1>
+      <p>
+        Bayar sekali, bukan langganan. Semua data tersimpan di Google Drive usaha Anda sendiri.
+        Belum yakin? Mulai dari paket Free, tiga hari cukup untuk merasakannya.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid-paket" id="pilih-paket">
+        {
+          PAKET.map((p) => (
+            <article class={`card paket reveal ${p.populer ? 'populer' : ''}`} data-paket={p.kunci}>
+              {p.populer && <span class="badge">Rekomendasi Kami</span>}
+              <h2>{p.nama}</h2>
+              <p class="harga">
+                {p.harga}
+                <small>{p.satuan}</small>
+              </p>
+              <p class="untuk">{p.untuk}</p>
+              <ul class="checklist">
+                {p.fitur.map((f) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+              <a
+                href={tautanBeli(p.kunci)}
+                class={`btn ${p.populer ? 'btn-primary' : 'btn-ghost'}`}
+                target="_blank"
+                rel="noopener"
+                data-sumber={`beli-${p.kunci}`}
+              >
+                {p.kunci === 'gratis'
+                  ? 'Ambil Trial Gratis'
+                  : lewatLynk(p.kunci)
+                    ? `Lanjut ke pembayaran (${p.nama})`
+                    : `Pesan ${p.nama} lewat WhatsApp`}
+              </a>
+              <p class="via">
+                {lewatLynk(p.kunci)
+                  ? 'Pembayaran diproses di Lynk.id, lalu Anda kembali ke langkah berikutnya.'
+                  : 'Pembayaran lewat Lynk.id segera dibuka. Sementara ini kami layani lewat WhatsApp.'}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="tinted">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Setelah bayar</span>
+        <h2>Yang Anda dapat, dan tiga langkah sampai aktif</h2>
+      </div>
+
+      <div class="dua-kolom">
+        <div class="card reveal">
+          <h3>Yang Anda terima</h3>
+          <ul class="checklist">
+            <li>Tautan ERP Studio untuk disalin ke akun Google Anda sendiri</li>
+            <li>Kode lisensi Standar atau Pro, dikirim lewat WhatsApp setelah bukti bayar kami cek</li>
+            <li>Dua video panduan: pasang &amp; coba gratis, lalu aktifkan kode</li>
+            <li>Panduan PDF bergambar dengan nomor di tiap yang diklik</li>
+            <li>Bantuan lewat WhatsApp kalau ada langkah yang membingungkan</li>
+          </ul>
+          <p class="tautan-bantu">
+            <a href={VIDEO_P1} target="_blank" rel="noopener">Video 1: pasang &amp; coba gratis</a> ·
+            <a href={VIDEO_P2} target="_blank" rel="noopener">Video 2: aktifkan kode</a> ·
+            <a href={PDF_PANDUAN} target="_blank" rel="noopener">Panduan PDF</a>
+          </p>
+        </div>
+
+        <ol class="langkah-beli">
+          <li class="card reveal" style="--reveal-delay:60ms">
+            <span class="nomor-bulat" aria-hidden="true">1</span>
+            <h3>Bayar di Lynk</h3>
+            <p>Pilih paket di atas. Pembayaran diproses oleh Lynk.id dengan metode yang tersedia di sana.</p>
+          </li>
+          <li class="card reveal" style="--reveal-delay:120ms">
+            <span class="nomor-bulat" aria-hidden="true">2</span>
+            <h3>Kirim bukti bayar ke WhatsApp</h3>
+            <p>Sebutkan nama usaha dan paket. Kami cocokkan dengan pesanan, lalu kode lisensi dikirim lewat WhatsApp pada jam kerja.</p>
+          </li>
+          <li class="card reveal" style="--reveal-delay:180ms">
+            <span class="nomor-bulat" aria-hidden="true">3</span>
+            <h3>Tempel kode di ERP</h3>
+            <p>Klik <strong>Aktifkan lisensi penuh</strong>, tempel kode, selesai. Data selama trial tetap utuh, tidak perlu pasang ulang.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="card ketentuan reveal">
+        <h3>Ketentuan singkat, supaya tidak ada kejutan</h3>
+        <ul>
+          <li><strong>Bayar sekali.</strong> Maintenance tahun pertama gratis; software tetap jalan walau maintenance tidak diperpanjang.</li>
+          <li><strong>Tidak ada pengembalian dana.</strong> Kode lisensi adalah produk digital yang langsung dapat dipakai. Karena itu, coba dulu gratis 3 hari sebelum membeli.</li>
+          <li><strong>Satu kode untuk satu database.</strong> Pindah akun atau database? Hubungi kami, kami bantu.</li>
+          <li><strong>Data di Google Drive Anda.</strong> Kami tidak menyimpan data usaha Anda di server kami.</li>
+        </ul>
+        <p>
+          Masih ada yang ingin ditanyakan sebelum membeli?
+          <a href={waBantuan} target="_blank" rel="noopener" data-sumber="beli-tanya">Tanya lewat WhatsApp</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Sorot kartu paket yang dipilih dari tombol asal (?paket=standar) dan gulir ke sana.
+  const k = new URLSearchParams(location.search).get('paket');
+  const kartu = k && document.querySelector<HTMLElement>(`.paket[data-paket="${k}"]`);
+  if (kartu) {
+    kartu.classList.add('dipilih');
+    const kurangiGerak = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    kartu.scrollIntoView({ behavior: kurangiGerak ? 'auto' : 'smooth', block: 'center' });
+  }
+</script>
+
+<style>
+  .kepala {
+    padding: clamp(48px, 7vw, 76px) 0;
+    text-align: center;
+  }
+  .kepala p {
+    font-size: 17px;
+    opacity: 0.93;
+    margin-top: 14px;
+  }
+  .eyebrow.terang {
+    color: #8ef0ab;
+  }
+
+  .grid-paket {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) {
+    .grid-paket {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+  }
+
+  .paket {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 26px;
+    border-width: 2px;
+  }
+  .paket.populer {
+    border-color: var(--green);
+  }
+  .paket.dipilih {
+    border-color: var(--heading);
+    box-shadow: 0 0 0 4px rgba(46, 204, 88, 0.22), var(--shadow-lg);
+  }
+  .paket h2 {
+    font-family: var(--font-body);
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--green);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 18px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .harga {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 34px);
+    font-weight: 600;
+    color: var(--green-deep);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .harga small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  .untuk {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+  .paket .checklist {
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+  .paket .btn {
+    width: 100%;
+  }
+  .via {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .dua-kolom {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .dua-kolom {
+      grid-template-columns: 1fr;
+    }
+  }
+  .dua-kolom h3 {
+    margin-bottom: 12px;
+  }
+  .tautan-bantu {
+    margin-top: 16px;
+    font-size: 14.5px;
+  }
+  .tautan-bantu a {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.45);
+  }
+
+  .langkah-beli {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+  }
+  .langkah-beli li {
+    position: relative;
+    padding-left: 70px;
+  }
+  .nomor-bulat {
+    position: absolute;
+    left: 22px;
+    top: 24px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+
+  .ketentuan ul {
+    padding-left: 1.2em;
+    margin: 12px 0 16px;
+    display: grid;
+    gap: 8px;
+    font-size: 15.5px;
+  }
+  .ketentuan li::marker {
+    color: var(--green-deep);
+  }
+  .ketentuan a {
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.45);
+  }
+</style>

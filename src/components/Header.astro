@@ -86,10 +86,10 @@ const pilihanBahasa = (['id', 'en'] as const).map((b) => ({
 
       <!-- Tombol WhatsApp versi HP: ikut di dalam panel menu -->
       <a
-        href={tautanBeli('gratis', bahasa === 'en')}
+        href={bahasa === 'en' ? tautanBeli('gratis', true) : '/beli/?paket=gratis'}
         class="btn btn-primary cta-mobile"
-        target="_blank"
-        rel="noopener"
+        target={bahasa === 'en' ? '_blank' : undefined}
+        rel={bahasa === 'en' ? 'noopener' : undefined}
         data-sumber="header-mobile">{teks.ctaDemo}</a
       >
     </nav>
@@ -114,10 +114,10 @@ const pilihanBahasa = (['id', 'en'] as const).map((b) => ({
     }
 
     <a
-      href={tautanBeli('gratis', bahasa === 'en')}
+      href={bahasa === 'en' ? tautanBeli('gratis', true) : '/beli/?paket=gratis'}
       class="btn btn-primary cta-desktop"
-      target="_blank"
-      rel="noopener"
+      target={bahasa === 'en' ? '_blank' : undefined}
+      rel={bahasa === 'en' ? 'noopener' : undefined}
       data-sumber="header">{teks.ctaDemo}</a
     >
 

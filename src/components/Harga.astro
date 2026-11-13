@@ -36,10 +36,10 @@ const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi Kami';
           ))}
         </ul>
         <a
-          href={tautanBeli(paket.kunci, en)}
+          href={en ? tautanBeli(paket.kunci, en) : `/beli/?paket=${paket.kunci}`}
           class={`btn ${paket.populer ? 'btn-primary' : 'btn-ghost'}`}
-          target="_blank"
-          rel="noopener"
+          target={en ? '_blank' : undefined}
+          rel={en ? 'noopener' : undefined}
           data-sumber={`harga-${paket.kunci}`}
         >
           {en ? paket.ctaEn : paket.cta}

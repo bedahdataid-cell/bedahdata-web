@@ -346,6 +346,104 @@ section {
   }
 }
 
+/* --- Efek ringan (DESIGN.md §4) -------------------------------------------
+   Semua progresif: browser lama & pengguna "kurangi gerakan" tetap dapat
+   halaman yang utuh. Tidak ada library. */
+
+/* Transisi halus antarhalaman (Chrome/Edge 126+, Safari 18.2+; lainnya pindah biasa). */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.28s;
+  }
+}
+
+/* Judul bagian ikut "naik" mengikuti gulir — hanya bila browser mendukung. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sec-head {
+      animation: sec-naik linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+@keyframes sec-naik {
+  from {
+    opacity: 0.25;
+    transform: translateY(24px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Kartu miring + sorotan mengikuti kursor (desktop saja; variabel --mx/--my
+   diisi JS kecil di Layout.astro). Di HP tetap kartu biasa. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card-lift {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.25s var(--ease), box-shadow 0.35s var(--ease),
+      border-color 0.35s var(--ease);
+  }
+  .card-lift::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(46, 204, 88, 0.16),
+      transparent 60%
+    );
+    transition: opacity 0.3s var(--ease);
+  }
+  .card-lift:hover {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-5px);
+  }
+  .card-lift:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Teks berjalan (jenis usaha, dll.): isi digandakan dua kali di HTML. */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-jalur {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: marquee-geser 38s linear infinite;
+}
+.marquee:hover .marquee-jalur {
+  animation-play-state: paused;
+}
+@keyframes marquee-geser {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-jalur {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+  }
+  .marquee {
+    mask-image: none;
+  }
+}
+
 /* --- Prosa (dipakai halaman artikel blog) -------------------------------- */
 .prose {
   font-size: 17px;

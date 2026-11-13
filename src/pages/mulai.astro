@@ -40,7 +40,7 @@ const langkah = [
 ];
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} adaTerjemahan={false}>
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
       <span class="eyebrow terang">Panduan mulai</span>
@@ -50,7 +50,7 @@ const langkah = [
         ini tulisan di bawah dan bantuan lewat WhatsApp.
       </p>
       <p class="tombol-tengah">
-        <a href={tautanBeli('gratis')} class="btn btn-primary" target="_blank" rel="noopener" data-sumber="mulai-gratis">Coba Gratis 3 Hari</a>
+        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="mulai-gratis">Coba Gratis 3 Hari</a>
       </p>
     </div>
   </section>

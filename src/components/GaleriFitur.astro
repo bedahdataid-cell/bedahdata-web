@@ -1,0 +1,294 @@
+---
+// ============================================================================
+// GALERI FITUR UNGGULAN — tab + klip layar ERP ASLI (bukan GIF, bukan mockup).
+// Tahap corong: MENJELAJAH (DESIGN.md §6 butir 4). Klip: public/video/fitur-*.mp4|webm
+// direkam dari ERP dengan DATA DEMO; diputar tanpa suara saat terlihat.
+// Tanpa JavaScript: ketiga panel tampil bertumpuk, tetap terbaca.
+// ============================================================================
+const PLAYLIST = 'https://www.youtube.com/playlist?list=PLJt7HHo40rRE';
+
+const fitur = [
+  {
+    id: 'keuangan',
+    tab: 'Keuangan ikut sendiri',
+    judul: 'Catat sekali, jurnal dan laporan ikut terbarui',
+    poin: [
+      'Jual, beli, bayar, terima barang: tiap transaksi langsung tercatat di jurnal',
+      'Laba rugi dan neraca terbentuk dari jurnal yang sama, tanpa dicatat dua kali',
+      'Mapping akun cukup diatur sekali di awal, dibantu saat demo',
+    ],
+    video: 'fitur-keuangan',
+    tutorial: PLAYLIST,
+  },
+  {
+    id: 'komisi',
+    tab: 'Komisi karyawan',
+    judul: 'Komisi teknisi, terapis, atau sales dihitung otomatis',
+    poin: [
+      'Aturan komisi diatur per produk, per peran, atau per orang',
+      'Tiap penjualan yang kena komisi langsung masuk rekap pemiliknya',
+      'Rekap bulanan siap dibayar, tanpa hitung ulang di buku',
+    ],
+    video: 'fitur-komisi',
+    tutorial: PLAYLIST,
+  },
+  {
+    id: 'pesanan',
+    tab: 'Pengelolaan pesanan',
+    judul: 'Pesanan dipantau dari masuk sampai selesai',
+    poin: [
+      'Papan pesanan: pindahkan kartu dari antre, diproses, sampai selesai',
+      'Dari invoice, pesanan terbentuk sendiri; status selalu terlihat tim',
+      'Tabel dan laporan untuk melihat mana yang tertahan',
+    ],
+    video: 'fitur-pesanan',
+    tutorial: PLAYLIST,
+  },
+];
+---
+
+<section id="fitur" class="galeri">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Lihat sendiri</span>
+      <h2>Tiga hal yang paling sering bikin pemilik usaha lega</h2>
+      <p>Layar di bawah ini adalah ERP Studio sungguhan dengan data demo, bukan gambar rekaan.</p>
+    </div>
+
+    <div class="galeri-isi reveal" data-galeri>
+      <div class="tabs" role="tablist" aria-label="Fitur unggulan">
+        {
+          fitur.map((f, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${f.id}`}
+              aria-controls={`panel-${f.id}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? 0 : -1}
+              class="tab"
+            >
+              <span class="tab-no">{String(i + 1).padStart(2, '0')}</span>
+              {f.tab}
+            </button>
+          ))
+        }
+      </div>
+
+      {
+        fitur.map((f, i) => (
+          <div
+            role="tabpanel"
+            id={`panel-${f.id}`}
+            aria-labelledby={`tab-${f.id}`}
+            class="panel"
+            hidden={i !== 0}
+          >
+            <div class="teks">
+              <h3>{f.judul}</h3>
+              <ul class="checklist">
+                {f.poin.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+              <a href={f.tutorial} class="tautan-panah" target="_blank" rel="noopener">
+                Lihat tutorialnya
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+            <figure class="layar">
+              <video muted loop playsinline preload="none" poster={`/video/${f.video}.webp`} aria-label={`Cuplikan layar ERP Studio: ${f.tab} (data demo)`}>
+                <source src={`/video/${f.video}.webm`} type="video/webm" />
+                <source src={`/video/${f.video}.mp4`} type="video/mp4" />
+              </video>
+              <figcaption>DATA DEMO · layar ERP Studio asli</figcaption>
+            </figure>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Tab + putar klip hanya saat terlihat. Tanpa JS: semua panel tampil (lihat CSS .no-js).
+  document.querySelectorAll<HTMLElement>('[data-galeri]').forEach((g) => {
+    const tabs = [...g.querySelectorAll<HTMLButtonElement>('[role=tab]')];
+    const panels = [...g.querySelectorAll<HTMLElement>('[role=tabpanel]')];
+    const videos = [...g.querySelectorAll<HTMLVideoElement>('video')];
+    const kurangiGerak = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const putar = (v: HTMLVideoElement | undefined) => {
+      videos.forEach((x) => x !== v && x.pause());
+      if (v && !kurangiGerak && !v.closest('[hidden]')) v.play().catch(() => {});
+    };
+
+    const pilih = (i: number, fokus = false) => {
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(i === j));
+        t.tabIndex = i === j ? 0 : -1;
+      });
+      panels.forEach((p, j) => (p.hidden = i !== j));
+      if (fokus) tabs[i].focus();
+      putar(videos[i]);
+    };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => pilih(i));
+      t.addEventListener('keydown', (e) => {
+        const arah = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (arah) {
+          e.preventDefault();
+          pilih((i + arah + tabs.length) % tabs.length, true);
+        }
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(
+        (ents) =>
+          ents.forEach((e) => {
+            const v = videos[tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true')];
+            e.isIntersecting ? putar(v) : v?.pause();
+          }),
+        { threshold: 0.35 },
+      ).observe(g);
+    }
+  });
+</script>
+
+<style>
+  .galeri {
+    background: var(--white);
+  }
+  .galeri-isi {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .galeri-isi {
+      gap: 18px;
+    }
+  }
+
+  /* Tab berjajar di atas supaya layar ERP di bawahnya mendapat lebar penuh (terbaca). */
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .tabs {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(200px, 1fr);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    padding: 16px 18px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font: 600 15.5px/1.3 var(--font-body);
+    color: var(--heading);
+    cursor: pointer;
+    scroll-snap-align: start;
+    transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .tab-no {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--green-deep);
+    min-width: 30px;
+  }
+  .tab[aria-selected='true'] {
+    border-color: var(--green);
+    background: rgba(46, 204, 88, 0.08);
+    box-shadow: inset 4px 0 0 var(--green);
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .tab:hover {
+      transform: translateX(3px);
+      border-color: rgba(46, 204, 88, 0.5);
+    }
+  }
+
+  .panel {
+    display: grid;
+    grid-template-columns: 0.8fr 1.9fr;
+    gap: 30px;
+    align-items: center;
+  }
+  .panel[hidden] {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .panel {
+      grid-template-columns: 1fr;
+    }
+    .panel .layar {
+      order: -1;
+    }
+  }
+  .teks h3 {
+    margin-bottom: 14px;
+  }
+  .teks .checklist {
+    margin-bottom: 18px;
+  }
+  .tautan-panah {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green-deep);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .layar {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    background: #0e3d33;
+  }
+  .layar video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+  .layar figcaption {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #cfe9d8;
+    background: #0e3d33;
+    padding: 8px 14px;
+  }
+
+  /* Tanpa JavaScript: tab tidak bekerja, jadi tampilkan semua panel bertumpuk. */
+  :global(.no-js) .panel[hidden] {
+    display: grid;
+  }
+  :global(.no-js) .tabs {
+    display: none;
+  }
+</style>
