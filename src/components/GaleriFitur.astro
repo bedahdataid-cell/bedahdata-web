@@ -11,13 +11,25 @@ const fitur = [
   {
     id: 'keuangan',
     tab: 'Keuangan ikut sendiri',
-    judul: 'Catat sekali, jurnal dan laporan ikut terbarui',
+    judul: 'Jualan tercatat sendiri, laba rugi tinggal klik Hitung',
     poin: [
-      'Jual, beli, bayar, terima barang: tiap transaksi langsung tercatat di jurnal',
-      'Laba rugi dan neraca terbentuk dari jurnal yang sama, tanpa dicatat dua kali',
-      'Mapping akun cukup diatur sekali di awal, dibantu saat demo',
+      'Tiap jual, beli, dan bayar langsung masuk pembukuan (jurnal)',
+      'Mau tahu untung bulan ini? Buka Laba Rugi, pilih tanggal, klik Hitung',
+      'Pengaturan akun keuangan cukup sekali di awal, kami bantu',
     ],
     video: 'fitur-keuangan',
+    tutorial: PLAYLIST,
+  },
+  {
+    id: 'stok',
+    tab: 'Stok berkurang sendiri',
+    judul: 'Barang terjual, stok langsung berkurang',
+    poin: [
+      'Tiap penjualan mengurangi stok, tiap barang datang menambahnya',
+      'Riwayatnya lengkap: kapan, berapa, dan karena transaksi apa',
+      'Stok menipis langsung diberi tanda supaya tidak kehabisan',
+    ],
+    video: 'fitur-stok',
     tutorial: PLAYLIST,
   },
   {
@@ -51,7 +63,7 @@ const fitur = [
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Lihat sendiri</span>
-      <h2>Tiga hal yang paling sering bikin pemilik usaha lega</h2>
+      <h2>Empat hal yang paling sering bikin pemilik usaha lega</h2>
       <p>Layar di bawah ini adalah ERP Studio sungguhan dengan data demo, bukan gambar rekaan.</p>
     </div>
 
@@ -178,7 +190,7 @@ const fitur = [
   /* Tab berjajar di atas supaya layar ERP di bawahnya mendapat lebar penuh (terbaca). */
   .tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
   }
   @media (max-width: 900px) {
