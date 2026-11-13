@@ -9,9 +9,9 @@ import Layout from '../../layouts/Layout.astro';
 import CtaAkhir from '../../components/CtaAkhir.astro';
 import { SITE } from '../../config';
 
-const title = 'Panduan Mengelola Usaha Kecil — Keuangan, Stok & Tim | Bedah Data';
+const title = 'Panduan Mengelola Usaha Kecil: Keuangan, Stok, dan Tim | Bedah Data';
 const description =
-  'Panduan praktis mengelola usaha kecil: menghitung HPP jasa, membaca laporan laba rugi, merapikan stok, dan mengatur komisi karyawan. Gratis dibaca siapa saja.';
+  'Panduan praktis mengelola usaha kecil: menghitung HPP (harga pokok) jasa, membaca laporan laba rugi, merapikan stok, dan mengatur komisi karyawan. Gratis dibaca siapa saja.';
 
 // Artikel draf disembunyikan; sisanya diurutkan dari yang terbaru.
 const semua = (await getCollection('panduan', ({ data }) => data.draf !== true)).sort(
@@ -37,10 +37,10 @@ const schema = {
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
       <span class="eyebrow terang">Panduan</span>
-      <h1>Kelas manajemen usaha kecil</h1>
+      <h1>Belajar mengelola usaha kecil</h1>
       <p>
-        Cara menghitung, cara membaca angka, dan cara merapikan pencatatan — ditulis supaya
-        berguna walau Anda tidak membeli apa pun dari kami.
+        Cara menghitung, cara membaca angka, dan cara merapikan pencatatan. Semuanya ditulis
+        supaya berguna walau Anda tidak membeli apa pun dari kami.
       </p>
     </div>
   </section>
@@ -100,7 +100,7 @@ const schema = {
 
   <CtaAkhir
     judul="Kalau butuh bantuan merapikannya"
-    teks="Artikel di atas bisa Anda kerjakan sendiri tanpa membeli apa pun. Tapi kalau ingin dibantu sampai sistemnya jalan, ceritakan saja kondisi usaha Anda."
+    teks="Isi artikel di atas bisa Anda terapkan sendiri tanpa membeli apa pun. Tapi kalau ingin dibantu sampai pencatatannya berjalan, ceritakan saja kondisi usaha Anda."
     pesanWa="Halo Bedah Data, saya baca artikel panduan dan mau tanya lebih lanjut"
   />
 </Layout>

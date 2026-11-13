@@ -5,6 +5,8 @@
 // ============================================================================
 import Layout from '../layouts/Layout.astro';
 import { NAV } from '../config';
+import { t } from '../i18n/ui';
+const ui = t('id');
 ---
 
 <Layout
@@ -22,7 +24,7 @@ import { NAV } from '../config';
       </p>
 
       <ul class="tautan">
-        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        {NAV.map((item) => <li><a href={item.href}>{ui[item.kunci]}</a></li>)}
       </ul>
 
       <a href="/" class="btn btn-primary">Kembali ke Beranda</a>

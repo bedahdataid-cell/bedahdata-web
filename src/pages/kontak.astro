@@ -7,30 +7,30 @@
 import Layout from '../layouts/Layout.astro';
 import { SITE, SOCIALS, WA_DISPLAY, WA_NUMBER, waLink } from '../config';
 
-const title = 'Hubungi Bedah Data — WhatsApp 0851 8824 4786';
+const title = 'Hubungi Bedah Data: WhatsApp 0851 8824 4786';
 const description =
-  'Hubungi Bedah Data lewat WhatsApp atau email untuk demo gratis 30 menit ERP Studio. Dijawab orang, bukan bot.';
+  'Hubungi Bedah Data lewat WhatsApp atau surel untuk demo gratis 30 menit ERP Studio. Dijawab orang sungguhan, bukan bot.';
 
 const alasan = [
   {
     judul: 'Mau demo gratis 30 menit',
-    isi: 'Kami tunjukkan langsung cara sistem menangani alur usaha Anda. Gratis, tanpa keharusan beli.',
+    isi: 'Kami tunjukkan langsung cara ERP Studio mencatat alur usaha Anda. Gratis, tanpa kewajiban membeli.',
     pesan: 'Halo Bedah Data, saya mau menjadwalkan demo gratis 30 menit ERP Studio',
     tombol: 'Jadwalkan Demo',
     utama: true,
   },
   {
-    judul: 'Bingung pilih paket',
-    isi: 'Ceritakan bisnis Anda, nanti kami bantu hitungkan paket mana yang masuk akal.',
+    judul: 'Bingung memilih paket',
+    isi: 'Ceritakan usaha Anda, lalu kami bantu menimbang paket mana yang masuk akal.',
     pesan: 'Halo Bedah Data, saya mau konsultasi paket yang pas untuk bisnis saya',
     tombol: 'Konsultasi Paket',
     utama: false,
   },
   {
-    judul: 'Mau tanya-tanya dulu',
-    isi: 'Belum siap demo juga tidak apa-apa. Tanya saja dulu apa yang mengganjal.',
-    pesan: 'Halo Bedah Data, saya mau tanya-tanya dulu soal ERP Studio',
-    tombol: 'Tanya via WhatsApp',
+    judul: 'Mau bertanya dulu',
+    isi: 'Belum siap demo juga tidak apa-apa. Tanyakan saja dulu apa yang mengganjal.',
+    pesan: 'Halo Bedah Data, saya mau bertanya dulu soal ERP Studio',
+    tombol: 'Tanya lewat WhatsApp',
     utama: false,
   },
 ];
@@ -42,8 +42,8 @@ const alasan = [
       <span class="eyebrow terang">Kontak</span>
       <h1>Mari mengobrol dulu</h1>
       <p>
-        Tidak ada formulir panjang di sini. Cukup kirim pesan WhatsApp — dijawab orang nyata,
-        bukan bot.
+        Tidak ada formulir panjang di sini. Cukup kirim pesan WhatsApp, dan pesan Anda dijawab
+        orang sungguhan, bukan bot.
       </p>
     </div>
   </section>
@@ -83,7 +83,7 @@ const alasan = [
               </a>
             </li>
             <li>
-              <span class="label">Email</span>
+              <span class="label">Surel (email)</span>
               <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </li>
           </ul>
@@ -111,8 +111,8 @@ const alasan = [
       <div class="jam reveal">
         <h2>Kapan pesan Anda dibalas</h2>
         <p>
-          Bedah Data dijalankan tim kecil, jadi kami memilih terus terang soal ini: pesan yang
-          masuk pada hari kerja biasanya dibalas pada hari yang sama. Pesan di malam hari atau
+          Bedah Data dijalankan tim kecil, jadi kami memilih berterus terang soal ini. Pesan yang
+          masuk pada hari kerja biasanya dibalas pada hari yang sama. Pesan pada malam hari atau
           akhir pekan dibalas pada hari kerja berikutnya.
         </p>
         <p>

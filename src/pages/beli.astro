@@ -8,9 +8,9 @@
 import Layout from '../layouts/Layout.astro';
 import { PAKET, LYNK, tautanBeli, waLink } from '../config';
 
-const title = 'Beli ERP Studio — Free, Standar, atau Pro | Bedah Data';
+const title = 'Beli ERP Studio: Free, Standar, atau Pro | Bedah Data';
 const description =
-  'Pilih paket ERP Studio, lihat apa yang Anda dapat setelah bayar, lalu lanjut ke pembayaran. Bayar sekali, data di Google Drive Anda sendiri.';
+  'Pilih paket ERP Studio, lihat apa yang Anda dapat setelah membayar, lalu lanjut ke pembayaran. Bayar sekali, dan data tersimpan di Google Drive Anda sendiri.';
 
 const VIDEO_P1 = 'https://youtu.be/q5JDshq4Gf0';
 const VIDEO_P2 = 'https://youtu.be/OpnmtzTc_0k';
@@ -23,11 +23,11 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
 <Layout title={title} description={description} adaTerjemahan={false}>
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
-      <span class="eyebrow terang">Checkout</span>
+      <span class="eyebrow terang">Pembelian</span>
       <h1>Pilih paket, lalu lanjut ke pembayaran</h1>
       <p>
         Bayar sekali, bukan langganan. Semua data tersimpan di Google Drive usaha Anda sendiri.
-        Belum yakin? Mulai dari paket Free, tiga hari cukup untuk merasakannya.
+        Belum yakin? Mulai dari paket Free. Tiga hari cukup untuk merasakannya.
       </p>
     </div>
   </section>
@@ -58,15 +58,15 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
                 data-sumber={`beli-${p.kunci}`}
               >
                 {p.kunci === 'gratis'
-                  ? 'Ambil Trial Gratis'
+                  ? 'Mulai Coba Gratis'
                   : lewatLynk(p.kunci)
-                    ? `Lanjut ke pembayaran (${p.nama})`
+                    ? `Lanjut ke Pembayaran (${p.nama})`
                     : `Pesan ${p.nama} lewat WhatsApp`}
               </a>
               <p class="via">
                 {lewatLynk(p.kunci)
                   ? 'Pembayaran diproses di Lynk.id, lalu Anda kembali ke langkah berikutnya.'
-                  : 'Pembayaran lewat Lynk.id segera dibuka. Sementara ini kami layani lewat WhatsApp.'}
+                  : 'Pembayaran lewat Lynk.id segera dibuka. Untuk sementara, kami layani lewat WhatsApp.'}
               </p>
             </article>
           ))
@@ -79,7 +79,7 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Setelah bayar</span>
-        <h2>Yang Anda dapat, dan tiga langkah sampai aktif</h2>
+        <h2>Yang Anda dapat, dan tiga langkah sampai aplikasi aktif</h2>
       </div>
 
       <div class="dua-kolom">
@@ -87,13 +87,13 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
           <h3>Yang Anda terima</h3>
           <ul class="checklist">
             <li>Tautan ERP Studio untuk disalin ke akun Google Anda sendiri</li>
-            <li>Kode lisensi Standar atau Pro, dikirim lewat WhatsApp setelah bukti bayar kami cek</li>
-            <li>Dua video panduan: pasang &amp; coba gratis, lalu aktifkan kode</li>
-            <li>Panduan PDF bergambar dengan nomor di tiap yang diklik</li>
-            <li>Bantuan lewat WhatsApp kalau ada langkah yang membingungkan</li>
+            <li>Kode lisensi Standar atau Pro, dikirim lewat WhatsApp setelah bukti pembayaran kami periksa</li>
+            <li>Dua video panduan: cara memasang dan mencoba gratis, lalu cara mengaktifkan kode</li>
+            <li>Panduan PDF bergambar, lengkap dengan nomor di setiap tombol yang perlu diklik</li>
+            <li>Bantuan lewat WhatsApp bila ada langkah yang membingungkan</li>
           </ul>
           <p class="tautan-bantu">
-            <a href={VIDEO_P1} target="_blank" rel="noopener">Video 1: pasang &amp; coba gratis</a> ·
+            <a href={VIDEO_P1} target="_blank" rel="noopener">Video 1: pasang dan coba gratis</a> ·
             <a href={VIDEO_P2} target="_blank" rel="noopener">Video 2: aktifkan kode</a> ·
             <a href={PDF_PANDUAN} target="_blank" rel="noopener">Panduan PDF</a>
           </p>
@@ -107,13 +107,13 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
           </li>
           <li class="card reveal" style="--reveal-delay:120ms">
             <span class="nomor-bulat" aria-hidden="true">2</span>
-            <h3>Kirim bukti bayar ke WhatsApp</h3>
-            <p>Sebutkan nama usaha dan paket. Kami cocokkan dengan pesanan, lalu kode lisensi dikirim lewat WhatsApp pada jam kerja.</p>
+            <h3>Kirim bukti pembayaran ke WhatsApp</h3>
+            <p>Sebutkan nama usaha dan paket yang dibeli. Kami mencocokkannya dengan pesanan, lalu mengirim kode lisensi lewat WhatsApp pada jam kerja.</p>
           </li>
           <li class="card reveal" style="--reveal-delay:180ms">
             <span class="nomor-bulat" aria-hidden="true">3</span>
-            <h3>Tempel kode di ERP</h3>
-            <p>Klik <strong>Aktifkan lisensi penuh</strong>, tempel kode, selesai. Data selama trial tetap utuh, tidak perlu pasang ulang.</p>
+            <h3>Tempel kode di ERP Studio</h3>
+            <p>Klik <strong>Aktifkan lisensi penuh</strong>, tempel kode, selesai. Data selama masa coba tetap utuh, dan Anda tidak perlu memasang ulang.</p>
           </li>
         </ol>
       </div>
@@ -123,11 +123,11 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
   <section>
     <div class="wrap-narrow">
       <div class="card ketentuan reveal">
-        <h3>Ketentuan singkat, supaya tidak ada kejutan</h3>
+        <h3>Ketentuan singkat supaya tidak ada kejutan</h3>
         <ul>
-          <li><strong>Bayar sekali.</strong> Maintenance tahun pertama gratis; software tetap jalan walau maintenance tidak diperpanjang.</li>
+          <li><strong>Bayar sekali.</strong> Perawatan dan pembaruan tahun pertama gratis. Aplikasi tetap berjalan walau perawatan tidak diperpanjang.</li>
           <li><strong>Tidak ada pengembalian dana.</strong> Kode lisensi adalah produk digital yang langsung dapat dipakai. Karena itu, coba dulu gratis 3 hari sebelum membeli.</li>
-          <li><strong>Satu kode untuk satu database.</strong> Pindah akun atau database? Hubungi kami, kami bantu.</li>
+          <li><strong>Satu kode untuk satu basis data (database) usaha.</strong> Mau pindah akun atau basis data? Hubungi kami, kami bantu.</li>
           <li><strong>Data di Google Drive Anda.</strong> Kami tidak menyimpan data usaha Anda di server kami.</li>
         </ul>
         <p>

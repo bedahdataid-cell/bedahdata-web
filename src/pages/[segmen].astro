@@ -60,10 +60,10 @@ const schema = [
       <h1>{isi.h1}</h1>
       <p class="intro">{isi.intro}</p>
       <div class="tombol">
-        <a href={waLink(isi.pesanWa)} class="btn btn-primary" target="_blank" rel="noopener">
-          Demo Gratis 30 Menit
+        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber={`segmen-${isi.slug}-gratis`}>
+          Coba Gratis 3 Hari
         </a>
-        <a href="/harga/" class="btn btn-onDark">Lihat Harga</a>
+        <a href={waLink(isi.pesanWa)} class="btn btn-onDark" target="_blank" rel="noopener" data-sumber={`segmen-${isi.slug}-wa`}>Tanya lewat WhatsApp</a>
       </div>
     </div>
   </section>
@@ -93,7 +93,7 @@ const schema = [
   <section class="tinted">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow">Cara sistem menanganinya</span>
+        <span class="eyebrow">Cara ERP Studio membantu</span>
         <h2>Yang berubah setelah dicatat di satu tempat</h2>
       </div>
 
@@ -144,13 +144,13 @@ const schema = [
         <span class="eyebrow">Harga</span>
         <h2>Bayar sekali, bukan langganan bulanan</h2>
         <p>
-          Harga yang sama untuk semua jenis usaha. Maintenance tahun pertama gratis, dan
-          software tetap jalan walau maintenance tidak diperpanjang.
+          Harga yang sama untuk semua jenis usaha. Perawatan dan pembaruan tahun pertama gratis,
+          dan aplikasi tetap berjalan walau perawatan tidak diperpanjang.
         </p>
       </div>
       <Harga />
       <p class="lanjut reveal">
-        <a href="/harga/">Lihat rincian paket &amp; layanan pendamping</a>
+        <a href="/harga/">Lihat rincian paket dan layanan pendampingan</a>
       </p>
     </div>
   </section>
@@ -207,7 +207,7 @@ const schema = [
 
   <CtaAkhir
     judul={`Mau lihat cara kerjanya untuk ${isi.nama.toLowerCase()}?`}
-    teks="Demo 30 menit memakai contoh alur usaha Anda sendiri. Gratis, tanpa komitmen — dan kalau ternyata belum cocok, kami akan mengatakannya."
+    teks="Demo 30 menit memakai contoh alur usaha Anda sendiri. Gratis dan tanpa ikatan. Kalau ternyata belum cocok, kami akan mengatakannya terus terang."
     pesanWa={isi.pesanWa}
   />
 </Layout>

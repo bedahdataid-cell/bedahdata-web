@@ -14,7 +14,7 @@
 
   --text: #44514d;
   --text-muted: #5f6f6a;
-  --bg: #f4f6f5;
+  --bg: #f4f8f6;
   --bg-warm: #fbfcfb;
   --white: #fff;
   --border: rgba(14, 61, 51, 0.1);
@@ -99,7 +99,9 @@ h1 {
 
 h2 {
   font-family: var(--font-display);
-  font-size: clamp(26px, 3.9vw, 40px);
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
 h3 {
@@ -156,12 +158,11 @@ section {
 /* Label kecil di atas judul — memberi hierarki tanpa menambah ukuran font. */
 .eyebrow {
   display: inline-block;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
   color: var(--green-deep);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 /* --- Tombol -------------------------------------------------------------- */
@@ -188,11 +189,11 @@ section {
 
 .btn-primary {
   background: var(--green);
-  color: #fff;
+  color: var(--heading);
   box-shadow: 0 6px 18px rgba(46, 204, 88, 0.26);
 }
 .btn-primary:hover {
-  background: var(--green-dark);
+  background: #4bd770;
   box-shadow: 0 10px 26px rgba(46, 204, 88, 0.34);
 }
 
@@ -285,6 +286,41 @@ section {
 .dark-panel h2,
 .dark-panel h3 {
   color: #fff;
+}
+
+
+/* --- Kepala halaman: TERANG (gaya baru 14 Nov 2026, selaras hero beranda) ---
+   Semua halaman memakai .dark-panel.kepala; penutup (CTA akhir) tetap gelap. */
+.dark-panel.kepala {
+  background:
+    radial-gradient(900px 420px at 85% 0%, rgba(46, 204, 88, 0.12), transparent 70%),
+    repeating-linear-gradient(to bottom, transparent 0 39px, rgba(14, 61, 51, 0.035) 39px 40px),
+    var(--bg);
+  color: var(--heading);
+  border-bottom: 1px solid var(--border);
+}
+.dark-panel.kepala::before {
+  display: none;
+}
+.dark-panel.kepala :is(h1, h2, h3) {
+  color: var(--heading);
+}
+.dark-panel.kepala :is(p, li, nav, nav a, small, span):not(.btn):not(.btn *) {
+  color: var(--text) !important;
+  opacity: 1 !important;
+  border-color: rgba(14, 61, 51, 0.25) !important;
+}
+.dark-panel.kepala.kepala span.eyebrow.eyebrow,
+.dark-panel.kepala.kepala .eyebrow.terang.terang {
+  color: var(--green-deep) !important;
+}
+.dark-panel.kepala .btn-onDark {
+  color: var(--heading) !important;
+  border-color: rgba(14, 61, 51, 0.25) !important;
+}
+.dark-panel.kepala .btn-onDark:hover {
+  background: var(--heading) !important;
+  color: #fff !important;
 }
 
 /* --- Daftar bercentang --------------------------------------------------- */

@@ -15,7 +15,7 @@ export const SITE = {
   locale: 'id-ID',
   email: 'bedahdata.id@gmail.com',
   description:
-    'ERP Studio menyatukan stok, penjualan, keuangan, dan komisi karyawan dalam satu sistem. Bayar sekali, dan data tersimpan di Google Drive usaha Anda sendiri.',
+    'ERP Studio adalah aplikasi pencatatan usaha yang menyatukan stok, penjualan, keuangan, dan komisi karyawan. Bayar sekali, dan data tersimpan di Google Drive usaha Anda sendiri.',
   descriptionEn:
     'ERP Studio brings stock, sales, finance, and staff commission into one system. Pay once, and your data stays in your own business’s Google Drive.',
 } as const;
@@ -95,21 +95,21 @@ export const SEGMEN = [
     slug: 'bengkel',
     nama: 'Bengkel',
     namaEn: 'Auto Repair Shops',
-    ringkas: 'Komisi mekanik & antrean servis terhitung sendiri.',
+    ringkas: 'Komisi mekanik dan antrean servis terhitung sendiri.',
     ringkasEn: 'Mechanic commission and service queue worked out for you.',
   },
   {
     slug: 'salon',
     nama: 'Salon & Klinik',
     namaEn: 'Salons & Beauty Clinics',
-    ringkas: 'Komisi terapis, jadwal, dan gaji dalam satu sistem.',
+    ringkas: 'Komisi terapis, jadwal, dan gaji dalam satu aplikasi.',
     ringkasEn: 'Therapist commission, schedule, and payroll in one system.',
   },
   {
     slug: 'percetakan',
     nama: 'Percetakan & Studio',
     namaEn: 'Print Shops & Studios',
-    ringkas: 'Antrean order dari masuk sampai selesai, plus piutang.',
+    ringkas: 'Antrean pesanan dari masuk sampai selesai, plus piutang.',
     ringkasEn: 'Order queue from intake to hand-over, plus receivables.',
   },
   {
@@ -118,6 +118,27 @@ export const SEGMEN = [
     namaEn: 'Building Supplies & Wholesale',
     ringkas: 'Stok dan mutasi barang cocok dengan catatan.',
     ringkasEn: 'Stock and goods movement that match your records.',
+  },
+  {
+    slug: 'kedai-kopi',
+    nama: 'Kedai Kopi',
+    namaEn: 'Coffee Shops',
+    ringkas: 'Penjualan kasir, stok bahan, dan biaya harian tercatat rapi.',
+    ringkasEn: 'Till sales, ingredient stock, and daily costs kept in order.',
+  },
+  {
+    slug: 'jualan-online',
+    nama: 'Jualan Online',
+    namaEn: 'Online Sellers',
+    ringkas: 'Pesanan dari banyak tempat, satu stok, untung bersih terlihat.',
+    ringkasEn: 'Orders from many channels, one stock, clear net profit.',
+  },
+  {
+    slug: 'konveksi',
+    nama: 'Konveksi Rumahan',
+    namaEn: 'Home Garment Makers',
+    ringkas: 'Pesanan ber-DP, bahan kain, dan upah penjahit tercatat.',
+    ringkasEn: 'Deposits, fabric stock, and tailor wages recorded.',
   },
 ] as const;
 
@@ -179,11 +200,11 @@ export const PAKET = [
     untuk: 'Mulai rapi: jualan, stok, dan keuangan beres dulu.',
     untukEn: 'Get organised first: sales, stock, and finance sorted before anything else.',
     fitur: [
-      'Penjualan, Kasir (POS) & Pesanan',
-      'Pembelian & Inventaris',
-      'Keuangan & Biaya',
-      'Master Data (Produk, Pelanggan, Pemasok) & Impor',
-      'Maintenance tahun pertama gratis',
+      'Penjualan, kasir (POS), dan pesanan',
+      'Pembelian dan stok barang',
+      'Keuangan dan biaya',
+      'Data induk (produk, pelanggan, pemasok) dan impor data',
+      'Perawatan dan pembaruan gratis di tahun pertama',
     ],
     fiturEn: [
       'Sales, Point of Sale & Orders',
@@ -208,10 +229,10 @@ export const PAKET = [
     untukEn: 'The most complete one, for businesses that already have a team and want to see the numbers more deeply.',
     fitur: [
       'Semua yang ada di Standar',
-      'HRD: absensi & penggajian',
+      'HRD: absensi dan penggajian',
       'Produksi',
-      'Komisi, CRM & Prospek',
-      'AI penasihat data (AI Decision Intelligence)',
+      'Komisi, pengelolaan pelanggan (CRM), dan calon pelanggan',
+      'Penasihat AI yang membaca data usaha Anda (AI Decision Intelligence)',
     ],
     fiturEn: [
       'Everything in Standard',
@@ -233,7 +254,7 @@ export const CUSTOM = {
   nama: 'Custom',
   judul: 'Butuh sistem yang lebih besar?',
   judulEn: 'Need a bigger system?',
-  teks: 'ERP ini berjalan di Google Apps Script, yang punya batas kuota dan memori. Kalau usaha Anda sudah melewatinya, kita bahas sistem yang lebih tangguh bersama.',
+  teks: 'ERP Studio berjalan di Google Apps Script, yang punya batas pemakaian dan memori. Kalau usaha Anda sudah melewati batas itu, mari kita bahas sistem yang lebih tangguh bersama.',
   teksEn: 'This ERP runs on Google Apps Script, which has quota and memory limits. If your business has outgrown them, we discuss a sturdier system together.',
   cta: 'Bahas Kebutuhan Saya',
   ctaEn: 'Discuss My Needs',

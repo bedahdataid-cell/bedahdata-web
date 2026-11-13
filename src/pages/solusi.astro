@@ -9,62 +9,65 @@ import Layout from '../layouts/Layout.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import { SEGMEN, waLink } from '../config';
 
-const title = 'Modul ERP Studio — Stok, Keuangan, Komisi & Payroll | Bedah Data';
+const title = 'Modul ERP Studio: Stok, Keuangan, Komisi, dan Penggajian | Bedah Data';
 const description =
-  'Delapan modul ERP Studio: penjualan, pembelian, stok, keuangan, HRD & penggajian, komisi, CRM, dan pesanan. Nyalakan yang perlu, lewati yang tidak.';
+  'Delapan modul aplikasi pencatatan usaha ERP Studio: penjualan, pembelian, stok, keuangan, HRD dan penggajian, komisi, pelanggan (CRM), dan pesanan. Nyalakan yang perlu, lewati yang tidak.';
 
 const modul = [
   {
     nama: 'Penjualan',
-    isi: 'Dari kasir sampai invoice, semua penjualan tercatat sendiri — tinggal lihat hasilnya.',
+    isi: 'Dari kasir sampai faktur (invoice), semua penjualan tercatat sendiri. Anda tinggal melihat hasilnya.',
     addon: false,
   },
   {
     nama: 'Pembelian',
-    isi: 'Order ke pemasok dan pembayarannya jadi satu alur rapi. Tidak ada lagi nota tercecer.',
+    isi: 'Pesanan ke pemasok dan pembayarannya jadi satu alur yang rapi. Tidak ada lagi nota tercecer.',
     addon: false,
   },
   {
-    nama: 'Inventaris',
-    isi: 'Tahu persis stok mana yang menipis dan mana yang nyangkut, lengkap dengan kartu stok dan riwayat mutasinya.',
+    nama: 'Stok Barang (Inventaris)',
+    isi: 'Tahu persis stok mana yang menipis dan mana yang lama tidak laku, lengkap dengan kartu stok dan riwayat keluar-masuknya.',
     addon: false,
   },
   {
     nama: 'Keuangan',
-    isi: 'Transaksi dari modul lain otomatis masuk jurnal — tidak perlu dicatat dobel. Cukup sekali mengatur akun keuangan (kami bantu), laba rugi dan neraca tersusun sendiri.',
+    isi: 'Transaksi dari modul lain otomatis masuk jurnal, jadi tidak perlu dicatat dobel. Cukup sekali mengatur akun keuangan (kami bantu), lalu laporan laba rugi dan neraca tersusun sendiri.',
     addon: false,
   },
   {
-    nama: 'HRD & Payroll',
-    isi: 'Absensi (termasuk GPS), cuti, sampai gaji karyawan terhitung rapi. Tanggal gajian jadi tenang.',
+    nama: 'HRD dan Penggajian',
+    isi: 'Absensi (termasuk lewat lokasi GPS), cuti, sampai gaji karyawan terhitung rapi. Tanggal gajian jadi tenang.',
     pro: true,
   },
   {
-    nama: 'CRM',
-    isi: 'Data pelanggan dan calon pembeli tersimpan rapi — follow-up tidak lagi mengandalkan ingatan.',
+    nama: 'Pelanggan (CRM)',
+    isi: 'Data pelanggan dan calon pembeli tersimpan rapi, sehingga tindak lanjut tidak lagi mengandalkan ingatan.',
     pro: true,
   },
   {
     nama: 'Komisi',
-    isi: 'Komisi reseller dan agen terhitung sendiri — bebas dari rekap manual akhir bulan.',
+    isi: 'Komisi karyawan, reseller, dan agen terhitung sendiri, bebas dari rekap manual akhir bulan.',
     pro: true,
   },
   {
     nama: 'Pesanan',
-    isi: 'Antrean pesanan terkelola dari masuk sampai selesai — untuk jasa maupun barang, dengan tahapan yang bisa disesuaikan jenis usaha.',
+    isi: 'Antrean pesanan terpantau dari masuk sampai selesai, untuk jasa maupun barang, dengan tahapan yang bisa disesuaikan dengan jenis usaha.',
     pro: false,
   },
 ];
 
 const bidang = [
-  'Toko & Grosir',
+  'Toko dan Grosir',
   'Bengkel',
-  'Salon & Klinik',
-  'Percetakan & Studio',
+  'Salon dan Klinik',
+  'Percetakan dan Studio',
+  'Kedai Kopi',
+  'Jualan Online',
+  'Konveksi Rumahan',
+  'Toko Roti',
   'Laundry',
-  'Bakery/Konveksi',
-  'Agency',
-  'Course',
+  'Agensi',
+  'Kursus',
 ];
 ---
 
@@ -74,8 +77,9 @@ const bidang = [
       <span class="eyebrow terang">Solusi</span>
       <h1>Nyalakan yang perlu, lewati yang tidak</h1>
       <p>
-        Satu fondasi yang rapi, lalu Anda tinggal menyalakan modul yang benar-benar dipakai.
-        Mulai ramping dulu, tambah seiring bisnis tumbuh — tanpa pernah ganti sistem dari awal.
+        ERP Studio adalah aplikasi pencatatan usaha dengan satu fondasi yang rapi. Anda tinggal
+        menyalakan modul yang benar-benar dipakai. Mulai dari yang sederhana, lalu tambah seiring
+        usaha tumbuh, tanpa harus mengganti aplikasi dari awal.
       </p>
     </div>
   </section>
@@ -104,9 +108,9 @@ const bidang = [
       </div>
 
       <p class="catatan reveal">
-        Modul bertanda <strong>Paket Pro</strong> tersedia di paket Pro; modul lainnya sudah ada
-        di paket Standar. Modul yang tidak Anda pakai juga bisa dimatikan kapan saja, jadi menu
-        yang tampil tetap ringkas sesuai cara kerja Anda.
+        Modul bertanda <strong>Paket Pro</strong> tersedia di paket Pro, sedangkan modul lainnya
+        sudah ada di paket Standar. Modul yang tidak Anda pakai juga bisa dimatikan kapan saja,
+        jadi menu yang tampil tetap ringkas sesuai cara kerja Anda.
       </p>
     </div>
   </section>
@@ -116,26 +120,26 @@ const bidang = [
     <div class="wrap">
       <div class="panel-ai reveal">
         <div class="panel-teks">
-          <span class="eyebrow terang">AI Decision Intelligence</span>
-          <h2>Bisnis Anda jadi punya teman diskusi data — bukan cuma laporan yang bisu</h2>
+          <span class="eyebrow terang">AI Decision Intelligence · Paket Pro</span>
+          <h2>Usaha Anda punya teman diskusi soal angka, bukan cuma laporan yang diam</h2>
           <p>
-            ERP Studio tidak berhenti di mencatat, dan tidak berhenti di dashboard yang cuma
-            bisa dilihat. Ditenagai Gemini, Anda bisa benar-benar tanya-jawab dengannya pakai
-            bahasa sehari-hari — "kenapa margin bulan ini turun?", "produk apa yang paling
-            untung?" — dan dijawab langsung berdasarkan data bisnis Anda sendiri, bukan jawaban
-            umum dari internet. Semakin sering diajak diskusi, Anda pun ikut makin paham kondisi
-            bisnis sendiri.
+            ERP Studio tidak berhenti di pencatatan, dan tidak berhenti di dasbor yang hanya
+            bisa dilihat. Dengan AI Gemini dari Google, Anda bisa bertanya memakai bahasa
+            sehari-hari, misalnya "kenapa untung bulan ini turun?" atau "produk apa yang paling
+            untung?". Jawabannya disusun dari data usaha Anda sendiri, bukan jawaban umum dari
+            internet. Makin sering Anda bertanya, makin paham pula Anda tentang kondisi usaha
+            sendiri.
           </p>
         </div>
         <ul class="panel-daftar">
           <li>
-            Tanya apa saja soal bisnis Anda pakai bahasa sehari-hari — dan dijawab langsung,
-            bukan disuruh buka laporan sendiri
+            Tanyakan apa saja soal usaha Anda dengan bahasa sehari-hari, dan dapatkan jawaban
+            langsung tanpa harus membuka laporan sendiri
           </li>
           <li>Memperkirakan penjualan bulan depan dari pola bulan-bulan sebelumnya</li>
-          <li>Menandai angka yang janggal sebelum jadi masalah besar</li>
-          <li>Mengingatkan kapan dan berapa banyak perlu restock</li>
-          <li>Menunjukkan produk mana yang paling menguntungkan (dan mana yang cuma ramai)</li>
+          <li>Menandai angka yang janggal sebelum menjadi masalah besar</li>
+          <li>Mengingatkan kapan dan berapa banyak barang perlu dibeli lagi</li>
+          <li>Menunjukkan produk mana yang paling menguntungkan, dan mana yang hanya ramai pembeli</li>
         </ul>
       </div>
     </div>
@@ -146,7 +150,7 @@ const bidang = [
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">Per jenis usaha</span>
-        <h2>Sudah paham alur kerja usaha seperti ini sejak awal</h2>
+        <h2>Bisa dipakai berbagai jenis usaha, juga yang masih dikerjakan sendiri</h2>
       </div>
 
       <ul class="pil-bidang reveal">
@@ -187,26 +191,27 @@ const bidang = [
   <section class="tinted">
     <div class="wrap-narrow">
       <div class="batas reveal">
-        <h2>Yang belum bisa dilakukan sistem ini</h2>
+        <h2>Yang belum bisa dilakukan ERP Studio</h2>
         <p>
-          Bagian ini jarang ditulis vendor lain, tapi menurut kami justru yang paling perlu Anda
-          tahu sebelum memutuskan.
+          Bagian ini jarang ditulis penyedia aplikasi, tapi menurut kami justru paling perlu Anda
+          ketahui sebelum memutuskan.
         </p>
         <ul class="daftar-batas">
           <li>
-            <strong>Belum ada integrasi otomatis ke marketplace.</strong> Order dari Shopee atau
-            Tokopedia tetap diinput manual — sistem ini tidak menariknya sendiri. Kalau volume
-            order harian Anda sangat tinggi dari marketplace, katakan sejak awal supaya kami
-            bisa jujur menilai apakah ini menolong atau justru menambah pekerjaan.
+            <strong>Belum tersambung otomatis ke marketplace.</strong> Pesanan dari Shopee atau
+            Tokopedia tetap dimasukkan manual, karena aplikasi ini tidak menariknya sendiri. Kalau
+            pesanan harian Anda dari marketplace sangat banyak, katakan sejak awal supaya kami bisa
+            menilai dengan jujur apakah ini menolong atau justru menambah pekerjaan.
           </li>
           <li>
-            <strong>Bukan untuk manufaktur multipabrik.</strong> Kebutuhan produksi berlapis
-            dengan banyak lokasi pabrik di luar cakupan kami saat ini.
+            <strong>Bukan untuk pabrik dengan banyak lokasi.</strong> Produksi berlapis di banyak
+            lokasi pabrik masih di luar cakupan kami saat ini. Untuk produksi skala rumahan seperti
+            konveksi, modul Produksi tersedia di paket Pro.
           </li>
           <li>
-            <strong>Bukan pengganti akuntan.</strong> Sistem merapikan pencatatan dan menyusun
-            laporannya. Untuk urusan pajak dan pemeriksaan, Anda tetap butuh orang yang ahli di
-            bidang itu.
+            <strong>Bukan pengganti akuntan.</strong> Aplikasi ini merapikan pencatatan dan
+            menyusun laporannya. Untuk urusan pajak dan pemeriksaan keuangan, Anda tetap butuh
+            orang yang ahli di bidang itu.
           </li>
         </ul>
       </div>
@@ -215,7 +220,7 @@ const bidang = [
 
   <CtaAkhir
     judul="Mau lihat modulnya bekerja langsung?"
-    teks="Demo 30 menit memakai contoh alur usaha Anda sendiri — bukan presentasi umum. Gratis, dan kalau ternyata belum cocok kami akan bilang."
+    teks="Demo 30 menit memakai contoh alur usaha Anda sendiri, bukan presentasi umum. Gratis, dan kalau ternyata belum cocok, kami akan mengatakannya."
     pesanWa="Halo Bedah Data, saya mau lihat demo modul ERP Studio"
   />
 </Layout>

@@ -18,34 +18,34 @@ import { faqSchema } from '../data/faq';
 const standar = PAKET.find((p) => p.kunci === 'standar')!;
 const pro = PAKET.find((p) => p.kunci === 'pro')!;
 
-const title = `Harga ERP Studio — Bayar Sekali Mulai ${standar.harga} | Bedah Data`;
-const description = `Rincian harga ERP Studio: coba gratis 3 hari, paket Standar ${standar.harga} dan Pro ${pro.harga}, sekali bayar bukan langganan. Termasuk maintenance dan layanan pendamping.`;
+const title = `Harga ERP Studio: Bayar Sekali Mulai ${standar.harga} | Bedah Data`;
+const description = `Rincian harga ERP Studio: coba gratis 3 hari, paket Standar ${standar.harga} dan Pro ${pro.harga}, bayar sekali, bukan langganan. Termasuk perawatan dan pembaruan tahun pertama serta pendampingan.`;
 
 const faqHarga = [
   {
-    tanya: 'Apa yang terjadi kalau maintenance tidak diperpanjang?',
+    tanya: 'Apa yang terjadi kalau perawatan tidak diperpanjang?',
     jawab:
-      '<p><strong>Software tetap berjalan.</strong> Maintenance mengurus pembaruan sistem, perbaikan, dan dukungan teknis dari kami — bukan saklar yang menyalakan aplikasi Anda. Kalau tidak diperpanjang, sistem yang sudah ada tetap bisa dipakai seperti biasa; yang berhenti hanyalah layanan perawatan dan pengembangan dari pihak kami.</p>',
+      '<p><strong>Aplikasi tetap berjalan.</strong> Layanan perawatan mencakup pembaruan, perbaikan, dan bantuan teknis dari kami. Layanan ini bukan sakelar yang menyalakan aplikasi Anda. Kalau tidak diperpanjang, aplikasi yang sudah terpasang tetap bisa dipakai seperti biasa. Yang berhenti hanyalah layanan perawatan dan pengembangan dari kami.</p>',
   },
   {
     tanya: 'Kenapa ada biaya tambahan di luar harga paket?',
     jawab:
-      '<p>Karena tidak semua orang membutuhkannya, dan kami tidak mau membebankan biaya jasa ke orang yang bisa mengerjakannya sendiri. Harga paket sudah mencakup software-nya. Yang terpisah adalah <strong>pekerjaan manusia</strong>: setup jarak jauh, memindahkan data lama dari Excel, dan pelatihan tim. Semuanya opsional, dan angkanya kami sampaikan terbuka di awal — bukan muncul di tengah jalan.</p>',
+      '<p>Karena tidak semua orang membutuhkannya, dan kami tidak mau membebankan biaya jasa ke orang yang bisa mengerjakannya sendiri. Harga paket sudah mencakup aplikasinya. Yang terpisah adalah <strong>pekerjaan manusia</strong>: pemasangan jarak jauh, pemindahan data lama dari Excel, dan pelatihan tim. Semuanya pilihan, dan biayanya kami sampaikan terbuka di awal, bukan muncul di tengah jalan.</p>',
   },
   {
-    tanya: 'Beda Standar dan Pro apa persisnya?',
+    tanya: 'Apa persisnya beda Standar dan Pro?',
     jawab:
-      '<p>Paket <strong>Standar</strong> berisi modul inti: penjualan, kasir, pesanan, pembelian, inventory, keuangan, dan master data. Paket <strong>Pro</strong> berisi semuanya itu ditambah HRD (absensi dan penggajian), produksi, Komisi, CRM, Prospek, dan AI Decision Intelligence. Tidak ada fitur yang dijual satuan: kalau Anda butuh salah satunya, pilihannya naik ke Pro.</p>',
+      '<p>Paket <strong>Standar</strong> berisi modul inti: penjualan, kasir, pesanan, pembelian, stok barang, keuangan, dan data induk (produk, pelanggan, pemasok). Paket <strong>Pro</strong> berisi semua itu, ditambah HRD (absensi dan penggajian), produksi, komisi, pengelolaan pelanggan (CRM), calon pelanggan (prospek), dan penasihat AI (AI Decision Intelligence). Tidak ada fitur yang dijual satuan. Kalau Anda butuh salah satunya, pilihannya naik ke Pro.</p>',
   },
   {
     tanya: 'Bisa mulai dari Standar lalu naik ke Pro nanti?',
     jawab:
-      '<p>Bisa. Naik ke Pro cukup dengan membeli kode Pro lalu memasukkannya ke ERP Anda. Tidak perlu memasang ulang sistem dan data Anda tetap utuh. Kalau ragu, coba gratis 3 hari dulu, lalu pilih paket yang pas.</p>',
+      '<p>Bisa. Naik ke Pro cukup dengan membeli kode Pro lalu memasukkannya ke ERP Studio Anda. Anda tidak perlu memasang ulang aplikasi, dan data Anda tetap utuh. Kalau ragu, coba gratis 3 hari dulu, lalu pilih paket yang pas.</p>',
   },
   {
-    tanya: 'Ada garansi uang kembali?',
+    tanya: 'Apakah ada garansi uang kembali?',
     jawab:
-      '<p>Kami tidak memasang skema garansi uang kembali. Sebagai gantinya, Anda bisa <strong>mencoba gratis 3 hari</strong> dengan data Anda sendiri sebelum membayar sepeser pun — supaya keputusannya diambil setelah mencoba, bukan setelah membaca janji.</p>',
+      '<p>Kami tidak memasang skema garansi uang kembali. Sebagai gantinya, Anda bisa <strong>mencoba gratis 3 hari</strong> dengan data Anda sendiri sebelum membayar sepeser pun. Dengan begitu, keputusan diambil setelah mencoba, bukan setelah membaca janji.</p>',
   },
 ];
 
@@ -58,10 +58,10 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
       <span class="eyebrow terang">Harga</span>
       <h1>Bayar sekali. Bukan sewa bulanan.</h1>
       <p>
-        ERP Studio cukup sekali bayar, mulai {standar.harga}. Coba gratis 3 hari dulu. Kenapa bisa
-        segini? Sistemnya jalan di akun Google Anda sendiri, jadi kami tidak menyewa server untuk
-        menyimpan data Anda. Perawatan tahun pertama gratis, dan software tetap jalan walau tidak
-        diperpanjang.
+        ERP Studio, aplikasi pencatatan usaha kami, cukup dibayar sekali, mulai {standar.harga}.
+        Coba gratis 3 hari dulu. Kenapa harganya segini? Aplikasinya berjalan di akun Google Anda
+        sendiri, jadi kami tidak menyewa server untuk menyimpan data Anda. Perawatan tahun pertama
+        gratis, dan aplikasi tetap berjalan walau perawatannya tidak diperpanjang.
       </p>
     </div>
   </section>
@@ -77,13 +77,13 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
       <div class="hitungan reveal">
         <h2>Hitungan sederhananya begini</h2>
         <p>
-          ERP langganan populer umumnya mulai sekitar Rp 3,6 juta per tahun — dalam 3 tahun
-          sudah lebih dari Rp 10 juta, dan terus berjalan. Paket Pro: {pro.harga}, sekali.
+          Aplikasi berlangganan ditagih terus selama Anda memakainya, dan biayanya menumpuk
+          dari tahun ke tahun. Paket Pro: {pro.harga}, dibayar sekali.
         </p>
         <p>
-          Semua harga bayar sekali, dan maintenance tahun pertama gratis. Bila dibutuhkan,
-          tersedia juga layanan pendamping opsional (setup remote, migrasi data dari Excel, dan
-          pelatihan tim) dengan biaya terpisah yang kami sampaikan terbuka di awal.
+          Semua harga dibayar sekali, dan perawatan tahun pertama gratis. Bila dibutuhkan,
+          tersedia juga layanan pendampingan pilihan (pemasangan jarak jauh, pemindahan data dari
+          Excel, dan pelatihan tim) dengan biaya terpisah yang kami sampaikan terbuka di awal.
         </p>
       </div>
     </div>
@@ -117,28 +117,28 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
 
       <div class="grid-jujur">
         <div class="card jujur reveal">
-          <h3>Sistem ini belum tentu untuk Anda</h3>
+          <h3>Tidak perlu langsung paket terlengkap</h3>
           <p>
-            Kalau usaha masih Anda pegang sendiri dan tidak ada yang perlu dicocokkan antar
-            orang, yang Anda butuhkan adalah catatan sederhana — bukan sistem 8 modul. Untuk
-            itu, aplikasi pencatatan gratis sudah cukup baik, dan kami akan mengatakannya
-            langsung saat demo.
+            Kalau Anda masih bekerja sendiri atau timnya kecil, paket Standar (jualan, stok, dan
+            keuangan) biasanya sudah cukup. Naik ke Pro bisa kapan saja tanpa memasang ulang.
+            Kalau saat demo ternyata kebutuhan Anda belum cocok, kami akan mengatakannya terus
+            terang.
           </p>
         </div>
         <div class="card jujur reveal" style="--reveal-delay:80ms">
           <h3>Yang kami janjikan, dan yang tidak</h3>
           <p>
             Kami tidak menjanjikan omzet Anda naik. Yang kami kerjakan adalah membuat angkanya
-            jelas dan siap dipakai memutuskan — soal keputusannya, itu tetap milik Anda dan
-            memang seharusnya begitu.
+            jelas dan siap dipakai untuk memutuskan. Keputusannya tetap milik Anda, dan memang
+            seharusnya begitu.
           </p>
         </div>
         <div class="card jujur reveal" style="--reveal-delay:160ms">
-          <h3>Pindah sistem butuh usaha</h3>
+          <h3>Pindah cara mencatat butuh usaha</h3>
           <p>
             Pindah dari buku atau Excel tidak selesai dalam satu sore. Ada data yang harus
-            dirapikan dan tim yang harus terbiasa. Kami mendampingi prosesnya, tapi kami tidak
-            akan berpura-pura bahwa ini instan.
+            dirapikan dan kebiasaan baru yang perlu dibangun. Kami mendampingi prosesnya, tapi kami
+            tidak akan berpura-pura bahwa ini instan.
           </p>
         </div>
       </div>
@@ -155,8 +155,8 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
       <Faq items={faqHarga} />
 
       <p class="lanjut reveal">
-        Masih menimbang paket mana yang pas? Ceritakan dulu bisnis Anda lewat WhatsApp — nanti
-        kami bantu hitungkan, gratis dan tanpa keharusan beli.
+        Masih menimbang paket mana yang pas? Ceritakan dulu usaha Anda lewat WhatsApp. Kami bantu
+        menimbangnya, gratis dan tanpa kewajiban membeli.
       </p>
       <p class="tombol-tengah reveal">
         <a
@@ -165,7 +165,7 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
           )}
           class="btn btn-primary"
           target="_blank"
-          rel="noopener">Konsultasi Gratis via WhatsApp</a
+          rel="noopener">Konsultasi Gratis lewat WhatsApp</a
         >
       </p>
     </div>
@@ -173,7 +173,7 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
 
   <CtaAkhir
     judul="Belum yakin paket mana yang pas?"
-    teks="Ceritakan dulu bisnis Anda 30 menit. Kami bantu hitung yang paling masuk akal — termasuk kalau jawabannya ternyata 'belum perlu sistem seperti ini'."
+    teks="Ceritakan dulu usaha Anda selama 30 menit. Kami bantu menimbang pilihan yang paling masuk akal, termasuk kalau jawabannya ternyata 'belum perlu sekarang'."
     pesanWa="Halo Bedah Data, saya mau konsultasi paket yang pas untuk bisnis saya"
   />
 </Layout>

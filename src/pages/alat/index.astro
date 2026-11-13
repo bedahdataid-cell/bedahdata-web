@@ -9,9 +9,9 @@ import CtaAkhir from '../../components/CtaAkhir.astro';
 import { SEMUA_ALAT, KELOMPOK } from '../../data/alat';
 import { SITE } from '../../config';
 
-const title = 'Alat Gratis untuk Usaha Kecil — Kalkulator Komisi, Lembur & Margin | Bedah Data';
+const title = 'Alat Gratis untuk Usaha Kecil: Kalkulator Komisi, Lembur, dan Margin | Bedah Data';
 const description =
-  'Kumpulan kalkulator gratis untuk usaha kecil: komisi karyawan, upah lembur, THR, biaya admin marketplace, margin, dan generator nota. Langsung pakai tanpa daftar.';
+  'Kumpulan kalkulator gratis untuk usaha kecil: komisi karyawan, upah lembur, THR, biaya admin marketplace, margin, dan pembuat nota. Langsung pakai tanpa mendaftar.';
 
 // Kelompok ditampilkan berurutan sesuai prioritas di spek §2.
 const urutan = ['karyawan', 'jualan-online', 'dokumen'] as const;
@@ -49,11 +49,11 @@ const schema = [
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
       <span class="eyebrow terang">Alat Gratis</span>
-      <h1>Hitungan yang sering bikin ragu, sekarang tinggal isi</h1>
+      <h1>Hitungan yang sering membuat ragu, sekarang tinggal isi</h1>
       <p>
-        Komisi karyawan, upah lembur, THR, potongan marketplace — semuanya bisa dihitung
-        di sini. Langsung pakai, tidak perlu mendaftar, dan tidak ada satu pun angka yang
-        Anda ketik terkirim ke kami.
+        Komisi karyawan, upah lembur, THR, potongan marketplace, semuanya bisa dihitung di
+        sini. Langsung pakai, tidak perlu mendaftar, dan tidak ada satu pun angka yang Anda
+        ketik terkirim kepada kami.
       </p>
     </div>
   </section>
@@ -73,7 +73,7 @@ const schema = [
                   <h3>{a.judulPendek}</h3>
                   <p>{a.ringkas}</p>
                   <span class="buka">
-                    Buka kalkulator
+                    Buka Kalkulator
                     <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
                       <path
                         d="M5 12h14M13 6l6 6-6 6"
@@ -101,19 +101,19 @@ const schema = [
       <div class="kenapa reveal">
         <h2>Kenapa alat ini bisa dipakai bebas</h2>
         <p>
-          Kami membuat ERP Studio — sistem yang menyatukan penjualan, stok, keuangan, dan
-          komisi karyawan untuk usaha kecil. Alat di halaman ini adalah potongan kecil dari
-          hitungan yang ada di dalamnya.
+          Kami membuat ERP Studio, aplikasi pencatatan usaha yang menyatukan penjualan, stok,
+          keuangan, dan komisi karyawan untuk usaha kecil. Alat di halaman ini adalah potongan
+          kecil dari hitungan yang ada di dalamnya.
         </p>
         <p>
           Silakan dipakai selamanya tanpa membeli apa pun. Kalau suatu saat hitungan
           bulanan Anda sudah terlalu banyak untuk dikerjakan satu per satu, Anda sudah tahu
           di mana mencari kami. Kalau tidak pernah sampai ke sana, alat ini tetap berguna
-          buat Anda — dan itu sudah cukup.
+          bagi Anda, dan itu sudah cukup.
         </p>
         <p class="tegas">
-          Angka yang Anda ketik diproses di dalam browser Anda sendiri dan tidak dikirim ke
-          server kami. Tidak ada yang disimpan, dan tidak ada yang perlu Anda daftarkan.
+          Angka yang Anda ketik diproses di peramban (browser) Anda sendiri dan tidak dikirim
+          ke server kami. Tidak ada yang disimpan, dan tidak ada yang perlu Anda daftarkan.
         </p>
       </div>
     </div>
@@ -121,8 +121,8 @@ const schema = [
 
   <CtaAkhir
     judul="Kalau merapikannya sudah terasa terlalu banyak"
-    teks="Alat di atas cukup untuk hitungan sesekali. Kalau tiap bulan angkanya perlu direkap ulang dan tersambung ke penjualan, ceritakan saja kondisi usaha Anda — kita lihat sama-sama apakah memang butuh sistem."
-    pesanWa="Halo Bedah Data, saya habis pakai alat gratis di website dan mau tanya soal ERP Studio"
+    teks="Alat di atas cukup untuk hitungan sesekali. Kalau tiap bulan angkanya perlu direkap ulang dan tersambung ke penjualan, ceritakan saja kondisi usaha Anda. Mari kita lihat bersama apakah Anda memang butuh aplikasi pencatatan."
+    pesanWa="Halo Bedah Data, saya baru memakai alat gratis di situs Anda dan mau tanya soal ERP Studio"
   />
 </Layout>
 

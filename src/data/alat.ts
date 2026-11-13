@@ -100,8 +100,8 @@ export interface Alat {
 
 export const KELOMPOK = {
   karyawan: {
-    nama: 'Karyawan & Gaji',
-    ringkas: 'Komisi, lembur, dan THR — hitungannya sering bikin ragu tiap bulan.',
+    nama: 'Karyawan dan Gaji',
+    ringkas: 'Komisi, lembur, dan THR: hitungan yang sering membuat ragu tiap bulan.',
   },
   'jualan-online': {
     nama: 'Jualan Online',
@@ -157,8 +157,8 @@ function buatKomisi(v: VarianKomisi): Alat {
     judulSeo: v.judulSeo,
     ringkas: v.ringkas,
     deskripsi: v.deskripsi,
-    bonusWa: `Mau rekap semua ${v.peran} sekaligus + template Google Sheets-nya? Klik WhatsApp, saya kirimkan.`,
-    pesanWa: `Halo Bedah Data, saya baru pakai kalkulator komisi ${v.peran}. Boleh minta template rekap semua ${v.peran} + Google Sheets-nya?`,
+    bonusWa: `Mau rekap semua ${v.peran} sekaligus beserta lembar Google Sheets siap pakai? Klik WhatsApp, kami kirimkan.`,
+    pesanWa: `Halo Bedah Data, saya baru memakai kalkulator komisi ${v.peran}. Boleh minta lembar rekap semua ${v.peran} dalam Google Sheets?`,
     isian: [
       {
         kunci: 'nama',
@@ -323,7 +323,7 @@ const komisiBengkel = buatKomisi({
   penjelasan: `
 <h2>Cara menghitung komisi teknisi bengkel</h2>
 <p>Di bengkel, komisi biasanya dihitung dari <strong>omzet jasa</strong> — bukan dari
-total nota. Alasannya sederhana: sparepart itu barang yang Anda beli lalu jual
+total nota. Alasannya sederhana: suku cadang itu barang yang Anda beli lalu jual
 kembali, jadi marginnya sudah tipis dan sudah jadi milik bengkel. Yang benar-benar
 dikerjakan teknisi adalah jasanya.</p>
 
@@ -352,7 +352,7 @@ kelebihannya. Yang perlu diperhatikan: <strong>persentase yang lebih besar hanya
 berlaku untuk selisih di atas target</strong>, bukan untuk seluruh omzet. Kalkulator
 ini memecah keduanya supaya terlihat jelas.</p>
 
-<h3>Yang sering bikin ribut di akhir bulan</h3>
+<h3>Yang sering memicu ribut di akhir bulan</h3>
 <p>Bukan rumusnya — rumusnya biasanya sudah disepakati. Yang jadi masalah adalah
 <strong>catatannya</strong>: nota mana masuk teknisi mana, servis yang dikerjakan
 berdua dibagi bagaimana, dan pekerjaan ulang (rework) dihitung atau tidak. Sepakati
@@ -372,7 +372,7 @@ berjarak sebulan.</p>
     {
       tanya: 'Komisi dihitung dari total nota atau dari jasa saja?',
       jawab:
-        '<p>Umumnya dari <strong>jasa saja</strong>. Sparepart adalah barang yang dibeli bengkel lalu dijual kembali — marginnya sudah tipis dan risikonya (stok mati, salah beli) ditanggung bengkel. Kalau komisi dihitung dari total nota, teknisi yang kebetulan mengerjakan mobil dengan sparepart mahal akan dapat jauh lebih besar tanpa kerja lebih berat.</p>',
+        '<p>Umumnya dari <strong>jasa saja</strong>. Suku cadang adalah barang yang dibeli bengkel lalu dijual kembali — marginnya sudah tipis dan risikonya (stok mati, salah beli) ditanggung bengkel. Kalau komisi dihitung dari total nota, teknisi yang kebetulan mengerjakan mobil dengan suku cadang mahal akan dapat jauh lebih besar tanpa kerja lebih berat.</p>',
     },
     {
       tanya: 'Bagaimana kalau satu servis dikerjakan dua teknisi?',
@@ -392,7 +392,7 @@ berjarak sebulan.</p>
     {
       tanya: 'Apakah hasil kalkulator ini bisa saya simpan?',
       jawab:
-        '<p>Halaman ini menghitung satu teknisi sekali jalan dan tidak menyimpan apa pun — tidak ada data yang terkirim ke kami. Kalau butuh rekap semua teknisi sekaligus dalam satu lembar yang bisa dipakai tiap bulan, hubungi kami lewat WhatsApp dan kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Halaman ini menghitung satu teknisi sekali jalan dan tidak menyimpan apa pun — tidak ada data yang terkirim ke kami. Kalau butuh rekap semua teknisi sekaligus dalam satu lembar yang bisa dipakai tiap bulan, hubungi kami lewat WhatsApp dan kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 });
@@ -443,7 +443,7 @@ untuk seluruh omzet — kalkulator ini memisahkan keduanya supaya jelas.</p>
 (pewarna, produk perawatan) kadang dipotong biaya bahannya dulu sebelum komisi
 dihitung. Kalau itu aturannya, tulis dan jelaskan cara menghitungnya.</p>
 
-<p><strong>Pelanggan walk-in versus pelanggan bawaan.</strong> Sebagian salon memberi
+<p><strong>Pelanggan yang datang sendiri versus pelanggan bawaan.</strong> Sebagian salon memberi
 persentase berbeda untuk pelanggan yang datang sendiri ke salon dibanding pelanggan
 yang memang mencari kapster tertentu.</p>
 
@@ -498,7 +498,7 @@ jauh lebih ringan daripada merekap semuanya di akhir bulan.</p>
     {
       tanya: 'Bisa menghitung semua kapster sekaligus?',
       jawab:
-        '<p>Halaman ini menghitung satu orang sekali jalan dan tidak menyimpan data apa pun. Kalau butuh rekap semua kapster dalam satu lembar untuk dipakai tiap bulan, hubungi kami lewat WhatsApp — kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Halaman ini menghitung satu orang sekali jalan dan tidak menyimpan data apa pun. Kalau butuh rekap semua kapster dalam satu lembar untuk dipakai tiap bulan, hubungi kami lewat WhatsApp — kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 });
@@ -569,7 +569,7 @@ dibatalkan, dan tetapkan cara mengembalikannya — biasanya dipotong dari komisi
 berikutnya. Aturan seperti ini jauh lebih mudah diterima <strong>sebelum</strong>
 kejadiannya daripada sesudah.</p>
 
-<h3>Yang bikin repot bukan hitungannya</h3>
+<h3>Yang merepotkan bukan hitungannya</h3>
 <p>Menghitung komisi satu orang untuk satu bulan cuma perkalian. Yang memakan waktu
 adalah memastikan angka omzetnya benar: transaksi mana milik siapa, mana yang sudah
 lunas, dan mana yang sudah diretur. Kalau catatan itu rapi sejak transaksi terjadi,
@@ -587,9 +587,9 @@ perhitungan komisinya selesai dalam hitungan menit.</p>
         '<p>Dari omzet lebih mudah dijelaskan dan diperiksa, tapi tidak mendorong sales menjaga harga. Dari laba kotor lebih adil untuk usaha, tapi butuh HPP yang rapi. Kalau pencatatan HPP Anda belum rapi, pakai omzet dulu dan atur batas diskon secara terpisah.</p>',
     },
     {
-      tanya: 'Komisi dibayar saat closing atau saat pelanggan bayar?',
+      tanya: 'Komisi dibayar saat transaksi disepakati atau saat pelanggan membayar?',
       jawab:
-        '<p>Untuk usaha kecil, membayar komisi <strong>saat uang benar-benar diterima</strong> lebih aman — Anda tidak mengeluarkan komisi atas penjualan yang ternyata batal atau tidak terbayar. Kalau penjualannya tempo panjang, sebagian usaha membayar sebagian saat closing dan sisanya saat lunas.</p>',
+        '<p>Untuk usaha kecil, membayar komisi <strong>saat uang benar-benar diterima</strong> lebih aman — Anda tidak mengeluarkan komisi atas penjualan yang ternyata batal atau tidak terbayar. Kalau penjualannya tempo panjang, sebagian usaha membayar sebagian saat transaksi disepakati dan sisanya saat lunas.</p>',
     },
     {
       tanya: 'Bagaimana kalau pelanggan membatalkan atau barang diretur?',
@@ -604,7 +604,7 @@ perhitungan komisinya selesai dalam hitungan menit.</p>
     {
       tanya: 'Bisa menghitung seluruh tim sales sekaligus?',
       jawab:
-        '<p>Halaman ini menghitung satu orang sekali jalan dan tidak menyimpan apa pun. Untuk rekap seluruh tim dalam satu lembar yang dipakai tiap bulan, hubungi kami lewat WhatsApp — kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Halaman ini menghitung satu orang sekali jalan dan tidak menyimpan apa pun. Untuk rekap seluruh tim dalam satu lembar yang dipakai tiap bulan, hubungi kami lewat WhatsApp — kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 });
@@ -625,9 +625,9 @@ const lembur: Alat = {
   deskripsi:
     'Kalkulator upah lembur karyawan memakai rumus resmi 1/173 × upah sebulan. Menghitung hari kerja dan hari libur, plus peringatan batas 4 jam/hari & 18 jam/minggu.',
   bonusWa:
-    'Mau rekap lembur semua karyawan dalam satu lembar + template Google Sheets-nya? Klik WhatsApp, saya kirimkan.',
+    'Mau rekap lembur semua karyawan dalam satu lembar Google Sheets siap pakai? Klik WhatsApp, kami kirimkan.',
   pesanWa:
-    'Halo Bedah Data, saya baru pakai kalkulator lembur. Boleh minta template rekap lembur semua karyawan + Google Sheets-nya?',
+    'Halo Bedah Data, saya baru memakai kalkulator lembur. Boleh minta lembar rekap lembur semua karyawan dalam Google Sheets?',
   isian: [
     {
       kunci: 'gajipokok',
@@ -806,7 +806,7 @@ libur — padahal itu yang membedakan pengalinya.</p>
     {
       tanya: 'Bagaimana merekap lembur banyak karyawan?',
       jawab:
-        '<p>Halaman ini menghitung satu karyawan sekali jalan. Untuk rekap semua karyawan dalam satu lembar yang bisa dipakai tiap bulan, hubungi kami lewat WhatsApp — kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Halaman ini menghitung satu karyawan sekali jalan. Untuk rekap semua karyawan dalam satu lembar yang bisa dipakai tiap bulan, hubungi kami lewat WhatsApp — kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 };
@@ -847,9 +847,9 @@ const thr: Alat = {
   deskripsi:
     'Kalkulator THR karyawan sesuai rumus resmi: satu bulan upah untuk masa kerja 12 bulan ke atas, prorata untuk 1–11 bulan. Sekalian hitung total yang harus disiapkan.',
   bonusWa:
-    'Mau rekap THR semua karyawan sekaligus + template Google Sheets-nya? Klik WhatsApp, saya kirimkan.',
+    'Mau rekap THR semua karyawan sekaligus beserta lembar Google Sheets siap pakai? Klik WhatsApp, kami kirimkan.',
   pesanWa:
-    'Halo Bedah Data, saya baru pakai kalkulator THR. Boleh minta template rekap THR semua karyawan + Google Sheets-nya?',
+    'Halo Bedah Data, saya baru memakai kalkulator THR. Boleh minta lembar rekap THR semua karyawan dalam Google Sheets?',
   isian: [
     {
       kunci: 'gajipokok',
@@ -951,7 +951,7 @@ membuat usaha kecil kelabakan: kewajibannya jatuh serentak untuk semua karyawan,
 di bulan yang biasanya juga sedang banyak pengeluaran lain.</p>
 
 <h3>Kenapa sebaiknya dihitung jauh hari</h3>
-<p>Yang bikin repot bukan rumusnya — rumusnya cuma dua baris. Yang bikin repot
+<p>Yang merepotkan bukan rumusnya — rumusnya cuma dua baris. Yang merepotkan
 adalah <strong>menyiapkan uangnya</strong>. Kalau Anda punya 10 karyawan dengan upah
 rata-rata Rp 4 juta, kewajiban THR-nya sekitar Rp 40 juta yang harus keluar
 sekaligus dalam satu minggu.</p>
@@ -1004,7 +1004,7 @@ prorata-nya cuma kira-kira.</p>
     {
       tanya: 'Bagaimana menghitung THR karyawan dengan upah berbeda-beda?',
       jawab:
-        '<p>Jalankan kalkulator ini per kelompok upah, lalu jumlahkan totalnya. Kalau ingin sekali hitung untuk semua karyawan dalam satu lembar, hubungi kami lewat WhatsApp — kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Jalankan kalkulator ini per kelompok upah, lalu jumlahkan totalnya. Kalau ingin sekali hitung untuk semua karyawan dalam satu lembar, hubungi kami lewat WhatsApp — kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 };
@@ -1047,9 +1047,9 @@ const hargaMarketplace: Alat = {
     'Kalkulator biaya admin marketplace: hitung potongan Shopee, Tokopedia, dan TikTok Shop lalu lihat berapa uang bersih yang masuk dari satu penjualan.',
   sumber: `Tarif diperiksa pada ${TARIF_DITINJAU}. 🔴 Biaya admin marketplace berubah dari waktu ke waktu dan berbeda per kategori — cek ulang tarif terbaru di pusat bantuan penjual masing-masing platform sebelum menetapkan harga.`,
   bonusWa:
-    'Mau bandingkan 3 platform sekaligus dalam satu lembar + template Google Sheets-nya? Klik WhatsApp, saya kirimkan.',
+    'Mau bandingkan 3 platform sekaligus dalam satu lembar Google Sheets siap pakai? Klik WhatsApp, kami kirimkan.',
   pesanWa:
-    'Halo Bedah Data, saya baru pakai kalkulator harga jual marketplace. Boleh minta perbandingan 3 platform + template Google Sheets-nya?',
+    'Halo Bedah Data, saya baru memakai kalkulator harga jual marketplace. Boleh minta perbandingan 3 platform dalam Google Sheets?',
   isian: [
     {
       kunci: 'platform',
@@ -1230,7 +1230,7 @@ masukkan — ketepatannya mengikuti ketepatan angka yang Anda pakai.</p>
     {
       tanya: 'Bisa membandingkan beberapa platform sekaligus?',
       jawab:
-        '<p>Halaman ini menghitung satu platform sekali jalan — Anda bisa menggantinya dan menghitung lagi. Kalau ingin melihat perbandingan beberapa platform berdampingan dalam satu lembar, hubungi kami lewat WhatsApp dan kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Halaman ini menghitung satu platform sekali jalan — Anda bisa menggantinya dan menghitung lagi. Kalau ingin melihat perbandingan beberapa platform berdampingan dalam satu lembar, hubungi kami lewat WhatsApp dan kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 };
@@ -1262,9 +1262,9 @@ const margin: Alat = {
   deskripsi:
     'Kalkulator margin dan markup: hitung margin dari HPP dan harga jual, atau tentukan harga jual dari target margin. Termasuk penjelasan beda margin vs markup.',
   bonusWa:
-    'Mau hitung margin semua produk sekaligus + template Google Sheets-nya? Klik WhatsApp, saya kirimkan.',
+    'Mau hitung margin semua produk sekaligus beserta lembar Google Sheets siap pakai? Klik WhatsApp, kami kirimkan.',
   pesanWa:
-    'Halo Bedah Data, saya baru pakai kalkulator margin. Boleh minta template hitung margin semua produk + Google Sheets-nya?',
+    'Halo Bedah Data, saya baru memakai kalkulator margin. Boleh minta lembar hitung margin semua produk dalam Google Sheets?',
   isian: [
     {
       kunci: 'arah',
@@ -1428,7 +1428,7 @@ ini adalah langkah pertama untuk melihat itu.</p>
     {
       tanya: 'Berapa margin yang sehat untuk usaha kecil?',
       jawab:
-        '<p>Sangat berbeda antar jenis usaha — margin toko grosir yang mengandalkan volume wajar jauh lebih tipis daripada usaha jasa. Yang lebih berguna daripada membandingkan dengan angka orang lain: pastikan laba kotor Anda cukup menutup seluruh biaya operasional bulanan. Kalau belum, marginnya terlalu tipis untuk usaha Anda sendiri, berapa pun angkanya.</p>',
+        '<p>Sangat berbeda antarjenis usaha — margin toko grosir yang mengandalkan volume wajar jauh lebih tipis daripada usaha jasa. Yang lebih berguna daripada membandingkan dengan angka orang lain: pastikan laba kotor Anda cukup menutup seluruh biaya operasional bulanan. Kalau belum, marginnya terlalu tipis untuk usaha Anda sendiri, berapa pun angkanya.</p>',
     },
     {
       tanya: 'Bagaimana menghitung harga jual dari margin yang saya inginkan?',
@@ -1438,7 +1438,7 @@ ini adalah langkah pertama untuk melihat itu.</p>
     {
       tanya: 'Bisa menghitung banyak produk sekaligus?',
       jawab:
-        '<p>Halaman ini menghitung satu produk sekali jalan dan tidak menyimpan apa pun. Untuk menghitung seluruh daftar produk dalam satu lembar, hubungi kami lewat WhatsApp — kami kirimkan template Google Sheets-nya.</p>',
+        '<p>Halaman ini menghitung satu produk sekali jalan dan tidak menyimpan apa pun. Untuk menghitung seluruh daftar produk dalam satu lembar, hubungi kami lewat WhatsApp — kami kirimkan lembar Google Sheets siap pakai.</p>',
     },
   ],
 };
@@ -1466,9 +1466,9 @@ const ambangOngkir: Alat = {
   deskripsi:
     'Kalkulator ambang gratis ongkir: hitung minimum belanja agar ongkir yang Anda tanggung masih tertutup laba kotor. Murni aritmetika dari angka Anda sendiri.',
   bonusWa:
-    'Mau hitung ambang gratis ongkir untuk beberapa skenario sekaligus + template Google Sheets-nya? Klik WhatsApp, saya kirimkan.',
+    'Mau hitung ambang gratis ongkir untuk beberapa skenario sekaligus beserta lembar Google Sheets siap pakai? Klik WhatsApp, kami kirimkan.',
   pesanWa:
-    'Halo Bedah Data, saya baru pakai kalkulator ambang gratis ongkir. Boleh minta template hitungannya + Google Sheets-nya?',
+    'Halo Bedah Data, saya baru memakai kalkulator ambang gratis ongkir. Boleh minta lembar hitungannya dalam Google Sheets?',
   isian: [
     {
       kunci: 'ongkir',
@@ -1583,7 +1583,7 @@ kalkulator ini punya kolom rata-rata nilai pesanan — supaya selisihnya terliha
 <p><strong>Ongkir Anda tidak satu angka.</strong> Kirim dalam kota dan luar pulau
 biayanya jauh berbeda. Kalau Anda menetapkan satu ambang untuk semua tujuan, pakai
 ongkir rata-rata tertimbang, atau ongkir tujuan yang paling sering — bukan yang
-paling murah.</p>
+paling rendah.</p>
 
 <p><strong>Margin tiap produk berbeda.</strong> Angka margin yang Anda masukkan di
 sini sebaiknya margin rata-rata, bukan margin produk terbaik Anda. Kalau belum tahu
@@ -1613,7 +1613,7 @@ hitungan ini — jadi tetapkan angkanya, lalu perhatikan sendiri hasilnya.</p>
     {
       tanya: 'Ongkir saya beda-beda tergantung tujuan, bagaimana?',
       jawab:
-        '<p>Pakai ongkir tujuan yang <strong>paling sering</strong> Anda kirim, atau rata-rata tertimbangnya — jangan yang paling murah. Kalau selisih antar tujuan sangat jauh, sebagian toko memilih menetapkan ambang berbeda per wilayah daripada satu angka untuk semua.</p>',
+        '<p>Pakai ongkir tujuan yang <strong>paling sering</strong> Anda kirim, atau rata-rata tertimbangnya — jangan yang paling rendah. Kalau selisih antartujuan sangat jauh, sebagian toko memilih menetapkan ambang berbeda per wilayah daripada satu angka untuk semua.</p>',
     },
     {
       tanya: 'Apakah gratis ongkir pasti menaikkan penjualan?',
@@ -1649,17 +1649,17 @@ export const NOTA: Pick<
 > = {
   slug: 'nota',
   kelompok: 'dokumen',
-  judul: 'Generator Nota & Invoice',
-  judulPendek: 'Generator Nota',
-  judulSeo: 'Generator Nota & Invoice Gratis — Cetak Langsung ke PDF | Bedah Data',
+  judul: 'Pembuat Nota dan Faktur (Invoice)',
+  judulPendek: 'Pembuat Nota',
+  judulSeo: 'Pembuat Nota dan Faktur (Invoice) Gratis: Cetak Langsung ke PDF | Bedah Data',
   ringkas:
     'Isi datanya, notanya langsung rapi, lalu simpan sebagai PDF. Tidak perlu daftar dan datanya tidak dikirim ke mana pun.',
   deskripsi:
-    'Generator nota dan invoice gratis: isi data toko dan daftar barang, lalu simpan sebagai PDF. Berjalan di HP dan komputer, tanpa perlu mendaftar.',
+    'Pembuat nota dan faktur (invoice) gratis: isi data toko dan daftar barang, lalu simpan sebagai PDF. Berjalan di HP dan komputer, tanpa perlu mendaftar.',
   bonusWa:
-    'Mau nomor nota berurut otomatis dan riwayatnya tersimpan rapi? Klik WhatsApp, saya jelaskan caranya.',
+    'Mau nomor nota berurut otomatis dan riwayatnya tersimpan rapi? Klik WhatsApp, kami jelaskan caranya.',
   pesanWa:
-    'Halo Bedah Data, saya baru pakai generator nota. Boleh tanya soal nota yang nomornya berurut otomatis dan tersimpan riwayatnya?',
+    'Halo Bedah Data, saya baru memakai generator nota. Boleh tanya soal nota yang nomornya berurut otomatis dan tersimpan riwayatnya?',
   penjelasan: `
 <h2>Cara membuat nota yang benar</h2>
 <p>Nota bukan sekadar catatan berapa yang harus dibayar. Nota adalah bukti transaksi
@@ -1708,7 +1708,7 @@ cukup — yang dibutuhkan sistem yang menyambungkan nota dengan stok dan keuanga
     {
       tanya: 'Apakah data yang saya isi tersimpan atau terkirim ke Bedah Data?',
       jawab:
-        '<p><strong>Tidak.</strong> Seluruh proses berjalan di dalam browser Anda sendiri. Tidak ada data yang dikirim ke server kami — kami tidak bisa melihat nama toko, nama pelanggan, atau angka apa pun yang Anda ketik. Kalau halaman ditutup atau di-refresh, isinya hilang sepenuhnya.</p>',
+        '<p><strong>Tidak.</strong> Seluruh proses berjalan di dalam peramban (browser) Anda sendiri. Tidak ada data yang dikirim ke server kami — kami tidak bisa melihat nama toko, nama pelanggan, atau angka apa pun yang Anda ketik. Kalau halaman ditutup atau dimuat ulang (refresh), isinya hilang sepenuhnya.</p>',
     },
     {
       tanya: 'Bagaimana cara menyimpannya jadi PDF?',

@@ -1,5 +1,5 @@
 ---
-judul: "Cara menghitung HPP jasa (bukan barang) untuk bengkel & salon"
+judul: "Cara menghitung HPP jasa (bukan barang) untuk bengkel dan salon"
 deskripsi: "Panduan menghitung harga pokok satu pekerjaan jasa: bahan terpakai, upah pelaksana, dan biaya tetap. Lengkap dengan contoh perhitungan sederhana."
 tanggal: 2026-07-29
 kategori: "Keuangan Usaha"
@@ -14,27 +14,27 @@ Jasa tidak begitu. Tidak ada nota yang bertuliskan "harga pokok satu kali servis
 itu banyak pemilik bengkel dan salon menentukan harga dengan cara yang paling masuk akal saat
 itu: melihat harga tetangga, lalu menyesuaikan sedikit.
 
-Cara itu bisa jalan bertahun-tahun. Masalahnya baru muncul saat Anda bertanya: **dari sekian
+Cara itu bisa berjalan bertahun-tahun. Masalahnya baru muncul saat Anda bertanya: **dari sekian
 banyak layanan yang saya jual, mana yang sebenarnya paling menguntungkan?** Tanpa harga pokok,
-pertanyaan itu tidak bisa dijawab — hanya bisa ditebak.
+pertanyaan itu tidak bisa dijawab, hanya bisa diperkirakan.
 
 Panduan ini membahas cara menghitungnya. Bisa Anda kerjakan dengan kertas dan kalkulator, tanpa
 membeli apa pun.
 
 ## Kenapa HPP jasa sering keliru dihitung
 
-Kesalahan yang paling sering saya temui ada dua, dan keduanya terlihat wajar.
+Kesalahan yang paling sering kami temui ada dua, dan keduanya terlihat wajar.
 
 **Pertama: hanya menghitung bahan.** Pemilik salon menghitung harga pokok layanan pewarnaan
 rambut dari harga cat rambut yang terpakai saja. Padahal ada waktu terapis yang terpakai satu
-setengah jam — dan waktu itu punya biaya.
+setengah jam, dan waktu itu punya biaya.
 
 **Kedua: memasukkan semua biaya sekaligus.** Sebaliknya, ada yang mencoba membebankan sewa
 tempat, listrik, gaji kasir, dan semuanya ke setiap layanan. Hasilnya perhitungan yang rumit,
 tidak pernah selesai, dan akhirnya ditinggalkan.
 
-Jalan tengahnya: pisahkan biaya menjadi **biaya yang menempel pada pekerjaan** dan **biaya yang
-jalan terus walau tidak ada pekerjaan**.
+Jalan tengahnya: pisahkan biaya menjadi **biaya yang melekat pada pekerjaan** dan **biaya yang
+terus berjalan walau tidak ada pekerjaan**.
 
 ## Tiga komponen HPP jasa
 
@@ -43,11 +43,11 @@ jalan terus walau tidak ada pekerjaan**.
 Ini bagian yang paling mudah, tapi paling sering diperkirakan.
 
 Untuk salon: berapa gram cat rambut yang terpakai untuk satu kepala, bukan berapa harga satu
-kemasan. Untuk bengkel: oli, kampas rem, atau sparepart yang dipasang pada satu servis.
+kemasan. Untuk bengkel: oli, kampas rem, atau suku cadang yang dipasang pada satu servis.
 
 > **Cara praktisnya:** kalau satu kemasan cat rambut seharga Rp 120.000 cukup untuk sekitar 6
-> kepala, maka bahan per layanan ≈ Rp 20.000. Tidak harus persis sampai gram — yang penting
-> berhenti menebak dari nol.
+> kepala, maka bahan per layanan ≈ Rp 20.000. Tidak harus persis sampai gram. Yang penting,
+> Anda tidak lagi mulai dari kira-kira.
 
 ### 2. Upah pelaksana pekerjaan
 
@@ -61,7 +61,7 @@ Biaya per jam = Gaji sebulan ÷ Jumlah jam kerja sebulan
 ```
 
 Contoh ilustrasi: gaji Rp 3.000.000 sebulan, bekerja 25 hari × 8 jam = 200 jam.
-Biaya per jam ≈ Rp 15.000. Kalau satu layanan memakan 1,5 jam, upah yang menempel pada layanan
+Biaya per jam ≈ Rp 15.000. Kalau satu layanan memakan 1,5 jam, upah yang melekat pada layanan
 itu ≈ Rp 22.500.
 
 <div class="catatan">
@@ -73,8 +73,8 @@ gaji. Ganti dengan angka usaha Anda sendiri.
 
 ### 3. Biaya tetap yang perlu tertutup
 
-Sewa tempat, listrik, air, internet, gaji kasir — semua ini jalan terus walau hari itu sepi.
-Biaya ini tidak menempel pada satu pekerjaan tertentu, tapi tetap harus tertutup oleh
+Sewa tempat, listrik, air, internet, gaji kasir: semua ini terus berjalan walau hari itu sepi.
+Biaya ini tidak melekat pada satu pekerjaan tertentu, tapi tetap harus tertutup oleh
 layanan yang Anda jual.
 
 Cara paling sederhana untuk usaha kecil:
@@ -86,7 +86,7 @@ Biaya tetap per pekerjaan = Total biaya tetap sebulan ÷ Jumlah pekerjaan sebula
 Kalau biaya tetap Rp 8.000.000 sebulan dan rata-rata melayani 400 pekerjaan, maka setiap
 pekerjaan perlu menanggung sekitar Rp 20.000.
 
-Angka "jumlah pekerjaan sebulan" ini penting sekali — dan di sinilah banyak usaha berhenti,
+Angka "jumlah pekerjaan sebulan" ini penting sekali, dan di sinilah banyak usaha berhenti,
 karena tidak ada catatannya. Kalau Anda belum punya, mulai hitung dari sekarang: cukup satu
 kolom di buku, satu baris per pekerjaan.
 
@@ -105,7 +105,7 @@ adalah **contoh untuk menjelaskan cara menghitung**, bukan patokan harga.
 Kalau layanan ini Anda jual Rp 150.000, maka:
 
 - Laba per layanan: Rp 150.000 − Rp 62.500 = **Rp 87.500**
-- Margin: Rp 87.500 ÷ Rp 150.000 = **±58%**
+- Margin (persentase untung): Rp 87.500 ÷ Rp 150.000 = **±58%**
 
 Sekarang lakukan hal yang sama untuk layanan lain. Di sinilah biasanya muncul kejutan: layanan
 yang paling ramai dipesan sering bukan yang paling menguntungkan, karena memakan waktu terapis
@@ -113,10 +113,10 @@ paling lama.
 
 ## Yang berubah setelah Anda tahu angkanya
 
-Perlu saya katakan terus terang: **mengetahui HPP tidak membuat untung Anda naik dengan
+Perlu kami katakan terus terang: **mengetahui HPP tidak membuat untung Anda naik dengan
 sendirinya.** Yang berubah adalah kualitas keputusan yang bisa Anda ambil.
 
-Setelah punya angkanya, Anda bisa menjawab pertanyaan yang sebelumnya hanya bisa ditebak:
+Setelah punya angkanya, Anda bisa menjawab pertanyaan yang sebelumnya hanya bisa dikira-kira:
 
 - Layanan mana yang sebaiknya didorong lewat promosi, dan mana yang sebenarnya lebih baik
   tidak diramaikan?
@@ -125,12 +125,12 @@ Setelah punya angkanya, Anda bisa menjawab pertanyaan yang sebelumnya hanya bisa
 - Kalau menaikkan komisi terapis, dari mana kompensasinya?
 
 Keputusan atas semua itu tetap milik Anda. Yang berubah hanya satu: Anda memutuskannya sambil
-melihat angka, bukan sambil menebak.
+melihat angka, bukan sambil mengira-ngira.
 
 ## Mulai dari mana kalau belum ada catatannya
 
-Kalau saat ini belum ada catatan sama sekali, jangan mulai dari menghitung semua layanan
-sekaligus — biasanya berhenti di tengah jalan.
+Kalau saat ini belum ada catatan sama sekali, jangan mulai dengan menghitung semua layanan
+sekaligus, karena biasanya akan berhenti di tengah jalan.
 
 1. **Pilih 3 layanan yang paling sering dipesan.** Cukup tiga dulu.
 2. **Catat bahan yang terpakai selama satu minggu** untuk ketiga layanan itu.
@@ -138,10 +138,10 @@ sekaligus — biasanya berhenti di tengah jalan.
 4. **Hitung biaya tetap bulanan Anda.** Ini biasanya paling cepat, karena angkanya sudah tetap.
 5. **Susun tabelnya** seperti contoh di atas.
 
-Satu minggu mencatat sudah cukup untuk memberi gambaran yang jauh lebih baik daripada menebak
+Satu minggu mencatat sudah cukup untuk memberi gambaran yang jauh lebih baik daripada mengira-ngira
 bertahun-tahun.
 
-Kalau nanti jumlah layanannya bertambah banyak dan mencatat manual mulai memakan waktu, barulah
-masuk akal memikirkan sistem yang menghitungkannya otomatis. Tapi urutannya penting: **pahami
+Kalau nanti jumlah layanannya bertambah banyak dan mencatat manual mulai menyita waktu, barulah
+masuk akal memikirkan aplikasi yang menghitungnya otomatis. Tapi urutannya penting: **pahami
 cara menghitungnya dulu, baru cari alat bantunya.** Kalau terbalik, Anda hanya akan punya
 laporan yang tidak Anda mengerti.

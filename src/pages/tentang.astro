@@ -8,26 +8,26 @@
 import Layout from '../layouts/Layout.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 
-const title = 'Tentang Bedah Data — Dibangun dari Usaha Sendiri | Bedah Data';
+const title = 'Tentang Bedah Data: Dibangun dari Usaha Sendiri | Bedah Data';
 const description =
-  'ERP Studio tidak lahir di ruang rapat. Sistem ini dibangun lebih dulu untuk usaha kami sendiri, dipakai setiap hari, baru kemudian ditawarkan ke orang lain.';
+  'ERP Studio tidak lahir di ruang rapat. Aplikasi pencatatan usaha ini kami bangun lebih dulu untuk usaha kami sendiri, dipakai setiap hari, baru kemudian ditawarkan kepada orang lain.';
 
 const prinsip = [
   {
     judul: 'Bayar sekali',
-    isi: 'Ini beli, bukan sewa. Kami tidak ingin usaha Anda menanggung tagihan bulanan yang tetap datang saat toko sedang sepi.',
+    isi: 'Anda membeli, bukan menyewa. Kami tidak ingin usaha Anda menanggung tagihan bulanan yang tetap datang saat toko sedang sepi.',
   },
   {
     judul: 'Data tersimpan di Drive milik Anda',
-    isi: 'Termasuk kalau suatu hari Anda berhenti membayar kami. Tidak ada saklar di pihak kami yang bisa mengunci catatan usaha Anda.',
+    isi: 'Termasuk kalau suatu hari Anda berhenti membayar kami. Tidak ada sakelar di pihak kami yang bisa mengunci catatan usaha Anda.',
   },
   {
     judul: 'Mengajari, bukan menggantungkan',
-    isi: 'Kalau setahun lagi Anda masih harus bertanya untuk hal dasar, berarti kami yang belum selesai bekerja.',
+    isi: 'Kalau setahun lagi Anda masih harus bertanya untuk hal dasar, berarti pekerjaan kami belum selesai.',
   },
   {
     judul: 'Dibangun dari lapangan',
-    isi: 'Setiap modul lahir dari usaha nyata yang sedang berjalan, diuji di sana, baru ditawarkan ke yang lain.',
+    isi: 'Setiap modul lahir dari usaha nyata yang sedang berjalan, diuji di sana, baru ditawarkan kepada yang lain.',
   },
 ];
 ---
@@ -36,7 +36,7 @@ const prinsip = [
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
       <span class="eyebrow terang">Tentang kami</span>
-      <h1>Yang kami lawan bukan software sebelah</h1>
+      <h1>Yang kami lawan bukan aplikasi lain</h1>
       <p>Tapi keputusan usaha yang diambil berdasarkan perkiraan.</p>
     </div>
   </section>
@@ -50,14 +50,15 @@ const prinsip = [
 
       <div class="isi reveal">
         <p>
-          Itu yang kami kejar. Yang kami lawan bukan software sebelah, tapi
+          Itulah yang kami kejar. Yang kami lawan bukan aplikasi lain, melainkan
           <strong>keputusan yang diambil berdasarkan perkiraan</strong>: stok kira-kira, untung
-          kira-kira, komisi karyawan kira-kira. Selama angkanya masih ditebak, sebesar apa pun
-          usahanya tetap berjalan dengan mata setengah tertutup.
+          kira-kira, komisi karyawan kira-kira. Selama angkanya masih dikira-kira, sebesar apa pun
+          usahanya, jalannya seperti dengan mata setengah tertutup.
         </p>
         <p>
-          ERP Studio tidak lahir di ruang rapat. Sistem ini kami bangun lebih dulu untuk usaha
-          kami sendiri, dipakai setiap hari, baru kemudian ditawarkan ke orang lain.
+          ERP Studio, aplikasi pencatatan usaha kami, tidak lahir di ruang rapat. Aplikasi ini kami
+          bangun lebih dulu untuk usaha kami sendiri, dipakai setiap hari, baru kemudian
+          ditawarkan kepada orang lain.
         </p>
       </div>
     </div>
@@ -89,22 +90,23 @@ const prinsip = [
         <h2>Satu hal yang perlu kami katakan terus terang</h2>
         <p>
           Kami tidak menjanjikan omzet Anda naik. Yang kami kerjakan adalah membuat angkanya
-          jelas dan siap dipakai memutuskan — keputusannya tetap milik Anda.
+          jelas dan siap dipakai untuk memutuskan. Keputusannya tetap milik Anda.
         </p>
       </div>
 
       <div class="isi reveal" style="margin-top:44px">
         <h2>Siapa yang cocok bekerja sama dengan kami</h2>
         <p>
-          Kami sengaja tidak melayani semua orang. ERP Studio dirancang untuk usaha yang
-          <strong>sudah dipegang beberapa orang</strong> dan punya sesuatu yang harus dicocokkan
-          antar mereka: stok, pesanan jasa, komisi, atau tagihan.
+          ERP Studio dirancang untuk usaha kecil yang ingin pencatatannya rapi: toko, bengkel,
+          salon, percetakan, kedai kopi, jualan online, konveksi rumahan, dan usaha sejenis. Baik
+          yang <strong>masih dikerjakan sendiri</strong> maupun yang sudah punya beberapa
+          karyawan.
         </p>
         <p>
-          Kalau usaha Anda masih dikerjakan sendiri, kami akan mengatakannya terus terang saat
-          demo — dan menyarankan aplikasi pencatatan gratis yang memang lebih pas. Menolak calon
-          pembeli terdengar aneh untuk sebuah usaha, tapi menjual sistem 8 modul kepada orang
-          yang butuhnya catatan sederhana adalah cara tercepat membuat orang menyesal membeli.
+          Yang kami jaga adalah kejujuran soal kecocokan. Kalau saat demo ternyata kebutuhan Anda
+          belum terjawab oleh aplikasi ini, misalnya pesanan marketplace Anda sangat banyak
+          (pesanan marketplace tetap dimasukkan manual), kami akan mengatakannya terus terang.
+          Lebih baik begitu daripada Anda menyesal setelah membeli.
         </p>
       </div>
     </div>
@@ -112,7 +114,7 @@ const prinsip = [
 
   <CtaAkhir
     judul="Mau kenal lebih jauh dulu?"
-    teks="Tidak harus langsung bicara pembelian. Ceritakan saja kondisi usaha Anda — kami akan bilang terus terang apakah ini menolong atau belum perlu."
+    teks="Tidak harus langsung membicarakan pembelian. Ceritakan saja kondisi usaha Anda, dan kami akan berterus terang apakah aplikasi ini menolong atau belum."
     pesanWa="Halo Bedah Data, saya mau kenal lebih jauh soal Bedah Data"
   />
 </Layout>

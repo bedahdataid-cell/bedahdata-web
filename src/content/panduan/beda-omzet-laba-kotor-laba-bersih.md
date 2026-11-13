@@ -8,7 +8,7 @@ draf: false
 ---
 
 "Bulan ini omzet saya 80 juta." Kalimat itu terdengar melegakan. Tapi omzet adalah angka yang
-paling sering membuat pemilik usaha merasa tenang padahal seharusnya waspada — karena omzet
+paling sering membuat pemilik usaha merasa tenang padahal seharusnya waspada, karena omzet
 belum dikurangi apa pun.
 
 Tiga angka ini sering tertukar dalam percakapan sehari-hari, padahal masing-masing menjawab
@@ -19,11 +19,11 @@ pertanyaan yang berbeda. Kalau tertukar, keputusan yang diambil pun ikut keliru.
 **Omzet** (sering juga disebut *penjualan* atau *pendapatan*) adalah total nilai barang atau
 jasa yang Anda jual dalam satu periode. Belum dikurangi apa pun.
 
-Kalau bengkel Anda dalam sebulan menerima pembayaran servis dan sparepart senilai
+Kalau bengkel Anda dalam sebulan menerima pembayaran servis dan suku cadang (sparepart) senilai
 Rp 80.000.000, maka omzet bulan itu Rp 80.000.000.
 
 Yang perlu diperhatikan: **omzet tidak sama dengan uang yang ada di laci.** Kalau ada pelanggan
-yang mengambil barang tapi belum bayar, nilainya tetap masuk omzet — meski uangnya belum Anda
+yang mengambil barang tapi belum membayar, nilainya tetap masuk omzet, meski uangnya belum Anda
 pegang. Inilah sebabnya ada usaha yang omzetnya besar tapi kasnya seret.
 
 > Omzet menjawab: **"Seberapa banyak yang berhasil saya jual?"**
@@ -31,8 +31,8 @@ pegang. Inilah sebabnya ada usaha yang omzetnya besar tapi kasnya seret.
 
 ## Laba kotor: sisa setelah dikurangi harga pokok
 
-**Laba kotor** adalah omzet dikurangi **harga pokok penjualan (HPP)** — yaitu biaya yang
-langsung menempel pada barang atau jasa yang Anda jual.
+**Laba kotor** adalah omzet dikurangi **harga pokok penjualan (HPP)**, yaitu biaya yang
+langsung melekat pada barang atau jasa yang Anda jual.
 
 ```
 Laba kotor = Omzet − Harga pokok penjualan
@@ -46,8 +46,8 @@ bukan data usaha siapa pun:
 
 | Keterangan | Contoh angka |
 |---|---|
-| Omzet (servis + sparepart) | Rp 80.000.000 |
-| Harga beli sparepart yang terjual | Rp 38.000.000 |
+| Omzet (servis + suku cadang) | Rp 80.000.000 |
+| Harga beli suku cadang yang terjual | Rp 38.000.000 |
 | Komisi mekanik | Rp 12.000.000 |
 | **Laba kotor** | **Rp 30.000.000** |
 
@@ -58,8 +58,8 @@ apa pun omzetnya, usaha akan terasa berat.
 
 ## Laba bersih: yang benar-benar tersisa
 
-**Laba bersih** adalah laba kotor dikurangi seluruh biaya operasional — biaya yang jalan terus
-walau tidak ada penjualan.
+**Laba bersih** adalah laba kotor dikurangi seluruh biaya operasional, yaitu biaya yang terus
+berjalan walau tidak ada penjualan.
 
 ```
 Laba bersih = Laba kotor − Biaya operasional
@@ -74,12 +74,12 @@ Lanjutan contoh yang sama:
 |---|---|
 | Laba kotor | Rp 30.000.000 |
 | Sewa tempat | Rp 6.000.000 |
-| Gaji admin & kasir | Rp 7.000.000 |
+| Gaji admin dan kasir | Rp 7.000.000 |
 | Listrik, air, internet | Rp 2.500.000 |
-| Perawatan alat & lain-lain | Rp 3.500.000 |
+| Perawatan alat dan lain-lain | Rp 3.500.000 |
 | **Laba bersih** | **Rp 11.000.000** |
 
-Dari omzet Rp 80 juta, yang benar-benar tersisa Rp 11 juta — sekitar **13,75%**.
+Dari omzet Rp 80 juta, yang benar-benar tersisa Rp 11 juta, atau sekitar **13,75%**.
 
 Inilah angka yang sebenarnya menjawab pertanyaan "usaha saya untung berapa". Dan inilah juga
 angka yang paling jarang diketahui pemilik usaha kecil, karena butuh pencatatan biaya yang
@@ -91,20 +91,20 @@ Bayangkan dua keputusan berikut, dan perhatikan angka mana yang seharusnya dipak
 
 **Keputusan 1: "Omzet turun 10%, saya harus promosi besar-besaran."**
 Kalau promosinya menghabiskan biaya lebih besar daripada laba kotor yang dihasilkan,
-omzet memang naik — tapi laba bersih justru turun. Ramai belum tentu untung.
+omzet memang naik, tetapi laba bersih justru turun. Ramai belum tentu untung.
 
 **Keputusan 2: "Saya mau menaikkan gaji karyawan."**
 Angka yang relevan bukan omzet, melainkan laba bersih. Gaji diambil dari sana, bukan dari
 uang yang masuk.
 
 **Keputusan 3: "Produk A laku keras, saya perbanyak stoknya."**
-Perlu dicek dulu laba kotornya. Produk yang laku keras dengan margin tipis bisa saja
+Perlu dicek dulu laba kotornya. Produk yang laku keras dengan margin (selisih untung) tipis bisa saja
 menghasilkan lebih sedikit daripada produk yang jarang laku tapi marginnya tebal.
 
 ## Tiga kesalahan yang paling sering terjadi
 
 **1. Menganggap uang di laci sebagai laba.** Uang itu masih bercampur: ada bagian modal, ada
-yang harus dibayarkan ke supplier, ada pula yang sebenarnya sudah menjadi hak karyawan sebagai
+yang harus dibayarkan ke pemasok, ada pula yang sebenarnya sudah menjadi hak karyawan sebagai
 komisi.
 
 **2. Lupa memasukkan gaji sendiri.** Kalau Anda ikut bekerja setiap hari, tenaga Anda punya
@@ -113,21 +113,21 @@ kerugian dengan waktu sendiri.
 
 **3. Mencampur uang pribadi dan uang usaha.** Selama masih tercampur, ketiga angka di atas
 mustahil dihitung dengan benar. Kalau Anda baru mau mulai merapikan satu hal saja, mulailah
-dari sini — dampaknya paling besar dan biayanya nol.
+dari sini. Dampaknya paling besar dan biayanya nol.
 
 ## Langkah mulai yang realistis
 
 Anda tidak perlu menyusun laporan keuangan lengkap untuk mulai mendapat manfaatnya:
 
-1. **Pisahkan rekening usaha dari rekening pribadi.** Ini langkah paling murah dan paling
+1. **Pisahkan rekening usaha dari rekening pribadi.** Ini langkah yang paling hemat biaya dan paling
    berpengaruh.
 2. **Catat omzet harian.** Cukup satu angka per hari.
 3. **Catat harga pokok setiap barang atau jasa yang terjual.** Untuk barang, ini harga belinya.
 4. **Kumpulkan biaya tetap bulanan.** Angkanya jarang berubah, jadi cukup disusun sekali.
 5. **Hitung ketiganya di akhir bulan.** Satu jam sudah cukup untuk bulan pertama.
 
-Setelah tiga bulan berjalan, Anda akan mulai melihat pola — dan pola itulah yang membuat
-keputusan tidak lagi berdasar firasat.
+Setelah tiga bulan berjalan, Anda akan mulai melihat pola, dan pola itulah yang membuat
+keputusan tidak lagi berdasarkan firasat.
 
 Perlu kami katakan terus terang: mengetahui ketiga angka ini **tidak otomatis membuat usaha
 Anda lebih untung**. Yang berubah adalah Anda jadi tahu di mana persoalannya. Sisanya tetap

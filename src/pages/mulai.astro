@@ -8,34 +8,34 @@ import Layout from '../layouts/Layout.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import { tautanBeli } from '../config';
 
-const title = 'Cara Mulai ERP Studio — Coba Gratis 3 Hari | Bedah Data';
+const title = 'Cara Mulai ERP Studio: Coba Gratis 3 Hari | Bedah Data';
 const description =
-  'Panduan memasang ERP Studio di Google Drive Anda sendiri: salin, deploy, setup, coba 3 hari, lalu aktifkan dengan kode. Termasuk penjelasan peringatan dari Google.';
+  'Panduan memasang ERP Studio di Google Drive Anda sendiri: salin, pasang, atur, coba 3 hari, lalu aktifkan dengan kode. Termasuk penjelasan tentang peringatan dari Google.';
 
 const langkah = [
   {
     judul: 'Salin dan beri nama',
-    isi: 'Buka tautan ERP yang Anda terima, klik Ringkasan lalu Buat salinan. Ganti nama salinan sesuai nama usaha Anda.',
+    isi: 'Buka tautan ERP Studio yang Anda terima, klik Ringkasan, lalu Buat salinan. Ganti nama salinan sesuai nama usaha Anda.',
   },
   {
-    judul: 'Deploy (pasang) salinan Anda',
-    isi: 'Klik Terapkan lalu Deployment baru. Pilih jalankan sebagai Saya dan akses Siapa saja, lalu Terapkan. Anda akan mendapat alamat web yang berakhiran /exec. Simpan alamat itu.',
+    judul: 'Pasang (deploy) salinan Anda',
+    isi: 'Klik Terapkan, lalu Deployment baru. Pada pilihan Jalankan sebagai, pilih Saya. Pada pilihan akses, pilih Siapa saja. Lalu klik Terapkan. Anda akan mendapat alamat web berakhiran /exec. Simpan alamat itu.',
   },
   {
-    judul: 'Izinkan akses (peringatan Google itu wajar)',
-    isi: 'Google akan menampilkan layar peringatan. Penjelasannya ada di bawah. Klik Lanjutan, lalu Buka, lalu izinkan akses yang diminta.',
+    judul: 'Izinkan akses (peringatan dari Google itu wajar)',
+    isi: 'Google akan menampilkan layar peringatan, dan penjelasannya ada di bawah. Klik Lanjutan, lalu Buka, lalu izinkan akses yang diminta.',
   },
   {
-    judul: 'Setup awal dan trial 3 hari',
-    isi: 'Buka alamat /exec, isi nama usaha dan buat kata sandi Anda sendiri, lalu pilih Mulai Trial 3 Hari. Semua fitur terbuka selama 3 hari.',
+    judul: 'Pengaturan awal dan masa coba 3 hari',
+    isi: 'Buka alamat /exec, isi nama usaha, buat kata sandi Anda sendiri, lalu pilih Mulai Trial 3 Hari. Semua fitur terbuka selama 3 hari.',
   },
   {
     judul: 'Lanjut dengan kode Standar atau Pro',
-    isi: 'Beli kode di Lynk, kirim bukti pembayaran lewat WhatsApp, lalu tempel kode yang kami kirim di ERP. Data selama trial tetap utuh.',
+    isi: 'Beli kode di Lynk, kirim bukti pembayaran lewat WhatsApp, lalu tempel kode yang kami kirim di ERP Studio. Data selama masa coba tetap utuh.',
   },
   {
     judul: 'Memperbarui ke versi baru',
-    isi: 'Saat ada versi baru, ulangi salin dan deploy, lalu di setup awal pilih Sambungkan database lama (jangan buat bisnis baru). Terakhir klik Lengkapi Data Bawaan di Pengaturan.',
+    isi: 'Saat ada versi baru, ulangi langkah salin dan pasang. Di pengaturan awal, pilih Sambungkan database lama (jangan membuat usaha baru). Terakhir, klik Lengkapi Data Bawaan di menu Pengaturan.',
   },
 ];
 ---
@@ -44,10 +44,10 @@ const langkah = [
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
       <span class="eyebrow terang">Panduan mulai</span>
-      <h1>Dari tautan sampai ERP berjalan di Google Drive Anda</h1>
+      <h1>Dari tautan sampai ERP Studio berjalan di Google Drive Anda</h1>
       <p>
-        Enam langkah, sekitar setengah jam untuk pertama kali. Panduan video menyusul; sementara
-        ini tulisan di bawah dan bantuan lewat WhatsApp.
+        Enam langkah, sekitar setengah jam untuk pertama kali. Ikuti tulisan di bawah ini, dan
+        kalau bingung, kami bantu lewat WhatsApp.
       </p>
       <p class="tombol-tengah">
         <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="mulai-gratis">Coba Gratis 3 Hari</a>
@@ -76,9 +76,9 @@ const langkah = [
         <span class="eyebrow">Sebelum Anda sampai di sana</span>
         <h2>Tentang layar &ldquo;Google belum memverifikasi aplikasi ini&rdquo;</h2>
         <p>
-          ERP Studio dibuat sendiri dan berjalan di akun Google Anda, bukan di server kami. Karena
-          itu Google belum &ldquo;mengenal&rdquo; aplikasinya dan menampilkan peringatan ini. Ini
-          bukan tanda ada yang salah.
+          ERP Studio kami buat sendiri dan berjalan di akun Google Anda, bukan di server kami.
+          Karena itu, Google belum &ldquo;mengenal&rdquo; aplikasinya dan menampilkan peringatan
+          ini. Ini bukan tanda ada yang salah.
         </p>
         <p>
           Cara melanjutkan: klik <strong>Lanjutan</strong> (Advanced), klik <strong>Buka &hellip; (tidak aman)</strong>
@@ -87,7 +87,7 @@ const langkah = [
         </p>
         <p>
           Kalau setelah itu muncul halaman galat 404, izin Anda tetap tersimpan. Ulangi Deployment
-          baru sekali lagi. Bingung di langkah mana pun? Tulis ke kami lewat WhatsApp.
+          baru sekali lagi. Bingung di langkah mana pun? Kirim pesan kepada kami lewat WhatsApp.
         </p>
       </div>
     </div>
@@ -95,9 +95,9 @@ const langkah = [
 
   <CtaAkhir
     judul="Siap mencoba?"
-    teks="Mulai dengan trial 3 hari. Kalau ada langkah yang membingungkan, kami bantu lewat WhatsApp."
+    teks="Mulai dengan masa coba gratis 3 hari. Kalau ada langkah yang membingungkan, kami bantu lewat WhatsApp."
     pesanWa="Halo Bedah Data, saya mau mulai coba ERP Studio dan butuh bantuan"
-    tombolUtama="Tanya Lewat WhatsApp"
+    tombolUtama="Tanya lewat WhatsApp"
   />
 </Layout>
 

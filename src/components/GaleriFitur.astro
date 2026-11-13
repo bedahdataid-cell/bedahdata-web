@@ -11,11 +11,11 @@ const fitur = [
   {
     id: 'keuangan',
     tab: 'Keuangan ikut sendiri',
-    judul: 'Jualan tercatat sendiri, laba rugi tinggal klik Hitung',
+    judul: 'Penjualan tercatat sendiri, laba rugi tinggal klik Hitung',
     poin: [
-      'Tiap jual, beli, dan bayar langsung masuk pembukuan (jurnal)',
+      'Setiap penjualan, pembelian, dan pembayaran langsung masuk pembukuan (jurnal)',
       'Mau tahu untung bulan ini? Buka Laba Rugi, pilih tanggal, klik Hitung',
-      'Pengaturan akun keuangan cukup sekali di awal, kami bantu',
+      'Pengaturan akun keuangan cukup sekali di awal, dan kami bantu',
     ],
     video: 'fitur-keuangan',
     tutorial: PLAYLIST,
@@ -25,7 +25,7 @@ const fitur = [
     tab: 'Stok berkurang sendiri',
     judul: 'Barang terjual, stok langsung berkurang',
     poin: [
-      'Tiap penjualan mengurangi stok, tiap barang datang menambahnya',
+      'Setiap penjualan mengurangi stok, setiap barang masuk menambahnya',
       'Riwayatnya lengkap: kapan, berapa, dan karena transaksi apa',
       'Stok menipis langsung diberi tanda supaya tidak kehabisan',
     ],
@@ -35,13 +35,25 @@ const fitur = [
   {
     id: 'komisi',
     tab: 'Komisi karyawan',
-    judul: 'Komisi teknisi, terapis, atau sales dihitung otomatis',
+    judul: 'Komisi teknisi, terapis, atau tenaga penjual dihitung otomatis',
     poin: [
       'Aturan komisi diatur per produk, per peran, atau per orang',
-      'Tiap penjualan yang kena komisi langsung masuk rekap pemiliknya',
-      'Rekap bulanan siap dibayar, tanpa hitung ulang di buku',
+      'Setiap penjualan yang kena komisi langsung masuk rekap karyawan yang berhak',
+      'Rekap bulanan siap dibayarkan, tanpa menghitung ulang di buku',
     ],
     video: 'fitur-komisi',
+    tutorial: PLAYLIST,
+  },
+  {
+    id: 'hrd',
+    tab: 'Absensi dan gaji',
+    judul: 'Data karyawan, cuti, dan gaji di satu tempat',
+    poin: [
+      'Daftar karyawan lengkap dengan jabatan dan gaji pokok',
+      'Pengajuan cuti dan izin tercatat, tinggal disetujui',
+      'Gaji diproses sekali klik, slip gaji siap dicetak (paket Pro)',
+    ],
+    video: 'fitur-hrd',
     tutorial: PLAYLIST,
   },
   {
@@ -49,9 +61,9 @@ const fitur = [
     tab: 'Pengelolaan pesanan',
     judul: 'Pesanan dipantau dari masuk sampai selesai',
     poin: [
-      'Papan pesanan: pindahkan kartu dari antre, diproses, sampai selesai',
-      'Dari invoice, pesanan terbentuk sendiri; status selalu terlihat tim',
-      'Tabel dan laporan untuk melihat mana yang tertahan',
+      'Papan pesanan: geser kartu dari antre, diproses, sampai selesai',
+      'Begitu faktur (invoice) dibuat, pesanan terbentuk sendiri dan statusnya terlihat oleh tim',
+      'Tabel dan laporan untuk melihat pesanan mana yang tertahan',
     ],
     video: 'fitur-pesanan',
     tutorial: PLAYLIST,
@@ -63,8 +75,8 @@ const fitur = [
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Lihat sendiri</span>
-      <h2>Empat hal yang paling sering bikin pemilik usaha lega</h2>
-      <p>Layar di bawah ini adalah ERP Studio sungguhan dengan data demo, bukan gambar rekaan.</p>
+      <h2>Lima hal yang paling sering membuat pemilik usaha lega</h2>
+      <p>Layar di bawah ini adalah ERP Studio sungguhan yang berisi data demo, bukan gambar rekaan.</p>
     </div>
 
     <div class="galeri-isi reveal" data-galeri>
@@ -80,7 +92,6 @@ const fitur = [
               tabindex={i === 0 ? 0 : -1}
               class="tab"
             >
-              <span class="tab-no">{String(i + 1).padStart(2, '0')}</span>
               {f.tab}
             </button>
           ))
@@ -190,7 +201,7 @@ const fitur = [
   /* Tab berjajar di atas supaya layar ERP di bawahnya mendapat lebar penuh (terbaca). */
   .tabs {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
   }
   @media (max-width: 900px) {

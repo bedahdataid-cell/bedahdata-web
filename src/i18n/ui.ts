@@ -81,11 +81,11 @@ export const UI = {
 
     // --- Tombol & ajakan ---
     ctaDemo: 'Coba Gratis 3 Hari',
-    ctaTanya: 'Tanya-tanya Dulu via WhatsApp',
+    ctaTanya: 'Tanya Dulu lewat WhatsApp',
     ctaLihatCara: 'Lihat Cara Kerjanya',
-    ctaTanyaDulu: 'Tanya Dulu via WhatsApp',
+    ctaTanyaDulu: 'Tanya Dulu lewat WhatsApp',
     ctaBuka: 'Buka',
-    ctaBukaKalkulator: 'Buka kalkulator',
+    ctaBukaKalkulator: 'Buka Kalkulator',
     ctaBaca: 'Baca',
 
     // --- Aksesibilitas & kerangka ---
@@ -111,14 +111,14 @@ export const UI = {
     opsional: 'opsional',
     mintaWa: 'Minta lewat WhatsApp',
     catatanBebasPakai:
-      'Kalkulator di atas bebas dipakai tanpa menghubungi siapa pun. Tombol ini hanya kalau Anda mau tambahan rekapnya.',
+      'Kalkulator di atas bebas dipakai tanpa menghubungi siapa pun. Tombol ini hanya untuk Anda yang ingin rekap tambahannya.',
     tanpaJsKalkulator:
-      'Perhitungannya memerlukan JavaScript. Aktifkan JavaScript di browser Anda, atau ikuti rumusnya yang ditulis lengkap di bagian <strong>“Cara menghitungnya”</strong> di bawah — semua angkanya bisa dihitung manual.',
+      'Perhitungan ini memerlukan JavaScript. Aktifkan JavaScript di peramban (browser) Anda, atau ikuti rumus lengkapnya di bagian <strong>“Cara menghitungnya”</strong> di bawah. Semua angkanya bisa dihitung manual.',
 
     // --- CTA halus di bawah halaman alat ---
-    ctaAlatJudul: 'Kalau hitungan ini mulai makan waktu tiap bulan',
+    ctaAlatJudul: 'Kalau hitungan ini mulai menyita waktu tiap bulan',
     ctaAlatTeks:
-      'Alat di atas cukup untuk hitungan sesekali, dan silakan dipakai selamanya tanpa membeli apa pun. Tapi kalau tiap bulan angkanya harus direkap ulang satu per satu dan perlu tersambung ke penjualan dan stok, itu yang kami kerjakan di ERP Studio — datanya tetap tersimpan di Google Drive usaha Anda sendiri.',
+      'Alat di atas cukup untuk hitungan sesekali, dan silakan dipakai selamanya tanpa membeli apa pun. Tapi kalau tiap bulan angkanya harus direkap ulang satu per satu dan perlu tersambung ke penjualan dan stok, itulah gunanya ERP Studio, aplikasi pencatatan usaha kami. Datanya tetap tersimpan di Google Drive usaha Anda sendiri.',
   },
 
   en: {
