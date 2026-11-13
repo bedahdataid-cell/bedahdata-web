@@ -2,7 +2,7 @@
 // ============================================================================
 // KEBIJAKAN PRIVASI
 // 🔴 Halaman ini dibutuhkan untuk App Review platform pihak ketiga (TikTok,
-//    Meta) yang dipakai lewat Postiz self-hosted — scheduler INTERNAL yang
+//    Meta). 🗄️ Postiz dimatikan 24 Okt 2026, bagiannya dihapus 14 Nov 2026 (owner).
 //    hanya dipakai tim Bedah Data untuk menjadwalkan konten ke akun media
 //    sosial RESMI Bedah Data sendiri (Instagram, Facebook, TikTok, YouTube).
 //    Bukan aplikasi publik, tidak meminta login pengguna pihak ketiga.
@@ -15,9 +15,9 @@ import { SITE, WA_DISPLAY, WA_NUMBER } from '../config';
 
 const title = 'Kebijakan Privasi | Bedah Data';
 const description =
-  'Bagaimana Bedah Data mengelola data: penyimpanan data ERP Studio di Drive milik pelanggan sendiri, dan penggunaan Postiz (alat internal) untuk menjadwalkan konten ke akun media sosial resmi Bedah Data.';
+  'Bagaimana Bedah Data mengelola data: data usaha ERP Studio tersimpan di Google Drive milik pelanggan sendiri, data pembelian lewat Lynk.id, dan data masa coba serta kode lisensi.';
 
-const diperbarui = '18 Agustus 2026';
+const diperbarui = '14 November 2026';
 ---
 
 <Layout title={title} description={description}>
@@ -48,57 +48,43 @@ const diperbarui = '18 Agustus 2026';
           TikTok <strong>@bedahdata</strong>, dan YouTube <strong>@bedahdata_id</strong>.
         </p>
 
-        <h2>2. Postiz: Alat Penjadwalan Konten Internal</h2>
+        <h2>2. Akun Media Sosial Resmi Kami</h2>
         <p>
-          Untuk menjadwalkan dan memublikasikan konten promosi, kami memakai <strong>Postiz</strong
-          >, sebuah aplikasi <em>self-hosted</em> (dijalankan di server milik kami sendiri, bukan
-          layanan pihak ketiga). Berikut hal-hal penting yang perlu diketahui soal alat ini:
-        </p>
-        <ul>
-          <li>
-            <strong>Aplikasi ini bersifat internal</strong>, hanya digunakan oleh tim Bedah Data
-            sendiri. Aplikasi ini <strong>bukan aplikasi publik</strong>, tidak didistribusikan ke
-            pengguna umum, dan tidak tersedia untuk diunduh atau dipakai oleh siapa pun di luar
-            tim kami.
-          </li>
-          <li>
-            Aplikasi ini <strong>tidak meminta login dari pengguna pihak ketiga mana pun</strong>.
-            Satu-satunya akun yang terhubung adalah akun media sosial resmi milik Bedah Data
-            sendiri, yang disebutkan di atas.
-          </li>
-          <li>
-            Aplikasi ini <strong
-              >tidak mengakses, mengumpulkan, menyimpan, atau memproses data pengguna lain</strong
-            > di platform mana pun (TikTok, Instagram, Facebook, YouTube). Kami tidak pernah melihat
-            atau menyimpan data pribadi pengikut, penonton, atau pengguna lain di luar akun resmi
-            kami sendiri.
-          </li>
-        </ul>
-
-        <h2>3. Data yang Kami Akses Lewat Platform Media Sosial</h2>
-        <p>Melalui API resmi tiap platform (TikTok, Meta/Facebook &amp; Instagram, YouTube), Postiz mengakses:</p>
-        <ul>
-          <li>
-            Informasi akun resmi Bedah Data sendiri (nama akun, ID akun, token akses), untuk
-            keperluan publikasi konten.
-          </li>
-          <li>
-            Kemampuan untuk membuat dan menjadwalkan unggahan (gambar, carousel, video/Reels)
-            ke akun-akun tersebut.
-          </li>
-          <li>Statistik dasar performa konten (jangkauan, interaksi) untuk evaluasi internal.</li>
-        </ul>
-        <p>
-          Kami tidak menjual, menyewakan, atau membagikan data apa pun ke pihak ketiga untuk
-          tujuan pemasaran.
+          Konten promosi kami unggah dan jadwalkan langsung lewat alat resmi milik tiap platform
+          (Meta Business Suite, YouTube Studio, TikTok Studio, dan Threads), memakai akun resmi Bedah
+          Data sendiri. Kami tidak memakai aplikasi pihak ketiga yang meminta login dari pengguna
+          lain, dan kami tidak mengumpulkan data pribadi pengikut atau penonton di luar yang
+          ditampilkan platform tersebut kepada semua pemilik akun.
         </p>
 
-        <h2>4. Penyimpanan dan Keamanan Token Akses</h2>
+        <h2>3. Data Saat Anda Membeli atau Mencoba ERP Studio</h2>
+        <ul>
+          <li>
+            <strong>Pembayaran</strong> diproses oleh <strong>Lynk.id</strong>. Data pembayaran
+            (misalnya rincian kartu atau dompet digital) dikelola oleh Lynk.id dan penyedia
+            pembayarannya, bukan oleh kami. Dari Lynk.id kami menerima nama, nomor telepon, dan
+            surel yang Anda isi saat membeli.
+          </li>
+          <li>
+            <strong>Kode lisensi dan masa coba.</strong> Saat Anda memulai masa coba atau
+            mengaktifkan kode lisensi, kami mencatat nama, surel, nomor telepon, nama usaha, dan
+            kode lisensi Anda di daftar lisensi kami. Data ini dipakai untuk mengirim kode,
+            memastikan satu kode dipakai untuk satu basis data, dan membantu Anda bila ada kendala.
+          </li>
+          <li>
+            Bila Anda menghubungi kami lewat WhatsApp, isi percakapan tersimpan di aplikasi
+            WhatsApp kami dan hanya dipakai untuk menjawab pertanyaan Anda.
+          </li>
+        </ul>
         <p>
-          Token akses dan kredensial akun media sosial disimpan secara terbatas di server internal
-          kami dan hanya digunakan untuk fungsi penjadwalan dan publikasi konten. Kami
-          menerapkan langkah keamanan yang wajar untuk melindungi informasi tersebut dari akses
-          yang tidak sah.
+          Kami tidak menjual, menyewakan, atau membagikan data ini ke pihak ketiga untuk tujuan
+          pemasaran.
+        </p>
+
+        <h2>4. Keamanan</h2>
+        <p>
+          Kami menerapkan langkah keamanan yang wajar untuk melindungi data di atas dari akses
+          yang tidak sah, dan hanya tim Bedah Data yang dapat membukanya.
         </p>
 
         <h2>5. Penyimpanan Data Pelanggan ERP Studio</h2>
@@ -118,11 +104,10 @@ const diperbarui = '18 Agustus 2026';
 
         <h2>7. Penghapusan Data</h2>
         <p>
-          Karena Postiz hanya mengelola akun media sosial milik Bedah Data sendiri, tidak ada data
-          pengguna pihak ketiga yang tersimpan untuk dihapus. Jika Anda ingin meminta penghapusan
-          data apa pun yang terkait dengan Anda (misalnya sebagai pelanggan atau calon pelanggan
-          yang pernah menghubungi kami), silakan hubungi kami melalui kontak di bawah dan kami
-          akan memprosesnya dalam waktu yang wajar.
+          Jika Anda ingin meminta penghapusan data yang terkait dengan Anda (misalnya data
+          pembelian, masa coba, atau percakapan sebagai calon pelanggan), silakan hubungi kami
+          melalui kontak di bawah dan kami akan memprosesnya dalam waktu yang wajar. Data usaha
+          Anda di Google Drive sepenuhnya Anda kendalikan sendiri.
         </p>
 
         <h2>8. Perubahan Kebijakan</h2>

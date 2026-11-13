@@ -9,16 +9,17 @@
 // jangan ditulis ulang tanpa persetujuan. Penulisan copy = ranah Mbak Wulan.
 // ============================================================================
 import type { ItemFaq } from '../components/Faq.astro';
-import { PAKET } from '../config';
+import { PAKET, PERSEN_PERAWATAN, biayaPerawatan } from '../config';
 
 // 🔴 Harga dibaca dari config.ts — jangan menulis angka di FAQ.
 const HARGA_STANDAR = PAKET.find((p) => p.kunci === 'standar')!.harga;
+const _pro = PAKET.find((p) => p.kunci === 'pro')!.harga;
 
 export const FAQ_UMUM: ItemFaq[] = [
   {
     tanya: 'Apakah ERP Studio berlangganan bulanan?',
     jawab:
-      '<p>Tidak. ERP Studio memakai lisensi bayar sekali mulai ' + HARGA_STANDAR + '. Jadi Anda membeli, bukan menyewa. Perawatan dan pembaruan tahun pertama sudah termasuk. Setelah itu, perpanjangan perawatan sifatnya pilihan, dan <strong>aplikasi tetap berjalan walau Anda memutuskan tidak memperpanjang</strong>.</p>',
+      '<p>Tidak. ERP Studio memakai lisensi bayar sekali mulai ' + HARGA_STANDAR + '. Jadi Anda membeli, bukan menyewa. Perawatan dan pembaruan tahun pertama sudah termasuk. ' + `Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya ${PERSEN_PERAWATAN}% dari harga paket per tahun (Standar ${biayaPerawatan(HARGA_STANDAR)}, Pro ${biayaPerawatan(_pro)}).` + ' <strong>Aplikasi tetap berjalan walau Anda memutuskan tidak memperpanjang</strong>.</p>',
   },
   {
     tanya: 'Data usaha saya disimpan di mana?',

@@ -44,7 +44,7 @@ export const SOCIALS = [
 // 🔴 Diperbarui 18 Agu 2026 — kebijakan privasi & syarat ketentuan kini
 //    di-hosting sebagai halaman Astro di situs ini sendiri (/privacy/ dan
 //    /terms/), bukan lagi GitHub Pages terpisah. Dibutuhkan untuk App
-//    Review TikTok/Meta (Postiz self-hosted). Alamat lama tetap hidup tapi
+//    Review TikTok/Meta (dulu untuk Postiz, kini dimatikan). Alamat lama tetap hidup tapi
 //    tidak lagi dirujuk dari sini.
 export const PRIVACY_URL = '/privacy/';
 export const TERMS_URL = '/terms/';
@@ -248,6 +248,16 @@ export const PAKET = [
     populer: true,
   },
 ] as const;
+
+
+// --- Biaya perawatan (owner 14 Nov 2026) --------------------------------------
+// Tahun pertama gratis. Sesudahnya OPSIONAL: 40% dari harga paket. Aplikasi tetap
+// berjalan walau tidak diperpanjang. Angka dihitung dari PAKET, jangan diketik manual.
+export const PERSEN_PERAWATAN = 40;
+export function biayaPerawatan(harga: string): string {
+  const n = Number(harga.replace(/[^0-9]/g, ''));
+  return 'Rp ' + Math.round((n * PERSEN_PERAWATAN) / 100).toLocaleString('id-ID');
+}
 
 // Jalur untuk usaha yang melewati batas ERP Google Apps Script. Tidak dijual swalayan.
 export const CUSTOM = {

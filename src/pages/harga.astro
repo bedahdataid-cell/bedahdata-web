@@ -14,6 +14,10 @@ import CtaAkhir from '../components/CtaAkhir.astro';
 import Faq from '../components/Faq.astro';
 import { CUSTOM, PAKET, SITE, waLink } from '../config';
 import { faqSchema } from '../data/faq';
+import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
+const _std = PAKET.find((p) => p.kunci === 'standar')!.harga;
+const _pro = PAKET.find((p) => p.kunci === 'pro')!.harga;
+
 
 const standar = PAKET.find((p) => p.kunci === 'standar')!;
 const pro = PAKET.find((p) => p.kunci === 'pro')!;
@@ -22,6 +26,10 @@ const title = `Harga ERP Studio: Bayar Sekali Mulai ${standar.harga} | Bedah Dat
 const description = `Rincian harga ERP Studio: coba gratis 3 hari, paket Standar ${standar.harga} dan Pro ${pro.harga}, bayar sekali, bukan langganan. Termasuk perawatan dan pembaruan tahun pertama serta pendampingan.`;
 
 const faqHarga = [
+  {
+    tanya: 'Berapa biaya perawatan setelah tahun pertama?',
+    jawab: `<p>Tahun pertama gratis. Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya ${PERSEN_PERAWATAN}% dari harga paket per tahun (Standar ${biayaPerawatan(_std)}, Pro ${biayaPerawatan(_pro)}). Perawatan mencakup pembaruan, perbaikan, dan bantuan teknis dari kami.</p>`,
+  },
   {
     tanya: 'Apa yang terjadi kalau perawatan tidak diperpanjang?',
     jawab:
@@ -81,7 +89,7 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
           dari tahun ke tahun. Paket Pro: {pro.harga}, dibayar sekali.
         </p>
         <p>
-          Semua harga dibayar sekali, dan perawatan tahun pertama gratis. Bila dibutuhkan,
+          Semua harga dibayar sekali, dan perawatan tahun pertama gratis. Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya {PERSEN_PERAWATAN}% dari harga paket per tahun (Standar {biayaPerawatan(_std)}, Pro {biayaPerawatan(_pro)}). Bila dibutuhkan,
           tersedia juga layanan pendampingan pilihan (pemasangan jarak jauh, pemindahan data dari
           Excel, dan pelatihan tim) dengan biaya terpisah yang kami sampaikan terbuka di awal.
         </p>

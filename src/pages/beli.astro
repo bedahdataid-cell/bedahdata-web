@@ -7,6 +7,10 @@
 // ============================================================================
 import Layout from '../layouts/Layout.astro';
 import { PAKET, LYNK, tautanBeli, waLink } from '../config';
+import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
+const _std = PAKET.find((p) => p.kunci === 'standar')!.harga;
+const _pro = PAKET.find((p) => p.kunci === 'pro')!.harga;
+
 
 const title = 'Beli ERP Studio: Free, Standar, atau Pro | Bedah Data';
 const description =
@@ -125,7 +129,7 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
       <div class="card ketentuan reveal">
         <h3>Ketentuan singkat supaya tidak ada kejutan</h3>
         <ul>
-          <li><strong>Bayar sekali.</strong> Perawatan dan pembaruan tahun pertama gratis. Aplikasi tetap berjalan walau perawatan tidak diperpanjang.</li>
+          <li><strong>Bayar sekali.</strong> Perawatan dan pembaruan tahun pertama gratis. Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya {PERSEN_PERAWATAN}% dari harga paket per tahun (Standar {biayaPerawatan(_std)}, Pro {biayaPerawatan(_pro)}). Aplikasi tetap berjalan walau perawatan tidak diperpanjang.</li>
           <li><strong>Tidak ada pengembalian dana.</strong> Kode lisensi adalah produk digital yang langsung dapat dipakai. Karena itu, coba dulu gratis 3 hari sebelum membeli.</li>
           <li><strong>Satu kode untuk satu basis data (database) usaha.</strong> Mau pindah akun atau basis data? Hubungi kami, kami bantu.</li>
           <li><strong>Data di Google Drive Anda.</strong> Kami tidak menyimpan data usaha Anda di server kami.</li>

@@ -13,6 +13,10 @@ import GaleriFitur from '../components/GaleriFitur.astro';
 import VideoFasad from '../components/VideoFasad.astro';
 import { SITE, SEGMEN, PAKET, waLink, tautanBeli } from '../config';
 import { FAQ_UMUM, faqSchema } from '../data/faq';
+import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
+const _std = PAKET.find((p) => p.kunci === 'standar')!.harga;
+const _pro = PAKET.find((p) => p.kunci === 'pro')!.harga;
+
 
 // 🔴 Harga dibaca dari config.ts (PAKET) — jangan menulis angka di halaman ini.
 const standar = PAKET.find((p) => p.kunci === 'standar')!;
@@ -407,7 +411,7 @@ const langkah = [
         <p>
           Bayar sekali, mulai {standar.harga}. Kenapa harganya segini? Aplikasinya berjalan di akun
           Google Anda sendiri, jadi kami tidak menyewa server untuk menyimpan data Anda. Perawatan
-          tahun pertama gratis, dan aplikasi tetap berjalan walau perawatannya tidak diperpanjang.
+          tahun pertama gratis. Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya {PERSEN_PERAWATAN}% dari harga paket per tahun (Standar {biayaPerawatan(_std)}, Pro {biayaPerawatan(_pro)}). Aplikasi tetap berjalan walau perawatannya tidak diperpanjang.
         </p>
       </div>
 

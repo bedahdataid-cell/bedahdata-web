@@ -2,7 +2,7 @@
 // ============================================================================
 // SYARAT & KETENTUAN (TERMS OF SERVICE)
 // 🔴 Sama seperti privacy.astro — dibutuhkan untuk App Review platform pihak
-//    ketiga (TikTok, Meta) yang dipakai lewat Postiz self-hosted, alat
+//    ketiga (TikTok, Meta). 🗄️ Bagian Postiz dihapus 14 Nov 2026 (owner); alat
 //    INTERNAL untuk menjadwalkan konten ke akun media sosial resmi Bedah Data.
 //    Bukan produk publik, jadi isinya sengaja ringkas — bukan template ToS
 //    SaaS yang rumit.
@@ -12,9 +12,9 @@ import { SITE, WA_DISPLAY, WA_NUMBER } from '../config';
 
 const title = 'Syarat dan Ketentuan | Bedah Data';
 const description =
-  'Ketentuan penggunaan situs, alat gratis, dan alat internal (Postiz) yang dipakai Bedah Data untuk mengelola akun media sosial resminya sendiri.';
+  'Ketentuan penggunaan situs bedahdata.online, alat gratis, serta pembelian dan pemakaian lisensi ERP Studio.';
 
-const diperbarui = '18 Agustus 2026';
+const diperbarui = '14 November 2026';
 ---
 
 <Layout title={title} description={description}>
@@ -31,8 +31,7 @@ const diperbarui = '18 Agustus 2026';
       <div class="isi reveal">
         <p>
           Halaman ini menjelaskan ketentuan penggunaan situs <strong>bedahdata.online</strong>,
-          layanan <strong>ERP Studio</strong>, dan alat internal yang kami pakai untuk mengelola
-          akun media sosial resmi Bedah Data. Dokumen ini sengaja ditulis ringkas. Kami bukan
+          layanan <strong>ERP Studio</strong>, serta pembelian lisensinya. Dokumen ini sengaja ditulis ringkas. Kami bukan
           produk publik berskala besar, jadi tidak ada gunanya menulis ketentuan yang rumit hanya
           agar terlihat formal.
         </p>
@@ -46,31 +45,7 @@ const diperbarui = '18 Agustus 2026';
           oleh tim Bedah Data.
         </p>
 
-        <h2>2. Postiz: Alat Pengelola Konten Internal</h2>
-        <p>
-          Untuk menjadwalkan dan memublikasikan konten ke akun media sosial resmi kami, tim
-          Bedah Data memakai <strong>Postiz</strong>, aplikasi <em>self-hosted</em> yang kami
-          jalankan sendiri. Ketentuan penggunaannya:
-        </p>
-        <ul>
-          <li>
-            Postiz adalah <strong>alat internal</strong> yang hanya dipakai oleh tim Bedah Data untuk
-            mengelola akun media sosial <strong>milik Bedah Data sendiri</strong>. Ini bukan
-            layanan yang kami jual, sewakan, atau tawarkan ke pihak ketiga mana pun.
-          </li>
-          <li>
-            Penggunaan Postiz untuk terhubung ke API TikTok, Meta (Facebook/Instagram), dan
-            YouTube tunduk pada <strong>Ketentuan Layanan dan Kebijakan Pengembang (Developer)</strong> masing-masing
-            platform. Kami berkomitmen mematuhi ketentuan tersebut, termasuk hanya mengakses dan
-            memublikasikan konten pada akun yang kami miliki dan kendalikan sendiri.
-          </li>
-          <li>
-            Kami tidak menggunakan Postiz untuk mengakses, menyalahgunakan, atau menyimpan data
-            pengguna pihak ketiga di platform mana pun.
-          </li>
-        </ul>
-
-        <h2>3. Penggunaan Situs dan Alat Gratis</h2>
+        <h2>2. Penggunaan Situs dan Alat Gratis</h2>
         <p>
           Kalkulator gratis di <code>/alat/</code> (kalkulator komisi, lembur, THR, dan sejenisnya)
           disediakan sebagai alat bantu hitung sederhana. Hasil hitungannya bergantung sepenuhnya
@@ -79,27 +54,41 @@ const diperbarui = '18 Agustus 2026';
           memverifikasi angka penting sebelum dipakai untuk keputusan resmi.
         </p>
 
-        <h2>4. Layanan ERP Studio</h2>
-        <p>
-          ERP Studio adalah produk berbayar (lisensi bayar sekali, bukan langganan) yang berjalan di
-          akun Google (Google Apps Script) milik pelanggan. Ketentuan pembelian, harga, dan cakupan
-          modul dijelaskan di halaman <a href="/harga/">Harga</a> dan dibahas langsung lewat
-          WhatsApp sebelum pembelian. Kami tidak menjual apa pun secara otomatis tanpa
-          persetujuan Anda terlebih dahulu.
-        </p>
+        <h2>3. Pembelian dan Lisensi ERP Studio</h2>
+        <ul>
+          <li>
+            ERP Studio dijual dengan <strong>lisensi bayar sekali</strong>, bukan langganan, dan
+            berjalan di akun Google (Google Apps Script) milik Anda. Pilihan paket dan harganya ada
+            di halaman <a href="/harga/">Harga</a>.
+          </li>
+          <li>
+            Pembayaran dilakukan lewat <strong>Lynk.id</strong>. Setelah membayar, kirim bukti
+            pembayaran ke WhatsApp kami. Kode lisensi kami kirim lewat WhatsApp pada jam kerja.
+          </li>
+          <li><strong>Satu kode lisensi untuk satu basis data usaha.</strong> Bila ingin pindah akun atau basis data, hubungi kami.</li>
+          <li>
+            <strong>Tidak ada pengembalian dana.</strong> Kode lisensi adalah produk digital yang
+            langsung dapat dipakai. Karena itu, kami menyediakan masa coba gratis 3 hari dengan
+            semua fitur terbuka, supaya Anda bisa menilai sebelum membeli.
+          </li>
+          <li>
+            <strong>Perawatan dan pembaruan</strong> gratis di tahun pertama. Mulai tahun kedua,
+            perpanjangannya bersifat pilihan dengan biaya 40% dari harga paket per tahun. Aplikasi
+            tetap berjalan walau perawatan tidak diperpanjang.
+          </li>
+        </ul>
         <p>
           Data operasional usaha Anda tersimpan di akun Google Drive milik Anda sendiri (lihat
           <a href="/privacy/">Kebijakan Privasi</a> untuk detail lengkapnya).
         </p>
 
-        <h2>5. Tidak Ada Layanan yang Dijual ke Pihak Ketiga</h2>
+        <h2>4. Kerja Sama dengan Pihak Lain</h2>
         <p>
-          Bedah Data tidak menjual, menyewakan, atau membagikan akses ke sistem internal kami
-          (termasuk Postiz) kepada pihak mana pun di luar tim kami sendiri. Segala bentuk kerja
-          sama (mis. reseller ERP Studio) diatur lewat kesepakatan terpisah di luar dokumen ini.
+          Bentuk kerja sama lain (misalnya menjadi penjual kembali ERP Studio) diatur lewat
+          kesepakatan terpisah di luar dokumen ini.
         </p>
 
-        <h2>6. Batasan Tanggung Jawab</h2>
+        <h2>5. Batasan Tanggung Jawab</h2>
         <p>
           Situs, konten, dan alat gratis di sini disediakan apa adanya untuk membantu pemilik
           usaha mengambil keputusan lebih jelas. Kami tidak menjanjikan hasil usaha tertentu
@@ -107,13 +96,13 @@ const diperbarui = '18 Agustus 2026';
           tangan Anda.
         </p>
 
-        <h2>7. Perubahan Ketentuan</h2>
+        <h2>6. Perubahan Ketentuan</h2>
         <p>
           Kami dapat memperbarui halaman ini dari waktu ke waktu. Perubahan akan dipublikasikan di
           halaman ini dengan tanggal pembaruan terbaru.
         </p>
 
-        <h2>8. Hubungi Kami</h2>
+        <h2>7. Hubungi Kami</h2>
         <div class="kontak-box">
           <p><strong>Bedah Data</strong></p>
           <p>

@@ -15,6 +15,10 @@ import Harga from '../components/Harga.astro';
 import { SITE, waLink } from '../config';
 import { SEGMEN_ISI } from '../data/segmen';
 import { faqSchema } from '../data/faq';
+import { PAKET, PERSEN_PERAWATAN, biayaPerawatan } from '../config';
+const _std = PAKET.find((p) => p.kunci === 'standar')!.harga;
+const _pro = PAKET.find((p) => p.kunci === 'pro')!.harga;
+
 
 export const getStaticPaths = (() => {
   return SEGMEN_ISI.map((isi) => ({
@@ -144,8 +148,8 @@ const schema = [
         <span class="eyebrow">Harga</span>
         <h2>Bayar sekali, bukan langganan bulanan</h2>
         <p>
-          Harga yang sama untuk semua jenis usaha. Perawatan dan pembaruan tahun pertama gratis,
-          dan aplikasi tetap berjalan walau perawatan tidak diperpanjang.
+          Harga yang sama untuk semua jenis usaha. Perawatan dan pembaruan tahun pertama gratis.
+          Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya {PERSEN_PERAWATAN}% dari harga paket per tahun (Standar {biayaPerawatan(_std)}, Pro {biayaPerawatan(_pro)}). Aplikasi tetap berjalan walau perawatan tidak diperpanjang.
         </p>
       </div>
       <Harga />
