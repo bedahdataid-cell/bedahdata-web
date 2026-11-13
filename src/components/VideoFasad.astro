@@ -78,6 +78,40 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
     return v;
   }
 
+  // Coba langsung bersuara; bila browser menolak (belum ada interaksi), putar bisu.
+  function otomatis(w: HTMLElement) {
+    const v = pasang(w, true);
+    v.play().catch(() => {
+      v.muted = true;
+      v.controls = false;
+      v.dataset.bisuOtomatis = '1';
+      if (!w.querySelector('.vf-suara')) {
+        const suara = document.createElement('button');
+        suara.type = 'button';
+        suara.className = 'vf-suara';
+        suara.textContent = '🔊 Nyalakan suara';
+        suara.addEventListener('click', () => nyalakan(v, w));
+        w.append(suara);
+      }
+      v.play().catch(() => {});
+    });
+  }
+  function nyalakan(v: HTMLVideoElement, w: HTMLElement) {
+    v.muted = false;
+    v.controls = true;
+    v.currentTime = 0;
+    delete v.dataset.bisuOtomatis;
+    v.play().catch(() => {});
+    w.querySelector('.vf-suara')?.remove();
+  }
+  // Ketukan/klik pertama di mana saja: video yang sedang berputar bisu langsung bersuara dari awal.
+  const sekali = () => {
+    document.querySelectorAll<HTMLVideoElement>('[data-vf] video[data-bisu-otomatis]').forEach((v) => {
+      if (!v.paused) nyalakan(v, v.closest('[data-vf]') as HTMLElement);
+    });
+  };
+  ['pointerdown', 'keydown'].forEach((ev) => document.addEventListener(ev, sekali, { capture: true }));
+
   document.querySelectorAll<HTMLElement>('[data-vf]').forEach((w) => {
     w.querySelector('button')?.addEventListener('click', () => pasang(w, true));
     if (!bolehOtomatis) return;
@@ -86,7 +120,7 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
         es.forEach((e) => {
           const v = w.querySelector('video');
           if (e.isIntersecting && e.intersectionRatio >= 0.6) {
-            if (!v) pasang(w, false);
+            if (!v) otomatis(w);
             else if (v.paused && !v.ended) v.play().catch(() => {});
           } else if (v && !v.paused) {
             v.pause();
@@ -125,6 +159,16 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
     background: var(--oranye-deep);
     box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.5);
     cursor: pointer;
+  }
+  :global(.vf-suara) {
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    :global(.vf-suara) {
+      top: 10px;
+      font-size: 13px;
+      padding: 8px 14px;
+    }
   }
   @media (prefers-reduced-motion: no-preference) {
     :global(.vf-suara) {
