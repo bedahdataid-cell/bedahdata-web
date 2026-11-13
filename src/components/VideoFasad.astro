@@ -59,7 +59,7 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
       const suara = document.createElement('button');
       suara.type = 'button';
       suara.className = 'vf-suara';
-      suara.textContent = '🔊 Nyalakan suara';
+      suara.textContent = '🔊 Ketuk untuk menyalakan suara';
       suara.addEventListener('click', () => {
         v!.muted = false;
         v!.controls = true;
@@ -89,7 +89,7 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
         const suara = document.createElement('button');
         suara.type = 'button';
         suara.className = 'vf-suara';
-        suara.textContent = '🔊 Nyalakan suara';
+        suara.textContent = '🔊 Ketuk untuk menyalakan suara';
         suara.addEventListener('click', () => nyalakan(v, w));
         w.append(suara);
       }
@@ -149,8 +149,10 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
     position: absolute;
     z-index: 3;
     left: 50%;
-    top: 18px;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px !important;
+    padding: 16px 28px !important;
     border: 0;
     border-radius: 999px;
     padding: 11px 20px;
@@ -165,9 +167,8 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
   }
   @media (max-width: 600px) {
     :global(.vf-suara) {
-      top: 10px;
-      font-size: 13px;
-      padding: 8px 14px;
+      font-size: 14px !important;
+      padding: 12px 18px !important;
     }
   }
   @media (prefers-reduced-motion: no-preference) {
