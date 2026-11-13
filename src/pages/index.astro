@@ -315,6 +315,11 @@ const langkah = [
         }
       </div>
 
+      <div class="banding-judul reveal">
+        <h3>Bandingkan sendiri: aplikasi langganan <span class="vs">vs</span> ERP Studio</h3>
+        <p>Empat hal yang paling sering ditanyakan sebelum memilih aplikasi pencatatan usaha.</p>
+      </div>
+
       <div class="tabel-bungkus reveal">
         <table class="banding">
           <caption class="visually-hidden">
@@ -993,9 +998,9 @@ const langkah = [
     margin-top: auto;
     padding-top: 20px;
     width: 100%;
-    height: 250px;
+    height: 210px;
     object-fit: cover;
-    object-position: 50% 18%;
+    object-position: 50% 8%;
     border-radius: 14px;
   }
 
@@ -1063,6 +1068,63 @@ const langkah = [
   }
 
 
+  .banding-judul {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 20px;
+  }
+  .banding-judul h3 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.6vw, 30px);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .banding-judul p {
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .vs {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.55em;
+    font-weight: 700;
+    color: #fff;
+    background: var(--oranye-deep);
+    border-radius: 999px;
+    padding: 0.25em 0.7em;
+    vertical-align: 0.35em;
+  }
+  /* ikon pembeda: oranye = kekurangan, hijau = kelebihan */
+  .banding tbody td:nth-of-type(1)::after,
+  .banding tbody td:nth-of-type(2)::after {
+    content: none;
+  }
+  .banding tbody td {
+    position: relative;
+    padding-left: 44px;
+  }
+  .banding tbody td::before {
+    position: absolute;
+    left: 16px;
+    top: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .banding tbody td:nth-of-type(1)::before {
+    content: '✕';
+    background: var(--oranye);
+  }
+  .banding tbody td:nth-of-type(2)::before {
+    content: '✓';
+    background: var(--green-deep);
+  }
+
   @media (max-width: 640px) {
     .tabel-bungkus {
       box-shadow: none;
@@ -1070,46 +1132,68 @@ const langkah = [
     }
     .banding {
       min-width: 0;
+      background: transparent;
     }
     .banding thead {
       display: none;
     }
-    .banding,
-    .banding tbody,
-    .banding tr,
-    .banding th,
-    .banding td {
-      display: block;
-      width: 100%;
+    .banding tbody {
+      display: grid;
+      gap: 14px;
     }
     .banding tr {
-      background: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: #fff !important;
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
+      padding: 14px;
     }
     .banding th[scope='row'] {
-      font-size: 16px;
-      padding: 0 0 8px;
-      border: 0;
+      grid-column: 1 / -1;
+      padding: 0 0 4px;
+      font-size: 16.5px;
+      text-align: center;
     }
-    .banding td {
-      padding: 8px 0 0;
-      border: 0;
+    .banding tbody td {
+      padding: 34px 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
     }
-    .banding td::before {
-      content: attr(data-label);
-      display: block;
-      font-size: 12.5px;
+    .banding td:nth-of-type(1) {
+      background: #fff4ee;
+      color: var(--text);
+      font-weight: 400;
+    }
+    .banding td:nth-of-type(2) {
+      background: rgba(46, 204, 88, 0.12);
+      color: var(--heading);
       font-weight: 600;
-      color: var(--text-muted);
     }
-    .banding td:last-child::before {
-      color: var(--green-deep);
+    /* label kecil + ikon di atas tiap sisi */
+    .banding tbody td::before {
+      left: 50%;
+      top: 8px;
+      transform: translateX(-50%);
+      width: auto;
+      height: auto;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11.5px;
+      white-space: nowrap;
+    }
+    .banding tbody td:nth-of-type(1)::before {
+      content: '✕ Langganan';
+      background: var(--oranye-deep);
+    }
+    .banding tbody td:nth-of-type(2)::before {
+      content: '✓ ERP Studio';
+      background: var(--green-deep);
     }
   }
-
 
   /* ---------- Dasbor asli (pengganti kotak teks) ---------- */
   .dasbor {
