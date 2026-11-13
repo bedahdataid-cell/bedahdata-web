@@ -39,18 +39,62 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
 </section>
 
 <script>
-  document.querySelectorAll<HTMLElement>('[data-vf]').forEach((w) => {
-    w.querySelector('button')?.addEventListener('click', () => {
-      const v = document.createElement('video');
+  // Putar otomatis TANPA suara saat video terlihat (browser melarang autoplay bersuara),
+  // tombol "Nyalakan suara" untuk mendengar narasi, jeda saat keluar layar.
+  // Tidak otomatis bila pengguna memilih "kurangi gerakan" atau mode hemat data.
+  const hemat = (navigator as any).connection?.saveData === true;
+  const kurangiGerak = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bolehOtomatis = !hemat && !kurangiGerak && 'IntersectionObserver' in window;
+
+  function pasang(w: HTMLElement, bersuara: boolean) {
+    let v = w.querySelector('video');
+    if (!v) {
+      v = document.createElement('video');
       v.src = w.dataset.src!;
       v.poster = w.dataset.poster!;
-      v.controls = true;
       v.playsInline = true;
-      v.autoplay = true;
       v.setAttribute('preload', 'auto');
+      v.controls = bersuara;
+      v.muted = !bersuara;
+      const suara = document.createElement('button');
+      suara.type = 'button';
+      suara.className = 'vf-suara';
+      suara.textContent = '🔊 Nyalakan suara';
+      suara.addEventListener('click', () => {
+        v!.muted = false;
+        v!.controls = true;
+        v!.currentTime = 0;
+        v!.play().catch(() => {});
+        suara.remove();
+      });
       w.replaceChildren(v);
-      v.play().catch(() => {});
-    });
+      if (!bersuara) w.append(suara);
+    } else if (bersuara) {
+      v.muted = false;
+      v.controls = true;
+      w.querySelector('.vf-suara')?.remove();
+    }
+    v.play().catch(() => {});
+    return v;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-vf]').forEach((w) => {
+    w.querySelector('button')?.addEventListener('click', () => pasang(w, true));
+    if (!bolehOtomatis) return;
+    new IntersectionObserver(
+      (es) => {
+        es.forEach((e) => {
+          const v = w.querySelector('video');
+          if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+            if (!v) pasang(w, false);
+            else if (v.paused && !v.ended) v.play().catch(() => {});
+          } else if (v && !v.paused) {
+            v.pause();
+          }
+        });
+      },
+      { threshold: [0, 0.6] }
+    ).observe(w);
   });
 </script>
 
@@ -63,6 +107,33 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
     box-shadow: var(--shadow-lg);
     background: #0e3d33;
     aspect-ratio: 16 / 9;
+  }
+  .vf {
+    position: relative;
+  }
+  :global(.vf-suara) {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 18px;
+    transform: translateX(-50%);
+    border: 0;
+    border-radius: 999px;
+    padding: 11px 20px;
+    font: 600 15px/1 var(--font-body);
+    color: #fff;
+    background: var(--oranye-deep);
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.vf-suara) {
+      animation: suara-denyut 1.8s var(--ease-out) infinite;
+    }
+  }
+  @keyframes suara-denyut {
+    0%, 100% { box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(255, 107, 44, 0.55); }
+    50% { box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.5), 0 0 0 12px rgba(255, 107, 44, 0); }
   }
   .vf video {
     width: 100%;
