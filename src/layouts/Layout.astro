@@ -323,5 +323,48 @@ fbq('track', 'PageView');`}
         targets.forEach((el) => observer.observe(el));
       }
     </script>
+    <!-- Penampil perbesar: klik gambar/klip ber-[data-perbesar] untuk melihat besar -->
+    <dialog id="perbesar" class="perbesar" aria-label="Tampilan diperbesar">
+      <button type="button" class="perbesar-tutup" aria-label="Tutup">✕</button>
+      <div class="perbesar-isi"></div>
+      <p class="perbesar-ket"><span class="pk-lebar">Klik di mana saja atau tekan Esc untuk menutup</span><span class="pk-hp">Geser ke samping untuk melihat semua. Ketuk ✕ untuk menutup.</span></p>
+    </dialog>
+    <script>
+      const d = document.getElementById('perbesar') as HTMLDialogElement | null;
+      const isi = d?.querySelector('.perbesar-isi');
+      const buka = (el: HTMLElement) => {
+        if (!d || !isi || typeof d.showModal !== 'function') return;
+        const v = el.querySelector('video');
+        const img = el.querySelector('img');
+        let baru: HTMLElement | null = null;
+        if (v) {
+          const nv = document.createElement('video');
+          nv.src = v.currentSrc || v.querySelector('source')?.getAttribute('src') || '';
+          nv.muted = true; nv.loop = true; nv.autoplay = true; nv.playsInline = true; nv.controls = true;
+          baru = nv;
+        } else if (img) {
+          const ni = document.createElement('img');
+          ni.src = img.currentSrc || img.src; ni.alt = img.alt;
+          baru = ni;
+        }
+        if (!baru) return;
+        isi.replaceChildren(baru);
+        d.showModal();
+        if (baru instanceof HTMLVideoElement) baru.play().catch(() => {});
+      };
+      document.addEventListener('click', (e) => {
+        const t = (e.target as HTMLElement).closest<HTMLElement>('[data-perbesar]');
+        if (t && !(e.target as HTMLElement).closest('a')) { e.preventDefault(); buka(t); }
+      });
+      document.addEventListener('keydown', (e) => {
+        const t = (e.target as HTMLElement).closest?.<HTMLElement>('[data-perbesar]');
+        if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); buka(t); }
+      });
+      d?.addEventListener('click', (e) => {
+        const hp = matchMedia('(max-width: 700px)').matches;
+        if (!hp || !(e.target as HTMLElement).closest('.perbesar-isi')) d.close();
+      });
+      d?.addEventListener('close', () => isi?.replaceChildren());
+    </script>
   </body>
 </html>

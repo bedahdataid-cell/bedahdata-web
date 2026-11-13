@@ -647,3 +647,112 @@ mark.stabilo,
 .skip-link:focus {
   top: 0;
 }
+
+/* --- Perbesar gambar/klip (owner 14 Nov 2026) --------------------------- */
+[data-perbesar] {
+  position: relative;
+  cursor: zoom-in;
+}
+[data-perbesar]::after {
+  content: '🔍 Perbesar';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  font: 600 12.5px/1 var(--font-body);
+  color: #fff;
+  background: rgba(14, 61, 51, 0.82);
+  padding: 7px 11px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.perbesar {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: 96vw;
+  max-height: 94vh;
+  overflow: visible;
+  cursor: zoom-out;
+}
+.perbesar::backdrop {
+  background: rgba(6, 22, 18, 0.88);
+}
+.perbesar-isi img,
+.perbesar-isi video {
+  display: block;
+  max-width: 96vw;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.perbesar-tutup {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--heading);
+  font-size: 20px;
+  cursor: pointer;
+}
+.perbesar-ket {
+  margin: 12px 0 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13.5px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .perbesar[open] {
+    animation: perbesar-masuk 0.25s var(--ease-out);
+  }
+}
+@keyframes perbesar-masuk {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@media (max-width: 700px) {
+  .perbesar {
+    max-width: 100vw;
+    width: 100vw;
+  }
+  .perbesar-isi {
+    max-width: 100vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .perbesar-isi img,
+  .perbesar-isi video {
+    max-width: none;
+    width: 960px;
+    max-height: none;
+    border-radius: 0;
+  }
+  .perbesar-ket {
+    padding: 0 16px;
+  }
+}
+.pk-hp {
+  display: none;
+}
+@media (max-width: 700px) {
+  .pk-lebar {
+    display: none;
+  }
+  .pk-hp {
+    display: inline;
+  }
+}
