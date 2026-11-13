@@ -138,9 +138,9 @@ export const SEGMEN = [
 // Tautan checkout Lynk.id. 🔴 ISI saat produk sudah ditayangkan di Lynk. Selama
 // kosong, tombol jatuh ke WhatsApp (bukan tautan rusak) — pola sama dengan META_PIXEL_ID.
 export const LYNK = {
-  gratis: '',
-  standar: '',
-  pro: '',
+  gratis: 'https://lynk.id/bedahdata_id/v6pz2e8klv0g',
+  standar: 'https://lynk.id/bedahdata_id/leqnw4vkv8k2',
+  pro: 'https://lynk.id/bedahdata_id/wewk045j4god',
 } as const;
 
 export type KunciPaket = keyof typeof LYNK;
