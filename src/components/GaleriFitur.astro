@@ -81,6 +81,11 @@ const fitur = [
     </div>
 
     <div class="galeri-isi reveal" data-galeri>
+      <p class="tabs-petunjuk">
+        <span class="pet-lebar">Klik salah satu untuk melihat layarnya</span>
+        <span class="pet-hp">Geser dan ketuk untuk melihat layar lainnya</span>
+      </p>
+      <div class="tabs-bungkus">
       <div class="tabs" role="tablist" aria-label="Fitur unggulan">
         {
           fitur.map((f, i) => (
@@ -93,10 +98,16 @@ const fitur = [
               tabindex={i === 0 ? 0 : -1}
               class="tab"
             >
-              {f.tab}
+              <span class="tab-teks">{f.tab}</span>
+              <span class="tab-aksi" aria-hidden="true">
+                <span class="ta-lihat">Lihat ▸</span>
+                <span class="ta-aktif">Sedang tampil</span>
+              </span>
             </button>
           ))
         }
+      </div>
+      <span class="geser" aria-hidden="true">Geser →</span>
       </div>
 
       {
@@ -140,6 +151,8 @@ const fitur = [
     const panels = [...g.querySelectorAll<HTMLElement>('[role=tabpanel]')];
     const videos = [...g.querySelectorAll<HTMLVideoElement>('video')];
     const kurangiGerak = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const baris = g.querySelector<HTMLElement>('.tabs');
+    baris?.addEventListener('scroll', () => { if (baris.scrollLeft > 24) g.querySelector('.tabs-bungkus')?.classList.add('sudah-geser'); }, { passive: true });
 
     const putar = (v: HTMLVideoElement | undefined) => {
       videos.forEach((x) => x !== v && x.pause());
@@ -231,6 +244,101 @@ const fitur = [
     cursor: pointer;
     scroll-snap-align: start;
     transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  /* Petunjuk tab: ajak mengeklik; di HP beri tanda bisa digeser */
+  .tabs-petunjuk {
+    text-align: center;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin: 0 0 12px;
+  }
+  .pet-hp {
+    display: none;
+  }
+  .tabs-bungkus {
+    position: relative;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .tab {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .tab-aksi {
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+  .ta-lihat {
+    color: var(--green-deep);
+  }
+  .ta-aktif {
+    display: none;
+    color: var(--heading);
+    background: var(--green);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+  .tab[aria-selected='true'] .ta-lihat {
+    display: none;
+  }
+  .tab[aria-selected='true'] .ta-aktif {
+    display: inline-block;
+  }
+  .geser {
+    display: none;
+  }
+  .sudah-geser .geser {
+    visibility: hidden;
+  }
+  @media (max-width: 900px) {
+    .pet-lebar {
+      display: none;
+    }
+    .pet-hp {
+      display: inline;
+    }
+    .tabs-bungkus::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 6px;
+      width: 64px;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 85%);
+    }
+    .geser {
+      display: block;
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      z-index: 1;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--oranye-deep);
+      border-radius: 999px;
+      padding: 5px 10px;
+      box-shadow: 0 6px 14px -6px rgba(194, 65, 12, 0.6);
+    }
+  }
+  @media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+    .geser {
+      animation: geser-colek 1.6s var(--ease-out) infinite;
+    }
+  }
+  @keyframes geser-colek {
+    0%, 60%, 100% {
+      transform: translate(0, -50%);
+    }
+    30% {
+      transform: translate(-8px, -50%);
+    }
   }
   .tab-no {
     font-family: var(--font-display);
