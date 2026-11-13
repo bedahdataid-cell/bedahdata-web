@@ -1,0 +1,159 @@
+---
+// ============================================================================
+// VIDEO FASAD — poster + tombol putar; <video> baru dibuat saat diklik, jadi
+// halaman tidak memuat berkas video sebelum pengunjung memintanya (DESIGN.md §5).
+// Berkas: public/video/<nama>.mp4 (+ poster <nama>.webp). Dengan suara & subtitle tertanam.
+// ============================================================================
+interface Props {
+  nama: string;       // nama berkas tanpa ekstensi
+  judul: string;      // teks tombol/aksesibilitas
+  durasi: string;     // mis. "1:13"
+  eyebrow?: string;
+  heading?: string;
+  teks?: string;
+  id?: string;
+  tinted?: boolean;
+}
+const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
+---
+
+<section class:list={["vf-sec", { tinted }]} id={id}>
+  <div class="wrap">
+    {heading && (
+      <div class="sec-head reveal">
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h2>{heading}</h2>
+        {teks && <p>{teks}</p>}
+      </div>
+    )}
+    <div class="vf reveal" data-vf data-src={`/video/${nama}.mp4`} data-poster={`/video/${nama}.webp`}>
+      <button type="button" class="vf-tombol" aria-label={`Putar video: ${judul}`}>
+        <img src={`/video/${nama}.webp`} alt={judul} width="1280" height="720" loading="lazy" decoding="async" />
+        <span class="vf-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="38" height="38"><path d="M8 5v14l11-7z" fill="currentColor" /></svg>
+        </span>
+        <span class="vf-label"><strong>{judul}</strong><small>{durasi} · dengan suara</small></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-vf]').forEach((w) => {
+    w.querySelector('button')?.addEventListener('click', () => {
+      const v = document.createElement('video');
+      v.src = w.dataset.src!;
+      v.poster = w.dataset.poster!;
+      v.controls = true;
+      v.playsInline = true;
+      v.autoplay = true;
+      v.setAttribute('preload', 'auto');
+      w.replaceChildren(v);
+      v.play().catch(() => {});
+    });
+  });
+</script>
+
+<style>
+  .vf {
+    max-width: 960px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: #0e3d33;
+    aspect-ratio: 16 / 9;
+  }
+  .vf video {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .vf-tombol {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: #0e3d33;
+    cursor: pointer;
+    color: #fff;
+    font-family: inherit;
+  }
+  .vf-tombol::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 38%;
+    background: linear-gradient(to top, rgba(6, 26, 21, 0.85), rgba(6, 26, 21, 0));
+    pointer-events: none;
+  }
+  .vf-label,
+  .vf-play {
+    z-index: 1;
+  }
+  .vf-tombol img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.92;
+    transition: transform 0.6s var(--ease), opacity 0.4s var(--ease);
+  }
+  .vf-play {
+    position: absolute;
+    right: 22px;
+    bottom: 18px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--green);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 30px rgba(46, 204, 88, 0.45);
+    transition: transform 0.3s var(--ease);
+  }
+  .vf-label {
+    position: absolute;
+    left: 24px;
+    bottom: 20px;
+    text-align: left;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+  .vf-label strong {
+    display: block;
+    color: #fff;
+    font-size: 18px;
+  }
+  .vf-label small {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13.5px;
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .vf-tombol:hover img {
+      transform: scale(1.03);
+      opacity: 1;
+    }
+    .vf-tombol:hover .vf-play {
+      transform: scale(1.08);
+    }
+  }
+  @media (max-width: 600px) {
+    .vf-play {
+      right: 14px;
+      bottom: 12px;
+      width: 56px;
+      height: 56px;
+    }
+    .vf-label {
+      left: 16px;
+      bottom: 14px;
+      right: 84px;
+    }
+    .vf-label strong {
+      font-size: 15px;
+    }
+  }
+</style>
