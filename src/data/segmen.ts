@@ -538,4 +538,72 @@ export const SEGMEN_ISI: IsiSegmen[] = [
     ],
     pesanWa: 'Halo Bedah Data, saya punya konveksi rumahan dan mau tanya soal ERP Studio',
   },
+  // ==========================================================================
+  {
+    slug: 'makanan-rumahan',
+    nama: 'Makanan Rumahan',
+    title: 'Aplikasi Pesanan, Bahan, dan Untung Usaha Makanan Rumahan | Bedah Data',
+    description:
+      'Pesanan katering, kue, atau frozen food datang lewat WhatsApp, bahan belanja tiap hari, untung tidak jelas? ERP Studio mencatat pesanan, uang muka, bahan, dan pembukuan usaha makanan rumahan. Bayar sekali.',
+    h1: 'Pesanan makin ramai, tapi untungnya kok tidak terasa?',
+    intro:
+      'Usaha makanan rumahan, entah katering, kue, atau frozen food, biasanya berjalan dari dapur dan WhatsApp. Pesanan dicatat di chat, belanja bahan dicatat di nota, dan uang usaha bercampur dengan uang dapur. Akhirnya sulit tahu berapa sebenarnya untung dari tiap pesanan.',
+    keluhan: [
+      {
+        judul: 'Pesanan tercecer di chat',
+        isi: 'Pesanan untuk hari Sabtu tertimbun pesan lain. Baru sadar ada yang terlewat saat pemesan menanyakan.',
+      },
+      {
+        judul: 'Uang muka sulit dilacak',
+        isi: 'Ada yang bayar DP, ada yang lunas, ada yang bayar saat ambil. Waktu ditagih, harus menggulir chat dan mutasi rekening satu per satu.',
+      },
+      {
+        judul: 'Belanja bahan tidak pernah dijumlah',
+        isi: 'Belanja ke pasar hampir tiap hari. Notanya hilang atau tidak dicatat, jadi modal bahan sebulan tidak pernah diketahui pasti.',
+      },
+      {
+        judul: 'Harga jual ditentukan kira-kira',
+        isi: 'Harga mengikuti pasaran, padahal harga bahan sering naik. Tanpa hitungan biaya per porsi, bisa saja ada menu yang ternyata hampir tidak untung.',
+      },
+    ],
+    penanganan: [
+      {
+        judul: 'Pesanan dan tanggal ambil di satu tempat',
+        isi: 'Setiap pesanan dicatat dengan rinciannya. Papan pesanan menunjukkan mana yang baru masuk, sedang dimasak, dan siap diambil atau dikirim.',
+      },
+      {
+        judul: 'Uang muka dan sisa tagihan terlihat',
+        isi: 'Uang muka dicatat sebagai pembayaran pertama. Sisa tagihan tiap pemesan terlihat sampai lunas, tanpa membuka chat lagi.',
+      },
+      {
+        judul: 'Belanja bahan masuk pembukuan',
+        isi: 'Belanja bahan dicatat di Pembelian atau Biaya, sehingga modal bahan sebulan terjumlah sendiri dan ikut ke laporan laba rugi.',
+      },
+      {
+        judul: 'Biaya per porsi bisa dihitung',
+        isi: 'Modul Produksi (paket Pro) mencatat resep: bahan apa dan berapa banyak untuk satu menu. Dari situ biaya bahan per porsi terlihat, jadi harga jual tidak lagi ditebak.',
+      },
+    ],
+    cocok: [
+      'Dikerjakan sendiri atau dibantu keluarga dan beberapa karyawan',
+      'Menerima pesanan dengan uang muka',
+      'Belanja bahan rutin dan ingin modalnya tercatat',
+      'Ingin tahu untung tiap bulan dan tiap menu',
+    ],
+    belumCocok:
+      'Kalau pesanan Anda masih sedikit dan cukup dicatat di satu buku, ERP Studio mungkin terasa terlalu lengkap untuk sekarang. Pesanan dari GoFood, GrabFood, atau marketplace tetap dicatat manual karena belum tersambung otomatis. Resep dan biaya per porsi ada di paket Pro. Coba dulu gratis 3 hari untuk menilainya sendiri.',
+    faq: [
+      {
+        tanya: 'Bisa mencatat pesanan untuk tanggal tertentu, misalnya pesanan hari Sabtu?',
+        jawab:
+          '<p>Bisa. Pesanan dicatat dengan rinciannya, lalu dipantau di papan pesanan dari masuk sampai selesai, sehingga pesanan untuk hari tertentu tidak terlewat.</p>',
+      },
+      {
+        tanya: 'Apakah perlu paket Pro untuk usaha makanan rumahan?',
+        jawab:
+          '<p>Tidak harus. Paket Standar sudah mencakup pesanan, penjualan, pembelian bahan, stok, dan pembukuan. Paket Pro diperlukan bila Anda ingin mencatat resep dan menghitung biaya bahan per porsi lewat modul Produksi.</p>',
+      },
+    ],
+    pesanWa: 'Halo Bedah Data, saya punya usaha makanan rumahan dan mau tanya soal ERP Studio',
+  },
 ];

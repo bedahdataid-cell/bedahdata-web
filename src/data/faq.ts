@@ -39,7 +39,7 @@ export const FAQ_UMUM: ItemFaq[] = [
   {
     tanya: 'Saya jualan online atau punya kedai kopi. Bisa dipakai?',
     jawab:
-      '<p>Bisa. Kedai kopi, jualan online, konveksi rumahan, dan usaha sejenis memakai alur yang sama: penjualan dicatat, stok ikut berkurang, dan pembukuan ikut terisi. Terus terang soal jualan online: <strong>ERP Studio tidak tersambung otomatis ke marketplace</strong>, jadi pesanan dari marketplace tetap Anda masukkan sendiri. Untuk konveksi yang ingin mencatat bahan dan hasil produksi, modul Produksi ada di paket Pro.</p>',
+      '<p>Bisa. Kedai kopi, jualan online, usaha makanan rumahan, konveksi rumahan, dan usaha sejenis memakai alur yang sama: penjualan dicatat, stok ikut berkurang, dan pembukuan ikut terisi. Terus terang soal jualan online: <strong>ERP Studio tidak tersambung otomatis ke marketplace</strong>, jadi pesanan dari marketplace tetap Anda masukkan sendiri. Untuk konveksi yang ingin mencatat bahan dan hasil produksi, modul Produksi ada di paket Pro.</p>',
   },
   {
     tanya: 'Usaha saya masih saya kerjakan sendiri. Cocokkah?',

@@ -154,7 +154,7 @@ const langkah = [
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-teks">
-        <p class="hero-kecil">Untuk bengkel, salon, toko, kedai kopi, jualan online, sampai konveksi rumahan. Dipakai sendiri atau bersama karyawan.</p>
+        <p class="hero-kecil">Untuk bengkel, salon, toko, kedai kopi, jualan online, makanan rumahan, sampai konveksi. Dipakai sendiri atau bersama karyawan.</p>
         <h1>
           Stok, kas, dan komisi karyawan: <mark class="stabilo">catat sekali</mark>, semua ikut
           terbarui.
@@ -342,11 +342,25 @@ const langkah = [
 
       <!-- Tangkapan layar ERP ASLI kini ada di galeri fitur (#fitur) — bukan rekaan.
            Kartu "cuplikan menyusul" (29 Jul 2026) dicabut 13 Nov 2026 karena sudah terpenuhi. -->
-      <p class="placeholder reveal">
-        <span class="ph-label">Layar asli, data demo</span>
-        Ingin melihat aplikasinya bekerja? Cuplikan layar ERP Studio sungguhan ada di bagian
-        <a href="#fitur">Lihat sendiri</a>. Lebih yakin lagi kalau dicoba gratis 3 hari dengan data Anda.
-      </p>
+      <figure class="dasbor reveal">
+        <img
+          src="/assets/dasbor-erp.webp"
+          alt="Halaman dasbor utama ERP Studio asli berisi data demo: ringkasan penjualan, pesanan, stok, keuangan, biaya, pembelian, dan pelanggan"
+          width="1600"
+          height="584"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <span>Halaman dasbor utama ERP Studio, layar asli berisi data demo.</span>
+          <a
+            href="https://www.youtube.com/playlist?list=PLJt7HHo40rRE"
+            target="_blank"
+            rel="noopener"
+            data-sumber="beranda-playlist">Tonton semua video panduan di YouTube</a
+          >
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1041,6 +1055,36 @@ const langkah = [
     .banding td:last-child::before {
       color: var(--green-deep);
     }
+  }
+
+
+  /* ---------- Dasbor asli (pengganti kotak teks) ---------- */
+  .dasbor {
+    max-width: 1000px;
+    margin: 44px auto 0;
+  }
+  .dasbor img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(14, 61, 51, 0.12);
+    box-shadow: 0 30px 60px -32px rgba(14, 61, 51, 0.45);
+    background: #fff;
+  }
+  .dasbor figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 20px;
+    margin-top: 14px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+  }
+  .dasbor figcaption a {
+    color: var(--green-deep);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* ---------- Kartu penanganan jujur ---------- */

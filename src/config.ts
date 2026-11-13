@@ -140,6 +140,13 @@ export const SEGMEN = [
     ringkas: 'Pesanan ber-DP, bahan kain, dan upah penjahit tercatat.',
     ringkasEn: 'Deposits, fabric stock, and tailor wages recorded.',
   },
+  {
+    slug: 'makanan-rumahan',
+    nama: 'Makanan Rumahan',
+    namaEn: 'Home Food Businesses',
+    ringkas: 'Pesanan, uang muka, belanja bahan, dan untung per menu.',
+    ringkasEn: 'Orders, deposits, ingredient spending, and profit per menu item.',
+  },
 ] as const;
 
 // --- Harga -------------------------------------------------------------------
