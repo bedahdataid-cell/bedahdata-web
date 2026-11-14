@@ -81,7 +81,16 @@ export const NAV = [
   { kunci: 'navSolusi', href: '/solusi/' },
   { kunci: 'navAlat', href: '/alat/' },
   { kunci: 'navHarga', href: '/harga/' },
-  { kunci: 'navPanduan', href: '/panduan/' },
+  {
+    kunci: 'navPanduan',
+    href: '/panduan/',
+    // Submenu (owner 14 Nov 2026): item utama tetap 7. Video tutorial hanya ada dalam bahasa
+    // Indonesia -> `netral: true` = alamat TIDAK diberi awalan bahasa.
+    sub: [
+      { kunci: 'navPanduanArtikel', href: '/panduan/', netral: false },
+      { kunci: 'navTutorial', href: '/tutorial/', netral: true },
+    ],
+  },
   { kunci: 'navFaq', href: '/faq/' },
   { kunci: 'navTentang', href: '/tentang/' },
 ] as const;

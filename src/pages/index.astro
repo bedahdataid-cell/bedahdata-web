@@ -143,7 +143,7 @@ const pilar = [
 const langkah = [
   {
     judul: 'Coba gratis 3 hari',
-    isi: 'Salin ERP Studio ke Google Drive Anda sendiri dan coba dengan data Anda. Video panduan memandu langkah demi langkah, dan kalau ragu Anda bisa bertanya lewat WhatsApp. Kalau ternyata belum cocok, tidak apa-apa.',
+    isi: 'Salin ERP Studio ke Google Drive Anda sendiri dan coba dengan data Anda. <a href="/tutorial/">Video panduan</a> memandu langkah demi langkah, dan kalau ragu Anda bisa bertanya lewat WhatsApp. Kalau ternyata belum cocok, tidak apa-apa.',
   },
   {
     judul: 'Data lama tidak hangus',
@@ -251,6 +251,7 @@ const langkah = [
     teks="Jualan, stok, keuangan, dan tim dalam satu aplikasi. Layar yang tampil adalah ERP Studio sungguhan yang berisi data demo."
     tanda="ERP Studio sungguhan"
     sorot
+    tautan={{ href: "/tutorial/", teks: "Mau lihat fiturnya satu per satu? Buka video tutorial lengkapnya" }}
   />
 
   <!-- ===================== MASALAH ===================== -->
@@ -372,11 +373,8 @@ const langkah = [
         />
         <figcaption>
           <span>Halaman dasbor utama ERP Studio, layar asli berisi data demo.</span>
-          <a
-            href="https://www.youtube.com/playlist?list=PLJt7HHo40rRE"
-            target="_blank"
-            rel="noopener"
-            data-sumber="beranda-playlist"><IkonYoutube />Tonton semua video panduan di YouTube</a
+          <a href="/tutorial/" data-sumber="beranda-tutorial"
+            ><IkonYoutube />Lihat semua video tutorial</a
           >
         </figcaption>
       </figure>
@@ -473,7 +471,7 @@ const langkah = [
                 {i + 1}
               </span>
               <h3>{l.judul}</h3>
-              <p>{l.isi}</p>
+              <p set:html={l.isi} />
             </li>
           ))
         }

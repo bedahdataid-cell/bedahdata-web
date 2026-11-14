@@ -52,16 +52,38 @@ const pilihanBahasa = (['id', 'en'] as const).map((b) => ({
     <nav id="nav-utama" class="nav" aria-label={teks.navUtama}>
       <ul>
         {
-          NAV.map((item) => (
-            <li>
-              <a
-                href={jalur(item.href, bahasa)}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                {teks[item.kunci]}
-              </a>
-            </li>
-          ))
+          NAV.map((item) => {
+            const sub = 'sub' in item ? item.sub : null;
+            const hrefSub = (x: { href: string; netral: boolean }) => (x.netral ? x.href : jalur(x.href, bahasa));
+            const aktifSub = sub ? sub.some((x) => path === hrefSub(x).replace(/\/$/, '')) : false;
+            return (
+              <li class:list={[{ 'ada-sub': !!sub }]}>
+                <a
+                  href={jalur(item.href, bahasa)}
+                  aria-current={isActive(item.href) || aktifSub ? 'page' : undefined}
+                  aria-haspopup={sub ? 'true' : undefined}
+                >
+                  {teks[item.kunci]}
+                  {sub && (
+                    <svg class="panah-sub" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  )}
+                </a>
+                {sub && (
+                  <ul class="sub">
+                    {sub.map((x) => (
+                      <li>
+                        <a href={hrefSub(x)} aria-current={path === hrefSub(x).replace(/\/$/, '') ? 'page' : undefined}>
+                          {teks[x.kunci]}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })
         }
       </ul>
 
@@ -200,6 +222,67 @@ const pilihanBahasa = (['id', 'en'] as const).map((b) => ({
   .nav a[aria-current='page'] {
     color: var(--green-deep);
     font-weight: 600;
+  }
+
+  /* --- Submenu (Panduan): muncul saat disorot atau difokus keyboard --- */
+  .nav li {
+    position: relative;
+  }
+  .nav li.ada-sub > a {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .panah-sub {
+    flex: none;
+    margin-left: 4px;
+    transition: transform 0.2s var(--ease);
+  }
+  .nav .sub {
+    position: absolute;
+    top: 100%;
+    left: -14px;
+    min-width: 210px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px;
+    margin-top: 6px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    z-index: 30;
+  }
+  /* jembatan tak terlihat supaya submenu tidak menutup saat kursor melintasi celah */
+  .nav .sub::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px;
+    height: 12px;
+  }
+  .nav li.ada-sub:hover > .sub,
+  .nav li.ada-sub:focus-within > .sub {
+    display: flex;
+  }
+  .nav li.ada-sub:hover .panah-sub,
+  .nav li.ada-sub:focus-within .panah-sub {
+    transform: rotate(180deg);
+  }
+  .nav .sub a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 9px;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .nav .sub a::after {
+    display: none;
+  }
+  .nav .sub a:hover {
+    background: rgba(46, 204, 88, 0.1);
   }
 
   .cta-desktop {
@@ -354,6 +437,29 @@ const pilihanBahasa = (['id', 'en'] as const).map((b) => ({
 
     .nav li + li {
       border-top: 1px solid var(--border);
+    }
+
+    /* di HP: submenu selalu terbuka, menjorok ke dalam */
+    .nav .sub {
+      position: static;
+      display: flex;
+      margin: 0 0 8px;
+      padding: 0 0 0 16px;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    .nav .sub::before,
+    .panah-sub {
+      display: none;
+    }
+    .nav .sub li + li {
+      border-top: 0;
+    }
+    .nav .sub a {
+      padding: 10px 2px;
+      font-size: 15.5px;
+      color: var(--text-muted);
     }
 
     .nav a {

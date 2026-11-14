@@ -17,8 +17,10 @@ interface Props {
   sorot?: boolean;
   /** Frasa di dalam `teks` yang diberi stabilo oranye (maksimal satu). */
   tanda?: string;
+  /** Tautan kecil di bawah video, mis. ke halaman /tutorial/. */
+  tautan?: { href: string; teks: string };
 }
-const { nama, judul, durasi, eyebrow, heading, teks, id, tinted, sorot, tanda } = Astro.props;
+const { nama, judul, durasi, eyebrow, heading, teks, id, tinted, sorot, tanda, tautan } = Astro.props;
 const potongTeks = teks && tanda && teks.includes(tanda) ? teks.split(tanda) : null;
 ---
 
@@ -42,6 +44,14 @@ const potongTeks = teks && tanda && teks.includes(tanda) ? teks.split(tanda) : n
         <span class="vf-label"><strong>{judul}</strong><small>{durasi} · bersuara</small></span>
       </button>
     </div>
+    {tautan && (
+      <p class="vf-tautan reveal">
+        <a href={tautan.href}>
+          {tautan.teks}
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </a>
+      </p>
+    )}
   </div>
 </section>
 
@@ -235,6 +245,20 @@ const potongTeks = teks && tanda && teks.includes(tanda) ? teks.split(tanda) : n
     height: 38%;
     background: linear-gradient(to top, rgba(6, 26, 21, 0.85), rgba(6, 26, 21, 0));
     pointer-events: none;
+  }
+  .vf-tautan {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 16px;
+  }
+  .vf-tautan a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid rgba(46, 204, 88, 0.55);
+    padding-bottom: 2px;
   }
   .vf-label,
   .vf-play {
