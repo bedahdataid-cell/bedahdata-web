@@ -38,7 +38,7 @@ export const SOCIALS = [
   { nama: 'Instagram @bedahdata.id', url: 'https://instagram.com/bedahdata.id' },
   { nama: 'Facebook Bedahdata.id', url: 'https://facebook.com/Bedahdata.id' },
   { nama: 'TikTok @bedahdata.id', url: 'https://tiktok.com/@bedahdata.id' },
-  { nama: 'YouTube bedahdata_id', url: 'https://youtube.com/@bedahdata_id' },
+  { nama: 'YouTube bedahdata_id', url: 'https://www.youtube.com/channel/UCH23MmRbVlBtOR1I6vCmrIg' },
 ] as const;
 
 // 🔴 Diperbarui 18 Agu 2026 — kebijakan privasi & syarat ketentuan kini

@@ -107,16 +107,21 @@ const F = en
           <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
         </ul>
         <h2 class="judul-kolom" style="margin-top:22px">{F.ikuti}</h2>
-        <ul>
+        <div class="ikon-sosmed">
           {
             SOCIALS.map((s) => (
-              <li>
-                <a href={s.url} target="_blank" rel="noopener">
-                  {s.nama}
-                </a>
-              </li>
+              <a href={s.url} target="_blank" rel="noopener" aria-label={s.nama} title={s.nama}>
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  {s.nama.startsWith('Instagram') && <><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle></>}
+                  {s.nama.startsWith('Facebook') && <path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path>}
+                  {s.nama.startsWith('TikTok') && <path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.4 2.6 2.2 4.4 5 4.6"></path>}
+                  {s.nama.startsWith('YouTube') && <><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></>}
+                </svg>
+              </a>
             ))
           }
+        </div>
+        <ul>
           <li>
             <a href="https://www.youtube.com/playlist?list=PLJt7HHo40rRE" target="_blank" rel="noopener" data-sumber="footer-playlist">
               <IkonYoutube size={14} />{en ? 'Video tutorials (YouTube)' : 'Video panduan (YouTube)'}
@@ -226,5 +231,25 @@ const F = en
 
   .bawah a {
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  .ikon-sosmed {
+    display: flex;
+    gap: 10px;
+    margin: 4px 0 14px;
+  }
+  .ikon-sosmed a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  .ikon-sosmed a:hover {
+    background: var(--green);
+    color: var(--heading);
+    transform: translateY(-2px);
   }
 </style>
