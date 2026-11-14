@@ -37,7 +37,7 @@ export function waLink(pesan: string): string {
 export const SOCIALS = [
   { nama: 'Instagram @bedahdata.id', url: 'https://instagram.com/bedahdata.id' },
   { nama: 'Facebook Bedahdata.id', url: 'https://facebook.com/Bedahdata.id' },
-  { nama: 'TikTok bedahdata', url: 'https://tiktok.com/@bedahdata' },
+  { nama: 'TikTok @bedahdata.id', url: 'https://tiktok.com/@bedahdata.id' },
   { nama: 'YouTube bedahdata_id', url: 'https://youtube.com/@bedahdata_id' },
 ] as const;
 
