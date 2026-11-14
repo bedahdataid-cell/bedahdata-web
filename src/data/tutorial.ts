@@ -5,7 +5,7 @@
 // sendiri.
 // 🔴 Hanya video yang sudah TAYANG PUBLIK di playlist yang boleh masuk sini.
 // 🔴 Jangan menulis harga di judul atau keterangan (aturan seri tutorial).
-// Diperbarui: 14 Nov 2026 — 37 video (Panduan Pembeli 1–2, #1–#35).
+// Diperbarui: 14 Nov 2026 — 44 video (Panduan Pembeli 1–2, #1–#42).
 // ============================================================================
 
 export const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLJt7HHo40rRE';
@@ -38,7 +38,8 @@ export const KATEGORI: KategoriTutorial[] = [
   { id: 'pembelian', nama: 'Pembelian & Stok', ringkas: 'PO, terima barang, hutang, mutasi, opname' },
   { id: 'keuangan', nama: 'Keuangan', ringkas: 'Biaya, jurnal, laporan, tutup buku' },
   { id: 'antarmodul', nama: 'Antar Modul', ringkas: 'Catat sekali, modul lain ikut bergerak' },
-  { id: 'tim', nama: 'Tim & HRD', ringkas: 'Karyawan, akun, peran, hak akses, struktur' },
+  { id: 'tim', nama: 'Tim & HRD', ringkas: 'Karyawan, akun, absen, cuti, gaji, komisi, struktur' },
+  { id: 'izin', nama: 'Hak Akses (Permission)', ringkas: 'Arti tiap centang izin pada peran dan jabatan' },
 ];
 
 export const VIDEO: VideoTutorial[] = [
@@ -87,4 +88,12 @@ export const VIDEO: VideoTutorial[] = [
   { id: 'F3AZIQKemJ4', no: '#33', kat: 'tim', durasi: '4:42', judul: 'Membuat Peran Sendiri (Contoh: Kasir)', ket: 'Membuat jabatan baru, mengatur izin, lalu masuk sebagai peran itu.' },
   { id: 'zqpBq79sfuQ', no: '#34', kat: 'tim', durasi: '4:04', judul: 'Kelola Akun: Reset Password, Nonaktifkan dan PLT', ket: 'Reset password, nonaktifkan akun, dan menugaskan pelaksana tugas.' },
   { id: 'fmv8DSD1Rpw', no: '#35', kat: 'tim', durasi: '2:43', judul: 'Struktur Organisasi: Atasan dan Bagan Pohon', ket: 'Menentukan atasan, tabel hierarki, bagan pohon, dan filter divisi.' },
+  { id: 'IXV6fWeLxgE', no: '#36', kat: 'tim', durasi: '4:03', judul: 'Absen Harian: Masuk, Pulang dan Rekap', ket: 'Karyawan absen masuk dan pulang dengan rencana dan capaian, dibatasi radius kantor, lalu owner atau HRD membaca hasilnya.' },
+  { id: 'Kdg2XJUqp6w', no: '#37', kat: 'tim', durasi: '3:22', judul: 'Cuti, Izin dan Sakit: Ajukan dan Setujui', ket: 'Karyawan mengajukan cuti, izin, atau sakit; pemegang izin persetujuan menyetujui; saldo cuti berubah.' },
+  { id: '3QIpBYyhlYo', no: '#38', kat: 'tim', durasi: '3:35', judul: 'Gaji dan Slip Gaji: Proses, Bayar dan Cetak', ket: 'Proses gaji bulanan semua karyawan, bayar, cetak atau kirim slip, dan lihat jurnalnya muncul sendiri di Keuangan.' },
+  { id: 'byJUaXN-dL4', no: '#39', kat: 'tim', durasi: '4:24', judul: 'Aturan Komisi: Dari Invoice ke Pembayaran', ket: 'Membuat aturan komisi, memilih pelaku komisi di invoice, dan mengikuti status komisi sampai siap dibayar.' },
+
+  { id: '8A8IpmK-v1k', no: '#40', kat: 'izin', durasi: '2:46', judul: 'Kamus Permission 1: Izin di Kelompok HRD', ket: 'Arti tiap centang izin HRD: karyawan, absen, cuti, gaji, akun, dan struktur organisasi.' },
+  { id: '9uY0k72cnEo', no: '#41', kat: 'izin', durasi: '2:46', judul: 'Kamus Permission 2: Izin Transaksi dan Keuangan', ket: 'Arti tiap centang izin untuk penjualan, stok, pembelian, keuangan, biaya, dan kasir.' },
+  { id: '0knaEtUs5Rk', no: '#42', kat: 'izin', durasi: '3:18', judul: 'Kamus Permission 3: Data, Fitur Tambahan dan Peran', ket: 'Arti tiap centang izin untuk pelanggan, produk, AI, komisi, CRM, prospek, pesanan, dan produksi, plus cara menyusun peran.' },
 ];
