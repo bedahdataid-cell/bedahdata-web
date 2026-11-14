@@ -11,6 +11,7 @@ const PLAYLIST = 'https://www.youtube.com/playlist?list=PLJt7HHo40rRE';
 const fitur = [
   {
     id: 'keuangan',
+    cari: 'keuangan',
     tab: 'Keuangan ikut sendiri',
     judul: 'Penjualan tercatat sendiri, laba rugi tinggal klik Hitung',
     poin: [
@@ -23,6 +24,7 @@ const fitur = [
   },
   {
     id: 'stok',
+    cari: 'stok',
     tab: 'Stok berkurang sendiri',
     judul: 'Barang terjual, stok langsung berkurang',
     poin: [
@@ -35,6 +37,7 @@ const fitur = [
   },
   {
     id: 'komisi',
+    cari: 'komisi',
     tab: 'Komisi karyawan',
     judul: 'Komisi teknisi, terapis, atau tenaga penjual dihitung otomatis',
     poin: [
@@ -47,6 +50,7 @@ const fitur = [
   },
   {
     id: 'hrd',
+    cari: 'karyawan',
     tab: 'Absensi dan gaji',
     judul: 'Data karyawan, cuti, dan gaji di satu tempat',
     poin: [
@@ -59,6 +63,7 @@ const fitur = [
   },
   {
     id: 'pesanan',
+    cari: '',
     tab: 'Pengelolaan pesanan',
     judul: 'Pesanan dipantau dari masuk sampai selesai',
     poin: [
@@ -126,9 +131,15 @@ const fitur = [
                   <li>{p}</li>
                 ))}
               </ul>
-              <a href={f.tutorial} class="tautan-panah" target="_blank" rel="noopener" data-sumber={`galeri-${f.id}-youtube`}>
-                <IkonYoutube />Tonton tutorialnya di YouTube
-              </a>
+              <div class="tautan-baris">
+                <a href={f.cari ? `/tutorial/?q=${encodeURIComponent(f.cari)}` : '/tutorial/'} class="tautan-panah" data-sumber={`galeri-${f.id}-tutorial-web`}>
+                  <IkonYoutube />Lihat video tutorialnya di sini
+                </a>
+                <a href={f.tutorial} class="tautan-panah tautan-lain" target="_blank" rel="noopener" data-sumber={`galeri-${f.id}-youtube`}>
+                  Tonton di YouTube
+                  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </a>
+              </div>
             </div>
             <figure class="layar" data-perbesar tabindex="0" aria-label="Perbesar klip layar">
               <video muted loop playsinline preload="none" poster={`/video/${f.video}.webp`} aria-label={`Cuplikan layar ERP Studio: ${f.tab} (data demo)`}>
@@ -380,6 +391,20 @@ const fitur = [
   }
   .teks .checklist {
     margin-bottom: 18px;
+  }
+  .tautan-baris {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 22px;
+  }
+  .tautan-lain {
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .tautan-lain:hover {
+    color: var(--green-deep);
   }
   .tautan-panah {
     display: inline-flex;
