@@ -13,20 +13,27 @@ interface Props {
   teks?: string;
   id?: string;
   tinted?: boolean;
+  /** Tarik perhatian: eyebrow distabilo + bingkai oranye berdenyut di sekeliling video. */
+  sorot?: boolean;
+  /** Frasa di dalam `teks` yang diberi stabilo oranye (maksimal satu). */
+  tanda?: string;
 }
-const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
+const { nama, judul, durasi, eyebrow, heading, teks, id, tinted, sorot, tanda } = Astro.props;
+const potongTeks = teks && tanda && teks.includes(tanda) ? teks.split(tanda) : null;
 ---
 
 <section class:list={["vf-sec", { tinted }]} id={id}>
   <div class="wrap">
     {heading && (
       <div class="sec-head reveal">
-        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        {eyebrow && <span class:list={["eyebrow", { "eyebrow-besar": sorot }]}>{sorot ? <mark class="stabilo">{eyebrow}</mark> : eyebrow}</span>}
         <h2>{heading}</h2>
-        {teks && <p>{teks}</p>}
+        {teks && (potongTeks
+          ? <p>{potongTeks[0]}<mark class="stabilo">{tanda}</mark>{potongTeks.slice(1).join(tanda)}</p>
+          : <p>{teks}</p>)}
       </div>
     )}
-    <div class="vf reveal" data-vf data-src={`/video/${nama}.mp4`} data-poster={`/video/${nama}.webp`}>
+    <div class:list={["vf", "reveal", { "vf-sorot": sorot }]} data-vf data-src={`/video/${nama}.mp4`} data-poster={`/video/${nama}.webp`}>
       <button type="button" class="vf-tombol" aria-label={`Putar video: ${judul}`}>
         <img src={`/video/${nama}.webp`} alt={judul} width="1280" height="720" loading="lazy" decoding="async" />
         <span class="vf-play" aria-hidden="true">
@@ -144,6 +151,28 @@ const { nama, judul, durasi, eyebrow, heading, teks, id, tinted } = Astro.props;
   }
   .vf {
     position: relative;
+  }
+  /* Bingkai oranye: tanda "tonton ini dulu". Denyut hanya bila gerak diizinkan. */
+  .vf-sorot {
+    overflow: visible;
+    box-shadow: 0 0 0 4px rgba(255, 107, 44, 0.85), var(--shadow-lg);
+  }
+  .vf-sorot .vf-tombol,
+  .vf-sorot video {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .vf-sec .eyebrow-besar {
+    font-size: 17px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .vf-sorot {
+      animation: bingkai-denyut 2.4s var(--ease-out) infinite;
+    }
+  }
+  @keyframes bingkai-denyut {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(255, 107, 44, 0.85), 0 0 0 4px rgba(255, 107, 44, 0.35), var(--shadow-lg); }
+    50% { box-shadow: 0 0 0 4px rgba(255, 107, 44, 0.85), 0 0 0 14px rgba(255, 107, 44, 0), var(--shadow-lg); }
   }
   :global(.vf-suara) {
     position: absolute;
