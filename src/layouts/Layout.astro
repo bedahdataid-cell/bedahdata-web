@@ -4,7 +4,7 @@
 // Berisi: meta SEO, Open Graph, data terstruktur, header, footer, dan
 // animasi masuk saat digulir.
 // ============================================================================
-import { SITE, META_PIXEL_ID } from '../config';
+import { SITE, META_PIXEL_ID, GA_ID } from '../config';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CtaMelekat from '../components/CtaMelekat.astro';
@@ -180,6 +180,20 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     {
+      /* GOOGLE ANALYTICS 4 — dimuat hanya bila GA_ID terisi (config.ts). 🔴 Skrip inline TIDAK boleh memakai
+         `define:vars` bersama `is:inline` (JavaScript rusak diam-diam); ID disuntik langsung lewat set:html. */
+      GA_ID && (
+        <Fragment>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+          <script
+            is:inline
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+          />
+        </Fragment>
+      )
+    }
+
+    {
       /* ====================================================================
          META PIXEL — hanya dimuat kalau META_PIXEL_ID sudah diisi di
          config.ts. Selama kosong, blok ini tidak ikut ter-render sama sekali:
@@ -194,14 +208,13 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': [...baseSchema, ...
         <Fragment>
           <script
             is:inline
-            define:vars={{ pixelId: META_PIXEL_ID }}
             set:html={`
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
 (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', pixelId);
+fbq('init', '${META_PIXEL_ID}');
 fbq('track', 'PageView');`}
           />
           <noscript>
@@ -256,6 +269,42 @@ fbq('track', 'PageView');`}
         fbq('track', 'Contact', {
           content_name: tautan.getAttribute('data-sumber') || 'umum',
         });
+      });
+    </script>
+
+    <script>
+      // ======================================================================
+      // FUNNEL GA4 — satu pendengar klik untuk seluruh situs (event delegation). Tidak melacak isi ketikan,
+      // hanya jenis tautan yang diklik. Tanpa gtag (GA_ID kosong / diblokir) blok ini diam saja.
+      //   klik_wa          tombol/tautan WhatsApp                (param: sumber, halaman)
+      //   ke_halaman_beli  menuju /beli/                          (param: paket, sumber)
+      //   ke_checkout      menuju checkout Lynk                   (param: paket, sumber)  ← KEY EVENT
+      //   video_klik       tautan YouTube                         (param: judul, id)
+      //   video_putar      putar-di-tempat di /tutorial/          (param: judul, id)
+      //   cta_klik         tautan apa pun ber-`data-sumber`       (param: sumber)
+      // Event dari halaman lain memakai window.lacakBD(nama, param) — mis. /belajar/.
+      // ======================================================================
+      const kirim = (nama: string, param: Record<string, unknown> = {}) => {
+        const g = (window as any).gtag;
+        if (typeof g === 'function') g('event', nama, { halaman: location.pathname, ...param });
+      };
+      (window as any).lacakBD = kirim;
+      const paketDari = (sumber: string, href: string) => {
+        const dariSumber = sumber.match(/(gratis|standar|pro)$/);
+        if (dariSumber) return dariSumber[1];
+        try { return new URL(href, location.href).searchParams.get('paket') || ''; } catch { return ''; }
+      };
+      document.addEventListener('click', (e) => {
+        const a = (e.target as HTMLElement | null)?.closest?.('a') as HTMLAnchorElement | null;
+        if (!a) return;
+        const href = a.getAttribute('href') || '';
+        const sumber = a.getAttribute('data-sumber') || '';
+        if (a.classList.contains('putar')) kirim('video_putar', { judul: a.dataset.judul || '', id: a.dataset.id || '' });
+        else if (/youtube\.com|youtu\.be/.test(href)) kirim('video_klik', { judul: a.textContent?.trim().slice(0, 80) || '', id: (href.match(/(?:v=|youtu\.be\/)([\w-]{11})/) || [])[1] || '' });
+        if (href.includes('wa.me')) kirim('klik_wa', { sumber });
+        if (/^\/beli\//.test(href)) kirim('ke_halaman_beli', { paket: paketDari(sumber, href), sumber });
+        if (href.includes('lynk.id')) kirim('ke_checkout', { paket: paketDari(sumber, href), sumber });
+        if (sumber) kirim('cta_klik', { sumber });
       });
     </script>
 

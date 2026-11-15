@@ -63,6 +63,11 @@ export const TERMS_URL = '/terms/';
 //    kodenya baru dipasang belakangan, semua kunjungan sebelum itu hangus.
 export const META_PIXEL_ID = '';
 
+// Google Analytics 4 — properti "Bedah Data Web" (akun Google bedahdata.id, dibuat 15 Nov 2026), stream bedahdata.online.
+// Kosongkan untuk mematikan. Event funnel dikirim dari Layout.astro (lacakBD): klik_wa, ke_halaman_beli, ke_checkout,
+// video_klik/video_putar, cta_klik, belajar_pilih_usaha, belajar_tahap_selesai. UTM dari outreach terbaca otomatis oleh GA4.
+export const GA_ID = 'G-X7Y247RSKL';
+
 // --- Menu navigasi utama -----------------------------------------------------
 // 🟢 7 item (owner, 5 Agu 2026) — batas lama 6 sengaja dilampaui supaya
 //    "Alat Gratis" punya pintu masuk di menu utama. Alat gratis adalah mesin

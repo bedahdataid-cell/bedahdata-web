@@ -183,13 +183,14 @@ const schema = {
     });
     hitung();
   }
-  tombol.forEach((b) => b.addEventListener('click', () => { simpan.jalur = b.dataset.jalur; tulis(); tampil(b.dataset.jalur!); }));
+  tombol.forEach((b) => b.addEventListener('click', () => { simpan.jalur = b.dataset.jalur; tulis(); tampil(b.dataset.jalur!); (window as any).lacakBD?.('belajar_pilih_usaha', { usaha: b.dataset.jalur }); }));
   document.querySelectorAll<HTMLInputElement>('.tahap input[type=checkbox]').forEach((k) => {
     k.addEventListener('change', () => {
       const li = k.closest('.tahap') as HTMLElement;
       simpan.selesai![li.dataset.kunci || ''] = k.checked;
       li.classList.toggle('selesai', k.checked);
       tulis(); hitung();
+      if (k.checked) (window as any).lacakBD?.('belajar_tahap_selesai', { tahap: li.dataset.kunci || '' });
     });
   });
   const awal = new URLSearchParams(location.search).get('usaha') || simpan.jalur || 'umum';
