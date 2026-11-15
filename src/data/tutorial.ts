@@ -40,6 +40,8 @@ export const KATEGORI: KategoriTutorial[] = [
   { id: 'antarmodul', nama: 'Antar Modul', ringkas: 'Catat sekali, modul lain ikut bergerak' },
   { id: 'tim', nama: 'Tim & HRD', ringkas: 'Karyawan, akun, absen, cuti, gaji, komisi, struktur' },
   { id: 'izin', nama: 'Hak Akses (Permission)', ringkas: 'Arti tiap centang izin pada peran dan jabatan' },
+  { id: 'pelanggan', nama: 'Pelanggan: CRM & Prospek', ringkas: 'Follow-up, tag, pengingat, calon pembeli jadi pelanggan' },
+  { id: 'pesanan', nama: 'Pesanan (Alur Penanganan)', ringkas: 'Template toko online, jasa, studio, F&B, servis, tabel, laporan' },
 ];
 
 export const VIDEO: VideoTutorial[] = [
@@ -96,4 +98,13 @@ export const VIDEO: VideoTutorial[] = [
   { id: '8A8IpmK-v1k', no: '#40', kat: 'izin', durasi: '2:46', judul: 'Kamus Permission 1: Izin di Kelompok HRD', ket: 'Arti tiap centang izin HRD: karyawan, absen, cuti, gaji, akun, dan struktur organisasi.' },
   { id: '9uY0k72cnEo', no: '#41', kat: 'izin', durasi: '2:46', judul: 'Kamus Permission 2: Izin Transaksi dan Keuangan', ket: 'Arti tiap centang izin untuk penjualan, stok, pembelian, keuangan, biaya, dan kasir.' },
   { id: '0knaEtUs5Rk', no: '#42', kat: 'izin', durasi: '3:18', judul: 'Kamus Permission 3: Data, Fitur Tambahan dan Peran', ket: 'Arti tiap centang izin untuk pelanggan, produk, AI, komisi, CRM, prospek, pesanan, dan produksi, plus cara menyusun peran.' },
+  { id: 'GVPe-NQIxBU', no: '#43', kat: 'pelanggan', durasi: '2:51', judul: 'CRM: Follow-up, Tag dan Pengingat', ket: 'Nyalakan modul CRM, cari pelanggan yang lama tidak order, beri tag, catat follow-up, dan terima pengingat.' },
+  { id: 'yTvDnSozaEs', no: '#44', kat: 'pelanggan', durasi: '3:21', judul: 'Prospek: dari Calon Pembeli ke Pelanggan', ket: 'Catat prospek, tindak lanjuti dengan follow-up dan pengingat, lalu ubah menjadi pelanggan lewat tombol Menangkan.' },
+
+  { id: 'UoWsK3fWi3I', no: '#47', kat: 'pesanan', durasi: '3:18', judul: 'Pesanan 1: Memilih Template dan Toko Online', ket: 'Kenali lima template alur Pesanan, pilih Toko Online, isi kurir dan resi, lalu gerakkan pesanan sampai terkirim.' },
+  { id: 'L45_G6k0b4c', no: '#48', kat: 'pesanan', durasi: '2:48', judul: 'Pesanan 2: Skenario Jasa', ket: 'Template Jasa untuk laundry, salon, atau klinik: antrian, sub-langkah wajib tuntas, ACC, dan selesai.' },
+  { id: 'dV4gz1f84Jc', no: '#49', kat: 'pesanan', durasi: '2:52', judul: 'Pesanan 3: Skenario Studio Kreatif', ket: 'Template Studio Kreatif untuk percetakan dan desain: petugas berbeda tiap fase, revisi tercatat, cetak dan selesai.' },
+  { id: 'Nr3IrZ-ew9A', no: '#50', kat: 'pesanan', durasi: '2:07', judul: 'Pesanan 4: Skenario F&B', ket: 'Template F dan B untuk warung, kafe, dan katering: dari pesanan masuk, dimasak, siap saji, diantar, sampai selesai.' },
+  { id: 'XLkbK_9ICug', no: '#51', kat: 'pesanan', durasi: '2:31', judul: 'Pesanan 5: Skenario Servis', ket: 'Template Servis untuk bengkel dan servis elektronik: teknisi, Diagnosa, Perbaikan, QC, siap diambil, dan selesai.' },
+  { id: 'qjRJvpWNp7s', no: '#52', kat: 'pesanan', durasi: '2:31', judul: 'Pesanan 6: Tabel, Info dan Laporan', ket: 'Baca semua pesanan di tab Tabel, ubah info kurir dan resi, batalkan pesanan yang tidak jadi, dan lihat laporan.' },
 ];
