@@ -29,6 +29,19 @@ export const getStaticPaths = (() => {
 
 const { isi } = Astro.props;
 
+// Klip layar ERP ASLI (data demo) yang paling relevan per jenis usaha.
+const KLIP: Record<string, { v: string; judul: string }> = {
+  bengkel: { v: 'fitur-komisi', judul: 'Komisi teknisi dihitung otomatis' },
+  salon: { v: 'fitur-komisi', judul: 'Komisi terapis dihitung otomatis' },
+  percetakan: { v: 'fitur-pesanan', judul: 'Pesanan dipantau dari masuk sampai selesai' },
+  'toko-bangunan': { v: 'fitur-stok', judul: 'Barang terjual, stok langsung berkurang' },
+  'kedai-kopi': { v: 'fitur-stok', judul: 'Barang terjual, stok langsung berkurang' },
+  'jualan-online': { v: 'fitur-pesanan', judul: 'Pesanan dipantau dari masuk sampai selesai' },
+  konveksi: { v: 'fitur-pesanan', judul: 'Pesanan dipantau dari masuk sampai selesai' },
+  'makanan-rumahan': { v: 'fitur-keuangan', judul: 'Penjualan tercatat sendiri, laba rugi tinggal klik' },
+};
+const klip = KLIP[isi.slug] ?? { v: 'fitur-keuangan', judul: 'Penjualan tercatat sendiri' };
+
 // Segmen lain, untuk saling menautkan di bagian bawah halaman.
 const lainnya = SEGMEN_ISI.filter((s) => s.slug !== isi.slug);
 
@@ -69,6 +82,19 @@ const schema = [
         </a>
         <a href={waLink(isi.pesanWa)} class="btn btn-onDark" target="_blank" rel="noopener" data-sumber={`segmen-${isi.slug}-wa`}>Tanya lewat WhatsApp</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== BUKTI: layar ERP asli ===== -->
+  <section class="bukti-layar">
+    <div class="wrap-narrow">
+      <figure class="klip-bukti">
+        <video muted loop playsinline autoplay preload="metadata" poster={`/video/${klip.v}.webp`} aria-label={`Cuplikan layar ERP Studio: ${klip.judul} (data demo)`}>
+          <source src={`/video/${klip.v}.webm`} type="video/webm" />
+          <source src={`/video/${klip.v}.mp4`} type="video/mp4" />
+        </video>
+        <figcaption><strong>{klip.judul}.</strong> DATA DEMO · layar ERP Studio asli</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -222,6 +248,16 @@ const schema = [
 </Layout>
 
 <style>
+  @media (max-width: 640px) {
+    section:not(.kepala) { padding: 36px 0; }
+    .sec-head { margin-bottom: 20px; }
+  }
+
+  .bukti-layar { padding: 28px 0 8px; }
+  .klip-bukti { margin: 0; }
+  .klip-bukti video { width: 100%; border-radius: 12px; border: 1px solid var(--border, #dfe7e3); background: #0e3d33; display: block; }
+  .klip-bukti figcaption { font-size: 14px; color: var(--text-muted); text-align: center; margin-top: 10px; }
+
   .kepala {
     padding: clamp(46px, 6.5vw, 76px) 0;
   }

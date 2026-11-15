@@ -61,6 +61,14 @@ const prinsip = [
           ditawarkan kepada orang lain.
         </p>
       </div>
+
+      <aside class="pendiri reveal">
+        <img src="/assets/pendiri.webp" width="96" height="96" alt="Pendiri Bedah Data" loading="lazy" />
+        <p>
+          <strong>Pendiri Bedah Data</strong><br />
+          Punya pertanyaan sebelum mencoba? Tulis saja lewat WhatsApp, kami jawab terus terang.
+        </p>
+      </aside>
     </div>
   </section>
 
@@ -120,6 +128,10 @@ const prinsip = [
 </Layout>
 
 <style>
+  .pendiri { display: flex; align-items: center; gap: 16px; margin-top: 32px; padding: 16px 18px; border: 1px solid var(--border, #dfe7e3); border-radius: 14px; }
+  .pendiri img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; }
+  .pendiri p { margin: 0; font-size: 15px; line-height: 1.5; }
+
   .kepala {
     padding: clamp(52px, 7vw, 82px) 0;
     text-align: center;
