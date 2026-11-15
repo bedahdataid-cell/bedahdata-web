@@ -12,7 +12,7 @@ import Harga from '../components/Harga.astro';
 import GaleriFitur from '../components/GaleriFitur.astro';
 import VideoFasad from '../components/VideoFasad.astro';
 import IkonYoutube from '../components/IkonYoutube.astro';
-import { SITE, SEGMEN, PAKET, waLink, tautanBeli } from '../config';
+import { SITE, SEGMEN, PAKET, PROMO, waLink, tautanBeli } from '../config';
 import { FAQ_UMUM, faqSchema } from '../data/faq';
 import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
 const _std = PAKET.find((p) => p.kunci === 'standar')!.harga;
@@ -69,6 +69,7 @@ const schema = [
         '@type': 'Offer',
         name: 'Standar',
         price: angka(standar.harga),
+        priceValidUntil: PROMO.sampaiTanggal,
         priceCurrency: 'IDR',
         availability: 'https://schema.org/InStock',
         url: `${SITE.url}/harga/`,
@@ -79,6 +80,7 @@ const schema = [
         '@type': 'Offer',
         name: 'Pro',
         price: angka(pro.harga),
+        priceValidUntil: PROMO.sampaiTanggal,
         priceCurrency: 'IDR',
         availability: 'https://schema.org/InStock',
         url: `${SITE.url}/harga/`,

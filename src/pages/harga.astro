@@ -12,7 +12,7 @@ import Layout from '../layouts/Layout.astro';
 import Harga from '../components/Harga.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import Faq from '../components/Faq.astro';
-import { CUSTOM, PAKET, SITE, waLink } from '../config';
+import { CUSTOM, PAKET, PROMO, SITE, waLink } from '../config';
 import { faqSchema } from '../data/faq';
 import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
 const _std = PAKET.find((p) => p.kunci === 'standar')!.harga;
@@ -77,6 +77,11 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
   <section>
     <div class="wrap">
       <Harga />
+
+      <p class="reveal" data-promo-info style="text-align:center;margin-top:18px;font-size:15px">
+        <strong>{PROMO.label}</strong> berlaku sampai {PROMO.tampil}. Mulai {PROMO.mulaiNormal}, harga normal:
+        Standar {standar.hargaNormal} dan Pro {pro.hargaNormal}, tetap dibayar sekali.
+      </p>
 
       <p class="reveal" style="text-align:center;margin-top:24px">
         Belum tahu cara memasangnya? <a href="/mulai/">Lihat panduan mulai</a>.

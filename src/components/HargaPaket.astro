@@ -1,0 +1,50 @@
+---
+// Blok harga satu paket. Paket berbayar yang punya `hargaNormal` tampil dengan harga coret (harga normal
+// mulai PROMO.mulaiNormal) + harga promo sekarang. Setelah PROMO.sampai lewat, skrip di bawah mengganti ke
+// harga normal dan menyembunyikan semua penanda promo ([data-promo-info]). Lihat catatan di config.ts.
+import { PROMO } from '../config';
+
+interface Props { paket: any; en?: boolean }
+const { paket, en = false } = Astro.props;
+const normal: string | null = 'hargaNormal' in paket ? (paket.hargaNormal as string) : null;
+---
+
+{
+  normal ? (
+    <span class="hp" data-hp data-sampai={PROMO.sampai} data-normal={normal} data-promo={paket.harga}>
+      <s class="coret" data-promo-info aria-label={en ? 'Regular price' : 'Harga normal'}>{normal}</s>
+      <span class="kini">{paket.harga}</span>
+    </span>
+  ) : (
+    paket.harga
+  )
+}
+
+<style>
+  .hp { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .coret {
+    font-size: 0.6em;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--oranye-deep, #d9650a);
+  }
+  .kini { color: var(--green-deep); }
+</style>
+
+<script>
+  // Dipakai sekali per halaman (Astro menggabungkan skrip yang sama).
+  function terapkanPromo() {
+    document.querySelectorAll<HTMLElement>('[data-hp]').forEach((el) => {
+      const sampai = Date.parse(el.dataset.sampai || '');
+      if (!sampai || Date.now() <= sampai) return;
+      const kini = el.querySelector('.kini');
+      if (kini && el.dataset.normal) kini.textContent = el.dataset.normal;
+      el.querySelector('.coret')?.remove();
+    });
+    const sampaiGlobal = Date.parse(document.querySelector<HTMLElement>('[data-hp]')?.dataset.sampai || '');
+    if (sampaiGlobal && Date.now() > sampaiGlobal) document.querySelectorAll('[data-promo-info]').forEach((e) => e.remove());
+  }
+  terapkanPromo();
+</script>

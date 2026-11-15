@@ -4,7 +4,8 @@
 // 🔴 Angka diambil dari src/config.ts. Jangan menulis harga langsung di sini,
 //    supaya tidak ada dua versi harga yang berbeda di situs yang sama.
 // ============================================================================
-import { PAKET, tautanBeli } from '../config';
+import { PAKET, PROMO, tautanBeli } from '../config';
+import HargaPaket from './HargaPaket.astro';
 import type { Bahasa } from '../i18n/ui';
 
 interface Props {
@@ -22,11 +23,16 @@ const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi kami';
       <div class={`kartu reveal ${paket.populer ? 'populer' : ''}`}>
         {paket.populer && <span class="badge">{labelRekomendasi}</span>}
         <h3>{paket.nama}</h3>
+        {'hargaNormal' in paket && (
+          <p class="lencana-promo" data-promo-info>
+            {en ? `${PROMO.labelEn} · until ${PROMO.tampilEn}` : `${PROMO.label} · sampai ${PROMO.tampil}`}
+          </p>
+        )}
         <p class="harga">
           {/* 🔴 Harga TETAP Rupiah di kedua bahasa — pembacanya tetap di
               Indonesia. Hanya "Hubungi Kami" pada paket Custom yang punya
               padanan Inggris. */}
-          {en && 'hargaEn' in paket ? paket.hargaEn : paket.harga}
+          {en && 'hargaEn' in paket ? paket.hargaEn : <HargaPaket paket={paket} en={en} />}
           <small>{en ? paket.satuanEn : paket.satuan}</small>
         </p>
         <p class="untuk">{en ? paket.untukEn : paket.untuk}</p>
@@ -117,6 +123,18 @@ const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi kami';
     color: var(--green-deep);
     line-height: 1.2;
     margin-bottom: 8px;
+  }
+
+  .lencana-promo {
+    display: inline-block;
+    background: #fff3e0;
+    color: var(--oranye-deep, #b4530a);
+    border: 1px solid #f6c88f;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin: 2px 0 8px;
   }
 
   .harga small {

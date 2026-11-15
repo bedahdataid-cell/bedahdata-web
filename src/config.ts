@@ -171,6 +171,12 @@ export const SEGMEN = [
 //    Prospek — semuanya ada di Pro. Ubah daftar fitur hanya bila gerbangnya berubah.
 // 🔴 Dilarang: kata "murah/terjangkau" sebagai daya jual; angka "senilai …" untuk
 //    harga yang tidak pernah dijual; bundle.
+// 🟢 PROMO AKHIR TAHUN (owner 15 Nov 2026): harga Standar & Pro di PAKET = harga NYATA yang
+//    dibayar sekarang. `hargaNormal` = harga yang BENAR-BENAR berlaku mulai 1 Jan 2027 —
+//    ditampilkan sebagai harga coret. Karena itu bukan "harga yang tidak pernah dijual":
+//    setelah PROMO.sampai lewat, situs otomatis menampilkan hargaNormal (skrip HargaPaket)
+//    dan 🔴 produk di Lynk WAJIB diubah ke harga normal pada hari yang sama (manual).
+//    Hargai ulang di sini bila owner mengubah harga normal; jangan biarkan coret palsu.
 
 // Tautan checkout Lynk.id. 🔴 ISI saat produk sudah ditayangkan di Lynk. Selama
 // kosong, tombol jatuh ke WhatsApp (bukan tautan rusak) — pola sama dengan META_PIXEL_ID.
@@ -181,6 +187,18 @@ export const LYNK = {
 } as const;
 
 export type KunciPaket = keyof typeof LYNK;
+
+// Promo akhir tahun. `sampai` = batas akhir (WIB). Setelah itu harga coret menjadi harga resmi.
+export const PROMO = {
+  sampai: '2026-12-31T23:59:59+07:00',
+  sampaiTanggal: '2026-12-31',
+  tampil: '31 Desember 2026',
+  tampilEn: 'December 31, 2026',
+  label: 'Promo akhir tahun',
+  labelEn: 'Year-end promo',
+  mulaiNormal: '1 Januari 2027',
+  mulaiNormalEn: 'January 1, 2027',
+} as const;
 
 export const PAKET = [
   {
@@ -211,6 +229,7 @@ export const PAKET = [
     kunci: 'standar' as KunciPaket,
     nama: 'Standar',
     harga: 'Rp 75.000',
+    hargaNormal: 'Rp 150.000',
     satuan: 'bayar sekali',
     satuanEn: 'one-time payment',
     untuk: 'Mulai rapi: jualan, stok, dan keuangan beres dulu.',
@@ -239,6 +258,7 @@ export const PAKET = [
     kunci: 'pro' as KunciPaket,
     nama: 'Pro',
     harga: 'Rp 149.000',
+    hargaNormal: 'Rp 299.000',
     satuan: 'bayar sekali',
     satuanEn: 'one-time payment',
     untuk: 'Paling lengkap, untuk usaha yang sudah punya tim dan ingin melihat angka lebih dalam.',
