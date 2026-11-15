@@ -99,7 +99,7 @@ const tanya = [
             <h3><span class="no">{i + 1}</span>{l.judul}</h3>
             {l.pengantar && <p>{l.pengantar}</p>}
             <ol class="butir">{l.butir.map((b) => <li>{b}</li>)}</ol>
-            {l.gambar.map((g) => <img src={`/assets/mulai/${g.f}.webp`} alt={g.alt} loading="lazy" decoding="async" />)}
+            {l.gambar.map((g) => <figure class="gbr" data-perbesar tabindex="0" aria-label="Perbesar gambar"><img src={`/assets/mulai/${g.f}.webp`} alt={g.alt} loading="lazy" decoding="async" /></figure>)}
           </li>
         ))}
       </ol>
@@ -119,7 +119,7 @@ const tanya = [
             <h3><span class="no">{i + 1}</span>{l.judul}</h3>
             {l.pengantar && <p>{l.pengantar}</p>}
             <ol class="butir">{l.butir.map((b) => <li>{b}</li>)}</ol>
-            {l.gambar.map((g) => <img src={`/assets/mulai/${g.f}.webp`} alt={g.alt} loading="lazy" decoding="async" />)}
+            {l.gambar.map((g) => <figure class="gbr" data-perbesar tabindex="0" aria-label="Perbesar gambar"><img src={`/assets/mulai/${g.f}.webp`} alt={g.alt} loading="lazy" decoding="async" /></figure>)}
           </li>
         ))}
       </ol>
@@ -212,6 +212,8 @@ const tanya = [
   .langkah p { margin: 0 0 8px; font-size: 15.5px; }
   .butir { margin: 0 0 12px; padding-left: 22px; font-size: 15.5px; }
   .butir li { margin-bottom: 4px; }
+  .gbr { margin: 6px auto 0; width: fit-content; max-width: 100%; }
+  .gbr img { margin: 0 !important; }
   .langkah img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid #dfe7e3; margin-top: 6px; }
   .kartu-bantu { text-align: center; }
   .kartu-bantu h2 { font-size: 20px; margin: 0 0 6px; }
