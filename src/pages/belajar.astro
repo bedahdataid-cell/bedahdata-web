@@ -216,6 +216,10 @@ const schema = {
   #teks-progres { margin: 8px 0 0; font-size: 14px; color: var(--text-muted); text-align: center; }
 
   .tahap-daftar { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  /* 🔴 Atribut `hidden` dikalahkan oleh `display: grid` di atas — tanpa dua aturan ini SEMUA daftar jenis usaha tampil
+     sekaligus (nomor 1-5 berulang). Jangan dihapus. */
+  .tahap-daftar[hidden],
+  .lanjutan[hidden] { display: none; }
   .tahap { padding: 22px 24px; }
   .tahap.selesai { opacity: 0.62; }
   .tahap-kepala { display: flex; gap: 16px; align-items: flex-start; }
