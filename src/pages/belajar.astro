@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
 import BantuanMeet from '../components/BantuanMeet.astro';
 import { SITE } from '../config';
 import { VIDEO, PLAYLIST_URL } from '../data/tutorial';
-import { TAHAP_UMUM, JALUR_SEGMEN } from '../data/jalur';
+import { TAHAP_UTAMA, JALUR_SEGMEN, LANJUTAN } from '../data/jalur';
 
 const title = 'Jalur Belajar ERP Studio: Urutan Menonton dari Nol | Bedah Data';
 const description =
@@ -22,17 +22,21 @@ const cariVideo = (no: string) => {
 };
 const tonton = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 const gambar = (id: string) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
-const tahapIsi = (t: (typeof TAHAP_UMUM)[number]) => ({ ...t, isi: t.video.map(cariVideo) });
-
-// Jalur umum + tahap khas tiap segmen (disisipkan sesudah "Catat transaksi harian")
-const idxSisip = TAHAP_UMUM.findIndex((t) => t.id === 'transaksi') + 1;
+// Satu video hanya muncul SEKALI per jalur (kemunculan pertama menang): utama -> khas jenis usaha -> lanjutan.
+const idxSisip = TAHAP_UTAMA.findIndex((t) => t.id === 'jual') + 1;
+const susun = (khas?: (typeof JALUR_SEGMEN)[number]['tahap']) => {
+  const urut = [...TAHAP_UTAMA];
+  if (khas) urut.splice(idxSisip, 0, khas);
+  const sudah = new Set<string>();
+  const ambil = (daftar: string[]) =>
+    daftar.filter((n) => !sudah.has(n)).map((n) => { sudah.add(n); return cariVideo(n); });
+  const tahap = urut.map((t) => ({ ...t, isi: ambil(t.video) })).filter((t) => t.isi.length > 0);
+  const lanjut = LANJUTAN.map((g) => ({ ...g, isi: ambil(g.video) })).filter((g) => g.isi.length > 0);
+  return { tahap, lanjut };
+};
 const jalur = [
-  { slug: 'umum', nama: 'Semua usaha', tahap: TAHAP_UMUM.map(tahapIsi) },
-  ...JALUR_SEGMEN.map((s) => {
-    const urut = [...TAHAP_UMUM];
-    urut.splice(idxSisip, 0, s.tahap);
-    return { slug: s.slug, nama: s.nama, tahap: urut.map(tahapIsi) };
-  }),
+  { slug: 'umum', nama: 'Semua usaha', ...susun() },
+  ...JALUR_SEGMEN.map((s) => ({ slug: s.slug, nama: s.nama, ...susun(s.tahap) })),
 ];
 
 const schema = {
@@ -107,6 +111,33 @@ const schema = {
         </ol>
       ))}
 
+      {jalur.map((j, i) => (
+        <details class="lanjutan card" data-lanjut={j.slug} hidden={i !== 0}>
+          <summary>
+            Lanjutan, kalau sudah lancar <span>{j.lanjut.reduce((n, g) => n + g.isi.length, 0)} video opsional</span>
+          </summary>
+          {j.lanjut.map((g) => (
+            <div class="grup-lanjut">
+              <h3>{g.judul} {g.pro && <span class="lencana-pro">Pro</span>}</h3>
+              <ul class="video-daftar">
+                {g.isi.map((v) => (
+                  <li>
+                    <a href={tonton(v.id)} target="_blank" rel="noopener">
+                      <img src={gambar(v.id)} alt="" width="160" height="90" loading="lazy" decoding="async" />
+                      <span class="info">
+                        <span class="no">{v.no}</span>
+                        <strong>{v.judul}</strong>
+                        <span class="durasi">{v.durasi}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </details>
+      ))}
+
       <p class="semua">
         Mau mencari topik tertentu? <a href="/tutorial/">Lihat semua video tutorial</a> atau
         <a href={PLAYLIST_URL} target="_blank" rel="noopener">buka playlist di YouTube</a>.
@@ -143,6 +174,7 @@ const schema = {
   }
   function tampil(slug: string) {
     daftar.forEach((d) => { d.hidden = d.dataset.daftar !== slug; });
+    document.querySelectorAll<HTMLElement>('[data-lanjut]').forEach((d) => { d.hidden = d.dataset.lanjut !== slug; });
     tombol.forEach((b) => { const a = b.dataset.jalur === slug; b.classList.toggle('aktif', a); b.setAttribute('aria-pressed', String(a)); });
     document.querySelectorAll<HTMLElement>(`[data-daftar="${slug}"] .tahap`).forEach((li) => {
       const k = li.querySelector<HTMLInputElement>('input[type=checkbox]')!;
@@ -207,6 +239,15 @@ const schema = {
   .info { display: grid; gap: 2px; font-size: 14.5px; }
   .no { font-size: 12px; color: var(--text-muted); }
   .durasi { font-size: 12.5px; color: var(--text-muted); }
+  .lanjutan { margin-top: 22px; padding: 4px 20px; }
+  .lanjutan summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; }
+  .lanjutan summary::-webkit-details-marker { display: none; }
+  .lanjutan summary::before { content: '+'; display: inline-block; width: 22px; color: var(--green-deep); font-weight: 700; }
+  .lanjutan[open] summary::before { content: '\2212'; }
+  .lanjutan summary span { font-weight: 400; font-size: 13.5px; color: var(--text-muted); margin-left: 8px; }
+  .grup-lanjut { padding: 4px 0 16px; }
+  .grup-lanjut h3 { font-size: 16px; margin: 6px 0 0; }
+  .grup-lanjut .video-daftar { margin-left: 0; }
   .semua { text-align: center; margin: 24px 0 0; }
 
   @media (max-width: 560px) {
