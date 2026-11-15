@@ -72,6 +72,13 @@ const schema = {
         ))}
       </div>
 
+      <label class="pilih-hp">
+        <span>Jenis usaha Anda</span>
+        <select id="pilih-usaha" aria-label="Pilih jenis usaha">
+          {jalur.map((j) => (<option value={j.slug}>{j.nama}</option>))}
+        </select>
+      </label>
+
       <div class="progres" aria-live="polite">
         <div class="bar"><span id="isi-progres"></span></div>
         <p id="teks-progres"></p>
@@ -172,7 +179,9 @@ const schema = {
       ? 'Semua tahap selesai. Selamat, Anda sudah menguasai alurnya.'
       : `${beres} dari ${kotak.length} tahap selesai`;
   }
+  const menuHp = document.getElementById('pilih-usaha') as HTMLSelectElement | null;
   function tampil(slug: string) {
+    if (menuHp) menuHp.value = slug;
     daftar.forEach((d) => { d.hidden = d.dataset.daftar !== slug; });
     document.querySelectorAll<HTMLElement>('[data-lanjut]').forEach((d) => { d.hidden = d.dataset.lanjut !== slug; });
     tombol.forEach((b) => { const a = b.dataset.jalur === slug; b.classList.toggle('aktif', a); b.setAttribute('aria-pressed', String(a)); });
@@ -183,6 +192,7 @@ const schema = {
     });
     hitung();
   }
+  menuHp?.addEventListener('change', () => { simpan.jalur = menuHp.value; tulis(); tampil(menuHp.value); (window as any).lacakBD?.('belajar_pilih_usaha', { usaha: menuHp.value }); });
   tombol.forEach((b) => b.addEventListener('click', () => { simpan.jalur = b.dataset.jalur; tulis(); tampil(b.dataset.jalur!); (window as any).lacakBD?.('belajar_pilih_usaha', { usaha: b.dataset.jalur }); }));
   document.querySelectorAll<HTMLInputElement>('.tahap input[type=checkbox]').forEach((k) => {
     k.addEventListener('change', () => {
@@ -203,6 +213,12 @@ const schema = {
   .tombol-tengah { margin-top: 24px; }
 
   .pilih { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-bottom: 22px; }
+  .pilih-hp { display: none; margin: 0 0 20px; }
+  .pilih-hp span { display: block; font-size: 13.5px; color: var(--text-muted); margin-bottom: 6px; }
+  .pilih-hp select {
+    width: 100%; font: inherit; font-size: 16px; /* min 16px: iOS tidak memperbesar layar */
+    padding: 13px 14px; border: 1.5px solid var(--border); border-radius: 12px; background: #fff; color: var(--heading);
+  }
   .pil-btn {
     font: inherit; font-size: 14.5px; padding: 9px 16px; border-radius: 999px; cursor: pointer;
     border: 1.5px solid var(--border); background: #fff; color: var(--heading);
@@ -255,6 +271,10 @@ const schema = {
   .grup-lanjut .video-daftar { margin-left: 0; }
   .semua { text-align: center; margin: 24px 0 0; }
 
+  @media (max-width: 640px) {
+    .pilih { display: none; }
+    .pilih-hp { display: block; }
+  }
   @media (max-width: 560px) {
     .tahap { padding: 18px 16px; }
     .video-daftar { margin-left: 0; }
