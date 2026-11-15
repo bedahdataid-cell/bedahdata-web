@@ -86,8 +86,9 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
         Standar {standar.hargaNormal} dan Pro {pro.hargaNormal}, tetap dibayar sekali.
       </p>
 
-      <p class="reveal" style="text-align:center;margin-top:24px">
-        Belum tahu cara membayarnya? <a href="/cara-bayar/">Lihat cara bayar lewat Lynk</a>. Belum tahu cara memasangnya? <a href="/mulai/">Lihat panduan mulai</a>.
+      <p class="reveal" style="text-align:center;margin-top:24px;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:center">
+        <a class="btn btn-ghost" href="/cara-bayar/" data-sumber="harga-tombol-cara-bayar">&#9654; Cara bayar lewat Lynk</a>
+        <span>Belum tahu cara memasangnya? <a href="/mulai/">Lihat panduan mulai</a>.</span>
       </p>
 
       <div class="hitungan reveal">
