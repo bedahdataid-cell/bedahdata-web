@@ -223,7 +223,9 @@ const langkah = [
 
   <!-- ===================== JENIS USAHA (chip) ===================== -->
   <nav class="chip-usaha" aria-label="Pilih jenis usaha">
-    <div class="wrap chip-baris">
+    <button type="button" class="chip-panah chip-kiri" aria-label="Geser ke kiri" hidden>&#8249;</button>
+    <button type="button" class="chip-panah chip-kanan" aria-label="Geser ke kanan" hidden>&#8250;</button>
+    <div class="wrap chip-baris" tabindex="0">
       <span class="chip-label">Usaha Anda:</span>
       {
         SEGMEN.map((sg) => (
@@ -507,6 +509,33 @@ const langkah = [
 
   <CtaAkhir />
 </Layout>
+
+
+<script>
+  // Baris jenis usaha bisa digeser: tampilkan panah + pudar tepi hanya di sisi yang masih punya isi.
+  document.querySelectorAll<HTMLElement>('.chip-usaha').forEach((nav) => {
+    const baris = nav.querySelector<HTMLElement>('.chip-baris');
+    const kiri = nav.querySelector<HTMLButtonElement>('.chip-kiri');
+    const kanan = nav.querySelector<HTMLButtonElement>('.chip-kanan');
+    if (!baris || !kiri || !kanan) return;
+    const ukur = () => {
+      const maks = baris.scrollWidth - baris.clientWidth;
+      const bisaKiri = baris.scrollLeft > 4;
+      const bisaKanan = baris.scrollLeft < maks - 4;
+      kiri.hidden = !bisaKiri;
+      kanan.hidden = !bisaKanan;
+      nav.classList.toggle('ada-kiri', bisaKiri);
+      nav.classList.toggle('ada-kanan', bisaKanan);
+    };
+    const geser = (arah: number) => baris.scrollBy({ left: arah * Math.max(240, baris.clientWidth * 0.6), behavior: 'smooth' });
+    kiri.addEventListener('click', () => geser(-1));
+    kanan.addEventListener('click', () => geser(1));
+    baris.addEventListener('scroll', ukur, { passive: true });
+    window.addEventListener('resize', ukur);
+    ukur();
+    if ('ResizeObserver' in window) new ResizeObserver(ukur).observe(baris);
+  });
+</script>
 
 <style>
   /* ---------- Hero: terang, bergaris tipis seperti buku kas ---------- */
@@ -838,9 +867,57 @@ const langkah = [
 
   /* ---------- Chip jenis usaha ---------- */
   .chip-usaha {
+    position: relative;
     background: #fff;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+  }
+
+  /* pudar di tepi yang masih bisa digeser */
+  .chip-usaha::before,
+  .chip-usaha::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 56px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s var(--ease);
+  }
+  .chip-usaha::before { left: 0; background: linear-gradient(90deg, #fff 25%, rgba(255, 255, 255, 0)); }
+  .chip-usaha::after { right: 0; background: linear-gradient(270deg, #fff 25%, rgba(255, 255, 255, 0)); }
+  .chip-usaha.ada-kiri::before,
+  .chip-usaha.ada-kanan::after { opacity: 1; }
+
+  .chip-panah {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(14, 61, 51, 0.22);
+    background: #fff;
+    color: var(--heading);
+    font-size: 26px;
+    line-height: 1;
+    padding: 0 0 3px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(14, 61, 51, 0.14);
+    display: grid;
+    place-items: center;
+  }
+  .chip-panah[hidden] { display: none; }
+  .chip-panah:hover { border-color: var(--green-deep); background: rgba(46, 204, 88, 0.1); }
+  .chip-kiri { left: max(10px, calc(50% - var(--wrap) / 2 + 4px)); }
+  .chip-kanan { right: max(10px, calc(50% - var(--wrap) / 2 + 4px)); }
+  @media (max-width: 640px) {
+    .chip-panah { width: 34px; height: 34px; font-size: 22px; }
+    .chip-kiri { left: 4px; }
+    .chip-kanan { right: 4px; }
   }
 
   .chip-baris {
@@ -850,7 +927,6 @@ const langkah = [
     padding-top: 16px;
     padding-bottom: 16px;
     overflow-x: auto;
-    scroll-snap-type: x proximity;
     scrollbar-width: none;
   }
 
@@ -860,6 +936,7 @@ const langkah = [
 
   .chip-label {
     flex: none;
+    scroll-snap-align: start; /* tanpa ini, snap memulai dari chip pertama dan label "Usaha Anda:" ikut tergeser keluar */
     font-size: 14px;
     font-weight: 600;
     color: var(--heading);
