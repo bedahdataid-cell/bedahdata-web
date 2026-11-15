@@ -13,31 +13,46 @@ const title = 'Cara Mulai ERP Studio: Coba Gratis 3 Hari | Bedah Data';
 const description =
   'Panduan memasang ERP Studio di Google Drive Anda sendiri: salin, pasang, atur, coba 3 hari, lalu aktifkan dengan kode. Termasuk penjelasan tentang peringatan dari Google.';
 
-const langkah = [
-  {
-    judul: 'Salin dan beri nama',
-    isi: 'Buka tautan ERP Studio yang Anda terima, klik Ringkasan, lalu Buat salinan. Ganti nama salinan sesuai nama usaha Anda.',
-  },
-  {
-    judul: 'Pasang (deploy) salinan Anda',
-    isi: 'Klik Terapkan, lalu Deployment baru. Pada pilihan Jalankan sebagai, pilih Saya. Pada pilihan akses, pilih Siapa saja. Lalu klik Terapkan. Anda akan mendapat alamat web berakhiran /exec. Simpan alamat itu.',
-  },
-  {
-    judul: 'Izinkan akses (peringatan dari Google itu wajar)',
-    isi: 'Google akan menampilkan layar peringatan, dan penjelasannya ada di bawah. Klik Lanjutan, lalu Buka, lalu izinkan akses yang diminta.',
-  },
-  {
-    judul: 'Pengaturan awal dan masa coba 3 hari',
-    isi: 'Buka alamat /exec, isi nama usaha, buat kata sandi Anda sendiri, lalu pilih Mulai Trial 3 Hari. Semua fitur terbuka selama 3 hari.',
-  },
-  {
-    judul: 'Lanjut dengan kode Standar atau Pro',
-    isi: 'Beli kode di Lynk, kirim bukti pembayaran lewat WhatsApp, lalu tempel kode yang kami kirim di ERP Studio. Data selama masa coba tetap utuh.',
-  },
-  {
-    judul: 'Memperbarui ke versi baru',
-    isi: 'Saat ada versi baru, ulangi langkah salin dan pasang. Di pengaturan awal, pilih Sambungkan database lama, artinya memakai kembali data usaha yang sudah ada (jangan membuat usaha baru). Terakhir, klik Lengkapi Data Bawaan di menu Pengaturan.',
-  },
+const VIDEO_A = 'https://youtu.be/q5JDshq4Gf0';
+const VIDEO_B = 'https://youtu.be/OpnmtzTc_0k';
+const PDF = 'https://drive.google.com/file/d/1bLI39CE352VaBfmioKw2RFPmz1WJ6gGx/view';
+
+type Langkah = { judul: string; pengantar?: string; butir: string[]; gambar: { f: string; alt: string }[] };
+
+const bagianA: Langkah[] = [
+  { judul: 'Buka tautan ERP Anda', pengantar: 'Tautan membuka proyek ERP di Google Apps Script. Anda perlu masuk ke akun Google yang akan dipakai menyimpan data usaha.', butir: ['Klik tautan ERP yang ada di halaman konfirmasi Lynk (dan di email Anda).'], gambar: [{ f: 'p02_1', alt: 'Tautan ERP terbuka sebagai proyek di Google Apps Script' }] },
+  { judul: 'Buat salinan ERP', pengantar: 'Salinan dibuat di akun Google Anda sendiri. Data usaha Anda nanti tersimpan di Google Drive Anda.', butir: ['Pastikan Anda berada di halaman Ringkasan (ikon "i" di kiri).', 'Klik tombol Buat salinan di kanan atas.'], gambar: [{ f: 'p03_1', alt: 'Tombol Buat salinan di halaman Ringkasan' }] },
+  { judul: 'Ganti nama salinan', pengantar: 'Beri nama yang jelas supaya mudah ditemukan, misalnya "ERP Studio Toko Maju".', butir: ['Klik judul proyek di bagian atas, lalu ketik nama usaha Anda dan tekan Enter.'], gambar: [{ f: 'p04_1', alt: 'Mengganti nama proyek salinan' }] },
+  { judul: 'Terapkan, lalu Deployment baru', butir: ['Klik tombol Terapkan di kanan atas.', 'Pilih Deployment baru.'], gambar: [{ f: 'p05_1', alt: 'Menu Terapkan lalu Deployment baru' }] },
+  { judul: 'Atur "Jalankan sebagai" dan akses', pengantar: 'Alamat email di kolom "Jalankan sebagai" diburamkan pada gambar ini. Di layar Anda tampil alamat email Anda sendiri.', butir: ['Pada Jalankan sebagai pilih Saya (akun Anda).', 'Pada Yang memiliki akses pilih Siapa saja.', 'Klik Terapkan.'], gambar: [{ f: 'p06_1', alt: 'Pengaturan Jalankan sebagai Saya dan akses Siapa saja' }] },
+  { judul: 'Peringatan Google: klik Lanjutan', pengantar: 'Layar ini muncul setelah Anda mengklik Izinkan akses pada kotak Deployment baru. Google menampilkan "Google belum memverifikasi aplikasi ini". Ini wajar karena ERP berjalan di akun Anda sendiri, bukan di server kami.', butir: ['Klik Lanjutan (Advanced).'], gambar: [{ f: 'p07_1', alt: 'Layar Google belum memverifikasi aplikasi, tombol Lanjutan' }] },
+  { judul: 'Buka aplikasi (tidak aman)', butir: ['Klik tulisan Buka ... (tidak aman) / Go to ... (unsafe) di bagian bawah.'], gambar: [{ f: 'p08_1', alt: 'Tautan Buka aplikasi tidak aman di bagian bawah' }] },
+  { judul: 'Pilih semua izin', pengantar: 'Kalau setelah ini muncul halaman 404, tenang saja: izin Anda sudah tersimpan. Ulangi Terapkan, lalu Deployment baru sekali lagi.', butir: ['Centang Pilih semua (Select all).', 'Gulir ke bawah lalu klik Lanjutkan (Continue).'], gambar: [{ f: 'p09_1', alt: 'Centang Pilih semua lalu klik Lanjutkan' }] },
+  { judul: 'Salin alamat aplikasi (berakhiran /exec)', pengantar: 'Setelah berhasil, alamat web aplikasi tampil di kolom URL.', butir: ['Salin alamat itu dan simpan. Inilah alamat ERP Anda.'], gambar: [{ f: 'p10_1', alt: 'Alamat web aplikasi berakhiran /exec' }] },
+  { judul: 'Setup awal: isi data usaha', pengantar: 'Buka alamat /exec di browser terlebih dulu. Database dibuat di Google Drive Anda; tunggu sekitar 1 menit. Password dibuat dan diketik sendiri oleh Anda; kami tidak pernah memintanya.', butir: ['Isi Nama Bisnis.', 'Isi Nama Anda (Owner).', 'Buat Username Anda sendiri.', 'Buat Password Anda sendiri (minimal 4 karakter).', 'Klik Siapkan & Lanjutkan.'], gambar: [{ f: 'p11_1', alt: 'Formulir setup awal: nama bisnis, nama owner, username, password' }] },
+  { judul: 'Data tersimpan di Google Drive Anda sendiri', pengantar: 'Data usaha Anda tidak disimpan di server kami. Semuanya ada di akun Google Anda sendiri.', butir: ['Setelah Siapkan & Lanjutkan, ERP membuat folder dan database di Google Drive Anda.', 'Anda bisa melihat dan mencadangkan filenya kapan saja lewat drive.google.com.'], gambar: [{ f: 'p12_1', alt: 'Folder ERP di Google Drive milik Anda' }] },
+  { judul: 'Pilih Mulai Trial 3 Hari', pengantar: 'Selama 3 hari semua fitur terbuka. Kalau Anda sudah punya kode lisensi, lompat ke Bagian B.', butir: ['Klik Mulai Trial 3 Hari.'], gambar: [{ f: 'p12_2', alt: 'Pilihan Mulai Trial 3 Hari' }] },
+  { judul: 'Isi data trial', pengantar: 'Nama PIC dan nama bisnis terisi otomatis dari langkah sebelumnya.', butir: ['Isi Email Anda.', 'Isi No. HP / WhatsApp.', 'Pilih Bidang Usaha.', 'Klik Mulai Trial Gratis.'], gambar: [{ f: 'p13_1', alt: 'Formulir data trial: email, nomor HP, bidang usaha' }] },
+  { judul: 'Masuk ke aplikasi', pengantar: 'Username sudah terisi otomatis.', butir: ['Ketik Password Anda.', 'Klik Masuk ke Dashboard.'], gambar: [{ f: 'p14_1', alt: 'Layar masuk dengan username terisi dan kolom password' }] },
+  { judul: 'Siapkan semua modul (sekali saja)', pengantar: 'Jangan menutup halaman sebelum selesai. Setelah ini Anda boleh membuka Pengaturan dan modul lainnya.', butir: ['Di Dashboard klik Siapkan Sekarang.', 'Tunggu sampai kartu itu hilang dan muncul "Semua database siap". Biasanya 1 sampai 3 menit.'], gambar: [{ f: 'p15_1', alt: 'Kartu Siapkan Sekarang di Dashboard' }] },
+];
+
+const bagianB: Langkah[] = [
+  { judul: 'Buka ERP dan masuk', butir: ['Buka alamat ERP Anda, isi Username.', 'Isi Password.', 'Klik Masuk.'], gambar: [{ f: 'p16_1', alt: 'Layar masuk ERP' }] },
+  { judul: 'Klik "Aktifkan lisensi penuh"', pengantar: 'Kode lisensi dikirim ke email yang Anda isi saat membeli, biasanya dalam 1 menit.', butir: ['Klik tulisan Aktifkan lisensi penuh di bagian atas halaman.'], gambar: [{ f: 'p17_1', alt: 'Tulisan Aktifkan lisensi penuh di bagian atas halaman' }] },
+  { judul: 'Tempel kode lisensi', pengantar: 'Kode pada gambar diburamkan. Huruf besar atau kecil dan spasi di pinggir tidak masalah. Satu kode hanya untuk satu database.', butir: ['Tempel kode lisensi Anda di kolom (format ERP-XXXXX-XXXXX-XXXXX-XX).', 'Klik Aktifkan.'], gambar: [{ f: 'p18_1', alt: 'Kotak Aktivasi Lisensi: tempel kode lalu Aktifkan' }] },
+  { judul: 'Buka Pengaturan', pengantar: 'Setelah muncul pesan "berhasil diaktifkan", klik Pengaturan di menu kiri.', butir: ['Klik Pengaturan di menu kiri.'], gambar: [{ f: 'p19_1', alt: 'Menu Pengaturan di sisi kiri' }] },
+  { judul: 'Pastikan paket aktif', pengantar: 'Naik dari Standar ke Pro? Tempel kode Pro yang baru di kolom "Aktifkan / Ganti Lisensi" pada tab yang sama. Tidak perlu memasang ulang.', butir: ['Buka tab Lisensi.', 'Klik Refresh Status. Paket Anda tampil sebagai STANDARD atau PRO.'], gambar: [{ f: 'p20_1', alt: 'Tab Lisensi dengan tombol Refresh Status' }] },
+];
+
+const tanya = [
+  { q: 'Muncul "Google belum memverifikasi aplikasi ini". Aman?', a: 'Aman. ERP Studio berjalan di akun Google Anda sendiri, bukan di server kami, sehingga Google belum "mengenal" aplikasinya. Data Anda tetap di Google Drive Anda.' },
+  { q: 'Setelah memberi izin muncul halaman 404.', a: 'Izin Anda sudah tersimpan. Ulangi Terapkan, lalu Deployment baru sekali lagi, lalu salin alamat yang berakhiran /exec.' },
+  { q: 'Tampilan Google saya berbahasa Inggris.', a: 'Nama menu mengikuti bahasa akun: Terapkan = Deploy, Deployment baru = New deployment, Saya = Me, Siapa saja = Anyone, Lanjutan = Advanced, Buat salinan = Make a copy.' },
+  { q: 'Tab Lisensi atau tab Pengaturan lain tidak terlihat.', a: 'Selesaikan dulu Siapkan Sekarang di Dashboard (langkah A15), lalu muat ulang halaman (F5) dan masuk lagi. Tab akan muncul setelah itu.' },
+  { q: 'Bisakah satu kode dipakai di dua database?', a: 'Tidak. Satu kode terikat ke satu database. Bila berganti akun Google atau database, hubungi kami lewat WhatsApp.' },
+  { q: 'Ada versi baru ERP. Bagaimana memperbaruinya?', a: 'Buat salinan dari tautan terbaru dan terapkan seperti Bagian A. Di setup awal pilih Sambungkan database lama (artinya memakai kembali data usaha yang sudah ada, jangan membuat bisnis baru), lalu di Pengaturan klik Lengkapi Data Bawaan. Data dan lisensi lama tetap utuh.' },
+  { q: 'Kode lisensi belum masuk ke email.', a: 'Biasanya tiba dalam 1 menit. Cek folder Spam atau Promosi. Kalau setelah 10 menit belum ada, hubungi kami lewat WhatsApp dan sebutkan email yang Anda pakai saat membeli.' },
 ];
 ---
 
@@ -47,8 +62,8 @@ const langkah = [
       <span class="eyebrow terang">Panduan mulai</span>
       <h1>Dari tautan sampai ERP Studio berjalan di Google Drive Anda</h1>
       <p>
-        Enam langkah, sekitar setengah jam untuk pertama kali. Ikuti tulisan di bawah ini, dan
-        kalau bingung, kami bantu lewat WhatsApp.
+        Lima belas langkah bergambar untuk memasang dan mencoba, lalu lima langkah untuk memasukkan kode lisensi.
+        Sekitar setengah jam untuk pertama kali. Kalau bingung, kami bantu lewat WhatsApp.
       </p>
       <p class="tombol-tengah">
         <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="mulai-gratis">Coba Gratis 3 Hari</a>
@@ -56,22 +71,62 @@ const langkah = [
     </div>
   </section>
 
-  <section>
+  <section class="bantuan-cepat">
     <div class="wrap-narrow">
+      <div class="kartu-bantu card">
+        <h2>Lebih mudah dengan video</h2>
+        <p>Setiap bagian punya video panduannya. Tonton sambil mengikuti langkah di bawah.</p>
+        <div class="tautan-video">
+          <a class="btn btn-primary" href={VIDEO_A} target="_blank" rel="noopener" data-sumber="mulai-video-a">&#9654; Video Bagian A: memasang ERP</a>
+          <a class="btn btn-ghost" href={VIDEO_B} target="_blank" rel="noopener" data-sumber="mulai-video-b">&#9654; Video Bagian B: memasukkan kode</a>
+          <a class="btn btn-ghost" href={PDF} target="_blank" rel="noopener" data-sumber="mulai-pdf">Panduan PDF</a>
+        </div>
+        <p class="lompat">Lompat ke: <a href="#bagian-a">A. Memasang ERP (15 langkah)</a> · <a href="#bagian-b">B. Memasukkan kode lisensi (5 langkah)</a> · <a href="#tanya">Pertanyaan umum</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="bagian-a">
+    <div class="wrap-narrow">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Bagian A</span>
+        <h2>Memasang ERP dan memulai trial 3 hari</h2>
+        <p>Peringatan dari Google di langkah 6 sampai 8 itu wajar, penjelasannya ada <a href="#peringatan">di bawah</a>.</p>
+      </div>
       <ol class="langkah">
-        {
-          langkah.map((l, i) => (
-            <li class="card reveal" style={`--reveal-delay:${i * 50}ms`}>
-              <h2>{l.judul}</h2>
-              <p>{l.isi}</p>
-            </li>
-          ))
-        }
+        {bagianA.map((l, i) => (
+          <li class="card">
+            <h3><span class="no">{i + 1}</span>{l.judul}</h3>
+            {l.pengantar && <p>{l.pengantar}</p>}
+            <ol class="butir">{l.butir.map((b) => <li>{b}</li>)}</ol>
+            {l.gambar.map((g) => <img src={`/assets/mulai/${g.f}.webp`} alt={g.alt} loading="lazy" decoding="async" />)}
+          </li>
+        ))}
       </ol>
     </div>
   </section>
 
-  <section class="tinted">
+  <section id="bagian-b" class="tinted">
+    <div class="wrap-narrow">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Bagian B</span>
+        <h2>Mengaktifkan kode lisensi Standar atau Pro</h2>
+        <p>Sudah punya kode dari email? Mulai dari sini. Video: <a href={VIDEO_B} target="_blank" rel="noopener">cara memasukkan kode</a>.</p>
+      </div>
+      <ol class="langkah">
+        {bagianB.map((l, i) => (
+          <li class="card">
+            <h3><span class="no">{i + 1}</span>{l.judul}</h3>
+            {l.pengantar && <p>{l.pengantar}</p>}
+            <ol class="butir">{l.butir.map((b) => <li>{b}</li>)}</ol>
+            {l.gambar.map((g) => <img src={`/assets/mulai/${g.f}.webp`} alt={g.alt} loading="lazy" decoding="async" />)}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="peringatan">
     <div class="wrap-narrow">
       <div class="peringatan card reveal">
         <span class="eyebrow">Sebelum Anda sampai di sana</span>
@@ -91,6 +146,18 @@ const langkah = [
           baru sekali lagi. Bingung di langkah mana pun? Kirim pesan kepada kami lewat WhatsApp.
         </p>
       </div>
+    </div>
+  </section>
+
+  <section id="tanya" class="tinted">
+    <div class="wrap-narrow">
+      <div class="sec-head reveal"><span class="eyebrow">Bagian C</span><h2>Pertanyaan yang sering muncul</h2></div>
+      {tanya.map((t) => (
+        <details class="card tanya">
+          <summary>{t.q}</summary>
+          <p>{t.a}</p>
+        </details>
+      ))}
     </div>
   </section>
 
@@ -123,46 +190,25 @@ const langkah = [
     color: #8ef0ab;
   }
 
-  .langkah {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 16px;
-    counter-reset: langkah;
-  }
-
-  .langkah li {
-    counter-increment: langkah;
-    position: relative;
-    padding-left: 64px;
-  }
-
-  .langkah li::before {
-    content: counter(langkah);
-    position: absolute;
-    left: 20px;
-    top: 22px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--heading);
-    color: #fff;
-    font-weight: 600;
-    font-size: 14px;
-    display: grid;
-    place-items: center;
-  }
-
-  .langkah h2 {
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-
-  .langkah p {
-    margin-bottom: 0;
-    font-size: 15.5px;
-  }
+  .langkah { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  .langkah > li { padding: 20px 22px; }
+  .langkah h3 { font-size: 18px; margin: 0 0 8px; display: flex; gap: 12px; align-items: center; }
+  .no { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--heading); color: #fff; font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  .langkah p { margin: 0 0 8px; font-size: 15.5px; }
+  .butir { margin: 0 0 12px; padding-left: 22px; font-size: 15.5px; }
+  .butir li { margin-bottom: 4px; }
+  .langkah img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid #dfe7e3; margin-top: 6px; }
+  .kartu-bantu { text-align: center; }
+  .kartu-bantu h2 { font-size: 20px; margin: 0 0 6px; }
+  .tautan-video { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 14px 0; }
+  .lompat { font-size: 14.5px; color: var(--text-muted); }
+  .bantuan-cepat { padding-bottom: 8px; }
+  .tanya { margin-bottom: 10px; padding: 14px 18px; }
+  .tanya summary { cursor: pointer; font-weight: 600; min-height: 32px; }
+  .tanya p { margin: 10px 0 0; font-size: 15.5px; }
+  :global(html) { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
+  @media (max-width: 480px) { .langkah > li { padding: 16px 14px; } .tautan-video .btn { width: 100%; } }
 
   .peringatan h2 {
     font-size: clamp(20px, 2.4vw, 25px);
