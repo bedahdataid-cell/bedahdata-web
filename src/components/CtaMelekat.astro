@@ -19,6 +19,23 @@ import { waLink } from '../config';
   >
 </div>
 
+<script>
+  // Sembunyikan tombol melekat saat kartu harga / tombol utama halaman sedang terlihat (audit UX 15 Nov 2026, T3):
+  // sebelumnya menutup ±73 px dan menggandakan tombol di kartu Free.
+  const bar = document.querySelector<HTMLElement>('.cta-melekat');
+  // Kartu paket (tinggi) dan tombol hero diamati terpisah dengan margin akar, bukan rasio tampil: kartu setinggi >1 layar
+  // tak pernah mencapai ambang rasio.
+  const target = document.querySelectorAll('.grid-harga .kartu, .grid-paket .paket, .kepala .btn, .tombol .btn');
+  if (bar && target.length && 'IntersectionObserver' in window) {
+    const kelihatan = new Set<Element>();
+    const io = new IntersectionObserver((daftar) => {
+      daftar.forEach((e) => (e.isIntersecting ? kelihatan.add(e.target) : kelihatan.delete(e.target)));
+      bar.classList.toggle('sembunyi', kelihatan.size > 0);
+    }, { rootMargin: '-20% 0px -20% 0px', threshold: 0 });
+    target.forEach((t) => io.observe(t));
+  }
+</script>
+
 <style>
   .cta-melekat {
     display: none;
@@ -55,6 +72,13 @@ import { waLink } from '../config';
       flex: 0 0 40% !important;
       border: 1.5px solid var(--heading);
       color: var(--heading);
+    }
+    .cta-melekat.sembunyi {
+      animation: none;
+      transform: translateY(110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s, opacity 0.2s;
     }
     :global(body) {
       padding-bottom: 72px;

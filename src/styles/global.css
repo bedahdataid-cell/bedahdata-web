@@ -756,3 +756,12 @@ mark.stabilo,
     display: inline;
   }
 }
+
+
+/* Target sentuh tautan footer & tautan sekunder di HP (audit UX 15 Nov 2026, S3): tinggi minimal 44 px */
+@media (max-width: 767px) {
+  .site-footer a,
+  footer a { display: inline-block; padding-block: 12px; }
+  .site-footer li,
+  footer li { margin: 0; }
+}

@@ -61,6 +61,7 @@ const schema = {
       <p class="tombol-tengah">
         <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="belajar-coba">Coba Gratis 3 Hari</a>
       </p>
+      <p class="prasyarat">Yang Anda butuhkan: akun Google (gratis) dan sekitar 30 menit untuk pemasangan pertama.</p>
     </div>
   </section>
 
@@ -150,6 +151,15 @@ const schema = {
         <a href={PLAYLIST_URL} target="_blank" rel="noopener">buka playlist di YouTube</a>.
       </p>
 
+      <aside class="lanjut-beli card">
+        <h2>Sudah mencoba dan cocok?</h2>
+        <p>
+          Pilih paket yang sesuai. Bayar sekali, data tetap di Google Drive Anda, dan harga promo akhir tahun
+          berlaku sampai 31 Desember 2026.
+        </p>
+        <a href="/harga/" class="btn btn-primary" data-sumber="belajar-lihat-paket">Lihat Paket dan Harga</a>
+      </aside>
+
       <BantuanMeet sumber="belajar-meet" />
     </div>
   </section>
@@ -211,6 +221,10 @@ const schema = {
   .kepala { padding: clamp(52px, 7vw, 82px) 0; text-align: center; }
   .kepala p { font-size: 17px; opacity: 0.93; margin-top: 16px; margin-bottom: 0; }
   .tombol-tengah { margin-top: 24px; }
+  .prasyarat { font-size: 14px !important; opacity: 0.85 !important; margin-top: 12px !important; }
+  .lanjut-beli { margin-top: 28px; padding: 22px 24px; text-align: center; }
+  .lanjut-beli h2 { font-size: 20px; margin: 0 0 8px; }
+  .lanjut-beli p { margin: 0 0 16px; color: var(--text-muted); }
 
   .pilih { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-bottom: 22px; }
   .pilih-hp { display: none; margin: 0 0 20px; }

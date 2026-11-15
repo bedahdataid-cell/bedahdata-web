@@ -14,7 +14,7 @@ interface Props {
 
 const { bahasa = 'id' } = Astro.props;
 const en = bahasa === 'en';
-const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi kami';
+const labelRekomendasi = en ? 'Most complete' : 'Paling lengkap';
 ---
 
 <div class="grid-harga">
@@ -35,6 +35,11 @@ const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi kami';
           {en && 'hargaEn' in paket ? paket.hargaEn : <HargaPaket paket={paket} en={en} />}
           <small>{en ? paket.satuanEn : paket.satuan}</small>
         </p>
+        {'hargaNormal' in paket && (
+          <p class="normal-nanti" data-promo-info>
+            {en ? `Regular price ${paket.hargaNormal} from ${PROMO.mulaiNormalEn}` : `Harga normal ${paket.hargaNormal} mulai ${PROMO.mulaiNormal}`}
+          </p>
+        )}
         <p class="untuk">{en ? paket.untukEn : paket.untuk}</p>
         <ul class="checklist">
           {(en ? paket.fiturEn : paket.fitur).map((f) => (
@@ -125,6 +130,7 @@ const labelRekomendasi = en ? 'Our Recommendation' : 'Rekomendasi kami';
     margin-bottom: 8px;
   }
 
+  .normal-nanti { margin: -2px 0 10px; font-size: 13px; color: var(--text-muted); }
   .lencana-promo {
     display: inline-block;
     background: #fff3e0;

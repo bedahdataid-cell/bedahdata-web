@@ -44,6 +44,9 @@ const schema = {
         {jumlah} video singkat, urut dari pemasangan sampai pengelolaan tim. Cari topik yang Anda
         butuhkan, klik gambarnya, dan <mark class="stabilo">video langsung diputar di sini</mark>.
       </p>
+      <p class="tombol-tengah">
+        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="tutorial-hero-gratis">Coba Gratis 3 Hari</a>
+      </p>
       <a class="tautan-playlist" href={PLAYLIST_URL} target="_blank" rel="noopener">
         Buka semua di YouTube
         <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -186,6 +189,7 @@ const schema = {
     margin-top: 16px;
     margin-bottom: 0;
   }
+  .tombol-tengah { margin: 22px 0 0; }
   .tautan-playlist {
     display: inline-flex;
     align-items: center;
@@ -243,6 +247,17 @@ const schema = {
     flex-wrap: wrap;
     gap: 9px;
     justify-content: center;
+  }
+  @media (max-width: 640px) {
+    .pil {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+    }
+    .pil-btn { flex: none; white-space: nowrap; min-height: 44px; scroll-snap-align: start; }
   }
   .pil-btn {
     background: var(--bg);

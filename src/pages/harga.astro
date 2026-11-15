@@ -71,6 +71,9 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
         sendiri, jadi kami tidak menyewa server untuk menyimpan data Anda. Perawatan tahun pertama
         gratis, dan aplikasi tetap berjalan walau perawatannya tidak diperpanjang.
       </p>
+      <p class="tombol-tengah">
+        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="harga-hero-gratis">Coba Gratis 3 Hari</a>
+      </p>
     </div>
   </section>
 
@@ -192,6 +195,10 @@ const schema = faqSchema(faqHarga, `${SITE.url}/harga#faq`);
 </Layout>
 
 <style>
+  @media (max-width: 480px) {
+    .kepala { padding: 34px 0 !important; }
+    .kepala p { font-size: 16px; margin-top: 12px; }
+  }
   .kepala {
     padding: clamp(52px, 7vw, 82px) 0;
     text-align: center;

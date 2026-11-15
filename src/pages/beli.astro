@@ -29,9 +29,9 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
 <Layout title={title} description={description} adaTerjemahan={false}>
   <section class="dark-panel kepala">
     <div class="wrap-narrow">
-      <span class="eyebrow terang">Pembelian</span>
-      <h1>Pilih paket, lalu lanjut ke pembayaran</h1>
-      <p>
+      <span class="eyebrow terang" id="eyebrow-beli">Pembelian</span>
+      <h1 id="judul-beli">Pilih paket, lalu lanjut ke pembayaran</h1>
+      <p id="sub-beli">
         Bayar sekali, bukan langganan. Semua data tersimpan di Google Drive usaha Anda sendiri.
         Belum yakin? Mulai dari paket Free. Tiga hari cukup untuk merasakannya.
       </p>
@@ -44,7 +44,7 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
         {
           PAKET.map((p) => (
             <article class={`card paket reveal ${p.populer ? 'populer' : ''}`} data-paket={p.kunci}>
-              {p.populer && <span class="badge">Rekomendasi kami</span>}
+              {p.populer && <span class="badge">Paling lengkap</span>}
               <h2>{p.nama}</h2>
               {'hargaNormal' in p && (
                 <p class="lencana-promo" data-promo-info>{PROMO.label} · sampai {PROMO.tampil}</p>
@@ -73,7 +73,9 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
                     : `Pesan ${p.nama} lewat WhatsApp`}
               </a>
               <p class="via">
-                {lewatLynk(p.kunci)
+                {p.kunci === 'gratis'
+                  ? 'Gratis, tidak ada pembayaran. Lynk.id hanya meminta data Anda untuk mengirimkan tautan ERP Studio.'
+                  : lewatLynk(p.kunci)
                   ? 'Pembayaran diproses di Lynk.id, lalu Anda kembali ke langkah berikutnya.'
                   : 'Pembayaran lewat Lynk.id segera dibuka. Untuk sementara, kami layani lewat WhatsApp.'}
               </p>
@@ -157,6 +159,23 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
   // Sorot kartu paket yang dipilih dari tombol asal (?paket=standar) dan gulir ke sana.
   const k = new URLSearchParams(location.search).get('paket');
   const kartu = k && document.querySelector<HTMLElement>(`.paket[data-paket="${k}"]`);
+  // 🟢 UX (audit 15 Nov 2026, K1): orang yang menekan "Coba Gratis" harus melihat tombol Free sebagai ajakan utama,
+  // bukan tombol Pro. Judul & tombol menyesuaikan parameter ?paket=gratis.
+  if (k === 'gratis') {
+    const h1 = document.getElementById('judul-beli');
+    const sub = document.getElementById('sub-beli');
+    if (h1) h1.textContent = 'Mulai coba gratis 3 hari';
+    const eb = document.getElementById('eyebrow-beli');
+    if (eb) eb.textContent = 'Coba gratis';
+    if (sub) sub.textContent = 'Semua fitur terbuka selama 3 hari, tanpa kewajiban membeli. Data tetap utuh kalau Anda lanjut ke Standar atau Pro.';
+    document.querySelectorAll<HTMLElement>('.paket').forEach((p) => {
+      const tombol = p.querySelector<HTMLElement>('a.btn');
+      if (!tombol) return;
+      const gratis = p.dataset.paket === 'gratis';
+      tombol.classList.toggle('btn-primary', gratis);
+      tombol.classList.toggle('btn-ghost', !gratis);
+    });
+  }
   if (kartu) {
     kartu.classList.add('dipilih');
     const kurangiGerak = matchMedia('(prefers-reduced-motion: reduce)').matches;

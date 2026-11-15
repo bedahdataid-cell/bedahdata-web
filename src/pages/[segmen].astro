@@ -152,6 +152,11 @@ const schema = [
           Mulai tahun kedua, perpanjangan perawatan bersifat pilihan dengan biaya {PERSEN_PERAWATAN}% dari harga paket per tahun (Standar {biayaPerawatan(_std)}, Pro {biayaPerawatan(_pro)}). Aplikasi tetap berjalan walau perawatan tidak diperpanjang.
         </p>
       </div>
+      <p class="catatan-paket reveal">
+        <strong>Paket mana?</strong> Penjualan, stok, dan keuangan ada di <strong>Standar</strong>. Komisi karyawan, HRD,
+        produksi, dan pengelolaan pelanggan ada di <strong>Pro</strong>. Coba gratis 3 hari membuka <em>semua</em> fitur,
+        jadi cobalah dulu sebelum memilih.
+      </p>
       <Harga />
       <p class="lanjut reveal">
         <a href="/harga/">Lihat rincian paket dan layanan pendampingan</a>
@@ -250,6 +255,23 @@ const schema = [
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+  }
+
+  .catatan-paket {
+    max-width: 720px;
+    margin: 0 auto 22px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  /* Android kecil: tombol naik ke bawah judul (audit UX 15 Nov 2026, T1) */
+  @media (max-width: 480px) and (max-height: 760px) {
+    .kepala .wrap-narrow { display: flex; flex-direction: column; }
+    .kepala .remah { order: 0; }
+    .kepala h1 { order: 1; }
+    .kepala .tombol { order: 2; margin-top: 18px; }
+    .kepala .intro { order: 3; margin: 22px 0 0; font-size: 16px; }
   }
 
   @media (max-width: 480px) {
