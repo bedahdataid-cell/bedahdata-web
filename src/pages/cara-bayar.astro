@@ -1,0 +1,182 @@
+---
+// ============================================================================
+// CARA MEMBELI & MEMBAYAR LEWAT LYNK — langkah bergambar (tangkapan layar ASLI
+// dari pembelian sungguhan, 15 Nov 2026) + video. 🔴 Tanpa angka harga di gambar
+// (nominal ditutup) — harga hanya di /harga/ dan /beli/ supaya tak basi.
+// 🔴 Kode QR & kode lisensi pada gambar sudah diburamkan; tautan ERP di halaman
+// sukses Lynk ditutup (itu isi produk yang dibeli).
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import CtaAkhir from '../components/CtaAkhir.astro';
+
+const title = 'Cara Membeli dan Membayar ERP Studio Lewat Lynk | Bedah Data';
+const description =
+  'Langkah bergambar membeli ERP Studio di Lynk.id: pilih paket, isi data, pilih cara bayar (QRIS, e-wallet, transfer bank, minimarket, kartu), sampai kode lisensi masuk ke email Anda.';
+
+// Isi setelah video diunggah ke YouTube.
+const VIDEO_BELI = 'https://youtu.be/VIDEO_BELI_ID';
+const ADA_VIDEO = !VIDEO_BELI.includes('VIDEO_BELI_ID');
+const VIDEO_PASANG = 'https://youtu.be/q5JDshq4Gf0';
+const VIDEO_KODE = 'https://youtu.be/OpnmtzTc_0k';
+
+type Langkah = { judul: string; isi: string; butir?: string[]; gambar: string; alt: string };
+
+const langkah: Langkah[] = [
+  {
+    judul: 'Buka halaman toko kami di Lynk',
+    isi: 'Buka lynk.id/bedahdata_id. Di sana ada tiga produk: Coba Gratis 3 Hari, paket Standar, dan paket Pro. Klik paket yang Anda pilih.',
+    gambar: 'b1_toko',
+    alt: 'Halaman toko bedahdata_id di Lynk berisi produk Coba Gratis, paket Standar, dan paket Pro',
+  },
+  {
+    judul: 'Klik Buy Now di halaman produk',
+    isi: 'Halaman produk menjelaskan isi paketnya. Kalau sudah yakin, klik tombol Buy Now.',
+    gambar: 'b2_produk',
+    alt: 'Halaman produk paket Standar dengan tombol Buy Now',
+  },
+  {
+    judul: 'Isi data pembeli',
+    isi: 'Isi email, nama, dan nomor telepon.',
+    butir: ['Pakai email yang aktif dan bisa Anda buka. Kode lisensi dikirim ke email ini.', 'Nomor telepon cukup angkanya setelah +62 (tanpa angka 0 di depan).'],
+    gambar: 'b3_checkout',
+    alt: 'Halaman checkout Lynk dengan kolom email, nama, dan nomor telepon',
+  },
+  {
+    judul: 'Pilih cara bayar',
+    isi: 'Klik Select payment method. Pilihannya:',
+    butir: ['Instant Payment: QRIS, ShopeePay, OVO, DANA.', 'Virtual Account: BCA, Permata, BRI, BSI, CIMB Niaga, BNI, Mandiri, Maybank.', 'Others: ATM Bersama dan minimarket (Alfamart).', 'Kartu kredit: Mastercard dan Visa.'],
+    gambar: 'b4_metode',
+    alt: 'Daftar cara bayar: QRIS dan e-wallet, virtual account bank, minimarket, kartu kredit',
+  },
+  {
+    judul: 'Centang persetujuan, lalu klik Buy Now',
+    isi: 'Setelah memilih cara bayar dan menekan Confirm Method, centang syarat penggunaan, lalu klik Buy Now.',
+    butir: ['Sebagian cara bayar menambah biaya layanan kecil. Total yang harus dibayar tampil di tombol Buy Now.'],
+    gambar: 'b5_siap',
+    alt: 'Checkout dengan metode QRIS terpilih dan kotak persetujuan dicentang',
+  },
+  {
+    judul: 'Bayar',
+    isi: 'Halaman pembayaran muncul. Untuk QRIS, scan kode QR memakai aplikasi e-wallet atau mobile banking Anda. Untuk virtual account atau minimarket, ikuti nomor dan petunjuk yang tampil.',
+    butir: ['Selesaikan pembayaran dalam batas waktu yang tampil (sekitar 10 menit untuk QRIS).', 'Sudah bayar tapi halaman belum berubah? Klik Check Transaction di bagian bawah, atau muat ulang halaman.'],
+    gambar: 'b6_bayar',
+    alt: 'Halaman pembayaran QRIS dengan kode QR dan tombol Check Transaction',
+  },
+  {
+    judul: 'Halaman "Your purchase was successful"',
+    isi: 'Kalau pembayaran berhasil, Lynk menampilkan halaman ini dan mengirim struk ke email Anda. Di halaman ini juga ada tautan video panduan dan grup WhatsApp pengguna.',
+    gambar: 'b7_sukses',
+    alt: 'Halaman Lynk bertuliskan Your purchase was successful berisi ringkasan pesanan',
+  },
+  {
+    judul: 'Cek email: kode lisensi sudah masuk',
+    isi: 'Dalam sekitar satu menit, email "Kode lisensi ERP Studio" tiba. Kodenya tampil besar di kotak hijau, tinggal dipilih dan disalin.',
+    butir: ['Tidak terlihat? Cek folder Spam atau Promosi.', 'Kode berawalan ERP, diikuti kelompok huruf dan angka. Satu kode untuk satu usaha.', 'Pada gambar ini kodenya sengaja diburamkan.'],
+    gambar: 'b8_email',
+    alt: 'Email Bedah Data berisi kode lisensi di kotak hijau dan tautan panduan',
+  },
+];
+
+const tanya = [
+  { q: 'Tampilan Lynk berbahasa Inggris. Normal?', a: 'Normal. Halaman checkout Lynk memang memakai istilah Inggris seperti Buy Now dan Select payment method. Di halaman pembayaran ada pilihan bahasa EN | ID di bagian atas.' },
+  { q: 'Cara bayar apa yang paling cepat?', a: 'QRIS dan e-wallet (ShopeePay, OVO, DANA) biasanya langsung terkonfirmasi. Virtual account dan minimarket juga otomatis, tapi butuh langkah tambahan di aplikasi bank atau di kasir.' },
+  { q: 'Kode lisensi belum masuk ke email.', a: 'Biasanya tiba dalam sekitar 1 menit. Cek folder Spam atau Promosi. Kalau setelah 10 menit belum ada, hubungi kami lewat WhatsApp dan sebutkan email yang Anda pakai saat membeli.' },
+  { q: 'Saya salah mengisi email.', a: 'Hubungi kami lewat WhatsApp sebelum 10 menit berlalu atau setelah pembayaran, sebutkan email yang benar, dan kami kirim kodenya ke sana.' },
+  { q: 'Pembayaran saya kedaluwarsa atau gagal.', a: 'Ulangi dari langkah 1. Pesanan yang tidak dibayar tidak menagih apa pun dan tidak menghasilkan kode.' },
+  { q: 'Bisakah dikembalikan setelah dibeli?', a: 'Kode lisensi adalah produk digital yang langsung dapat dipakai, sehingga tidak ada pengembalian dana. Karena itu, coba dulu gratis 3 hari sebelum membeli.' },
+  { q: 'Setelah dapat kode, apa langkah berikutnya?', a: 'Pasang ERP Studio kalau belum, lalu masukkan kodenya. Semua langkah bergambar ada di halaman Panduan Mulai.' },
+];
+---
+
+<Layout title={title} description={description} adaTerjemahan={false}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Panduan pembayaran</span>
+      <h1>Cara membeli ERP Studio lewat Lynk</h1>
+      <p>
+        Delapan langkah bergambar dari memilih paket sampai kode lisensi masuk ke email Anda. Semua gambar
+        diambil dari pembelian sungguhan.
+      </p>
+      <p class="tombol-tengah">
+        {ADA_VIDEO && <a href={VIDEO_BELI} class="btn btn-primary" target="_blank" rel="noopener" data-sumber="carabayar-video">&#9654; Tonton videonya (±3 menit)</a>}
+        <a href="/harga/" class="btn btn-onDark" data-sumber="carabayar-harga">Lihat paket dan harga</a>
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <ol class="langkah">
+        {langkah.map((l, i) => (
+          <li class="card">
+            <h2><span class="no">{i + 1}</span>{l.judul}</h2>
+            <p>{l.isi}</p>
+            {l.butir && <ul class="butir">{l.butir.map((b) => <li>{b}</li>)}</ul>}
+            <img src={`/assets/bayar/${l.gambar}.webp`} alt={l.alt} loading="lazy" decoding="async" />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="tinted">
+    <div class="wrap-narrow">
+      <div class="kartu-lanjut card">
+        <h2>Sudah punya kode? Lanjut ke pemasangan</h2>
+        <p>Pasang ERP Studio di Google Drive Anda, lalu masukkan kode lisensinya.</p>
+        <div class="tautan-baris">
+          <a class="btn btn-primary" href="/mulai/" data-sumber="carabayar-mulai">Panduan Mulai bergambar</a>
+          <a class="btn btn-ghost" href={VIDEO_PASANG} target="_blank" rel="noopener" data-sumber="carabayar-video-pasang">&#9654; Video pasang ERP</a>
+          <a class="btn btn-ghost" href={VIDEO_KODE} target="_blank" rel="noopener" data-sumber="carabayar-video-kode">&#9654; Video memasukkan kode</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="sec-head reveal"><span class="eyebrow">Pertanyaan umum</span><h2>Seputar membeli dan membayar</h2></div>
+      {tanya.map((t) => (
+        <details class="card tanya">
+          <summary>{t.q}</summary>
+          <p>{t.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <CtaAkhir
+    judul="Belum yakin? Coba dulu gratis"
+    teks="Masa coba 3 hari membuka semua fitur, tanpa kewajiban membeli. Ada kendala saat membeli? Tulis ke WhatsApp kami."
+    pesanWa="Halo Bedah Data, saya butuh bantuan saat membeli ERP Studio di Lynk"
+    tombolUtama="Tanya lewat WhatsApp"
+  />
+</Layout>
+
+<style>
+  .kepala { padding: clamp(52px, 7vw, 82px) 0; text-align: center; }
+  .kepala p { font-size: 17px; opacity: 0.93; margin-top: 16px; }
+  .eyebrow.terang { color: #8ef0ab; }
+  .tombol-tengah { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 22px; }
+
+  .langkah { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  .langkah > li { padding: 20px 22px; }
+  .langkah h2 { font-size: 18px; margin: 0 0 8px; display: flex; gap: 12px; align-items: center; }
+  .no { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--heading); color: #fff; font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+  .langkah p { margin: 0 0 8px; font-size: 15.5px; }
+  .butir { margin: 0 0 12px; padding-left: 22px; font-size: 15.5px; }
+  .butir li { margin-bottom: 4px; }
+  .langkah img { display: block; max-width: 100%; max-height: 640px; width: auto; height: auto; margin: 6px auto 0; border-radius: 10px; border: 1px solid #dfe7e3; }
+
+  .kartu-lanjut { text-align: center; }
+  .kartu-lanjut h2 { font-size: 20px; margin: 0 0 6px; }
+  .tautan-baris { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+  .tanya { margin-bottom: 10px; padding: 14px 18px; }
+  .tanya summary { cursor: pointer; font-weight: 600; min-height: 32px; }
+  .tanya p { margin: 10px 0 0; font-size: 15.5px; }
+
+  @media (max-width: 480px) {
+    .langkah > li { padding: 16px 14px; }
+    .tombol-tengah .btn, .tautan-baris .btn { width: 100%; }
+  }
+</style>
