@@ -5,6 +5,7 @@
 //    memverifikasi" wajib ada SEBELUM pembeli sampai di sana.
 // ============================================================================
 import Layout from '../layouts/Layout.astro';
+import BantuanMeet from '../components/BantuanMeet.astro';
 import CtaAkhir from '../components/CtaAkhir.astro';
 import { tautanBeli } from '../config';
 
@@ -99,6 +100,11 @@ const langkah = [
     pesanWa="Halo Bedah Data, saya mau mulai coba ERP Studio dan butuh bantuan"
     tombolUtama="Tanya lewat WhatsApp"
   />
+  <section>
+    <div class="wrap-narrow">
+      <BantuanMeet sumber="meet-halaman" />
+    </div>
+  </section>
 </Layout>
 
 <style>

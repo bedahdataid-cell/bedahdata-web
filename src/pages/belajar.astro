@@ -1,0 +1,217 @@
+---
+// ============================================================================
+// JALUR BELAJAR /belajar/ — urutan menonton tutorial agar pembeli/peserta coba bisa jalan SENDIRI.
+// Keputusan owner 15 Nov 2026: funnel pembelian mandiri (tanpa kunjungan); bantuan terakhir = Google Meet.
+// Data jalur: src/data/jalur.ts · video: src/data/tutorial.ts (dicocokkan lewat nomor `no`).
+// 🔴 Tanpa janji hasil usaha, tanpa testimoni. Tahap bertanda Pro memakai fitur paket Pro.
+// ============================================================================
+import Layout from '../layouts/Layout.astro';
+import BantuanMeet from '../components/BantuanMeet.astro';
+import { SITE } from '../config';
+import { VIDEO, PLAYLIST_URL } from '../data/tutorial';
+import { TAHAP_UMUM, JALUR_SEGMEN } from '../data/jalur';
+
+const title = 'Jalur Belajar ERP Studio: Urutan Menonton dari Nol | Bedah Data';
+const description =
+  'Belajar ERP Studio sendiri, selangkah demi selangkah: pasang, siapkan data, catat transaksi, baca laporan. Urutan video disesuaikan jenis usaha Anda.';
+
+const cariVideo = (no: string) => {
+  const v = VIDEO.find((x) => x.no === no);
+  if (!v) throw new Error(`jalur.ts: video ${no} belum ada di tutorial.ts`);
+  return v;
+};
+const tonton = (id: string) => `https://www.youtube.com/watch?v=${id}`;
+const gambar = (id: string) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+const tahapIsi = (t: (typeof TAHAP_UMUM)[number]) => ({ ...t, isi: t.video.map(cariVideo) });
+
+// Jalur umum + tahap khas tiap segmen (disisipkan sesudah "Catat transaksi harian")
+const idxSisip = TAHAP_UMUM.findIndex((t) => t.id === 'transaksi') + 1;
+const jalur = [
+  { slug: 'umum', nama: 'Semua usaha', tahap: TAHAP_UMUM.map(tahapIsi) },
+  ...JALUR_SEGMEN.map((s) => {
+    const urut = [...TAHAP_UMUM];
+    urut.splice(idxSisip, 0, s.tahap);
+    return { slug: s.slug, nama: s.nama, tahap: urut.map(tahapIsi) };
+  }),
+];
+
+const schema = {
+  '@type': 'CollectionPage',
+  '@id': `${SITE.url}/belajar#halaman`,
+  name: 'Jalur Belajar ERP Studio',
+  description,
+  url: `${SITE.url}/belajar/`,
+  isPartOf: { '@id': `${SITE.url}/#website` },
+};
+---
+
+<Layout title={title} description={description} schema={schema} adaTerjemahan={false}>
+  <section class="dark-panel kepala">
+    <div class="wrap-narrow">
+      <span class="eyebrow terang">Jalur belajar</span>
+      <h1>Belajar sendiri, urut, dan tanpa pusing</h1>
+      <p>
+        Tonton sesuai urutan di bawah, centang yang sudah selesai, dan lanjut sesuai kecepatan Anda.
+        Pilih jenis usaha Anda supaya ada tahap khas yang cocok.
+      </p>
+      <p class="tombol-tengah">
+        <a href="/beli/?paket=gratis" class="btn btn-primary" data-sumber="belajar-coba">Coba Gratis 3 Hari</a>
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-narrow">
+      <div class="pilih" role="group" aria-label="Jenis usaha">
+        {jalur.map((j, i) => (
+          <button type="button" class={`pil-btn ${i === 0 ? 'aktif' : ''}`} data-jalur={j.slug} aria-pressed={i === 0 ? 'true' : 'false'}>{j.nama}</button>
+        ))}
+      </div>
+
+      <div class="progres" aria-live="polite">
+        <div class="bar"><span id="isi-progres"></span></div>
+        <p id="teks-progres"></p>
+      </div>
+
+      {jalur.map((j, i) => (
+        <ol class="tahap-daftar" data-daftar={j.slug} hidden={i !== 0}>
+          {j.tahap.map((t, n) => (
+            <li class="tahap card" data-kunci={`${j.slug}:${t.id}`}>
+              <div class="tahap-kepala">
+                <label class="centang">
+                  <input type="checkbox" aria-label={`Tandai selesai: ${t.judul}`} />
+                  <span class="nomor">{n + 1}</span>
+                </label>
+                <div>
+                  <h2>{t.judul} {t.pro && <span class="lencana-pro">Pro</span>}</h2>
+                  <p class="waktu">{t.waktu}</p>
+                  <p class="tujuan">{t.tujuan}</p>
+                </div>
+              </div>
+              <ul class="video-daftar">
+                {t.isi.map((v) => (
+                  <li>
+                    <a href={tonton(v.id)} target="_blank" rel="noopener">
+                      <img src={gambar(v.id)} alt="" width="160" height="90" loading="lazy" decoding="async" />
+                      <span class="info">
+                        <span class="no">{v.no}</span>
+                        <strong>{v.judul}</strong>
+                        <span class="durasi">{v.durasi}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      ))}
+
+      <p class="semua">
+        Mau mencari topik tertentu? <a href="/tutorial/">Lihat semua video tutorial</a> atau
+        <a href={PLAYLIST_URL} target="_blank" rel="noopener">buka playlist di YouTube</a>.
+      </p>
+
+      <BantuanMeet sumber="belajar-meet" />
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Pilih jenis usaha + centang progres, disimpan di peramban (tanpa akun, tanpa server).
+  const KUNCI = 'bd_jalur_belajar_v1';
+  let simpan: { jalur?: string; selesai?: Record<string, boolean> } = {};
+  try { simpan = JSON.parse(localStorage.getItem(KUNCI) || '{}'); } catch { simpan = {}; }
+  simpan.selesai = simpan.selesai || {};
+  const tulis = () => { try { localStorage.setItem(KUNCI, JSON.stringify(simpan)); } catch { /* peramban memblokir: abaikan */ } };
+
+  const tombol = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-jalur]'));
+  const daftar = Array.from(document.querySelectorAll<HTMLElement>('[data-daftar]'));
+  const isi = document.getElementById('isi-progres') as HTMLElement;
+  const teks = document.getElementById('teks-progres') as HTMLElement;
+
+  function hitung() {
+    const aktif = daftar.find((d) => !d.hidden);
+    if (!aktif) return;
+    const kotak = Array.from(aktif.querySelectorAll<HTMLInputElement>('input[type=checkbox]'));
+    const beres = kotak.filter((k) => k.checked).length;
+    const persen = kotak.length ? Math.round((beres / kotak.length) * 100) : 0;
+    isi.style.width = persen + '%';
+    teks.textContent = beres === kotak.length && kotak.length
+      ? 'Semua tahap selesai. Selamat, Anda sudah menguasai alurnya.'
+      : `${beres} dari ${kotak.length} tahap selesai`;
+  }
+  function tampil(slug: string) {
+    daftar.forEach((d) => { d.hidden = d.dataset.daftar !== slug; });
+    tombol.forEach((b) => { const a = b.dataset.jalur === slug; b.classList.toggle('aktif', a); b.setAttribute('aria-pressed', String(a)); });
+    document.querySelectorAll<HTMLElement>(`[data-daftar="${slug}"] .tahap`).forEach((li) => {
+      const k = li.querySelector<HTMLInputElement>('input[type=checkbox]')!;
+      k.checked = !!simpan.selesai![li.dataset.kunci || ''];
+      li.classList.toggle('selesai', k.checked);
+    });
+    hitung();
+  }
+  tombol.forEach((b) => b.addEventListener('click', () => { simpan.jalur = b.dataset.jalur; tulis(); tampil(b.dataset.jalur!); }));
+  document.querySelectorAll<HTMLInputElement>('.tahap input[type=checkbox]').forEach((k) => {
+    k.addEventListener('change', () => {
+      const li = k.closest('.tahap') as HTMLElement;
+      simpan.selesai![li.dataset.kunci || ''] = k.checked;
+      li.classList.toggle('selesai', k.checked);
+      tulis(); hitung();
+    });
+  });
+  const awal = new URLSearchParams(location.search).get('usaha') || simpan.jalur || 'umum';
+  tampil(tombol.some((b) => b.dataset.jalur === awal) ? awal : 'umum');
+</script>
+
+<style>
+  .kepala { padding: clamp(52px, 7vw, 82px) 0; text-align: center; }
+  .kepala p { font-size: 17px; opacity: 0.93; margin-top: 16px; margin-bottom: 0; }
+  .tombol-tengah { margin-top: 24px; }
+
+  .pilih { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; margin-bottom: 22px; }
+  .pil-btn {
+    font: inherit; font-size: 14.5px; padding: 9px 16px; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--border); background: #fff; color: var(--heading);
+  }
+  .pil-btn.aktif { background: var(--green-deep); border-color: var(--green-deep); color: #fff; }
+  .pil-btn:focus-visible { outline: 3px solid rgba(46, 204, 88, 0.35); }
+
+  .progres { margin: 0 0 22px; }
+  .bar { height: 10px; background: #e6efe9; border-radius: 99px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--green); transition: width 0.3s; }
+  #teks-progres { margin: 8px 0 0; font-size: 14px; color: var(--text-muted); text-align: center; }
+
+  .tahap-daftar { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  .tahap { padding: 22px 24px; }
+  .tahap.selesai { opacity: 0.62; }
+  .tahap-kepala { display: flex; gap: 16px; align-items: flex-start; }
+  .centang { position: relative; flex: none; cursor: pointer; }
+  .centang input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; margin: 0; }
+  .nomor {
+    display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+    border: 2px solid var(--green-deep); color: var(--green-deep); font-weight: 700;
+  }
+  .centang input:checked + .nomor { background: var(--green); border-color: var(--green); color: #fff; font-size: 0; }
+  .centang input:checked + .nomor::before { content: '✓'; font-size: 18px; }
+  .centang input:focus-visible + .nomor { outline: 3px solid rgba(46, 204, 88, 0.45); outline-offset: 2px; }
+  .tahap h2 { font-size: 19px; margin: 0; }
+  .lencana-pro { font-size: 11.5px; background: #e8eefc; color: #2c4a9a; border-radius: 99px; padding: 2px 9px; vertical-align: middle; font-weight: 600; }
+  .waktu { margin: 2px 0 0; font-size: 13px; color: var(--oranye-deep, #b4530a); font-weight: 600; }
+  .tujuan { margin: 6px 0 0; color: var(--text-muted); }
+
+  .video-daftar { list-style: none; padding: 0; margin: 16px 0 0 54px; display: grid; gap: 10px; }
+  .video-daftar a { display: flex; gap: 12px; align-items: center; text-decoration: none; color: inherit; border: 1px solid var(--border); border-radius: 12px; padding: 8px; background: #fff; }
+  .video-daftar a:hover { border-color: var(--green-deep); }
+  .video-daftar img { width: 120px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; flex: none; }
+  .info { display: grid; gap: 2px; font-size: 14.5px; }
+  .no { font-size: 12px; color: var(--text-muted); }
+  .durasi { font-size: 12.5px; color: var(--text-muted); }
+  .semua { text-align: center; margin: 24px 0 0; }
+
+  @media (max-width: 560px) {
+    .tahap { padding: 18px 16px; }
+    .video-daftar { margin-left: 0; }
+    .video-daftar img { width: 96px; }
+  }
+</style>

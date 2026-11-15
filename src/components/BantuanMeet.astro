@@ -1,0 +1,36 @@
+---
+// Kotak "masih mentok?" — jalur bantuan terakhir funnel mandiri: sesi Google Meet. Jadwal disepakati lewat
+// WhatsApp (belum ada sistem penjadwalan otomatis). Jangan menjanjikan kunjungan; jangan menyebut harga sesi.
+import { waLink } from '../config';
+interface Props { sumber?: string }
+const { sumber = 'bantuan-meet' } = Astro.props;
+const pesan = waLink('Halo Bedah Data, saya sudah mencoba mengikuti videonya sendiri tapi masih mentok di bagian: ____ . Bisa minta sesi Google Meet?');
+---
+
+<aside class="meet" aria-labelledby="meet-judul">
+  <div>
+    <h2 id="meet-judul">Sudah ikuti videonya tapi masih mentok?</h2>
+    <p>
+      Ceritakan di bagian mana Anda tersangkut. Kalau lewat tulisan belum cukup, kita bertemu sebentar
+      lewat <strong>Google Meet</strong> supaya bisa melihat layar Anda dan mengurainya bersama.
+    </p>
+  </div>
+  <a href={pesan} class="btn btn-primary" target="_blank" rel="noopener" data-sumber={sumber}>Minta sesi Google Meet</a>
+</aside>
+
+<style>
+  .meet {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 28px;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin: 40px 0 0;
+  }
+  .meet h2 { font-size: 20px; margin: 0 0 6px; }
+  .meet p { margin: 0; color: var(--text-muted); max-width: 640px; }
+</style>

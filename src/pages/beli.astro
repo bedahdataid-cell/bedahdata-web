@@ -6,6 +6,7 @@
 // 🔴 Tanpa hitung mundur, stok palsu, logo pembayaran tiruan, atau form kartu.
 // ============================================================================
 import Layout from '../layouts/Layout.astro';
+import BantuanMeet from '../components/BantuanMeet.astro';
 import { PAKET, LYNK, PROMO, tautanBeli, waLink } from '../config';
 import HargaPaket from '../components/HargaPaket.astro';
 import { PERSEN_PERAWATAN, biayaPerawatan } from '../config';
@@ -143,6 +144,11 @@ const waBantuan = waLink('Halo Bedah Data, saya mau tanya sebelum membeli ERP St
           <a href={waBantuan} target="_blank" rel="noopener" data-sumber="beli-tanya">Tanya lewat WhatsApp</a>.
         </p>
       </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap-narrow">
+      <BantuanMeet sumber="meet-halaman" />
     </div>
   </section>
 </Layout>

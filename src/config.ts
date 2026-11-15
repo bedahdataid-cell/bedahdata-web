@@ -89,6 +89,7 @@ export const NAV = [
     sub: [
       { kunci: 'navPanduanArtikel', href: '/panduan/', netral: false },
       { kunci: 'navTutorial', href: '/tutorial/', netral: true },
+      { kunci: 'navBelajar', href: '/belajar/', netral: true },
     ],
   },
   { kunci: 'navFaq', href: '/faq/' },
