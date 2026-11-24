@@ -1023,15 +1023,25 @@ function hitungThr(n: Record<string, number | string>): number {
 
 // 🔴 TARIF MARKETPLACE — WAJIB DIBERI TANGGAL & SUMBER (spek §4a).
 //    Angka ini BERUBAH. Tinjau ulang tiap 3 bulan; tarif basi = informasi salah.
-export const TARIF_DITINJAU = 'Agustus 2026';
+export const TARIF_DITINJAU = 'November 2026';
+// Sumber resmi yang dibaca 25 Nov 2026:
+//  - Shopee: seller.shopee.co.id/edu/article/3489 (Ringkasan Jenis Biaya, 03-11-2026),
+//    /7187 (Biaya Administrasi, 16-11-2026: Non-Star & Star TIDAK punya batas maksimum),
+//    /15965 (tarif per kategori, 16-11-2026). Proses pesanan Rp1.250/pesanan.
+//  - Tokopedia/TikTok Shop: seller-id.tokopedia.com/university/essay?knowledge_id=7753828090824449
+//    (Pengenalan Biaya Penjual, 02-11-2026): komisi platform 2,5%-12,2%, komisi dinamis
+//    3%-8% maks Rp60.000/barang, pemrosesan pesanan Rp1.250/pesanan.
 
 const KATEGORI_BIAYA = [
-  { nilai: '10', label: 'Fashion, FMCG & lifestyle (10%)' },
-  { nilai: '9.5', label: 'Elektronik & perlengkapan rumah (9,5%)' },
-  { nilai: '6.75', label: 'Hobi, olahraga & otomotif (6,75%)' },
-  { nilai: '5.25', label: 'Barang besar & khusus (5,25%)' },
-  { nilai: '4.25', label: 'Kategori tarif rendah (4,25%)' },
-  { nilai: '2.5', label: 'Kategori khusus (2,5%)' },
+  { nilai: '10', label: 'Tarif kategori 10%' },
+  { nilai: '9.5', label: 'Tarif kategori 9,5%' },
+  { nilai: '9', label: 'Tarif kategori 9%' },
+  { nilai: '8.25', label: 'Tarif kategori 8,25%' },
+  { nilai: '6.75', label: 'Tarif kategori 6,75%' },
+  { nilai: '6.5', label: 'Tarif kategori 6,5%' },
+  { nilai: '5.25', label: 'Tarif kategori 5,25%' },
+  { nilai: '4.25', label: 'Tarif kategori 4,25%' },
+  { nilai: '2.5', label: 'Tarif kategori 2,5%' },
 ];
 
 const hargaMarketplace: Alat = {
@@ -1064,7 +1074,7 @@ const hargaMarketplace: Alat = {
     {
       kunci: 'kategori',
       label: 'Kategori produk',
-      bantuan: 'Pilih yang paling mendekati — persentasenya berbeda tiap kategori.',
+      bantuan: 'Cari kategori produk Anda di tabel resmi platform (Shopee: Rincian Biaya per Kategori; Tokopedia/TikTok Shop: Biaya Komisi Platform), lalu pilih persentasenya.',
       jenis: 'pilihan',
       awal: '10',
       opsi: KATEGORI_BIAYA,
@@ -1072,8 +1082,25 @@ const hargaMarketplace: Alat = {
     {
       kunci: 'harga',
       label: 'Harga jual di etalase (Rp)',
+      bantuan: 'Kalau Anda memberi diskon atau voucher yang Anda tanggung sendiri, isi harga setelah diskon — potongan platform dihitung dari situ.',
       jenis: 'rupiah',
       awal: 150000,
+    },
+    {
+      kunci: 'program',
+      label: 'Komisi program / dinamis (%)',
+      bantuan: 'Tokopedia/TikTok Shop: komisi dinamis 3–8% bila ikut program promo standar. Shopee: biaya layanan program yang Anda ikuti (mis. Promo XTRA). Dihitung maksimal Rp 60.000 per barang. Kosongkan kalau tidak ikut program.',
+      jenis: 'persen',
+      awal: 0,
+      opsional: true,
+    },
+    {
+      kunci: 'proses',
+      label: 'Biaya proses pesanan (Rp)',
+      bantuan: 'Rp 1.250 per pesanan di Shopee dan di Tokopedia/TikTok Shop (dicek November 2026).',
+      jenis: 'rupiah',
+      awal: 1250,
+      opsional: true,
     },
     {
       kunci: 'hpp',
@@ -1106,6 +1133,11 @@ const hargaMarketplace: Alat = {
       hitung: (n) => biayaAdmin(n),
     },
     {
+      label: 'Komisi program / dinamis',
+      format: 'rupiah',
+      hitung: (n) => biayaProgram(n),
+    },
+    {
       label: 'Biaya admin dalam persen dari harga jual',
       format: 'persen',
       hitung: (n) => {
@@ -1114,23 +1146,23 @@ const hargaMarketplace: Alat = {
       },
     },
     {
-      label: 'Total potongan (admin + ongkir + iklan)',
+      label: 'Total potongan (admin + program + proses + ongkir + iklan)',
       format: 'rupiah',
-      hitung: (n) => biayaAdmin(n) + ang(n.ongkir) + ang(n.iklan),
+      hitung: (n) => potonganTotal(n),
     },
     {
       label: 'Uang bersih yang Anda terima',
       format: 'rupiah',
       utama: true,
       hitung: (n) =>
-        ang(n.harga) - biayaAdmin(n) - ang(n.ongkir) - ang(n.iklan),
+        ang(n.harga) - potonganTotal(n),
     },
     {
       label: 'Sisa setelah dikurangi HPP',
       format: 'rupiah',
       utama: true,
       hitung: (n) =>
-        ang(n.harga) - biayaAdmin(n) - ang(n.ongkir) - ang(n.iklan) - ang(n.hpp),
+        ang(n.harga) - potonganTotal(n) - ang(n.hpp),
     },
     {
       label: 'Sisa itu dalam persen dari harga jual',
@@ -1139,7 +1171,7 @@ const hargaMarketplace: Alat = {
         const h = ang(n.harga);
         if (h <= 0) return 0;
         return (
-          ((h - biayaAdmin(n) - ang(n.ongkir) - ang(n.iklan) - ang(n.hpp)) / h) * 100
+          ((h - potonganTotal(n) - ang(n.hpp)) / h) * 100
         );
       },
     },
@@ -1148,16 +1180,16 @@ const hargaMarketplace: Alat = {
     {
       bila: (n) =>
         ang(n.harga) > 0 &&
-        ang(n.harga) - biayaAdmin(n) - ang(n.ongkir) - ang(n.iklan) - ang(n.hpp) < 0,
+        ang(n.harga) - potonganTotal(n) - ang(n.hpp) < 0,
       nada: 'awas',
       teks:
         'Dengan angka yang Anda masukkan, hasilnya <strong>minus</strong> — uang yang diterima lebih kecil daripada modal barangnya. Periksa lagi harga jual, HPP, atau ongkir yang Anda tanggung.',
     },
     {
-      bila: (n) => biayaAdminMentah(n) > 650000,
+      bila: (n) => biayaProgramMentah(n) > BATAS_PROGRAM,
       nada: 'info',
       teks:
-        'Persentase biaya admin pada nilai ini sudah melewati batas maksimum potongan per barang, jadi yang dipakai adalah nilai batasnya. 🔴 Besaran batas ini berubah dari waktu ke waktu — pastikan lagi di pusat bantuan penjual platform.',
+        'Komisi program pada harga ini melewati batas maksimum Rp 60.000 per barang, jadi yang dipakai adalah batasnya. Biaya admin (komisi platform) sendiri <strong>tidak punya batas maksimum</strong>. 🔴 Besaran ini bisa berubah — cek lagi di pusat bantuan penjual platform.',
     },
   ],
   penjelasan: `
@@ -1166,7 +1198,7 @@ const hargaMarketplace: Alat = {
 memotong biaya admin dari tiap penjualan, dan besarnya berbeda-beda tergantung
 kategori produk.</p>
 
-<p><code>Uang diterima = harga jual − biaya admin − ongkir ditanggung − biaya iklan</code></p>
+<p><code>Uang diterima = harga jual − biaya admin − komisi program − biaya proses pesanan − ongkir ditanggung − biaya iklan</code></p>
 
 <h3>Biaya admin berbeda per kategori</h3>
 <p>Inilah yang sering membuat penjual salah hitung: biaya admin bukan satu angka
@@ -1176,14 +1208,14 @@ tertinggi dan terendah bisa lebih dari dua kali lipat.</p>
 <p>Karena itu, <strong>satu margin yang sama tidak bisa dipakai untuk semua
 produk</strong> kalau kategorinya berbeda.</p>
 
-<h3>Ada batas maksimum potongan per barang</h3>
-<p>Potongan admin tidak naik tanpa batas mengikuti harga. Ada nilai maksimum per
-barang, dan begitu persentasenya melewati nilai itu, yang dipakai adalah batasnya.</p>
-<p><strong>Ini penting untuk barang mahal.</strong> Batas maksimum itu pernah
-dinaikkan cukup jauh, dan kenaikannya berdampak langsung pada barang dengan harga
-tinggi — potongan yang dulu berhenti di nilai kecil sekarang bisa jauh lebih besar.
-Kalau Anda menjual barang mahal dan belum pernah menghitung ulang sejak perubahan
-itu, angka margin lama Anda kemungkinan sudah tidak berlaku.</p>
+<h3>Biaya admin tidak punya batas maksimum</h3>
+<p>Per ${TARIF_DITINJAU}, biaya admin (komisi platform) dihitung penuh dari harga
+setelah diskon yang Anda tanggung — makin mahal barangnya, makin besar potongannya,
+tanpa batas atas. Yang punya batas adalah <strong>komisi program</strong>: komisi
+dinamis Tokopedia/TikTok Shop dan biaya layanan program Shopee seperti Promo XTRA,
+umumnya maksimal Rp 60.000 per barang.</p>
+<p><strong>Jangan lupa biaya proses pesanan.</strong> Sekarang Rp 1.250 per pesanan
+di Shopee maupun Tokopedia/TikTok Shop. Kecil per pesanan, tapi terasa di barang murah.</p>
 
 <h3>Yang sering lupa dimasukkan</h3>
 <p><strong>Ongkir yang Anda tanggung.</strong> Program gratis ongkir terlihat
@@ -1205,7 +1237,7 @@ masukkan — ketepatannya mengikuti ketepatan angka yang Anda pakai.</p>
   faq: [
     {
       tanya: 'Berapa biaya admin Shopee dan Tokopedia sekarang?',
-      jawab: `<p>Besarnya berbeda per kategori produk, mulai dari sekitar 2,5% untuk kategori khusus sampai sekitar 10% untuk kategori seperti fashion dan FMCG. Angka yang dipakai kalkulator ini diperiksa pada ${TARIF_DITINJAU}. <strong>Tarif ini berubah dari waktu ke waktu</strong> — selalu cek ulang di pusat bantuan penjual platform sebelum menetapkan harga.</p>`,
+      jawab: `<p>Besarnya berbeda per kategori produk. Untuk penjual non-Mall di Shopee mulai 2,5% sampai 10%; di Tokopedia/TikTok Shop komisi platform 2,5% sampai 12,2% (tergantung kategori dan jenis toko), ditambah komisi dinamis 3–8% bila ikut program promo. Keduanya juga memungut biaya proses Rp 1.250 per pesanan. Angka yang dipakai kalkulator ini diperiksa pada ${TARIF_DITINJAU}. <strong>Tarif ini berubah dari waktu ke waktu</strong> — selalu cek ulang di pusat bantuan penjual platform sebelum menetapkan harga.</p>`,
     },
     {
       tanya: 'Kenapa uang yang masuk lebih kecil dari harga jual?',
@@ -1215,7 +1247,7 @@ masukkan — ketepatannya mengikuti ketepatan angka yang Anda pakai.</p>
     {
       tanya: 'Apakah ada batas maksimum biaya admin per barang?',
       jawab:
-        '<p>Ya. Potongan tidak naik terus mengikuti harga — ada nilai maksimum per barang, dan setelah persentasenya melewati nilai itu, yang dipakai adalah batasnya. Batas ini paling terasa pengaruhnya untuk barang mahal, dan besarannya pernah dinaikkan cukup jauh. Kalau Anda menjual barang berharga tinggi, hitung ulang marginnya.</p>',
+        '<p>Per November 2026, biaya admin (komisi platform) di Shopee dan Tokopedia/TikTok Shop <strong>tidak punya batas maksimum</strong> — dihitung penuh dari harga setelah diskon yang Anda tanggung. Yang dibatasi adalah komisi program (komisi dinamis Tokopedia/TikTok Shop, biaya layanan program Shopee), umumnya maksimal Rp 60.000 per barang. Kalau Anda menjual barang berharga tinggi, hitung ulang marginnya.</p>',
     },
     {
       tanya: 'Bagaimana menentukan harga jual supaya tidak rugi?',
@@ -1235,18 +1267,28 @@ masukkan — ketepatannya mengikuti ketepatan angka yang Anda pakai.</p>
   ],
 };
 
-/** Biaya admin sebelum dibatasi nilai maksimum. */
-function biayaAdminMentah(n: Record<string, number | string>): number {
+/** Biaya admin (komisi platform) — tanpa batas maksimum per November 2026. */
+function biayaAdmin(n: Record<string, number | string>): number {
   return ang(n.harga) * (ang(n.kategori) / 100);
 }
 
+/** Komisi program/dinamis sebelum dibatasi. */
+function biayaProgramMentah(n: Record<string, number | string>): number {
+  return ang(n.harga) * (ang(n.program) / 100);
+}
+
 /**
- * Biaya admin setelah memperhitungkan batas maksimum per barang.
- * 🔴 Batas ini berubah dari waktu ke waktu — lihat catatan sumber di halaman.
+ * Komisi program/dinamis setelah batas maksimum per barang.
+ * 🔴 Batas ini berubah dari waktu ke waktu — lihat catatan sumber di atas.
  */
-const BATAS_ADMIN = 650000;
-function biayaAdmin(n: Record<string, number | string>): number {
-  return Math.min(biayaAdminMentah(n), BATAS_ADMIN);
+const BATAS_PROGRAM = 60000;
+function biayaProgram(n: Record<string, number | string>): number {
+  return Math.min(biayaProgramMentah(n), BATAS_PROGRAM);
+}
+
+/** Semua potongan per penjualan. */
+function potonganTotal(n: Record<string, number | string>): number {
+  return biayaAdmin(n) + biayaProgram(n) + ang(n.proses) + ang(n.ongkir) + ang(n.iklan);
 }
 
 // --- Margin ------------------------------------------------------------------

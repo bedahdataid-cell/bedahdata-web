@@ -225,9 +225,12 @@ const konfigKlien = {
       return (masa / 12) * upah;
     };
 
-    const BATAS_ADMIN = 650000;
-    const biayaAdminMentah = (n) => ang(n.harga) * (ang(n.kategori) / 100);
-    const biayaAdmin = (n) => Math.min(biayaAdminMentah(n), BATAS_ADMIN);
+    const BATAS_PROGRAM = 60000;
+    const biayaAdmin = (n) => ang(n.harga) * (ang(n.kategori) / 100);
+    const biayaProgramMentah = (n) => ang(n.harga) * (ang(n.program) / 100);
+    const biayaProgram = (n) => Math.min(biayaProgramMentah(n), BATAS_PROGRAM);
+    const potonganTotal = (n) =>
+      biayaAdmin(n) + biayaProgram(n) + ang(n.proses) + ang(n.ongkir) + ang(n.iklan);
 
     const hargaJualMargin = (n) => {
       if (String(n.arah) === 'darimargin') {
@@ -254,10 +257,12 @@ const konfigKlien = {
       'hitungLemburSehari',
       'hitungThr',
       'biayaAdmin',
-      'biayaAdminMentah',
+      'biayaProgramMentah',
+      'biayaProgram',
+      'potonganTotal',
       'hargaJualMargin',
       'ambangMinimum',
-      'BATAS_ADMIN',
+      'BATAS_PROGRAM',
     ];
     const NILAI_BANTU = [
       ang,
@@ -265,10 +270,12 @@ const konfigKlien = {
       hitungLemburSehari,
       hitungThr,
       biayaAdmin,
-      biayaAdminMentah,
+      biayaProgramMentah,
+      biayaProgram,
+      potonganTotal,
       hargaJualMargin,
       ambangMinimum,
-      BATAS_ADMIN,
+      BATAS_PROGRAM,
     ];
 
     const bangun = (teks) => {

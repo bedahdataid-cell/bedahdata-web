@@ -163,23 +163,31 @@ console.log('\n=== 4. HARGA JUAL MARKETPLACE ===');
   await isi(page, 'harga', '150000');
   await isi(page, 'hpp', '90000');
   await isi(page, 'kategori', '10');
-  // admin 10% dari 150.000 = 15.000; bersih = 135.000; sisa = 45.000
+  // admin 10% dari 150.000 = 15.000; proses 1.250; bersih = 133.750; sisa = 43.750
   let v = keAngka(await nilaiHasil(page, 'Biaya admin platform'));
   catat(v === 15000, `admin 10% dari 150rb = 15.000 (dapat ${v})`);
   v = keAngka(await nilaiHasil(page, 'Uang bersih'));
-  catat(v === 135000, `bersih = 135.000 (dapat ${v})`);
+  catat(v === 133750, `bersih = 150.000 - 15.000 - 1.250 = 133.750 (dapat ${v})`);
   v = keAngka(await nilaiHasil(page, 'Sisa setelah dikurangi HPP'));
-  catat(v === 45000, `sisa stlh HPP = 45.000 (dapat ${v})`);
+  catat(v === 43750, `sisa stlh HPP = 43.750 (dapat ${v})`);
+  // komisi program 5% dari 150.000 = 7.500 -> bersih 126.250
+  await isi(page, 'program', '5');
+  v = keAngka(await nilaiHasil(page, 'Komisi program'));
+  catat(v === 7500, `komisi program 5% dari 150rb = 7.500 (dapat ${v})`);
+  v = keAngka(await nilaiHasil(page, 'Uang bersih'));
+  catat(v === 126250, `bersih dgn program = 126.250 (dapat ${v})`);
 
   // Peringatan minus: HPP dinaikkan jadi 200.000
   await isi(page, 'hpp', '200000');
   catat((await page.locator('.peringatan.awas').count()) > 0, 'peringatan muncul saat hasil minus');
 
-  // Batas maksimum admin: harga 20jt kategori 10% -> mentah 2jt, dibatasi 650rb
+  // Admin TANPA batas: harga 20jt kategori 10% -> 2.000.000; program 5% dibatasi 60.000
   await isi(page, 'hpp', '0');
   await isi(page, 'harga', '20000000');
   v = keAngka(await nilaiHasil(page, 'Biaya admin platform'));
-  catat(v === 650000, `admin dibatasi di 650.000 utk barang mahal (dapat ${v})`);
+  catat(v === 2000000, `admin 10% dari 20jt = 2.000.000, tanpa batas (dapat ${v})`);
+  v = keAngka(await nilaiHasil(page, 'Komisi program'));
+  catat(v === 60000, `komisi program dibatasi 60.000 (dapat ${v})`);
 
   catat(err.length === 0, `nol error JS (${err.join(' | ')})`);
   await page.close();
